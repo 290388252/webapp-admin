@@ -5,10 +5,14 @@ import 'rxjs/Rx';
 export class AppProperties {
     // public
     public appUrl: string;
-
+    public aliMachineQueryVMListUrl: string;
+    public aliMachineQueryDetailUrl: string;
+    public aliMachineQueryTradeDetailUrl: string;
     constructor() {
       // Public
-      this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
-
+      this.appUrl = 'http://47.106.92.82:6662/ys_sms'; // localtest
+      this.aliMachineQueryVMListUrl = this.appUrl + '/aliMachine/queryVMList';
+      this.aliMachineQueryDetailUrl = this.appUrl + '/aliMachine/queryDetail';
+      this.aliMachineQueryTradeDetailUrl = this.appUrl + '/aliMachine/queryTradeDetail';
     }
 }
