@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-
+  public curId: number;
   constructor() { }
 
   ngOnInit() {
+    this.curId = 1;
   }
-
+  selected(flag) {
+    this.curId = flag;
+  }
 }
