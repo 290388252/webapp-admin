@@ -12,14 +12,12 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
 
 //  注册语言包
  import { registerLocaleData } from '@angular/common';
- import zh from '@angular/common/l;
-import { ReplenishmentDetailComponent } from './operation/main/replenishment-detail/replenishment-detail.component'ocales/zh';
+import zh from '@angular/common/locales/zh';
  registerLocaleData(zh);
 
 @NgModule({
   declarations: [
-    Ap,
-    ReplenishmentDetailComponentpComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
