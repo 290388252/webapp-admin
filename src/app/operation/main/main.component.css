@@ -1,12 +1,19 @@
+.icon-img{
+  width:21px;
+  height:21px;
+  transition: all 0.4s;
+}
 .footer{
   position: fixed;
   bottom: 0;
   width: 100%;
+  background: white;
 }
 .footer-btn{
   border-top: 1px solid #d9d9d9;
   border-right: 1px solid #d9d9d9;
   text-align: center;
+  padding-top: 2px;
 }
 .footer-btn:last-child{
   border-top: 1px solid #d9d9d9;
@@ -15,6 +22,9 @@
 }
 .footer-btn:active {
   color: deepskyblue;
+}
+.icon-active{
+  transform: scale(1.4);
 }
 .active {
   color: deepskyblue;

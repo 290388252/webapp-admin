@@ -4,6 +4,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 const routes: Routes = [
     { path: '', redirectTo: '/main', pathMatch: 'full' },
     { path: 'main', loadChildren: './operation/main/main.module#MainModule' },
+    { path: 'login', loadChildren: './operation/login/login.module#LoginModule' },
     { path: 'cMain', loadChildren: './customer/c-main/c-main.module#CMainModule' }
 ];
 

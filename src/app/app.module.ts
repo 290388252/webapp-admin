@@ -11,9 +11,9 @@ import {FormsModule} from '@angular/forms';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 
 //  注册语言包
- import { registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
- registerLocaleData(zh);
+registerLocaleData(zh);
 
 @NgModule({
   declarations: [
