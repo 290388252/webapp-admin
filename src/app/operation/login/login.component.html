@@ -1,8 +1,9 @@
 <div class="user-container">
+  <div style="text-align: center">
+    <img style="width: 140px;height: 140px;margin-top: 70px" src="../../../assets/main/logos.png" alt="">
+    <!--<h2 id="logo">优水到家</h2>-->
+  </div>
   <div class="container">
-    <div class="form_header">
-      <h2 id="logo">优水到家</h2>
-    </div>
     <div class="signup_forms">
       <!--<div id="signup_forms_container" class="signup_forms_container">-->
         <!--<form class="signup_form_form" id="sign_form" method="post" action="checklogin.jsp">-->
@@ -17,7 +18,7 @@
         <!--</form>-->
       <!--</div>-->
       <div>
-        <nz-input-group nzSize="default" [nzSuffix]="suffixTemplate" nzPrefixIcon="anticon anticon-user">
+        <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate" nzPrefixIcon="anticon anticon-user">
           <input type="text" nz-input placeholder="请输入手机号" [(ngModel)]="username" name="username">
         </nz-input-group>
         <ng-template #suffixTemplate><i class="anticon anticon-close-circle" (click)="username=null" *ngIf="username"></i></ng-template>
@@ -28,14 +29,14 @@
         <!--<ng-template #suffixTemplate><i class="anticon anticon-close-circle" (click)="username=null" *ngIf="username"></i></ng-template>-->
         <!--<button nz-button nzType="primary" (click)="send()" [nzLoading]="isLoading">{{text}}{{endText}}</button>-->
 
-        <nz-input-group style="margin-top: 10px" nzSearch nzSize="default" [nzSuffix]="suffixButton" nzPrefixIcon="anticon anticon-mail">
-          <input type="text" nz-input placeholder="请输入验证码" [(ngModel)]="username" name="username">
+        <nz-input-group style="margin-top: 10px" nzSearch nzSize="large" [nzSuffix]="suffixButton" nzPrefixIcon="anticon anticon-mail">
+          <input type="text" nz-input placeholder="请输入验证码" [(ngModel)]="code" name="code">
         </nz-input-group>
         <ng-template #suffixButton>
-          <button (click)="send()" nz-button nzType="primary" nzSize="default" nzSearch [nzLoading]="isLoading">{{text}}</button>
+          <button (click)="send($event)" nz-button nzType="primary" nzSize="large" nzSearch [nzLoading]="isLoading"><span style="font-size: 5px">{{text}}{{endText}}</span></button>
         </ng-template>
       </div>
-      <button type="button" id="signup_forms_submit"><span><strong>登陆</strong></span></button>
+      <button (click)="login()" type="button" id="signup_forms_submit"><span><strong>登 陆</strong></span></button>
     </div>
   </div>
 </div>

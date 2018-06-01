@@ -3,6 +3,11 @@
   height:21px;
   transition: all 0.4s;
 }
+.icon-img-last{
+  width:16px;
+  height:16px;
+  transition: all 0.4s;
+}
 .footer{
   position: fixed;
   bottom: 0;
@@ -21,11 +26,11 @@
   text-align: center;
 }
 .footer-btn:active {
-  color: deepskyblue;
+  color: #1890ff;
 }
 .icon-active{
   transform: scale(1.4);
 }
 .active {
-  color: deepskyblue;
+  color: #1890ff;
 }

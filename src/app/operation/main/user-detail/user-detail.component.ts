@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AppService} from '../../../app-service';
+import {AppProperties} from '../../../app.properties';
 
 @Component({
   selector: 'app-user-detail',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor( private appProperties: AppProperties,
+               private appService: AppService) { }
 
   ngOnInit() {
   }

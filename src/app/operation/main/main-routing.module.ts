@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      { path: '', redirectTo: 'salesRecord'},
+      { path: '', redirectTo: 'userDetail'},
       { path: 'salesRecord', loadChildren: './sales-record/sales-record.module#SalesRecordModule' },
       { path: 'userDetail', loadChildren: './user-detail/user-detail.module#UserDetailModule' },
       { path: 'machineDetail', loadChildren: './machine-detail/machine-detail.module#MachineDetailModule' },

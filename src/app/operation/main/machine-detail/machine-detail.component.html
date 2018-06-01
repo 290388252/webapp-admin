@@ -9,7 +9,7 @@
     </ng-template>
   </div>
   <div class="content">
-    <nz-table #nzTable [nzPageSize]="10" nzBordered>
+    <nz-table #nzTable [nzPageSize]="10" nzBordered [nzData]="[1]" [nzShowPagination]="false" [nzLoading]="loading">
       <thead nz-thead>
       <tr>
         <th nz-th><span>机器编号</span></th>

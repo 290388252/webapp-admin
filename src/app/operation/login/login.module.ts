@@ -6,6 +6,8 @@ import {LoginComponent} from './login.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {AppService} from '../../app-service';
+import {AppProperties} from '../../app.properties';
 
 @NgModule({
   imports: [
@@ -16,6 +18,7 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule,
     ReactiveFormsModule
   ],
+  providers: [AppService, AppProperties],
   declarations: [LoginComponent]
 })
 export class LoginModule { }

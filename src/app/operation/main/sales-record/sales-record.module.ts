@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { SalesRecordRoutingModule } from './sales-record-routing.module';
 import {SalesRecordComponent} from './sales-record.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
+import {AppService} from '../../../app-service';
+import {AppProperties} from '../../../app.properties';
 
 @NgModule({
   imports: [
@@ -11,6 +13,7 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
     NgZorroAntdModule,
     SalesRecordRoutingModule
   ],
+  providers: [AppService, AppProperties],
   declarations: [SalesRecordComponent]
 })
 export class SalesRecordModule { }

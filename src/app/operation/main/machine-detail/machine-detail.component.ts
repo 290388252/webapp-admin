@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NzModalService} from 'ng-zorro-antd';
 import {AppProperties} from '../../../app.properties';
 import {AppService} from '../../../app-service';
-import {urlParse} from '../../../utils/util';
+import {getToken, urlParse} from '../../../utils/util';
 
 @Component({
   selector: 'app-machine-detail',
@@ -12,6 +12,7 @@ import {urlParse} from '../../../utils/util';
 })
 export class MachineDetailComponent implements OnInit {
   public _value = '';
+  public loading: boolean;
   public isVisible = false;
   public isVisibleSails = false;
   public isConfirmLoading = false;
@@ -27,45 +28,48 @@ export class MachineDetailComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private appProperties: AppProperties,
               private appService: AppService) {
+    this.loading = true;
   }
 
   ngOnInit() {
-    // this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl, '' , urlParse(window.location.search)['token']).subscribe(
-    //   data => {
-    //     console.log(data);
-    //     if (data.status === 1) {
-    //       this.vmList = data.returnObject;
-    //     } else {
-    //       alert(data.message);
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
+    console.log(getToken());
+    this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl, '' , getToken()).subscribe(
+      data => {
+        console.log(data);
+        if (data.status === 1) {
+          this.loading = false;
+          this.vmList = data.returnObject;
+        } else {
+          alert(data.message);
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   onSearch(): void {
     console.log(this._value);
-    // this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl + '?form=' + this._value,
-    //   '' , urlParse(window.location.search)['token']).subscribe(
-    //   data => {
-    //     console.log(data);
-    //     if (data.status === 1) {
-    //       this.vmList = data.returnObject;
-    //     } else {
-    //       alert(data.message);
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
+    this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl + '?form=' + this._value,
+      '' , getToken()).subscribe(
+      data => {
+        console.log(data);
+        if (data.status === 1) {
+          this.vmList = data.returnObject;
+        } else {
+          alert(data.message);
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   detail(vmCode) {
     this.isVisible = true;
     this.vmCode = vmCode;
     this.appService.postAliData(this.appProperties.aliMachineQueryDetailUrl + '?vmCode=' + vmCode,
-      '' , urlParse(window.location.search)['token']).subscribe(
+      '' , getToken()).subscribe(
       data => {
         console.log(data);
         if (data.status === 1) {
@@ -85,15 +89,39 @@ export class MachineDetailComponent implements OnInit {
   sails(vmCode) {
     const yesterday = new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2);
     const tomorrow = new Date(new Date().getTime() + 1000 * 60 * 60 * 24);
-    const startDate = `${yesterday.getFullYear()}-${yesterday.getMonth() + 1}-${yesterday.getDate()}`;
-    const endDate = `${tomorrow.getFullYear()}-${tomorrow.getMonth() + 1}-${tomorrow.getDate()}`;
+    let yesterdayMonth;
+    let yesterdayDate;
+    let tomorrowMonth;
+    let tomorrowDate;
+    if ((yesterday.getMonth() + 1).toString().length === 1) {
+      yesterdayMonth = '0' + (yesterday.getMonth() + 1).toString();
+    } else {
+      yesterdayMonth = (yesterday.getMonth() + 1).toString();
+    }
+    if ((yesterday.getDate()).toString().length === 1) {
+      yesterdayDate = '0' + (yesterday.getDate()).toString();
+    } else {
+      yesterdayDate = (yesterday.getDate()).toString();
+    }
+    if ((tomorrow.getMonth() + 1).toString().length === 1) {
+      tomorrowMonth = '0' + (tomorrow.getMonth() + 1).toString();
+    } else {
+      tomorrowMonth = (tomorrow.getMonth() + 1).toString();
+    }
+    if ((tomorrow.getDate()).toString().length === 1) {
+      tomorrowDate = '0' + (tomorrow.getDate()).toString();
+    } else {
+      tomorrowDate = (tomorrow.getDate()).toString();
+    }
+    const startDate = `${yesterday.getFullYear()}-${yesterdayMonth}-${yesterdayDate}`;
+    const endDate = `${tomorrow.getFullYear()}-${tomorrowMonth}-${tomorrowDate}`;
     this.isVisibleSails = true;
     this.appService.postAliData(this.appProperties.aliMachineQueryTradeDetailUrl,
       {
         vmCode: vmCode,
         startDate: startDate,
         endDate: endDate
-      } , urlParse(window.location.search)['token']).subscribe(
+      } , getToken()).subscribe(
       data => {
         console.log(data);
         if (data.status === 1) {
