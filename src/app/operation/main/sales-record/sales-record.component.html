@@ -1,89 +1,87 @@
 <div style="padding-bottom: 10%">
-<p>
-yc
+  <div style="padding-bottom: 10%">
+    <div class="title">
+      <!--<nz-input id="input"  [nzType]="'search'" [nzPlaceHolder]="'输入售货机编码或者地址'" [(ngModel)]="_value" (nzOnSearch)="onSearch($event)"></nz-input>-->
+      <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+        <input type="text" nz-input placeholder="输入订单号或者公司名称进行查询" [(ngModel)]="value">
+      </nz-input-group>
+      <ng-template #suffixIconButton>
+        <button (click)="onSearch()" nz-button nzType="primary" nzSearch><i class="anticon anticon-search"></i></button>
+      </ng-template>
+    </div>
+    <div class="content">
+      <nz-table #nzTable [nzPageSize]="10" nzBordered [nzData]="[1]" [nzShowPagination]="false" [nzLoading]="loading">
+        <thead nz-thead>
+        <tr>
+          <th nz-th><span>公司名称</span></th>
+          <th style="text-align: center" nz-th><span>交易订单号</span></th>
+          <th style="text-align: center;width: 52px" nz-th><span>价格</span></th>
+          <th style="text-align: center" nz-th><span>详情</span></th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let item of saleList">
+          <!--<tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">-->
+          <td nz-td>
+            <a>{{item.companyName}}</a>
+          </td>
+          <td style="text-align: center;word-wrap: break-word;width: 120px" nz-td>{{item.payCode}}</td>
+          <td nz-td>
+            <a>{{item.price}}</a>
+          </td>
+          <td style="text-align: center" nz-td>
+            <button style="display: block" (click)="detail(item)" nz-button [nzType]="'primary'">
+              <span>详情</span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+      <nz-modal [nzStyle]="{ top: '20px' }" [(nzVisible)]="isVisible" [nzTitle]="modalTitleSails" [nzContent]="modalContentSails" [nzFooter]="modalFooterSails" (nzOnCancel)="handleCancelSails()">
+        <ng-template #modalTitleSails>
+          详情
+        </ng-template>
 
+        <ng-template #modalContentSails>
+          <div class="example" [hidden]="true">
+            <nz-spin></nz-spin>
+          </div>
+          <div>
+            <div class="weui-media-box weui-media-box_text">
+              <h4 class="weui-media-box__title">公司</h4>
+              <p class="weui-media-box__desc">{{companyName}}</p>
+            </div>
+            <div class="weui-media-box weui-media-box_text">
+              <h4 class="weui-media-box__title">交易订单号</h4>
+              <p class="weui-media-box__desc">{{payCode}}</p>
+            </div>
+            <div class="weui-media-box weui-media-box_text">
+              <h4 class="weui-media-box__title">价格</h4>
+              <p class="weui-media-box__desc">{{price}}元</p>
+            </div>
+            <div class="weui-media-box weui-media-box_text">
+              <h4 class="weui-media-box__title">订单支付日期</h4>
+              <p class="weui-media-box__desc">{{createTime}}</p>
+            </div>
+            <div class="weui-media-box weui-media-box_text">
+              <h4 class="weui-media-box__title">内部订单号</h4>
+              <p class="weui-media-box__desc">{{ptCode}}</p>
+            </div>
+            <div class="weui-media-box weui-media-box_text">
+              <h4 class="weui-media-box__title">商品名称</h4>
+              <p class="weui-media-box__desc">{{itemName}}</p>
+            </div>
+            <div class="weui-media-box weui-media-box_text">
+              <h4 class="weui-media-box__title">客户手机号</h4>
+              <p class="weui-media-box__desc">{{phone}}</p>
+            </div>
+          </div>
+        </ng-template>
 
-  注意，需要提交的是一个整数，不要填写任何多余的内容。
-
-
-  很气，第三题想了很久很久，走出考场突然想出来，害的我后面的题都是过部分数据直接交，没机会再优化优化。懒得说话了，以后有机会再分析吧。
-
-  第一题
-
-
-
-  标题：换零钞
-
-
-  x星球的钞票的面额只有：100元，5元，2元，1元，共4种。
-  小明去x星旅游，他手里只有2张100元的x星币，太不方便，恰好路过x星银行就去换零钱。
-  小明有点强迫症，他坚持要求200元换出的零钞中2元的张数刚好是1元的张数的10倍，
-  剩下的当然都是5元面额的。
-
-
-  银行的工作人员有点为难，你能帮助算出：在满足小明要求的前提下，最少要换给他多少张钞票吗？
-  （5元，2元，1元面额的必须都有，不能是0）
-
-
-
-  注意，需要提交的是一个整数，不要填写任何多余的内容。
-
-
-  很气，第三题想了很久很久，走出考场突然想出来，害的我后面的题都是过部分数据直接交，没机会再优化优化。懒得说话了，以后有机会再分析吧。
-
-  第一题
-
-
-
-  标题：换零钞
-
-  x星球的钞票的面额只有：100元，5元，2元，1元，共4种。
-  小明去x星旅游，他手里只有2张100元的x星币，太不方便，恰好路过x星银行就去换零钱。
-  小明有点强迫症，他坚持要求200元换出的零钞中2元的张数刚好是1元的张数的10倍，
-  剩下的当然都是5元面额的。
-
-
-  银行的工作人员有点为难，你能帮助算出：在满足小明要求的前提下，最少要换给他多少张钞票吗？
-  （5元，2元，1元面额的必须都有，不能是0）
-
-
-
-  注意，需要提交的是一个整数，不要填写任何多余的内容。 x星球的钞票的面额只有：100元，5元，2元，1元，共4种。
-  小明去x星旅游，他手里只有2张100元的x星币，太不方便，恰好路过x星银行就去换零钱。
-  小明有点强迫症，他坚持要求200元换出的零钞中2元的张数刚好是1元的张数的10倍，
-  剩下的当然都是5元面额的。
-
-
-  银行的工作人员有点为难，你能帮助算出：在满足小明要求的前提下，最少要换给他多少张钞票吗？
-  （5元，2元，1元面额的必须都有，不能是0）
-
-
-
-  注意，需要提交的是一个整数，不要填写任何多余的内容。 x星球的钞票的面额只有：100元，5元，2元，1元，共4种。
-  小明去x星旅游，他手里只有2张100元的x星币，太不方便，恰好路过x星银行就去换零钱。
-  小明有点强迫症，他坚持要求200元换出的零钞中2元的张数刚好是1元的张数的10倍，
-  剩下的当然都是5元面额的。
-
-
-  银行的工作人员有点为难，你能帮助算出：在满足小明要求的前提下，最少要换给他多少张钞票吗？
-  （5元，2元，1元面额的必须都有，不能是0）
-
-
-
-  注意，需要提交的是一个整数，不要填写任何多余的内容。
-  x星球的钞票的面额只有：100元，5元，2元，1元，共4种。
-  小明去x星旅游，他手里只有2张100元的x星币，太不方便，恰好路过x星银行就去换零钱。
-  小明有点强迫症，他坚持要求200元换出的零钞中2元的张数刚好是1元的张数的10倍，
-  剩下的当然都是5元面额的。
-
-
-  银行的工作人员有点为难，你能帮助算出：在满足小明要求的前提下，最少要换给他多少张钞票吗？
-  （5元，2元，1元面额的必须都有，不能是0）
-
-
-
-  注意，需要提交的是一个整数，不要填写任何多余的内容。
-  yc
-
-</p>
+        <ng-template #modalFooterSails>
+          <button nz-button nzType="primary" (click)="handleOkSails()" [nzLoading]="isConfirmLoadingSails">关闭</button>
+        </ng-template>
+      </nz-modal>
+    </div>
+  </div>
 </div>

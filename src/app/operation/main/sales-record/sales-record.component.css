@@ -1,0 +1,29 @@
+nz-input{
+  margin-top: 20px;
+  margin-right: 10px;
+}
+.example {
+  text-align: center;
+  background: rgba(0,0,0,0.05);
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  margin-top: 20px;
+}
+.weui-media-box {
+  padding: 15px;
+  position: relative;
+}
+.weui-media-box_text .weui-media-box__title {
+  margin-bottom: 8px;
+}
+.weui-media-box__desc {
+  color: #808080;
+  font-size: 13px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
