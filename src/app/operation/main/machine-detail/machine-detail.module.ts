@@ -17,7 +17,6 @@ import {AppProperties} from '../../../app.properties';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CommonModule,
     NgZorroAntdModule,
   ],
   providers: [AppService, AppProperties],

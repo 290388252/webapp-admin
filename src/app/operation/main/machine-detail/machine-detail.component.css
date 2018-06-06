@@ -1,3 +1,6 @@
+.title{
+  margin: 5px;
+}
 nz-input{
   margin-top: 20px;
   margin-right: 10px;
@@ -10,4 +13,3 @@ nz-input{
   padding: 30px 50px;
   margin-top: 20px;
 }
-

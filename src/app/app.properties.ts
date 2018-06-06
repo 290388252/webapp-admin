@@ -23,7 +23,7 @@ export class AppProperties {
       this.salesUrl = this.appUrl + '/home/payRecord';
       this.replenishUrl = this.appUrl + '/home/replenish';
       this.aliMachineQueryVMListUrl = this.appUrl + '/aliMachine/queryVMList';
-      this.aliMachineQueryDetailUrl = this.appUrl + '/aliMachine/queryDetail';
+      this.aliMachineQueryDetailUrl = this.appUrl + '/aliUser/queryItem';
       this.aliMachineQueryTradeDetailUrl = this.appUrl + '/aliMachine/queryTradeDetail';
     }
 }

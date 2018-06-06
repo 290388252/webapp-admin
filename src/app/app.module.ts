@@ -13,6 +13,7 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
 //  注册语言包
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
+import {LoginComponent} from "./operation/login/login.component";
 registerLocaleData(zh);
 
 @NgModule({

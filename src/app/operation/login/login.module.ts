@@ -10,15 +10,16 @@ import {AppService} from '../../app-service';
 import {AppProperties} from '../../app.properties';
 
 @NgModule({
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
-    NgZorroAntdModule,
+    NgZorroAntdModule.forRoot(),
     LoginRoutingModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule
   ],
+  bootstrap: [ LoginComponent ],
   providers: [AppService, AppProperties],
-  declarations: [LoginComponent]
 })
 export class LoginModule { }

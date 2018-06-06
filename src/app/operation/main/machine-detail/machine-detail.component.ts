@@ -68,17 +68,17 @@ export class MachineDetailComponent implements OnInit {
   detail(vmCode) {
     this.isVisible = true;
     this.vmCode = vmCode;
-    this.appService.postAliData(this.appProperties.aliMachineQueryDetailUrl + '?vmCode=' + vmCode,
-      '' , getToken()).subscribe(
+    this.appService.getAliData(this.appProperties.aliMachineQueryDetailUrl,
+      {vmCode: this.vmCode}, getToken()).subscribe(
       data => {
         console.log(data);
         if (data.status === 1) {
-          this.detailList = data.returnObject;
-          this.detailListLoading = false;
+          if (!data.willGo) {
+            this.detailListLoading = false;
+            this.detailList = data.returnObject;
+          }
         } else {
-          alert('查询失败无数据');
-          this.isVisible = false;
-          this.detailListLoading = true;
+          alert(data.message);
         }
       },
       error => {
