@@ -33,17 +33,21 @@
       <!--</nz-cascader>-->
       <button style="width: 98%; margin: 2px" (click)="onSearch()" nz-button nzType="primary" nzSearch><i class="anticon anticon-search"></i>搜索</button>
     </div>
-    <div *ngFor="let item of initList">
-      <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__hd">
-          <img class="weui-media-box__thumb" src="{{'http://47.106.92.82:6663/files/'}}{{item.pic}}" alt="">
-        </div>
-        <div class="weui-media-box__bd">
-          <h4 class="weui-media-box__title">{{item.itemName}}</h4>
-          <p class="weui-media-box__desc">{{item.replenishNum}}桶</p>
-        </div>
-      </a>
-    </div>
+  <nz-collapse>
+    <nz-collapse-panel [nzHeader]="'查看需补货的商品数量'" [nzActive]="false" [nzDisabled]="false">
+      <div *ngFor="let item of initList">
+        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+          <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="{{'http://47.106.92.82:6663/files/'}}{{item.pic}}" alt="">
+          </div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title">{{item.itemName}}</h4>
+            <p class="weui-media-box__desc">{{item.replenishNum}}桶</p>
+          </div>
+        </a>
+      </div>
+    </nz-collapse-panel>
+  </nz-collapse>
     <div class="content">
       <nz-table #nzTable [nzPageSize]="10" nzBordered [nzData]="[1]" [nzShowPagination]="false" [nzLoading]="loading">
         <thead nz-thead>

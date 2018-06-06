@@ -22,6 +22,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.text = '发送验证码';
   }
+  focusCodes() {
+    // console.log(document.getElementById('user-container').style.height);
+    // console.log(document.documentElement.offsetHeight);
+    // document.getElementById('user-container').style.height = (document.documentElement.offsetHeight + 50) + 'px';
+  }
   send(e: TouchEvent) {
     e.preventDefault();
     if (/^1[34578]\d{9}$/.test(this.username.toString())) {
