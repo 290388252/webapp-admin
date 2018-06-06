@@ -2,7 +2,7 @@
     <div class="title">
       <!--<nz-input id="input"  [nzType]="'search'" [nzPlaceHolder]="'输入售货机编码或者地址'" [(ngModel)]="_value" (nzOnSearch)="onSearch($event)"></nz-input>-->
       <!--<nz-input-group nzSearch [nzSuffix]="suffixIconButton">-->
-        <input style="width: 49%" nzSize="default" type="text" nz-input placeholder="输入售货机号" [(ngModel)]="value">
+        <input style="width: 100%" nzSize="default" type="text" nz-input placeholder="输入售货机号" [(ngModel)]="value">
       <!--</nz-input-group>-->
       <!--<ng-template #suffixIconButton>-->
         <!--<button (click)="onSearch()" nz-button nzType="primary" nzSearch><i class="anticon anticon-search"></i></button>-->
@@ -14,6 +14,14 @@
         [nzAllowClear]="false"
         [(ngModel)]="selectValues"
         (ngModelChange)="onChanges($event)">
+      </nz-cascader>
+      <nz-cascader
+        style="width: 49%"
+        [nzOptions]="homeValuesList"
+        [nzPlaceHolder]="'请选择公司'"
+        [nzAllowClear]="false"
+        [(ngModel)]="homeValues"
+        (ngModelChange)="onHomeChanges($event)">
       </nz-cascader>
       <!--<nz-cascader-->
         <!--style="width: 49%"-->

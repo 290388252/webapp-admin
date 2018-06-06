@@ -7,6 +7,7 @@ import {AppProperties} from '../../../app.properties';
 import {getToken} from '../../../utils/util';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NzModalService} from 'ng-zorro-antd';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-replenishment-detail',
@@ -25,10 +26,12 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public nzOptions = [];
   public selectValues: string;
   public homeValues: string;
+  public homeValuesList = [{value: '', label: '所有', isLeaf: true}];
   public vmCode: string;
   public tradeDetailListLoading = true;
   constructor(private router: Router,
               private modalService: NzModalService,
+              private http: HttpClient,
               private activatedRoute: ActivatedRoute,
               private appProperties: AppProperties,
               private appService: AppService) {
@@ -55,8 +58,9 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
     this.appService.postAliData(this.appProperties.homeInithUrl, '', getToken()).subscribe(
       data => {
         console.log(data);
-        data.returnObject.forEach(item => {
-          this.homeList.push({value: item.id, label: item.name, isLeaf: true});
+        this.homeList = data.returnObject;
+        this.homeList.forEach(item => {
+          this.homeValuesList.push({value: item.id, label: item.name, isLeaf: true});
         });
       },
       error => {
@@ -74,21 +78,26 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
         console.log(error);
       }
     );
-    console.log(this.homeList);
   }
   onChanges(event) {
     console.log(this.selectValues[0]);
   }
   onHomeChanges(e) {
-    // console.log(this.homeValues[0]);
+    console.log(this.homeValues[0]);
   }
   onSearch() {
     console.log(this.value);
-    let rate;
+    let rate, companyId;
     if (this.selectValues) {
       rate = this.selectValues[0];
     }
-    this.appService.postAliData(this.appProperties.replenishUrl, {vmCode: this.value, rate: rate}, getToken()).subscribe(
+    if (this.homeValues) {
+      companyId = this.homeValues[0];
+    }
+    this.appService.postAliData(this.appProperties.replenishUrl, {
+      vmCode: this.value,
+      rate: rate,
+      companyId: companyId}, getToken()).subscribe(
       data => {
         console.log(data);
         this.loading = false;
