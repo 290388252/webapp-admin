@@ -1,5 +1,4 @@
 <div style="padding-bottom: 10%">
-  <div style="padding-bottom: 10%">
     <div class="title">
       <!--<nz-input id="input"  [nzType]="'search'" [nzPlaceHolder]="'输入售货机编码或者地址'" [(ngModel)]="_value" (nzOnSearch)="onSearch($event)"></nz-input>-->
       <!--<nz-input-group nzSearch [nzSuffix]="suffixIconButton">-->
@@ -17,9 +16,17 @@
         (ngModelChange)="onChanges($event)">
       </nz-cascader>
       <button style="width: 98%; margin: 2px" (click)="onSearch()" nz-button nzType="primary" nzSearch><i class="anticon anticon-search"></i>搜索</button>
-      <div *ngFor="let item of initList">
-        <span><strong>商品名称:</strong>{{item.itemName}} <strong>数量:</strong>{{item.replenishNum}}</span>
-      </div>
+    </div>
+    <div *ngFor="let item of initList">
+      <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+          <img class="weui-media-box__thumb" src="{{'http://47.106.92.82:6663/files/'}}{{item.pic}}" alt="">
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">{{item.itemName}}</h4>
+          <p class="weui-media-box__desc">{{item.replenishNum}}桶</p>
+        </div>
+      </a>
     </div>
     <div class="content">
       <nz-table #nzTable [nzPageSize]="10" nzBordered [nzData]="[1]" [nzShowPagination]="false" [nzLoading]="loading">
@@ -58,7 +65,7 @@
           <!--<div class="example" [hidden]="!tradeDetailListLoading">-->
             <!--<nz-spin></nz-spin>-->
           <!--</div>-->
-          <nz-table #nzTable [nzPageSize]="10" nzBordered>
+          <nz-table #nzTable [nzPageSize]="10" nzBordered [nzNoResult]="'------底部------'">
             <thead nz-thead>
             <tr>
               <th nz-th><span>商品ID</span></th>
@@ -81,5 +88,4 @@
         </ng-template>
       </nz-modal>
     </div>
-  </div>
 </div>

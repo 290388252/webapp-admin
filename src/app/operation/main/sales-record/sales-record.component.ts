@@ -46,7 +46,7 @@ export class SalesRecordComponent implements OnInit {
     );
   }
   onSearch() {
-    this.appService.postAliData(this.appProperties.salesUrl, '', getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.salesUrl, {payCodeOrName: this.value}, getToken()).subscribe(
       data => {
         console.log(data);
         this.loading = false;

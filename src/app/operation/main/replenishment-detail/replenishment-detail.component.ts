@@ -62,11 +62,17 @@ export class ReplenishmentDetailComponent implements OnInit {
     console.log(this.selectValues[0]);
   }
   onSearch() {
-    this.appService.postAliData(this.appProperties.replenishUrl, {vmCode: this.value, rate: this.selectValues[0]}, getToken()).subscribe(
+    console.log(this.value);
+    let rate;
+    if (this.selectValues) {
+      rate = this.selectValues[0];
+    }
+    this.appService.postAliData(this.appProperties.replenishUrl, {vmCode: this.value, rate: rate}, getToken()).subscribe(
       data => {
         console.log(data);
         this.loading = false;
         this.replenishList = data.returnObject.replenishVMList;
+        this.initList = data.returnObject.replenishList;
       },
       error => {
         console.log(error);

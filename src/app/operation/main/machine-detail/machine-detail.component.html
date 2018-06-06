@@ -44,7 +44,7 @@
         <div class="example" [hidden]="!tradeDetailListLoading">
           <nz-spin></nz-spin>
         </div>
-        <nz-table [hidden]="tradeDetailListLoading" #nzTable [nzPageSize]="10" nzBordered>
+        <nz-table [hidden]="tradeDetailListLoading" #nzTable [nzPageSize]="10" nzBordered [nzNoResult]="'------底部------'">
           <thead nz-thead>
           <tr>
             <th nz-th><span>订单创建日期</span></th>
@@ -77,7 +77,7 @@
         <div class="example" [hidden]="!detailListLoading">
           <nz-spin></nz-spin>
         </div>
-        <nz-table [hidden]="detailListLoading" #nzTable [nzPageSize]="10" nzBordered>
+        <nz-table [hidden]="detailListLoading" #nzTable [nzPageSize]="10" nzBordered [nzNoResult]="'------底部------'">
           <thead nz-thead>
           <tr>
             <th nz-th><span>门号</span></th>
