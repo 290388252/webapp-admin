@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   send(e: TouchEvent) {
     e.preventDefault();
     if (/^1[34578]\d{9}$/.test(this.username.toString())) {
-      this.appService.getData(this.appProperties.smsSendUrl, {phone: this.username}).subscribe(
+      this.appService.postData(this.appProperties.smsSendUrl, {phone: this.username}).subscribe(
         data => {
           console.log(data);
           if (data.code !== 0) {

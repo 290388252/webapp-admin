@@ -15,6 +15,14 @@
         [(ngModel)]="selectValues"
         (ngModelChange)="onChanges($event)">
       </nz-cascader>
+      <!--<nz-cascader-->
+        <!--style="width: 49%"-->
+        <!--[nzOptions]="homeList"-->
+        <!--[nzPlaceHolder]="'选择公司'"-->
+        <!--[nzAllowClear]="false"-->
+        <!--[(ngModel)]="homeValues"-->
+        <!--(ngModelChange)="onHomeChanges($event)">-->
+      <!--</nz-cascader>-->
       <button style="width: 98%; margin: 2px" (click)="onSearch()" nz-button nzType="primary" nzSearch><i class="anticon anticon-search"></i>搜索</button>
     </div>
     <div *ngFor="let item of initList">

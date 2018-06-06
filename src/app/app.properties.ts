@@ -10,6 +10,7 @@ export class AppProperties {
     public mainInfoUrl: string;
     public salesUrl: string;
     public replenishUrl: string;
+    public homeInithUrl: string;
     public aliMachineQueryVMListUrl: string;
     public aliMachineQueryDetailUrl: string;
     public aliMachineQueryTradeDetailUrl: string;
@@ -22,6 +23,7 @@ export class AppProperties {
       this.mainInfoUrl = this.appUrl + '/home/initInfo';
       this.salesUrl = this.appUrl + '/home/payRecord';
       this.replenishUrl = this.appUrl + '/home/replenish';
+      this.homeInithUrl = this.appUrl + '/home/company';
       this.aliMachineQueryVMListUrl = this.appUrl + '/aliMachine/queryVMList';
       this.aliMachineQueryDetailUrl = this.appUrl + '/aliUser/queryItem';
       this.aliMachineQueryTradeDetailUrl = this.appUrl + '/aliMachine/queryTradeDetail';

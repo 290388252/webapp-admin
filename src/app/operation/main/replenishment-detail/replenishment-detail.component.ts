@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnChanges, OnInit,
+  SimpleChanges
+} from '@angular/core';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken} from '../../../utils/util';
@@ -10,16 +13,18 @@ import {NzModalService} from 'ng-zorro-antd';
   templateUrl: './replenishment-detail.component.html',
   styleUrls: ['./replenishment-detail.component.css']
 })
-export class ReplenishmentDetailComponent implements OnInit {
+export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public value = '';
   public loading: boolean;
   public isVisible = false;
   public isConfirmLoadingSails = false;
   public initList = [];
   public replenishList = [];
+  public homeList = [];
   public tradeDetailList = [];
   public nzOptions = [];
   public selectValues: string;
+  public homeValues: string;
   public vmCode: string;
   public tradeDetailListLoading = true;
   constructor(private router: Router,
@@ -29,8 +34,10 @@ export class ReplenishmentDetailComponent implements OnInit {
               private appService: AppService) {
     this.loading = true;
   }
-
+  ngAfterContentInit(): void {
+  }
   ngOnInit() {
+    console.log(getToken());
     this.nzOptions = [
       {value: '', label: '所有', isLeaf: true},
       {value: '0', label: '0%', isLeaf: true},
@@ -45,7 +52,17 @@ export class ReplenishmentDetailComponent implements OnInit {
       {value: '0.9', label: '90%', isLeaf: true},
       {value: '1', label: '100%', isLeaf: true}
       ];
-    console.log(getToken());
+    this.appService.postAliData(this.appProperties.homeInithUrl, '', getToken()).subscribe(
+      data => {
+        console.log(data);
+        data.returnObject.forEach(item => {
+          this.homeList.push({value: item.id, label: item.name, isLeaf: true});
+        });
+      },
+      error => {
+        console.log(error);
+      }
+    );
     this.appService.postAliData(this.appProperties.replenishUrl, '', getToken()).subscribe(
       data => {
         console.log(data);
@@ -57,9 +74,13 @@ export class ReplenishmentDetailComponent implements OnInit {
         console.log(error);
       }
     );
+    console.log(this.homeList);
   }
   onChanges(event) {
     console.log(this.selectValues[0]);
+  }
+  onHomeChanges(e) {
+    // console.log(this.homeValues[0]);
   }
   onSearch() {
     console.log(this.value);
