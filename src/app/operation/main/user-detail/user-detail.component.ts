@@ -20,9 +20,12 @@ export class UserDetailComponent implements OnInit {
                private appService: AppService) { }
 
   ngOnInit() {
-    const exp = new Date();
-    exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 3);
-    document.cookie = 'adminToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
+    if (urlParse(window.location.search)['token'] !== undefined
+      && urlParse(window.location.search)['token'] !== '') {
+      const exp = new Date();
+      exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 3);
+      document.cookie = 'adminToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
+    }
     console.log(getToken());
     this.appService.postAliData(this.appProperties.mainInfoUrl, '', getToken()).subscribe(
       data => {
