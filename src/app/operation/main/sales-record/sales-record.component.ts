@@ -64,6 +64,7 @@ export class SalesRecordComponent implements OnInit {
     this.itemName = item.itemName;
     this.ptCode = item.ptCode;
     this.phone = item.phone;
+    this.createTime = item.createTime;
     this.isVisible = true;
   }
   handleCancelSails() {
