@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
               private appService: AppService) { }
 
   ngOnInit() {
-    this.text = '发送验证码';
+    this.text = '点击获取验证码';
+    console.log(urlParse(window.location.search)['openId']);
   }
   focusCodes() {
     // console.log(document.getElementById('user-container').style.height);
@@ -43,14 +44,14 @@ export class LoginComponent implements OnInit {
               this.text --;
               if (this.text <= 0) {
                 this.isLoading = false;
-                this.text = '发送验证码';
+                this.text = '点击获取验证码';
                 this.endText = '';
                 clearInterval(timer);
               }
             }, 1000);
             setTimeout(() => {
               this.isLoading = false;
-              this.text = '发送验证码';
+              this.text = '点击获取验证码';
               this.endText = '';
             }, 60100);
           }

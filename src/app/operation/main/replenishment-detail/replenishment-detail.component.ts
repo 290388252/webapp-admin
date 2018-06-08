@@ -110,8 +110,12 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
     );
   }
   detail(vmCode) {
+    let rate;
+    if (this.selectValues) {
+      rate = this.selectValues[0];
+    }
     this.isVisible = true;
-    this.appService.postAliData(this.appProperties.replenishUrl, {vmCode: vmCode}, getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.replenishUrl, {vmCode: vmCode, rate: rate}, getToken()).subscribe(
       data => {
         this.tradeDetailList = data.returnObject.replenishList;
         console.log(this.tradeDetailList);
