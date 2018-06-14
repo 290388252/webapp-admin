@@ -1,1 +1,18 @@
-test
+<div>
+  <!--<nz-date-picker style="width: 49%" [nzFormat]="'yyyy/MM/dd'"></nz-date-picker>-->
+  <!--<nz-cascader-->
+    <!--style="width: 49%"-->
+    <!--[nzOptions]="homeValuesList"-->
+    <!--[nzPlaceHolder]="'请选择公司'"-->
+    <!--[nzAllowClear]="false"-->
+    <!--[(ngModel)]="homeValues"-->
+    <!--(ngModelChange)="onHomeChanges($event)">-->
+  <!--</nz-cascader>-->
+  <!--<button style="width: 48%; margin: 2px" (click)="onSearch()" nz-button nzType="primary" nzSearch><i class="anticon anticon-search"></i>选择公司后点击查询</button>-->
+  <div class="top"><h3 style="color: white;padding-top: 10px">今日销售额(元)</h3><br><h2 style="color: white">{{today}}</h2></div>
+  <div>
+    <div class="left"><h3>昨日销售额(元)</h3><br><h2>{{yesterday}}</h2></div>
+    <div class="right"><h3>月累计销售额(元)</h3><br><h2>{{month}}</h2></div>
+  </div>
+</div>
+<div id="main" style="width: 99%;height:300px;"></div>
