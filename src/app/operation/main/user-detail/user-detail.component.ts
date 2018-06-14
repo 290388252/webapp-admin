@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-detail',
@@ -17,7 +18,8 @@ export class UserDetailComponent implements OnInit {
   public sumPrice: number;
 
   constructor( private appProperties: AppProperties,
-               private appService: AppService) { }
+               private appService: AppService,
+               private router: Router) { }
 
   ngOnInit() {
     if (urlParse(window.location.search)['token'] !== undefined
@@ -49,5 +51,10 @@ export class UserDetailComponent implements OnInit {
       }
     );
   }
-
+  left() {
+    this.router.navigate(['main/replenishmentDetail']);
+  }
+  right() {
+    this.router.navigate(['main/machineDetail']);
+  }
 }

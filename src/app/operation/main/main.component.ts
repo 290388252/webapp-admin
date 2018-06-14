@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {urlParse} from "../../utils/util";
 
 @Component({
   selector: 'app-main',
@@ -13,7 +14,6 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     console.log(window.location.href);
     const url = window.location.href;
-    this.router.navigate(['main/userDetail']);
     if (url.indexOf('userDetail') > -1) {
       this.curId = 1;
     } else if (url.indexOf('machineDetail') > -1) {

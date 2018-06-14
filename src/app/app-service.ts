@@ -79,7 +79,7 @@ export class AppService {
     // 配置请求头
     const myHeaders: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
-      'ysToken': 'Bearer ' + tokens
+      'token': 'webapp'
     });
     // tslint:disable-next-line:forin
     url += (url.indexOf('?') < 0 ? '?' : '&') + this.param(options);
@@ -89,7 +89,7 @@ export class AppService {
   postAliData(url: string, options: any, tokens?: any | null): Observable<any> {
     const myHttpHead = new HttpHeaders({
       'Content-Type': 'application/json',
-      'ysToken': 'Bearer ' + tokens
+      'token': 'webapp'
     });
     return this.http.post(url, options, {headers: myHttpHead});
   }
