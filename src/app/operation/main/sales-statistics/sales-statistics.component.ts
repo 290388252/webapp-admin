@@ -25,6 +25,8 @@ export class SalesStatisticsComponent implements OnInit {
               private appService: AppService) {
   }
   ngOnInit() {
+    console.log(document.body.clientHeight);
+    document.getElementById('sales').style.height = (document.body.clientHeight + 50) + 'px';
     this.myChart = eCharts.init(document.getElementById('main'));
     this.appService.postAliData(this.appProperties.homeInithUrl, '', getToken()).subscribe(
       data => {
