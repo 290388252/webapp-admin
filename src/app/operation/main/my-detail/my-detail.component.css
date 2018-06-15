@@ -1,8 +1,16 @@
+.my-detail{
+  background: white;
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/main/bs-bg.jpg");
+  background-size: 150% 100%;
+}
 .wrapper {
   margin: 0 auto;
   width: 350px;
 }
 .account{
+  background: rgba(232, 232, 232, 0.6);
   float: left;
   width: 165px;
   height: 95px;
@@ -11,21 +19,42 @@
   border-radius: 5px;
   margin-top: 15px;
   color: white;
-  background: #d9d9d9;
+}
+.account:active{
+  background: rgba(218, 218, 218, 0.9);
+  float: left;
+  width: 165px;
+  height: 95px;
+  text-align: center;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  margin-top: 15px;
+  color: white;
 }
 .right {
   margin-left: 15px;
 }
 .account-last{
   float: left;
-  width: 350px;
+  width: 345px;
   height: 105px;
   text-align: center;
   border: 1px solid #d9d9d9;
   border-radius: 5px;
   margin-top: 10px;
   color: white;
-  background: #d9d9d9;
+  background: rgba(232, 232, 232, 0.6);
+}
+.account-last:active{
+  float: left;
+  width: 345px;
+  height: 105px;
+  text-align: center;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  margin-top: 10px;
+  color: white;
+  background: rgba(218, 218, 218, 0.9);
 }
 img {
   width: 50px;

@@ -17,5 +17,6 @@ export class MyDetailComponent implements OnInit {
               private appProperties: AppProperties,
               private appService: AppService) {
   }
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }
