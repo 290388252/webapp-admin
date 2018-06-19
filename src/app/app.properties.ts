@@ -27,7 +27,7 @@ export class AppProperties {
       this.homeInithUrl = this.appUrl + '/home/company';
       this.payBeforeSevenDay = this.appUrl + '/payRecord/payBefore7Day';
       this.aliMachineQueryVMListUrl = this.appUrl + '/aliMachine/queryVMList';
-      this.aliMachineQueryDetailUrl = this.appUrl + '/aliUser/queryItem';
+      this.aliMachineQueryDetailUrl = this.appUrl + '/aliMachine/queryItem';
       this.aliMachineQueryTradeDetailUrl = this.appUrl + '/aliMachine/queryTradeDetail';
     }
 }
