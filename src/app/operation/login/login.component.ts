@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     // console.log(document.documentElement.offsetHeight);
     // document.getElementById('user-container').style.height = (document.documentElement.offsetHeight + 50) + 'px';
   }
+  // 发送验证码
   send(e: TouchEvent) {
     e.preventDefault();
     const status = this.loginService.sendMsg(this.username);
@@ -87,6 +88,7 @@ export class LoginComponent implements OnInit {
     //   this.isLoading = false;
     // }
   }
+  // 登陆
   login() {
     this.loginService.loginWithCredentials(this.username, this.code);
   }

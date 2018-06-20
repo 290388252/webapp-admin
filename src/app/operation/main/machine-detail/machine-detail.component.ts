@@ -48,6 +48,7 @@ export class MachineDetailComponent implements OnInit {
       }
     );
   }
+  // 搜索查询售货机列表
   onSearch(): void {
     console.log(this._value);
     this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl + '?form=' + this._value,
@@ -65,6 +66,7 @@ export class MachineDetailComponent implements OnInit {
       }
     );
   }
+  // 售货机详情
   detail(vmCode) {
     this.isVisible = true;
     this.vmCode = vmCode;
@@ -86,6 +88,7 @@ export class MachineDetailComponent implements OnInit {
       }
     );
   }
+  // 销售记录查询
   sails(vmCode) {
     const yesterday = new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2);
     const tomorrow = new Date(new Date().getTime() + 1000 * 60 * 60 * 24);
@@ -138,25 +141,27 @@ export class MachineDetailComponent implements OnInit {
       }
     );
   }
+  // 打开详情记录
   handleOk(): void {
     this.isVisible = false;
     this.isConfirmLoading = false;
     this.detailListLoading = true;
     this.detailList = [];
   }
-
+  // 关闭详情记录
   handleCancel(): void {
     this.isVisible = false;
     this.detailListLoading = true;
     this.detailList = [];
   }
+  // 打开销售记录
   handleOkSails(): void {
     this.isVisibleSails = false;
     this.isConfirmLoadingSails = false;
     this.tradeDetailListLoading = true;
     this.tradeDetailList = [];
   }
-
+  // 关闭销售记录
   handleCancelSails(): void {
     this.isVisibleSails = false;
     this.tradeDetailListLoading = true;

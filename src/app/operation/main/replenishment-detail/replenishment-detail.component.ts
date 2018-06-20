@@ -1,13 +1,6 @@
-import {
-  AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnChanges, OnInit,
-  SimpleChanges
-} from '@angular/core';
-import {AppService} from '../../../app-service';
-import {AppProperties} from '../../../app.properties';
+import {AfterContentInit, Component, Inject, OnInit} from '@angular/core';
 import {getToken} from '../../../utils/util';
-import {ActivatedRoute, Router} from '@angular/router';
 import {NzModalService} from 'ng-zorro-antd';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-replenishment-detail',
@@ -21,7 +14,6 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public isConfirmLoadingSails = false;
   public initList = [];
   public replenishList = [];
-  public homeList = [];
   public tradeDetailList = [];
   public nzOptions = [];
   public selectValues: string;
@@ -29,62 +21,33 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public homeValuesList = [{value: '', label: '所有', isLeaf: true}];
   public vmCode: string;
   public tradeDetailListLoading = true;
-  constructor(private router: Router,
-              private modalService: NzModalService,
-              private http: HttpClient,
-              private activatedRoute: ActivatedRoute,
-              private appProperties: AppProperties,
-              private appService: AppService) {
+  constructor(private modalService: NzModalService,
+              @Inject('replenishment') private replenishmentService) {
     this.loading = true;
   }
   ngAfterContentInit(): void {
   }
   ngOnInit() {
     console.log(getToken());
-    this.nzOptions = [
-      {value: '', label: '所有', isLeaf: true},
-      {value: '0', label: '0%', isLeaf: true},
-      {value: '0.1', label: '10%', isLeaf: true},
-      {value: '0.2', label: '20%', isLeaf: true},
-      {value: '0.3', label: '30%', isLeaf: true},
-      {value: '0.4', label: '40%', isLeaf: true},
-      {value: '0.5', label: '50%', isLeaf: true},
-      {value: '0.6', label: '60%', isLeaf: true},
-      {value: '0.7', label: '70%', isLeaf: true},
-      {value: '0.8', label: '80%', isLeaf: true},
-      {value: '0.9', label: '90%', isLeaf: true},
-      {value: '1', label: '100%', isLeaf: true}
-      ];
-    this.appService.postAliData(this.appProperties.homeInithUrl, '', getToken()).subscribe(
-      data => {
-        console.log(data);
-        this.homeList = data.returnObject;
-        this.homeList.forEach(item => {
-          this.homeValuesList.push({value: item.id, label: item.name, isLeaf: true});
-        });
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    this.appService.postAliData(this.appProperties.replenishUrl, '', getToken()).subscribe(
-      data => {
-        console.log(data);
-        this.loading = false;
-        this.replenishList = data.returnObject.replenishVMList;
-        this.initList = data.returnObject.replenishList;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    const initObj = this.replenishmentService.getInitData();
+    console.log(initObj);
+    if (initObj.homeValuesList.length !== 0) {
+      this.loading = false;
+    }
+    this.nzOptions = initObj.nzOptions;
+    this.homeValuesList = initObj.homeValuesList;
+    this.replenishList = initObj.replenishList;
+    this.initList = initObj.initList;
   }
+  // 监听input改变
   onChanges(event) {
     console.log(this.selectValues[0]);
   }
+  // 监听input改变
   onHomeChanges(e) {
     console.log(this.homeValues[0]);
   }
+  // 搜索查询售货机列表
   onSearch() {
     console.log(this.value);
     let rate, companyId;
@@ -94,42 +57,31 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
     if (this.homeValues) {
       companyId = this.homeValues[0];
     }
-    this.appService.postAliData(this.appProperties.replenishUrl, {
-      vmCode: this.value,
-      rate: rate,
-      companyId: companyId}, getToken()).subscribe(
-      data => {
-        console.log(data);
-        this.loading = false;
-        this.replenishList = data.returnObject.replenishVMList;
-        this.initList = data.returnObject.replenishList;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    const returnObj = this.replenishmentService.searchService(this.value, rate, companyId);
+    if (returnObj.replenishList !== 0) {
+      this.loading = false;
+    }
+    console.log(returnObj);
+    this.replenishList = returnObj.replenishList;
+    this.initList = returnObj.initList;
   }
+  // 查看详情记录
   detail(vmCode) {
     let rate;
     if (this.selectValues) {
       rate = this.selectValues[0];
     }
     this.isVisible = true;
-    this.appService.postAliData(this.appProperties.replenishUrl, {vmCode: vmCode, rate: rate}, getToken()).subscribe(
-      data => {
-        this.tradeDetailList = data.returnObject.replenishList;
-        console.log(this.tradeDetailList);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.tradeDetailList = this.replenishmentService.detailService(vmCode, rate);
+    console.log(this.tradeDetailList);
   }
+  // 关闭销售记录
   handleCancelSails() {
     this.isVisible = false;
     this.tradeDetailListLoading = true;
     this.tradeDetailList = [];
   }
+  // 打开销售记录
   handleOkSails() {
     this.isVisible = false;
     this.isConfirmLoadingSails = false;

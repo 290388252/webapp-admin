@@ -14,6 +14,7 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     console.log(window.location.href);
     const url = window.location.href;
+    // 控制图标大小改变，获取下标位
     if (url.indexOf('userDetail') > -1) {
       this.curId = 1;
     } else if (url.indexOf('machineDetail') > -1) {
@@ -26,6 +27,7 @@ export class MainComponent implements OnInit {
       this.curId = 1;
     }
   }
+  // 获取选中状态
   selected(flag) {
     this.curId = flag;
   }

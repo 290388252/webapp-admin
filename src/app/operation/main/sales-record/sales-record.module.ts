@@ -8,6 +8,7 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SalesRecordService} from './sales-record-service';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [AppService, AppProperties],
+  providers: [AppService, AppProperties, {provide: 'salesRecord',  useClass: SalesRecordService}],
   declarations: [SalesRecordComponent]
 })
 export class SalesRecordModule { }

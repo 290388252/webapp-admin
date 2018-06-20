@@ -1,4 +1,5 @@
 // Created by Yanchao in 16/05/2018
+// 解析url地址转化对象
 export let urlParse = (url) => {
   const obj = {};
   const reg = /[?&][^?&]+=[^?&]+/g;
@@ -14,6 +15,7 @@ export let urlParse = (url) => {
   }
   return obj;
 };
+// 解析token
 export let getToken = () => {
   let token;
     const strCookie = document.cookie;
@@ -24,6 +26,6 @@ export let getToken = () => {
         token = arr[1];
       }
     }
-  // return 'eyJhbGciOiJIUzUxMiJ9.eyJyYW5kb21LZXkiOiJubnVzc2MiLCJzdWIiOiJ7XCJpZFwiOlwiMzczXCIsXCJvcGVuSWRcIjpcIjIwODgwMjIzMzQwNTU2MjJcIixcInBheVR5cGVcIjpcIjJcIixcInR5cGVcIjoyfSIsImV4cCI6MTUyODc3MTg3NiwiaWF0IjoxNTI4MTY3MDc2fQ.MyTF2TqtEX3zNNTShANv3jhUtlOybK94Q3pXvcsM3bhB7HjF0XHQG4ylNKt-2Lp6G0Z1crvE6Sfd2UYnE3nXEA';
-  return token;
+  return 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzY0LDEiLCJleHAiOjE1Mjk1MDc4Mjh9.Uxp3-7ArIkh0ZSTlZMUmVVuvhwjTnKELWLgGTMR6d995PF49uzZnCANLpR0siON2ksbg6NOeJvnK_XRNSXwjOA';
+  // return token;
 };

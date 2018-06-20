@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {getToken, urlParse} from '../../../utils/util';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../../../app-service';
@@ -26,6 +26,7 @@ export class SalesRecordComponent implements OnInit {
   public phone: string;
   constructor(private router: Router,
               private modalService: NzModalService,
+              @Inject('salesRecord')  private salesRecordService,
               private activatedRoute: ActivatedRoute,
               private appProperties: AppProperties,
               private appService: AppService) {
@@ -34,17 +35,24 @@ export class SalesRecordComponent implements OnInit {
 
   ngOnInit() {
     console.log(getToken());
-    this.appService.postAliData(this.appProperties.salesUrl, '', getToken()).subscribe(
-      data => {
-        console.log(data);
-        this.loading = false;
-        this.saleList = data.returnObject;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    const returnObj = this.salesRecordService.getSalesInitData();
+    console.log(returnObj.loading);
+    this.saleList = returnObj.saleList;
+    if (this.saleList.length !== 0) {
+      this.loading = false;
+    }
+    // this.appService.postAliData(this.appProperties.salesUrl, '', getToken()).subscribe(
+    //   data => {
+    //     console.log(data);
+    //     this.loading = false;
+    //     this.saleList = data.returnObject;
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
   }
+  // 搜索查询售货机列表
   onSearch() {
     this.appService.postAliData(this.appProperties.salesUrl, {payCodeOrName: this.value}, getToken()).subscribe(
       data => {
@@ -57,6 +65,7 @@ export class SalesRecordComponent implements OnInit {
       }
     );
   }
+  // 查看详情记录
   detail(item) {
     this.companyName = item.companyName;
     this.payCode = item.payCode;
@@ -67,9 +76,11 @@ export class SalesRecordComponent implements OnInit {
     this.createTime = item.createTime;
     this.isVisible = true;
   }
+  // 关闭销售记录
   handleCancelSails() {
     this.isVisible = false;
   }
+  // 打开销售记录
   handleOkSails() {
     this.isVisible = false;
     this.isConfirmLoadingSails = false;

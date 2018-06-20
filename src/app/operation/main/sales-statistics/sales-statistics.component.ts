@@ -27,7 +27,9 @@ export class SalesStatisticsComponent implements OnInit {
   ngOnInit() {
     console.log(document.body.scrollHeight);
     document.getElementById('sales').style.height = (document.body.scrollHeight + 55) + 'px';
+    // 图表插件调用
     this.myChart = eCharts.init(document.getElementById('main'));
+    // 获取公司初始化数据
     this.appService.postAliData(this.appProperties.homeInithUrl, '', getToken()).subscribe(
       data => {
         console.log(data);
@@ -40,6 +42,7 @@ export class SalesStatisticsComponent implements OnInit {
         console.log(error);
       }
     );
+    // 获取七天数据
     this.appService.getAliData(this.appProperties.payBeforeSevenDay, '', getToken()).subscribe(
       data => {
         console.log(data);
@@ -74,6 +77,7 @@ export class SalesStatisticsComponent implements OnInit {
   }
   onHomeChanges(e) {
   }
+  // 搜索查询销售列表
   onSearch() {
     this.appService.getAliData(this.appProperties.payBeforeSevenDay, '', getToken()).subscribe(
       data => {

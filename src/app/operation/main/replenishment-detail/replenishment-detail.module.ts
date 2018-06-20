@@ -8,6 +8,7 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {ReplenishmentDetailService} from './replenishment-detail-service';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import {HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     ReplenishmentDetailRoutingModule
   ],
-  providers: [AppService, AppProperties],
+  providers: [AppService, AppProperties, {provide: 'replenishment',  useClass: ReplenishmentDetailService}],
   declarations: [ReplenishmentDetailComponent]
 })
 export class ReplenishmentDetailModule { }
