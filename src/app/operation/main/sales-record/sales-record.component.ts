@@ -30,17 +30,15 @@ export class SalesRecordComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private appProperties: AppProperties,
               private appService: AppService) {
-    this.loading = true;
   }
 
   ngOnInit() {
     console.log(getToken());
     const returnObj = this.salesRecordService.getSalesInitData();
-    console.log(returnObj.loading);
+    this.loading = true;
     this.saleList = returnObj.saleList;
-    if (this.saleList.length !== 0) {
-      this.loading = false;
-    }
+    console.log(returnObj);
+    this.loading = false;
     // this.appService.postAliData(this.appProperties.salesUrl, '', getToken()).subscribe(
     //   data => {
     //     console.log(data);

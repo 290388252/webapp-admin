@@ -6,8 +6,9 @@ import {getToken} from '../../../utils/util';
 @Injectable()
 export class SalesRecordService {
   constructor(private appService: AppService, private appProperties: AppProperties) {}
-  getSalesInitData() {
+  getSalesInitData(): object {
     const saleList = [];
+    console.log('start');
     this.appService.postAliData(this.appProperties.salesUrl, '', getToken()).subscribe(
       data => {
         console.log(data);
