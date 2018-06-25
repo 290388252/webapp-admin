@@ -1,0 +1,21 @@
+.user-container{
+  position: absolute;
+  padding-bottom: 10%;
+  height: 100%;
+  width: 100%;
+  background: rgba(82,94,113,.05);
+  /*background: url("../../../../assets/main/bs-bg.jpg");*/
+  /*background-size: 150% 100%;*/
+}
+.container {
+  width: 100%;
+}
+.header{
+  width: 100%;
+  height: 150px;
+  background: #1890ff;
+}
+.am-list{
+  padding-top: 0;
+  padding-bottom: 10px;
+}
