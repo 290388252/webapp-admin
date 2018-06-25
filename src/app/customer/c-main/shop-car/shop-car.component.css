@@ -1,0 +1,15 @@
+.title{
+  margin: 5px;
+}
+.user-container{
+  position: absolute;
+  padding-bottom: 10%;
+  height: 100%;
+  width: 100%;
+  background: white;
+  /*background: url("../../../../assets/main/bs-bg.jpg");*/
+  /*background-size: 150% 100%;*/
+}
+.container {
+  width: 100%;
+}
