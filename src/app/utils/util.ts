@@ -26,6 +26,6 @@ export let getToken = () => {
         token = arr[1];
       }
     }
-  return 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1Mjk2Mzk1NjN9.jHWmVAYZQT384S_232zXKq6i9i5v7_cnLJuyGfffRT_XZ7JXd1WgxaLG1Ug3MWwxxzMezCT9tHQwd2ndmbZ_CQ';
-  // return token;
+  // return 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1Mjk2Mzk1NjN9.jHWmVAYZQT384S_232zXKq6i9i5v7_cnLJuyGfffRT_XZ7JXd1WgxaLG1Ug3MWwxxzMezCT9tHQwd2ndmbZ_CQ';
+  return token;
 };

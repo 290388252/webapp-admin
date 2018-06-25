@@ -20,6 +20,9 @@ export class SalesRecordService {
         console.log(error);
       }
     );
+    setTimeout(() => {
+      return saleList;
+    }, 1000);
     return {saleList};
   }
 }

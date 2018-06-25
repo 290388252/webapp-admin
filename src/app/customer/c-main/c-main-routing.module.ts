@@ -6,7 +6,13 @@ const routes: Routes = [
   {
     path: '',
     component: CMainComponent,
-    children: []
+    children: [
+      { path: '', redirectTo: 'firstPage'},
+      { path: 'firstPage', loadChildren: './first-page/first-page.module#FirstPageModule' },
+      { path: 'allGoods', loadChildren: './all-goods/all-goods.module#AllGoodsModule' },
+      { path: 'shopCar', loadChildren: './shop-car/shop-car.module#ShopCarModule' },
+      { path: 'userCenter', loadChildren: './user-center/user-center.module#UserCenterModule' },
+    ]
   }
 ];
 
