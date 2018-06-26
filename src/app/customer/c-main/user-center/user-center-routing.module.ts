@@ -4,7 +4,7 @@ import {UserCenterComponent} from './user-center.component';
 
 const routes: Routes = [
   {
-    path: '', component: UserCenterComponent,
+    path: '', component: UserCenterComponent
   }
 ];
 

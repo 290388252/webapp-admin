@@ -13,6 +13,12 @@
 .container {
   width: 100%;
 }
+.empty-car{
+  width: 100%;
+  height: 150px;
+  background: rgba(244, 244, 244, 1);
+  text-align: center;
+}
 .gutter-example{
   margin: 16px;
 }

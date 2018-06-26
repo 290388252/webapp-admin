@@ -22,4 +22,7 @@ export class UserCenterComponent implements OnInit {
 
   ngOnInit() {
   }
+  address() {
+    this.router.navigate(['cMain/newAddress']);
+  }
 }
