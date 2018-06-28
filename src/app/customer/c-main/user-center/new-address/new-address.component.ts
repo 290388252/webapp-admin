@@ -22,4 +22,7 @@ export class NewAddressComponent implements OnInit {
 
   ngOnInit() {
   }
+  addAddress() {
+    this.router.navigate(['cMain/addAddress']);
+  }
 }

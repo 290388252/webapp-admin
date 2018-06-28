@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ElModule } from 'element-angular';
-
+import { WeUiModule } from 'ngx-weui';
 // if you use webpack, import style
 import 'element-angular/theme/index.css';
 
@@ -29,6 +29,7 @@ registerLocaleData(zh);
     CommonModule,
     NgZorroAntdModule.forRoot(),
     ElModule.forRoot(),
+    WeUiModule.forRoot(),
     AppRoutingModule,
   ],
   providers: [],
