@@ -11,11 +11,24 @@ import {Router} from '@angular/router';
 })
 export class AddAddressComponent implements OnInit {
   public isChoose: boolean;
+  public lastConfirm: boolean;
+  public text: string;
   constructor( private appProperties: AppProperties,
                private appService: AppService,
                private router: Router) { }
 
   ngOnInit() {
+  }
+  onChecked() {
+    if (document.getElementsByName('s1').item(0)['checked']) {
+      this.text = '选中啦';
+    } else {
+      this.text = '选中个屁';
+    }
+  }
+  ok() {
+    this.lastConfirm = true;
+    this.text = '填好了';
   }
   pick() {
     this.isChoose = true;
@@ -25,5 +38,11 @@ export class AddAddressComponent implements OnInit {
   }
   confirm() {
     this.isChoose = false;
+  }
+  cancelContent() {
+    this.lastConfirm = false;
+  }
+  confirmContent() {
+    this.lastConfirm = false;
   }
 }

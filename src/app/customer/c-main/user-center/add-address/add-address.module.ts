@@ -6,15 +6,18 @@ import {AddAddressComponent} from './add-address.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../../app-service';
 import {AppProperties} from '../../../../app.properties';
-import { WeUiModule, ButtonConfig } from 'ngx-weui';
+import { WeUiModule } from 'ngx-weui';
+import { ButtonModule } from 'ngx-weui';
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
     ElModule,
     WeUiModule.forRoot(),
+    ButtonModule,
     AddAddressRoutingModule
   ],
+  exports: [ WeUiModule ],
   providers: [AppService, AppProperties],
   declarations: [AddAddressComponent]
 })

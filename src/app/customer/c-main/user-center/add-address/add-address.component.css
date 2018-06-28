@@ -38,3 +38,19 @@
   height: 170px;
   background: grey;
 }
+.child-layout{
+  width: 33.3%;
+  height: 100%;
+  float: left;
+  background: white;
+  overflow: hidden;
+  overflow-y: scroll;
+  text-align: center;
+}
+.child-layout:nth-child(2){
+  width: 33.3%;
+  height: 100%;
+  float: left;
+  background: white;
+  text-align: center;
+}

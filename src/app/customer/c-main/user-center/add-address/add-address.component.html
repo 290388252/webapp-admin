@@ -21,10 +21,51 @@
     <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
       <div class="am-list-label" id="list-label-4">地区</div>
       <div class="am-list-control">
-        <input (click)="pick()" id="demo-input-4" type="text" placeholder="点击选择" value="" aria-labelledby="list-label-4">
+        <input (click)="pick()" id="demo-input-4" type="text" placeholder="点击选择" value=""
+               aria-labelledby="list-label-4">
       </div>
       <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">
         <i class="am-icon-clear am-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
+      <div class="am-list-label" id="list-label-5">详细地址</div>
+      <div class="am-list-control">
+        <input id="demo-input-5" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-5">
+      </div>
+      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">
+        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="am-list">
+      <div class="am-list-body">
+        <div class="am-list-item">
+          <div class="am-list-content">设置未默认地址</div>
+          <div class="am-switch">
+            <input type="checkbox" name="s1" class="am-switch-checkbox" (change)="onChecked()"  id="demo-s-1" >
+            <label class="am-switch-label" for="demo-s-1">
+              <div class="am-switch-inner"></div>
+              <div class="am-switch-switch"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="am-button-wrap">
+      <button (click)="ok()" class="am-button blue">确定</button>
+    </div>
+  </div>
+  <div *ngIf="lastConfirm" class="am-dialog-mask show"></div>
+  <!-- A11Y: 对话框隐藏时设置 aria-hidden="true"，显示时设置 aria-hidden="false" -->
+  <div *ngIf="lastConfirm" class="am-dialog show" role="dialog" aria-hidden="false">
+    <div class="am-dialog-wrap">
+      <div class="am-dialog-body">
+        <p>请再次确认</p>
+        <p class="am-dialog-brief">地址99999999999999999999999</p>
+      </div>
+      <div class="am-dialog-footer">
+        <a (click)="cancelContent()" class="am-dialog-button">取消</a>
+        <a (click)="confirmContent()" class="am-dialog-button">确定</a>
       </div>
     </div>
   </div>
@@ -35,7 +76,115 @@
       <span (click)="confirm()" class="pick-span">确定</span>
     </div>
     <div class="city-layout">
-
+      <div class="child-layout">
+          <h3>北京</h3>
+          <h3>天津</h3>
+          <h3>河北省</h3>
+          <h3>山西省</h3>
+          <h3>内蒙古自治区</h3>
+          <h3>辽宁省</h3>
+          <h3>吉林省</h3>
+          <h3>黑龙江省</h3>
+          <h3>上海</h3>
+          <h3>江苏省</h3>
+          <h3>浙江省</h3>
+          <h3>安徽省</h3>
+          <h3>福建省</h3>
+          <h3>江西省</h3>
+          <h3>山东省</h3>
+          <h3>河南省</h3>
+          <h3>湖北省</h3>
+          <h3>湖南省</h3>
+          <h3>广东省</h3>
+          <h3>广西壮族自治区</h3>
+          <h3>海南省</h3>
+          <h3>重庆</h3>
+          <h3>四川省</h3>
+          <h3>贵州省</h3>
+          <h3>云南省</h3>
+          <h3>西藏自治区</h3>
+          <h3>陕西省</h3>
+          <h3>甘肃省</h3>
+          <h3>青海省</h3>
+          <h3>宁夏回族自治区</h3>
+          <h3>新疆维吾尔自治区</h3>
+          <h3>台湾省</h3>
+          <h3>香港特别行政区</h3>
+          <h3>澳门特别行政区</h3>
+      </div>
+      <div class="child-layout">
+        <h3>北京</h3>
+        <h3>天津</h3>
+        <h3>河北省</h3>
+        <h3>山西省</h3>
+        <h3>内蒙古自治区</h3>
+        <h3>辽宁省</h3>
+        <h3>吉林省</h3>
+        <h3>黑龙江省</h3>
+        <h3>上海</h3>
+        <h3>江苏省</h3>
+        <h3>浙江省</h3>
+        <h3>安徽省</h3>
+        <h3>福建省</h3>
+        <h3>江西省</h3>
+        <h3>山东省</h3>
+        <h3>河南省</h3>
+        <h3>湖北省</h3>
+        <h3>湖南省</h3>
+        <h3>广东省</h3>
+        <h3>广西壮族自治区</h3>
+        <h3>海南省</h3>
+        <h3>重庆</h3>
+        <h3>四川省</h3>
+        <h3>贵州省</h3>
+        <h3>云南省</h3>
+        <h3>西藏自治区</h3>
+        <h3>陕西省</h3>
+        <h3>甘肃省</h3>
+        <h3>青海省</h3>
+        <h3>宁夏回族自治区</h3>
+        <h3>新疆维吾尔自治区</h3>
+        <h3>台湾省</h3>
+        <h3>香港特别行政区</h3>
+        <h3>澳门特别行政区</h3>
+      </div>
+      <div class="child-layout">
+        <h3>北京</h3>
+        <h3>天津</h3>
+        <h3>河北省</h3>
+        <h3>山西省</h3>
+        <h3>内蒙古自治区</h3>
+        <h3>辽宁省</h3>
+        <h3>吉林省</h3>
+        <h3>黑龙江省</h3>
+        <h3>上海</h3>
+        <h3>江苏省</h3>
+        <h3>浙江省</h3>
+        <h3>安徽省</h3>
+        <h3>福建省</h3>
+        <h3>江西省</h3>
+        <h3>山东省</h3>
+        <h3>河南省</h3>
+        <h3>湖北省</h3>
+        <h3>湖南省</h3>
+        <h3>广东省</h3>
+        <h3>广西壮族自治区</h3>
+        <h3>海南省</h3>
+        <h3>重庆</h3>
+        <h3>四川省</h3>
+        <h3>贵州省</h3>
+        <h3>云南省</h3>
+        <h3>西藏自治区</h3>
+        <h3>陕西省</h3>
+        <h3>甘肃省</h3>
+        <h3>青海省</h3>
+        <h3>宁夏回族自治区</h3>
+        <h3>新疆维吾尔自治区</h3>
+        <h3>台湾省</h3>
+        <h3>香港特别行政区</h3>
+        <h3>澳门特别行政区</h3>
+      </div>
     </div>
   </div>
+  <span>{{text}}</span>
 </div>

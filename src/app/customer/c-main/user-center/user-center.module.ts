@@ -6,11 +6,13 @@ import {UserCenterComponent} from './user-center.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
+import {WeUiModule} from 'ngx-weui';
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
     ElModule,
+    WeUiModule.forRoot(),
     UserCenterRoutingModule
   ],
   providers: [AppService, AppProperties],
