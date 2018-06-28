@@ -1,0 +1,41 @@
+<div class="user-container">
+  <div style="padding-top: 0;" class="am-list am-list-form">
+    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
+      <div class="am-list-label" id="list-label-2">收货人</div>
+      <div class="am-list-control">
+        <input id="demo-input-2" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-2">
+      </div>
+      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-2">
+        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
+      <div class="am-list-label" id="list-label-3">手机号码</div>
+      <div class="am-list-control">
+        <input id="demo-input-3" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-3">
+      </div>
+      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-3">
+        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
+      <div class="am-list-label" id="list-label-4">地区</div>
+      <div class="am-list-control">
+        <input (click)="pick()" id="demo-input-4" type="text" placeholder="点击选择" value="" aria-labelledby="list-label-4">
+      </div>
+      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">
+        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isChoose" class="mask"></div>
+  <div *ngIf="isChoose" class="pick">
+    <div style="width: 100%;height: 30px">
+      <span (click)="cancel()" class="pick-span">取消</span>
+      <span (click)="confirm()" class="pick-span">确定</span>
+    </div>
+    <div class="city-layout">
+
+    </div>
+  </div>
+</div>
