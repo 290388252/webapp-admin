@@ -1,0 +1,57 @@
+@import "~ngx-weui/index.css";
+.user-container{
+  position: absolute;
+  padding-bottom: 10%;
+  height: 100%;
+  width: 100%;
+  background: white;
+  /*background: url("../../../../assets/main/bs-bg.jpg");*/
+  /*background-size: 150% 100%;*/
+}
+.container {
+  width: 100%;
+}
+.menu-top{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+.menu-li{
+  width: 25%;
+  text-align: center;
+}
+.gutter-example{
+  margin: 60px 16px 16px 16px;
+}
+.gutter-box{
+  margin-bottom: 5px;
+  height: 210px;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 2px;
+  background-color: rgba(244, 244, 244, 1);
+  border: 1px solid rgba(244, 244, 244, 1);
+}
+.gutter-row-text{
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+.gutter-row-span{
+  margin-left: 5px;
+  margin-bottom: 0;
+  color: red;
+}
+.gutter-row-icon{
+  margin-right: 5px;
+  float: right;
+}
+.gutter-boxs{
+  height: 50px;
+}
+.box-img{
+  width: 50%;
+  height: 50%;
+  margin-top: 30%;
+}
+

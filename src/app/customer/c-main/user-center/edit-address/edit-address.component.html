@@ -1,0 +1,53 @@
+<div class="user-container">
+  <div style="padding-top: 0;" class="am-list am-list-form">
+    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
+      <div class="am-list-label" id="list-label-2">收货人</div>
+      <div class="am-list-control">
+        <input disabled="disabled" id="demo-input-2" type="text" placeholder="一次" value="" aria-labelledby="list-label-2">
+      </div>
+      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-2">
+        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
+      <div class="am-list-label" id="list-label-3">手机号码</div>
+      <div class="am-list-control">
+        <input disabled="disabled" id="demo-input-3" type="text" placeholder="132456468735" value="" aria-labelledby="list-label-3">
+      </div>
+      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-3">
+        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
+      <div class="am-list-label" id="list-label-4">地区</div>
+      <div class="am-list-control">
+        <input disabled="disabled" id="demo-input-4" type="text" placeholder="广州暗示法嘎斯的v" value=""
+               aria-labelledby="list-label-4">
+      </div>
+      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">
+        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
+      <div class="am-list-label" id="list-label-5">详细地址</div>
+      <textarea rows="4" cols="4" style="font-size: 14px;color: #c1c1c1">详细地址111111111111111111111111111111111111111111详细地址详细地址111111111111111111111111111111111111111111详8</textarea>
+    </div>
+    <div class="am-button-wrap">
+      <button (click)="delete()" class="am-button red">删除</button>
+    </div>
+    <div *ngIf="lastConfirm" class="am-dialog-mask show"></div>
+    <!-- A11Y: 对话框隐藏时设置 aria-hidden="true"，显示时设置 aria-hidden="false" -->
+    <div *ngIf="lastConfirm" class="am-dialog show" role="dialog" aria-hidden="false">
+      <div class="am-dialog-wrap">
+        <div class="am-dialog-body">
+          <p>请再次确认</p>
+          <p class="am-dialog-brief">确定要删除地址吗？</p>
+        </div>
+        <div class="am-dialog-footer">
+          <a (click)="cancelContent()" class="am-dialog-button">取消</a>
+          <a (click)="confirmContent()" class="am-dialog-button">确定</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
