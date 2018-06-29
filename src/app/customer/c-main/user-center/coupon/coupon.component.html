@@ -1,0 +1,14 @@
+<div class="user-container">
+  <ul class="menu-top" nz-menu [nzMode]="'horizontal'">
+    <li (click)="choose(1)" class="menu-li" nz-menu-item [nzSelected]="true">未使用</li>
+    <li (click)="choose(2)" class="menu-li" nz-menu-item>未生效</li>
+    <li (click)="choose(3)" class="menu-li" nz-menu-item>已失效</li>
+  </ul>
+  <div *ngIf="empty" class="none">
+    <img style="width: 35%;margin-bottom: 5px"  src="../../../../../assets/icon/wrong.png" alt="">
+    <h4>空空如也~</h4>
+  </div>
+  <div *ngIf="unUsed"></div>
+  <div *ngIf="unEffective"></div>
+  <div *ngIf="effective"></div>
+</div>

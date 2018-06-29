@@ -1,0 +1,28 @@
+@import "~ngx-weui/index.css";
+.user-container{
+  position: absolute;
+  padding-bottom: 10%;
+  height: 100%;
+  width: 100%;
+  background: white;
+  /*background: url("../../../../assets/main/bs-bg.jpg");*/
+  /*background-size: 150% 100%;*/
+}
+.container {
+  width: 100%;
+}
+.menu-top{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+.menu-li{
+  width: 33.3%;
+  text-align: center;
+}
+.none{
+  left: 40%;
+  position: absolute;
+  top: 25%;
+}
