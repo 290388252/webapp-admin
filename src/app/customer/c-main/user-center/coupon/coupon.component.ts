@@ -25,17 +25,31 @@ export class CouponComponent implements OnInit {
                private router: Router) { }
 
   ngOnInit() {
-    this.empty = true;
+    this.unUsed = true;
+    if (this.unUsed) {
+      this.empty = false;
+    } else {
+      this.empty = true;
+    }
+    console.log(this.unUsed);
+    console.log(this.empty);
   }
   choose(flag) {
     if (flag === 1) {
       this.unUsed = true;
+      this.unEffective = false;
+      this.effective = false;
     } else if (flag === 2) {
+      this.unUsed = false;
       this.unEffective = true;
+      this.effective = false;
     } else if (flag === 3) {
+      this.unUsed = false;
+      this.unEffective = false;
       this.effective = true;
     }
   }
   ok() {
   }
+  useCard() {}
 }
