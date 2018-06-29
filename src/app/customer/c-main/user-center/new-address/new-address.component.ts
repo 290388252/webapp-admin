@@ -16,13 +16,22 @@ export class NewAddressComponent implements OnInit {
     'http://119.23.233.123:6662/ys_admin/qrCode/1988000081.png',
     'http://119.23.233.123:6662/ys_admin/files/0.png'
   ];
+  public emptyAddress: boolean;
   constructor( private appProperties: AppProperties,
                private appService: AppService,
                private router: Router) { }
 
   ngOnInit() {
+    this.emptyAddress = true;
   }
   addAddress() {
     this.router.navigate(['cMain/addAddress']);
+  }
+  onChecked() {
+    if (document.getElementsByName('s1').item(0)['checked']) {
+    } else {
+    }
+  }
+  ok() {
   }
 }

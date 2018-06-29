@@ -15,6 +15,7 @@ const routes: Routes = [
       { path: 'newAddress', loadChildren: './user-center/new-address/new-address.module#NewAddressModule' },
       { path: 'addAddress', loadChildren: './user-center/add-address/add-address.module#AddAddressModule' },
       { path: 'editAddress', loadChildren: './user-center/edit-address/edit-address.module#EditAddressModule' },
+      { path: 'coupon', loadChildren: './user-center/coupon/coupon.module#CouponModule' },
     ]
   }
 ];

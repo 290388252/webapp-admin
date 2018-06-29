@@ -22,7 +22,17 @@ export class UserCenterComponent implements OnInit {
 
   ngOnInit() {
   }
-  address() {
-    this.router.navigate(['cMain/newAddress']);
+  detail(flag) {
+    if (flag === 1) {
+      // this.router.navigate(['cMain/newAddress']);
+    } else if (flag === 2) {
+      this.router.navigate(['cMain/coupon']);
+    } else if (flag === 3) {
+      // this.router.navigate(['cMain/newAddress']);
+    } else if (flag === 4) {
+      this.router.navigate(['cMain/newAddress']);
+    } else if (flag === 5) {
+      // this.router.navigate(['cMain/newAddress']);
+    }
   }
 }

@@ -4,9 +4,16 @@
   padding-bottom: 10%;
   height: 100%;
   width: 100%;
-  background: rgba(82,94,113,.05);
+  background: white;
   /*background: url("../../../../assets/main/bs-bg.jpg");*/
   /*background-size: 150% 100%;*/
+}
+.address-container{
+  position: absolute;
+  padding-bottom: 10%;
+  height: 100%;
+  width: 100%;
+  background: rgba(82,94,113,.05);
 }
 .container {
   width: 100%;
@@ -54,4 +61,13 @@
   height: 50%;
   margin-top: 30%;
 }
-
+.edit{
+  float: right;
+  margin-top: 5px;
+  color: #1890ff;
+}
+.edit:active{
+  float: right;
+  margin-top: 5px;
+  color: deepskyblue;
+}
