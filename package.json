@@ -21,15 +21,18 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
     "echarts": "^4.1.0",
     "element-angular": "^0.7.6",
     "fastclick": "^1.0.6",
+    "intl": "^1.2.5",
     "ng-zorro-antd": "^0.7.1",
     "ng2-ckeditor": "^1.2.0",
     "ngx-echarts": "^3.1.0",
     "ngx-weui": "^5.0.4",
     "rxjs": "^5.5.6",
+    "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

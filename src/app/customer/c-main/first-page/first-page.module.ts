@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ElModule } from 'element-angular';
+// import { ElModule } from 'element-angular';
 import { FirstPageRoutingModule } from './first-page-routing.module';
 import {FirstPageComponent} from './first-page.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
@@ -10,7 +10,7 @@ import {AppProperties} from '../../../app.properties';
   imports: [
     CommonModule,
     NgZorroAntdModule,
-    ElModule,
+    // ElModule,
     FirstPageRoutingModule
   ],
   providers: [AppService, AppProperties],
