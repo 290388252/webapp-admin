@@ -19,7 +19,7 @@ export class AllGoodsComponent implements OnInit {
   ];
   public list;
   public imgUrl = this.appProperties.shopImgUrl;
-  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2MDk3MTh9.4158QMQyIJpzdZzKLf6cJqWXPhZiYE8cGqJbsTI_vS8qBoC70pjSbsAoTJ4rODTNLDdN7Fd2RsZXEqHi54uRWQ';
+  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2MjA1OTZ9.Y78SVu2vOq7UxUap7tEGoqn4mFmtatoIgBRtqMvbxZ_IfARSBYSVW6-LHCBCUIozuFPlRteCC8DzmHbm5xtFFA';
   constructor(@Inject('showAllGoods') private allGoodsService, private appProperties: AppProperties) { }
 
   ngOnInit() {

@@ -4,46 +4,19 @@
     <p style="color: grey">购物车空空如也,快来挑选好货~</p>
   </div>
   <div class="full-car" [hidden]="empty">
-    <!--<nz-list style="padding: 10px" [nzDataSource]="data" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">-->
-      <!--<ng-template #item let-item>-->
-        <!--<nz-list-item>-->
-          <!--<nz-list-item-meta-->
-            <!--[nzTitle]="nzTitle"-->
-            <!--nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"-->
-            <!--nzDescription="￥{{item.price}}">-->
-            <!--<ng-template #nzTitle>-->
-              <!--<a href="">{{item.title}}</a>-->
-            <!--</ng-template>-->
-          <!--</nz-list-item-meta>-->
-        <!--</nz-list-item>-->
-      <!--</ng-template>-->
-    <!--</nz-list>-->
+    <div class="items" *ngFor="let item of data">
+      <img src="{{imgUrl+item.pic}}" class="img">
+      <div style="float: left">
+        <h4 class="span-text">{{item.itemName}}</h4>
+        <h4 class="span-text">￥{{item.price}}</h4>
+      </div>
+      <div style="float: right;margin-top: 7%;margin-right: 2%;">
+        <a class="edit" (click)="add(item)">+</a>
+        <a>{{item.num}}桶</a>
+        <a class="edit" (click)="delete(item)">-</a>
+      </div>
+    </div>
 
-    <nz-list
-      class="demo-loadmore-list"
-      [nzDataSource]="data"
-      [nzItemLayout]="'horizontal'"
-      [nzRenderItem]="item">
-      <ng-template #item let-item>
-        <nz-list-item [nzActions]="[editAction, editActions, moreAction]">
-          <ng-template #editAction><a class="edit" (click)="add(item)">+</a></ng-template>
-          <ng-template #editActions><a>{{item.num}}桶</a></ng-template>
-          <ng-template #moreAction><a class="edit" (click)="delete(item)">-</a></ng-template>
-          <nz-list-item-meta
-            style="margin-left: 20px"
-            [nzTitle]="nzTitle"
-            [nzAvatar]="aaa"
-            nzDescription="￥{{item.price}}">
-            <ng-template #nzTitle>
-              <a href="">{{item.itemName}}</a>
-            </ng-template>
-            <ng-template #aaa>
-              <img width="80" alt="logo" [src]="imgUrl+item.pic">
-            </ng-template>
-          </nz-list-item-meta>
-        </nz-list-item>
-      </ng-template>
-    </nz-list>
   </div>
   <p style="color: grey;margin-left: 42%;margin-top: 5px;">猜你喜欢</p>
   <div class="gutter-example">
@@ -58,6 +31,11 @@
         <span class="gutter-row-icon"><img width="20px" height="20px" src="../../../../assets/icon/addCar.png" alt=""></span>
       </div>
     </div>
-    <div style="width: 100%;height: 50px"></div>
+    <div style="width: 100%;height: 105px"></div>
+  </div>
+  <div class="confirm" [hidden]="empty">
+    <span style="float: left;margin-left: 20px;margin-top: 20px">已选({{data.length}})</span>
+    <button class="finish" nz-button nzType="primary">下单</button>
+    <span style="float: right;margin-top: 20px;margin-right: 5px">￥{{totalPrice}}</span>
   </div>
 </div>
