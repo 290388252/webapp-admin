@@ -6,6 +6,7 @@ import {FirstPageComponent} from './first-page.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
+import {FirstPageService} from './first-page-service';
 @NgModule({
   imports: [
     CommonModule,
@@ -13,7 +14,7 @@ import {AppProperties} from '../../../app.properties';
     // ElModule,
     FirstPageRoutingModule
   ],
-  providers: [AppService, AppProperties],
+  providers: [AppService, AppProperties,  {provide: 'firstPage',  useClass: FirstPageService}],
   declarations: [FirstPageComponent]
 })
 export class FirstPageModule { }

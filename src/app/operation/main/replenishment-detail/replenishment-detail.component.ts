@@ -1,6 +1,7 @@
 import {AfterContentInit, Component, Inject, OnInit} from '@angular/core';
 import {getToken} from '../../../utils/util';
 import {NzModalService} from 'ng-zorro-antd';
+import {AppProperties} from '../../../app.properties';
 
 @Component({
   selector: 'app-replenishment-detail',
@@ -8,6 +9,7 @@ import {NzModalService} from 'ng-zorro-antd';
   styleUrls: ['./replenishment-detail.component.css']
 })
 export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
+  public imgUrl = this.appProperties.appUrl + '/files/';
   public value = '';
   public loading: boolean;
   public isVisible = false;
@@ -22,6 +24,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public vmCode: string;
   public tradeDetailListLoading = true;
   constructor(private modalService: NzModalService,
+              private appProperties: AppProperties,
               @Inject('replenishment') private replenishmentService) {
     this.loading = true;
   }

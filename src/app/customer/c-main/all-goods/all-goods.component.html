@@ -8,71 +8,15 @@
   <div class="gutter-example">
     <div nz-row nzGutter="16">
 
-      <div nz-col class="gutter-row" nzSpan="12">
+      <div nz-col class="gutter-row" nzSpan="12" *ngFor="let item of list">
         <div class="gutter-box">
-          <img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">
+          <img class="box-img" [src]="'http://192.168.0.104:6662/ys_admin/shoppingGoodsImg/'+item.pic" alt="">
         </div>
-        <p class="gutter-row-text">1234555</p>
-        <span class="gutter-row-span">$80</span>
-        <span class="gutter-row-icon">$</span>
-      </div>
-      <div nz-col class="gutter-row" nzSpan="12">
-        <div class="gutter-box">
-          <img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">
-        </div>
-        <p class="gutter-row-text">1234555</p>
-        <span class="gutter-row-span">$80</span>
-      </div>
-      <div nz-col class="gutter-row" nzSpan="12">
-        <div class="gutter-box">
-          <img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">
-        </div>
-        <p class="gutter-row-text">1234555</p>
-        <span class="gutter-row-span">$80</span>
-      </div>
-      <div nz-col class="gutter-row" nzSpan="12">
-        <div class="gutter-box">
-          <img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">
-        </div>
-        <p class="gutter-row-text">1234555</p>
-        <span class="gutter-row-span">$80</span>
-      </div>
-
-      <div nz-col class="gutter-row" nzSpan="12">
-        <div class="gutter-box">
-          <img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">
-        </div>
-        <p class="gutter-row-text">1234555</p>
-        <span class="gutter-row-span">$80</span>
-      </div>
-      <div nz-col class="gutter-row" nzSpan="12">
-        <div class="gutter-box">
-          <img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">
-        </div>
-        <p class="gutter-row-text">1234555</p>
-        <span class="gutter-row-span">$80</span>
-      </div>
-      <div nz-col class="gutter-row" nzSpan="12">
-        <div class="gutter-box">
-          <img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">
-        </div>
-        <p class="gutter-row-text">1234555</p>
-        <span class="gutter-row-span">$80</span>
-      </div>
-      <div nz-col class="gutter-row" nzSpan="12">
-        <div class="gutter-box">
-          <img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">
-        </div>
-        <p class="gutter-row-text">1234555</p>
-        <span class="gutter-row-span">$80</span>
-      </div>
-      <!--footer-->
-      <div nz-col class="gutter-row" nzSpan="12">
-        <div class="gutter-boxs"></div>
-      </div>
-      <div nz-col class="gutter-row" nzSpan="12">
-        <div class="gutter-boxs"></div>
+        <p class="gutter-row-text">{{item.name || '无名字'}}</p>
+        <span class="gutter-row-span">￥{{item.salesPrice}}</span>
+        <span class="gutter-row-icon"><img width="20px" height="20px" src="../../../../assets/icon/addCar.png" alt=""></span>
       </div>
     </div>
+    <div style="width: 100%;height: 50px"></div>
   </div>
 </div>

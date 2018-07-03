@@ -6,6 +6,7 @@ import {ShopCarComponent} from './shop-car.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
+import {ShopCarService} from "./shop-car-service";
 @NgModule({
   imports: [
     CommonModule,
@@ -13,7 +14,7 @@ import {AppProperties} from '../../../app.properties';
     // ElModule,
     ShopCarRoutingModule
   ],
-  providers: [AppService, AppProperties],
+  providers: [AppService, AppProperties, {provide: 'shopCarList', useClass: ShopCarService}],
   declarations: [ShopCarComponent]
 })
 export class ShopCarModule { }

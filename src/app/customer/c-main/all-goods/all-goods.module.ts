@@ -6,6 +6,7 @@ import {AllGoodsComponent} from './all-goods.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
+import {AllGoodsService} from "./all-goods-service";
 @NgModule({
   imports: [
     CommonModule,
@@ -13,7 +14,7 @@ import {AppProperties} from '../../../app.properties';
     // ElModule,
     AllGoodsRoutingModule
   ],
-  providers: [AppService, AppProperties],
+  providers: [AppService, AppProperties, {provide: 'showAllGoods', useClass: AllGoodsService}],
   declarations: [AllGoodsComponent]
 })
 export class AllGoodsModule { }
