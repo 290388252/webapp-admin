@@ -19,6 +19,10 @@
   background: rgba(244, 244, 244, 1);
   text-align: center;
 }
+.full-car{
+  width: 100%;
+  background: rgba(244, 244, 244, 1);
+}
 .gutter-example{
   margin: 16px;
 }
@@ -51,4 +55,13 @@
   width: 50%;
   height: 50%;
   margin-top: 30%;
+}
+.edit{
+  font-size: 20px;
+}
+.edit:active{
+  color: #364d79;
+}
+.ant-avatar{
+  width: 50px!important;
 }

@@ -18,6 +18,8 @@ export class AppProperties {
 
     // Shopping Mall
     public shoppingGoodsUrl: string;
+    public shoppingCarUrl: string;
+    public shopImgUrl: string;
     constructor() {
       // Public
       this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
@@ -35,5 +37,7 @@ export class AppProperties {
 
       // Shopping Mall
       this.shoppingGoodsUrl = this.appUrl + '/shoppingGoods/list';
+      this.shoppingCarUrl = this.appUrl + '/shoppingCar/listPage';
+      this.shopImgUrl = this.appUrl + '/shoppingGoodsImg/';
     }
 }

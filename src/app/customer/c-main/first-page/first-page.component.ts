@@ -17,8 +17,9 @@ export class FirstPageComponent implements OnInit {
     'http://119.23.233.123:6662/ys_admin/files/0.png'
   ];
   public list;
-  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA1OTM3NjV9.hSXgewV6P2RODNoP2DdeeR83b4kHjzafOzoUlg63ITvhuCUuzqT3fTfFdS14qfABzdMDgDdzJ4xj4EyUrQewnA';
-  constructor( @Inject('firstPage') private firstPageService) { }
+  public imgUrl = this.appProperties.shopImgUrl;
+  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2MDk3MTh9.4158QMQyIJpzdZzKLf6cJqWXPhZiYE8cGqJbsTI_vS8qBoC70pjSbsAoTJ4rODTNLDdN7Fd2RsZXEqHi54uRWQ';
+  constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties) { }
 
   ngOnInit() {
     this.list = this.firstPageService.showGoods(this.token);

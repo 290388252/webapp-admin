@@ -9,7 +9,7 @@
 
       <div nz-col class="gutter-row" nzSpan="12" *ngFor="let item of list">
         <div class="gutter-box">
-          <img class="box-img" [src]="'http://192.168.0.104:6662/ys_admin/shoppingGoodsImg/'+item.pic" alt="">
+          <img class="box-img" [src]="imgUrl+item.pic" alt="">
         </div>
         <p class="gutter-row-text">{{item.name || '无名字'}}</p>
         <span class="gutter-row-span">￥{{item.salesPrice}}</span>
