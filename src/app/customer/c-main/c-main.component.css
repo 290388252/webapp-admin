@@ -3,6 +3,8 @@
   height:21px;
   margin-bottom: 3px;
   transition: all 0.4s;
+  -webkit-filter: grayscale(1);/* Webkit */
+  filter: grayscale(1);/* W3C */
 }
 .icon-img-second{
   width:24px;
@@ -10,6 +12,8 @@
   /*padding-bottom: 1px;*/
   /*margin-bottom: 1px;*/
   transition: all 0.4s;
+  -webkit-filter: grayscale(1);/* Webkit */
+  filter: grayscale(1);/* W3C */
 }
 .icon-img-last{
   width:19px;
@@ -17,6 +21,8 @@
   padding-top: 1px;
   margin-bottom: 5px;
   transition: all 0.4s;
+  -webkit-filter: grayscale(1);/* Webkit */
+  filter: grayscale(1);/* W3C */
 }
 .footer{
   position: fixed;
@@ -41,6 +47,8 @@
 }
 .icon-active{
   transform: scale(1.4);
+  -webkit-filter: grayscale(0);/* Webkit */
+  filter: grayscale(0);/* W3C */
 }
 .active {
   color: #1890ff;
