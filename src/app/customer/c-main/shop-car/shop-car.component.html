@@ -8,7 +8,7 @@
       <img src="{{imgUrl+item.pic}}" class="img">
       <div style="float: left">
         <h4 class="span-text">{{item.itemName}}</h4>
-        <h4 class="span-text">￥{{item.price}}</h4>
+        <h4 class="span-text">￥{{item.price * item.num}}</h4>
       </div>
       <div style="float: right;margin-top: 7%;margin-right: 2%;">
         <a class="edit" (click)="add(item)">+</a>
@@ -28,7 +28,7 @@
         </div>
         <p class="gutter-row-text">{{item.name || '无名字'}}</p>
         <span class="gutter-row-span">￥{{item.salesPrice}}</span>
-        <span class="gutter-row-icon"><img width="20px" height="20px" src="../../../../assets/icon/addCar.png" alt=""></span>
+        <span class="gutter-row-icon"><img (click)="addCar(item)" width="20px" height="20px" src="../../../../assets/icon/addCar.png" alt=""></span>
       </div>
     </div>
     <div style="width: 100%;height: 105px"></div>

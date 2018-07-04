@@ -23,4 +23,19 @@ export class ShopCarService {
     );
     return goodsList;
   }
+  addCar(item, token) {
+    this.appService.postAliData(this.appProperties.shoppingAddUrl, {
+      itemId: item.id,
+      num: 1,
+      itemName: item.name
+    }, token).subscribe(
+      data => {
+        console.log(data);
+        alert(data.message);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }

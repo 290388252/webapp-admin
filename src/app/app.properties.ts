@@ -19,6 +19,8 @@ export class AppProperties {
     // Shopping Mall
     public shoppingGoodsUrl: string;
     public shoppingCarUrl: string;
+    public shoppingAddUrl: string;
+    public shoppingUpdateUrl: string;
     public shopImgUrl: string;
     constructor() {
       // Public
@@ -37,7 +39,9 @@ export class AppProperties {
 
       // Shopping Mall
       this.shoppingGoodsUrl = this.appUrl + '/shoppingGoods/list';
-      this.shoppingCarUrl = this.appUrl + '/shoppingCar/listPage';
+      this.shoppingCarUrl = this.appUrl + '/shoppingCar/appListPage';
       this.shopImgUrl = this.appUrl + '/shoppingGoodsImg/';
+      this.shoppingAddUrl = this.appUrl + '/shoppingCar/add';
+      this.shoppingUpdateUrl = this.appUrl + '/shoppingCar/update';
     }
 }

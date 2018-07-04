@@ -101,6 +101,7 @@
   line-height: 22px;
   float: right;
   margin-top: 8px;
+  margin-right: 5px;
 }
 @keyframes wrapper-gradient {
   0% {
