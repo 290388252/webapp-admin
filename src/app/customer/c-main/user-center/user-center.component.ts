@@ -24,7 +24,7 @@ export class UserCenterComponent implements OnInit {
   }
   detail(flag) {
     if (flag === 1) {
-      // this.router.navigate(['cMain/newAddress']);
+      this.router.navigate(['cMain/myOrder']);
     } else if (flag === 2) {
       this.router.navigate(['cMain/coupon']);
     } else if (flag === 3) {

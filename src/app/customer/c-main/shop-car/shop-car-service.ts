@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {urlParse} from '../../../utils/util';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {Router} from '@angular/router';
 
 @Injectable()
-export class ShopCarService {
+export class ShopCarService implements OnInit {
   constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) {}
+  ngOnInit(): void {
+  }
   showGoods(token) {
     const goodsList = [];
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, '', token).subscribe(
@@ -22,20 +24,5 @@ export class ShopCarService {
       }
     );
     return goodsList;
-  }
-  addCar(item, token) {
-    this.appService.postAliData(this.appProperties.shoppingAddUrl, {
-      itemId: item.id,
-      num: 1,
-      itemName: item.name
-    }, token).subscribe(
-      data => {
-        console.log(data);
-        alert(data.message);
-      },
-      error => {
-        console.log(error);
-      }
-    );
   }
 }

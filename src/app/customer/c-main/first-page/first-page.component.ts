@@ -18,7 +18,7 @@ export class FirstPageComponent implements OnInit {
   ];
   public list;
   public imgUrl = this.appProperties.shopImgUrl;
-  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2NzY4NzZ9.m2B-ryVZhqwOEqC-9fm42M00oLvF_BaXxHlWw56ZdDiwoKZ2TmLxymF_bb8Wj448y5XrDKBYA1K9CGd7Nh6PKg';
+  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2OTU0MDZ9.ZqlidKJd5XbEEbPVVFbu2HfG1_etZzr5jRISx5-LtU9n6HK5z73Lo-x_O3mKM0dA_yGVrM9iOdkQlAF5YsxCyg';
   constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties) { }
 
   ngOnInit() {

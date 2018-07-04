@@ -8,7 +8,7 @@
       <img src="{{imgUrl+item.pic}}" class="img">
       <div style="float: left">
         <h4 class="span-text">{{item.itemName}}</h4>
-        <h4 class="span-text">￥{{item.price * item.num}}</h4>
+        <h4 class="span-text" style="color: red">￥{{item.price * item.num}}</h4>
       </div>
       <div style="float: right;margin-top: 7%;margin-right: 2%;">
         <a class="edit" (click)="add(item)">+</a>
@@ -36,6 +36,6 @@
   <div class="confirm" [hidden]="empty">
     <span style="float: left;margin-left: 20px;margin-top: 20px">已选({{data.length}})</span>
     <button class="finish" nz-button nzType="primary">下单</button>
-    <span style="float: right;margin-top: 20px;margin-right: 5px">￥{{totalPrice}}</span>
+    <span style="float: right;margin-top: 20px;margin-right: 5px;color: red">￥{{totalPrice}}</span>
   </div>
 </div>

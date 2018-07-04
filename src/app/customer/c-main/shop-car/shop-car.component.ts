@@ -3,6 +3,7 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
+import {nextTick} from "q";
 
 @Component({
   selector: 'app-user-detail',
@@ -21,7 +22,7 @@ export class ShopCarComponent implements OnInit {
   public empty: boolean;
   public list;
   public imgUrl = this.appProperties.shopImgUrl;
-  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2NzY4NzZ9.m2B-ryVZhqwOEqC-9fm42M00oLvF_BaXxHlWw56ZdDiwoKZ2TmLxymF_bb8Wj448y5XrDKBYA1K9CGd7Nh6PKg';
+  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2OTU0MDZ9.ZqlidKJd5XbEEbPVVFbu2HfG1_etZzr5jRISx5-LtU9n6HK5z73Lo-x_O3mKM0dA_yGVrM9iOdkQlAF5YsxCyg';
   constructor( @Inject('shopCarList') private shopCarService, private appService: AppService, private appProperties: AppProperties) { }
 
   ngOnInit() {
@@ -31,12 +32,12 @@ export class ShopCarComponent implements OnInit {
   }
   add(item) {
     item.num ++;
-    this.update(item, this.token);
+    this.update(item);
     console.log(item);
   }
   delete(item) {
     item.num --;
-    this.update(item, this.token);
+    this.update(item);
     // if (item.num < 1) {
     //   this.totalPrice = 0;
     //   this.remove(item);
@@ -51,8 +52,20 @@ export class ShopCarComponent implements OnInit {
   }
   addCar(item) {
     console.log(item);
-    this.shopCarService.addCar(item, this.token);
-    this.showShopCarList();
+    this.appService.postAliData(this.appProperties.shoppingAddUrl, {
+      itemId: item.id,
+      num: 1,
+      itemName: item.name
+    }, this.token).subscribe(
+      data => {
+        console.log(data);
+        alert(data.message);
+        this.showShopCarList();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   // --------------------------------------------------------移除数组元素
   remove(item) {
@@ -70,17 +83,15 @@ export class ShopCarComponent implements OnInit {
     return -1;
   }
   // --------------------------------------------------------移除数组元素
-  update(item, token) {
+  update(item) {
     this.appService.postAliData(this.appProperties.shoppingUpdateUrl, {
       id: item.id,
       itemId: item.itemId,
       num: item.num,
       itemName: item.itemName
-    }, token).subscribe(
+    }, this.token).subscribe(
       data => {
         console.log(data);
-        alert(data.message);
-        this.totalPrice = 0;
         this.showShopCarList();
       },
       error => {
@@ -92,6 +103,7 @@ export class ShopCarComponent implements OnInit {
     this.appService.postAliData(this.appProperties.shoppingCarUrl, '', this.token).subscribe(
       data => {
         console.log(data);
+        this.totalPrice = 0;
         this.data = data.returnObject;
         this.data.forEach(item => {
           this.totalPrice += item.price * item.num;
