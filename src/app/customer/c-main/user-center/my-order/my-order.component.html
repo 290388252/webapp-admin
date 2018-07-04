@@ -1,0 +1,136 @@
+<div class="user-container">
+  <ul class="menu-top" nz-menu [nzMode]="'horizontal'">
+    <li (click)="sort(1)" class="menu-li" nz-menu-item [nzSelected]="true">全部</li>
+    <li (click)="sort(2)" class="menu-li" nz-menu-item>未支付</li>
+    <li (click)="sort(3)" class="menu-li" nz-menu-item>已支付</li>
+  </ul>
+  <div [hidden]="all" class="order-layout">
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+<!--footer-->
+    <div class="item">
+    </div>
+  </div>
+  <div [hidden]="noOrder" class="order-layout">
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+    <!--footer-->
+    <div class="item">
+    </div>
+  </div>
+  <div [hidden]="order" class="order-layout">
+    <div class="items">
+      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+      <div style="float: left;margin-top: 20px;margin-left: 20px">
+        <h4 class="span-text">123</h4>
+        <h4 class="span-text" style="color: red">￥500</h4>
+      </div>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+    </div>
+    <!--footer-->
+    <div class="item">
+    </div>
+  </div>
+</div>
