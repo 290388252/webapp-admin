@@ -3,7 +3,6 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
-import {nextTick} from "q";
 
 @Component({
   selector: 'app-user-detail',
@@ -23,7 +22,10 @@ export class ShopCarComponent implements OnInit {
   public list;
   public imgUrl = this.appProperties.shopImgUrl;
   public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2OTU0MDZ9.ZqlidKJd5XbEEbPVVFbu2HfG1_etZzr5jRISx5-LtU9n6HK5z73Lo-x_O3mKM0dA_yGVrM9iOdkQlAF5YsxCyg';
-  constructor( @Inject('shopCarList') private shopCarService, private appService: AppService, private appProperties: AppProperties) { }
+  constructor( @Inject('shopCarList') private shopCarService,
+               private appService: AppService,
+               private appProperties: AppProperties,
+               private router: Router) { }
 
   ngOnInit() {
     this.list = this.shopCarService.showGoods(this.token);
@@ -66,6 +68,10 @@ export class ShopCarComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  pay(totalPrice) {
+    console.log(totalPrice);
+    this.router.navigate(['cMain/pay']);
   }
   // --------------------------------------------------------移除数组元素
   remove(item) {
