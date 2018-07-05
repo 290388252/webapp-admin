@@ -21,13 +21,14 @@ export class ShopCarComponent implements OnInit {
   public empty: boolean;
   public list;
   public imgUrl = this.appProperties.shopImgUrl;
-  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2OTU0MDZ9.ZqlidKJd5XbEEbPVVFbu2HfG1_etZzr5jRISx5-LtU9n6HK5z73Lo-x_O3mKM0dA_yGVrM9iOdkQlAF5YsxCyg';
+  public token;
   constructor( @Inject('shopCarList') private shopCarService,
                private appService: AppService,
                private appProperties: AppProperties,
                private router: Router) { }
 
   ngOnInit() {
+    this.token = getToken();
     this.list = this.shopCarService.showGoods(this.token);
     this.showShopCarList();
     console.log(this.list);

@@ -10,12 +10,10 @@ export class CLoginService {
   loginWithCredentials(username: string, code: string) {
     console.log(username);
     if (username !== undefined && code !== undefined) {
-      this.appService.getData(this.appProperties.adminLoginUrl,
+      this.appService.postData(this.appProperties.shopingLogin,
         {
           phone: username,
           smsCode: code,
-          payType: 1,
-          // payType: urlParse(window.location.search)['payType'],
           openId: urlParse(window.location.search)['openId']
         }).subscribe(
         data => {
@@ -29,7 +27,7 @@ export class CLoginService {
               if (data.msg !== 'success') {
                 alert(data.msg);
               }
-              this.router.navigate(['main/userDetail'], {
+              this.router.navigate(['cMain/firstPage'], {
                 queryParams: {
                   token: data.data
                 }});

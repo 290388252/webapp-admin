@@ -17,6 +17,7 @@ export class AppProperties {
     public aliMachineQueryTradeDetailUrl: string;
 
     // Shopping Mall
+    public shopingLogin: string;
     public shoppingGoodsUrl: string;
     public shoppingCarUrl: string;
     public shoppingAddUrl: string;
@@ -27,7 +28,8 @@ export class AppProperties {
       this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
       // this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
       this.adminLoginUrl = 'http://47.106.92.82:6662/ys_sms/admin/appLogin';
-      this.smsSendUrl = 'http://47.106.92.82:6662/ys_sms/sms/send';
+      this.smsSendUrl = 'http://192.168.0.123:8769/ys-sms/sms/send';
+      // this.smsSendUrl = 'http://47.106.92.82:6662/ys_sms/sms/send';
       this.mainInfoUrl = this.appUrl + '/home/initInfo';
       this.salesUrl = this.appUrl + '/home/payRecord';
       this.replenishUrl = this.appUrl + '/home/replenish';
@@ -38,6 +40,7 @@ export class AppProperties {
       this.aliMachineQueryTradeDetailUrl = this.appUrl + '/aliMachine/queryTradeDetail';
 
       // Shopping Mall
+      this.shopingLogin = 'http://192.168.0.123:8769/ys-sms' + '/admin/shopRegister';
       this.shoppingGoodsUrl = this.appUrl + '/shoppingGoods/list';
       this.shoppingCarUrl = this.appUrl + '/shoppingCar/appListPage';
       this.shopImgUrl = this.appUrl + '/shoppingGoodsImg/';

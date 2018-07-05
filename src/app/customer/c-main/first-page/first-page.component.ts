@@ -18,11 +18,18 @@ export class FirstPageComponent implements OnInit {
   ];
   public list;
   public imgUrl = this.appProperties.shopImgUrl;
-  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2OTU0MDZ9.ZqlidKJd5XbEEbPVVFbu2HfG1_etZzr5jRISx5-LtU9n6HK5z73Lo-x_O3mKM0dA_yGVrM9iOdkQlAF5YsxCyg';
+  public token;
   constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties) { }
 
   ngOnInit() {
-    this.list = this.firstPageService.showGoods(this.token);
+    if (urlParse(window.location.search)['token'] !== undefined
+      && urlParse(window.location.search)['token'] !== '') {
+      const exp = new Date();
+      exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 30);
+      document.cookie = 'adminToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
+    }
+    console.log(urlParse(window.location.search)['token']);
+    this.list = this.firstPageService.showGoods(getToken());
     console.log(this.list);
   }
 }
