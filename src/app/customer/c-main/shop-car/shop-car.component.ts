@@ -10,12 +10,6 @@ import {Router} from '@angular/router';
   styleUrls: ['./shop-car.component.css']
 })
 export class ShopCarComponent implements OnInit {
-  array = [
-    'http://119.23.233.123:6662/ys_admin/files/0.png',
-    'http://119.23.233.123:6662/ys_admin/qrCode/1988000080.png',
-    'http://119.23.233.123:6662/ys_admin/qrCode/1988000081.png',
-    'http://119.23.233.123:6662/ys_admin/files/0.png'
-  ];
   public data = [];
   public totalPrice = 0;
   public empty: boolean;

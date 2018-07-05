@@ -6,7 +6,7 @@
   background: rgba(82,94,113,.05);
   /*background: url("../../../../assets/main/bs-bg.jpg");*/
   /*background-size: 150% 100%;*/
-  z-index: 1;
+  /*z-index: 1;*/
 }
 .mask{
   position: absolute;

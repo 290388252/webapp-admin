@@ -10,12 +10,6 @@ import {Router} from '@angular/router';
   styleUrls: ['./user-center.component.css']
 })
 export class UserCenterComponent implements OnInit {
-  array = [
-    'http://119.23.233.123:6662/ys_admin/files/0.png',
-    'http://119.23.233.123:6662/ys_admin/qrCode/1988000080.png',
-    'http://119.23.233.123:6662/ys_admin/qrCode/1988000081.png',
-    'http://119.23.233.123:6662/ys_admin/files/0.png'
-  ];
   constructor( private appProperties: AppProperties,
                private appService: AppService,
                private router: Router) { }
