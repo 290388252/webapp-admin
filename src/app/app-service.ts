@@ -56,7 +56,6 @@ export class AppService {
      }*/
     return this.http.post(url, options, myHttpHead);
   }
-
   // getAliData(url: string, options?: any): Observable<any> {
   //   // 配置请求头
   //   const myHeaders: HttpHeaders = new HttpHeaders({

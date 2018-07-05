@@ -41,6 +41,7 @@ export class AppProperties {
 
       // Shopping Mall
       this.shopingLogin = 'http://192.168.0.123:8769/ys-sms' + '/admin/shopRegister';
+      // this.shopingLogin = 'http://47.106.92.82:6662/ys_sms/admin/shopRegister';
       this.shoppingGoodsUrl = this.appUrl + '/shoppingGoods/list';
       this.shoppingCarUrl = this.appUrl + '/shoppingCar/appListPage';
       this.shopImgUrl = this.appUrl + '/shoppingGoodsImg/';

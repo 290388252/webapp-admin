@@ -35,6 +35,10 @@
 .gutter-row-text{
   margin-left: 5px;
   margin-bottom: 0;
+  width: 99%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .gutter-row-span{
   margin-left: 5px;

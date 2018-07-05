@@ -26,18 +26,21 @@
   </div>
   <div class="detail">
     <span style="float: left;margin-left: 10px"><strong>订单信息</strong></span>
-    <div class="items">
-      <img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">
+    <div class="items" *ngFor="let item of data">
+      <img src="{{imgUrl+item.pic}}" class="img">
       <div style="float: left;margin-top: 20px;margin-left: 20px">
-        <h4 class="span-text">123</h4>
-        <h4 class="span-text" style="color: red">￥500</h4>
+        <h4 class="span-text">{{item.itemName}}</h4>
+        <h4 class="span-text" style="color: red">￥{{item.price}}</h4>
       </div>
-      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>
+      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x{{item.num}}</h4>
     </div>
-  </div>
-  <div class="pay-layout" style="margin-top: 2px">
-    <span style="float: left;margin-left: 10px;margin-top: 5px"><strong>支付金额</strong></span>
-    <span style="float: right;margin-right: 10px;margin-top: 5px">共计1件商品  总计：￥66</span>
+    <div class="pay-layout" style="float: left;margin-top: 2px">
+      <span style="float: left;margin-left: 10px;margin-top: 5px"><strong>支付金额</strong></span>
+      <span style="float: right;margin-right: 10px;margin-top: 5px">共计{{num}}件商品  总计：￥{{totalPrice}}</span>
+    </div>
+    <!--footer-->
+    <div class="footer" style="float: left;margin-top: 2px">
+    </div>
   </div>
 
   <div class="mask">
@@ -47,7 +50,7 @@
     <button (click)="button(1)" class="finish" nz-button nzType="primary">支付</button>
     <button (click)="button(2)" class="cancel ant-button">取消支付</button>
     <div style="float: right">
-      <span><strong>实付金额:</strong><span style="color: red">￥1000</span></span>
+      <span><strong>实付金额:</strong><span style="color: red">￥{{totalPrice}}</span></span>
       <br>
       <span>(免运费)</span>
     </div>
