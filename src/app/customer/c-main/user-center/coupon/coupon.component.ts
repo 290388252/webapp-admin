@@ -14,11 +14,13 @@ export class CouponComponent implements OnInit {
   public unUsed: boolean;
   public unEffective: boolean;
   public effective: boolean;
+  private token;
   constructor( private appProperties: AppProperties,
                private appService: AppService,
                private router: Router) { }
 
   ngOnInit() {
+    this.token = getToken();
     this.unUsed = true;
     if (this.unUsed) {
       this.empty = false;
@@ -27,6 +29,14 @@ export class CouponComponent implements OnInit {
     }
     console.log(this.unUsed);
     console.log(this.empty);
+    this.appService.getAliData(this.appProperties.shopFrontCouponMyListUrl, '', this.token).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   choose(flag) {
     if (flag === 1) {

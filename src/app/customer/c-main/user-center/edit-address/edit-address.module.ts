@@ -6,10 +6,13 @@ import {EditAddressComponent} from './edit-address.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../../app-service';
 import {AppProperties} from '../../../../app.properties';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { WeUiModule, ButtonConfig } from 'ngx-weui';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgZorroAntdModule,
     // ElModule,
     // WeUiModule.forRoot(),

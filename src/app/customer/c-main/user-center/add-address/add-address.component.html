@@ -3,7 +3,7 @@
     <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
       <div class="am-list-label" id="list-label-2">收货人</div>
       <div class="am-list-control">
-        <input id="demo-input-2" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-2">
+        <input id="demo-input-2" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-2" [(ngModel)]="receiver" name="receiver">
       </div>
       <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-2">
         <i class="am-icon-clear am-icon" aria-hidden="true"></i>
@@ -12,26 +12,26 @@
     <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
       <div class="am-list-label" id="list-label-3">手机号码</div>
       <div class="am-list-control">
-        <input id="demo-input-3" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-3">
+        <input id="demo-input-3" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-3" [(ngModel)]="phone" name="phone">
       </div>
       <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-3">
         <i class="am-icon-clear am-icon" aria-hidden="true"></i>
       </div>
     </div>
-    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
-      <div class="am-list-label" id="list-label-4">地区</div>
-      <div class="am-list-control">
-        <input (click)="pick()" id="demo-input-4" type="text" placeholder="点击选择" value=""
-               aria-labelledby="list-label-4">
-      </div>
-      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">
-        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
-      </div>
-    </div>
+    <!--<div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">-->
+      <!--<div class="am-list-label" id="list-label-4">地区</div>-->
+      <!--<div class="am-list-control">-->
+        <!--<input (click)="pick()" id="demo-input-4" type="text" placeholder="点击选择" value=""-->
+               <!--aria-labelledby="list-label-4">-->
+      <!--</div>-->
+      <!--<div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">-->
+        <!--<i class="am-icon-clear am-icon" aria-hidden="true"></i>-->
+      <!--</div>-->
+    <!--</div>-->
     <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
       <div class="am-list-label" id="list-label-5">详细地址</div>
       <div class="am-list-control">
-        <input id="demo-input-5" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-5">
+        <input id="demo-input-5" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-5" [(ngModel)]="name" name="name">
       </div>
       <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">
         <i class="am-icon-clear am-icon" aria-hidden="true"></i>
@@ -61,7 +61,7 @@
     <div class="am-dialog-wrap">
       <div class="am-dialog-body">
         <p>请再次确认</p>
-        <p class="am-dialog-brief">地址99999999999999999999999</p>
+        <p class="am-dialog-brief">地址:{{name}}</p>
       </div>
       <div class="am-dialog-footer">
         <a (click)="cancelContent()" class="am-dialog-button">取消</a>
@@ -186,5 +186,4 @@
       </div>
     </div>
   </div>
-  <span>{{text}}</span>
 </div>

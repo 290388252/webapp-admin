@@ -12,23 +12,27 @@ import {Router} from '@angular/router';
 export class AddAddressComponent implements OnInit {
   public isChoose: boolean;
   public lastConfirm: boolean;
-  public text: string;
+  public text: number;
+  public receiver: string;
+  public name: string;
+  public phone: string;
+  public token: string;
   constructor( private appProperties: AppProperties,
                private appService: AppService,
                private router: Router) { }
 
   ngOnInit() {
+    this.token = getToken();
   }
   onChecked() {
     if (document.getElementsByName('s1').item(0)['checked']) {
-      this.text = '选中啦';
+      this.text = 1;
     } else {
-      this.text = '选中个屁';
+      this.text = 2;
     }
   }
   ok() {
     this.lastConfirm = true;
-    this.text = '填好了';
   }
   pick() {
     this.isChoose = true;
@@ -43,6 +47,22 @@ export class AddAddressComponent implements OnInit {
     this.lastConfirm = false;
   }
   confirmContent() {
-    this.lastConfirm = false;
+    this.appService.postAliData(this.appProperties.shopAddressAddUrl, {
+      receiver: this.receiver,
+      name: this.name,
+      phone: this.phone,
+      defaultFlag: this.text,
+    }, this.token).subscribe(
+      data => {
+        console.log(data);
+        if  (data.status === 1) {
+          this.router.navigate(['cMain/newAddress']);
+        }
+        this.lastConfirm = false;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

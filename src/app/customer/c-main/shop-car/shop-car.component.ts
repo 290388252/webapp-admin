@@ -64,8 +64,7 @@ export class ShopCarComponent implements OnInit {
       }
     );
   }
-  pay(totalPrice) {
-    console.log(totalPrice);
+  pay() {
     this.router.navigate(['cMain/pay']);
   }
   // --------------------------------------------------------移除数组元素

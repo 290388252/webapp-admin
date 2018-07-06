@@ -23,13 +23,19 @@ export class AppProperties {
     public shoppingAddUrl: string;
     public shoppingUpdateUrl: string;
     public shopImgUrl: string;
+    public shopFrontCouponMyListUrl: string;
+    public shopStoreOrderAddUrl: string;
+    public shopStoreUpdateUrl: string;
+    public shopUnifiedStoreOrderUrl: string;
+    public shopAddressSelectUrl: string;
+    public shopAddressUpdateUrl: string;
+    public shopAddressAddUrl: string;
     constructor() {
       // Public
       this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
       // this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
       this.adminLoginUrl = 'http://47.106.92.82:6662/ys_sms/admin/appLogin';
-      this.smsSendUrl = 'http://192.168.0.123:8769/ys-sms/sms/send';
-      // this.smsSendUrl = 'http://47.106.92.82:6662/ys_sms/sms/send';
+      this.smsSendUrl = 'http://47.106.92.82:6662/ys_sms/sms/send';
       this.mainInfoUrl = this.appUrl + '/home/initInfo';
       this.salesUrl = this.appUrl + '/home/payRecord';
       this.replenishUrl = this.appUrl + '/home/replenish';
@@ -40,12 +46,18 @@ export class AppProperties {
       this.aliMachineQueryTradeDetailUrl = this.appUrl + '/aliMachine/queryTradeDetail';
 
       // Shopping Mall
-      this.shopingLogin = 'http://192.168.0.123:8769/ys-sms' + '/admin/shopRegister';
-      // this.shopingLogin = 'http://47.106.92.82:6662/ys_sms/admin/shopRegister';
+      this.shopingLogin = 'http://47.106.92.82:6662/ys_sms/admin/shopRegister';
       this.shoppingGoodsUrl = this.appUrl + '/shoppingGoods/list';
       this.shoppingCarUrl = this.appUrl + '/shoppingCar/appListPage';
       this.shopImgUrl = this.appUrl + '/shoppingGoodsImg/';
       this.shoppingAddUrl = this.appUrl + '/shoppingCar/add';
       this.shoppingUpdateUrl = this.appUrl + '/shoppingCar/update';
+      this.shopStoreOrderAddUrl = this.appUrl + '/order/storeOrderAdd';
+      this.shopStoreUpdateUrl = this.appUrl + '/order/storeOrderUpdate';
+      this.shopUnifiedStoreOrderUrl = this.appUrl + '/order/unifiedStoreOrder ';
+      this.shopAddressSelectUrl = this.appUrl + '/address/select';
+      this.shopAddressUpdateUrl = this.appUrl + '/address/update';
+      this.shopAddressAddUrl = this.appUrl + '/address/add';
+      this.shopFrontCouponMyListUrl = this.appUrl + '/frontCoupon/myList';
     }
 }

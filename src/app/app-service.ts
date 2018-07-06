@@ -56,6 +56,18 @@ export class AppService {
      }*/
     return this.http.post(url, options, myHttpHead);
   }
+  postFormData(url: string, body: any, tokens?: any | null): Observable<any> {
+    const form = new FormData();
+    const myHttpHead = { headers: new HttpHeaders({
+        // 'Content-Type': 'formdata',
+        // 'Content-Type': 'multipart/form-data',
+        'token': tokens
+      })};
+    for (const k in body) {
+      form.append(k, body[k]);
+    }
+    return this.http.post(url, form, myHttpHead);
+  }
   // getAliData(url: string, options?: any): Observable<any> {
   //   // 配置请求头
   //   const myHeaders: HttpHeaders = new HttpHeaders({

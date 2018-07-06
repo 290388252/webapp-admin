@@ -35,7 +35,7 @@
   </div>
   <div class="confirm" [hidden]="empty">
     <span style="float: left;margin-left: 20px;margin-top: 20px">已选({{data.length}})</span>
-    <button (click)="pay(totalPrice)" class="finish" nz-button nzType="primary">下单</button>
+    <button (click)="pay()" class="finish" nz-button nzType="primary">下单</button>
     <span style="float: right;margin-top: 20px;margin-right: 5px;color: red">￥{{totalPrice}}</span>
   </div>
 </div>

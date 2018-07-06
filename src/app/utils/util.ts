@@ -22,7 +22,7 @@ export let getToken = () => {
     const arrCookie = strCookie.split(';');
     for (let i = 0; i < arrCookie.length; i++) {
       const arr = arrCookie[i].split('=');
-      if (arr[0].trim() === 'adminToken') {
+      if (arr[0].trim() === 'shopToken') {
         token = arr[1];
       }
     }

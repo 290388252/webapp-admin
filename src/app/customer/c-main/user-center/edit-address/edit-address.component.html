@@ -3,7 +3,7 @@
     <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
       <div class="am-list-label" id="list-label-2">收货人</div>
       <div class="am-list-control">
-        <input disabled="disabled" id="demo-input-2" type="text" placeholder="一次" value="" aria-labelledby="list-label-2">
+        <input disabled="disabled" id="demo-input-2" type="text" [placeholder]="receiver" value="" aria-labelledby="list-label-2">
       </div>
       <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-2">
         <i class="am-icon-clear am-icon" aria-hidden="true"></i>
@@ -13,27 +13,27 @@
     <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
       <div class="am-list-label" id="list-label-3">手机号码</div>
       <div class="am-list-control">
-        <input disabled="disabled" id="demo-input-3" type="text" placeholder="132456468735" value="" aria-labelledby="list-label-3">
+        <input disabled="disabled" id="demo-input-3" type="text" [placeholder]="phone" value="" aria-labelledby="list-label-3">
       </div>
       <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-3">
         <i class="am-icon-clear am-icon" aria-hidden="true"></i>
       </div>
     </div>
     <hr>
-    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
-      <div class="am-list-label" id="list-label-4">地区</div>
-      <div class="am-list-control">
-        <input disabled="disabled" id="demo-input-4" type="text" placeholder="广州暗示法嘎斯的v" value=""
-               aria-labelledby="list-label-4">
-      </div>
-      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">
-        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
-      </div>
-    </div>
-    <hr>
+    <!--<div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">-->
+      <!--<div class="am-list-label" id="list-label-4">地区</div>-->
+      <!--<div class="am-list-control">-->
+        <!--<input disabled="disabled" id="demo-input-4" type="text" placeholder="广州暗示法嘎斯的v" value=""-->
+               <!--aria-labelledby="list-label-4">-->
+      <!--</div>-->
+      <!--<div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">-->
+        <!--<i class="am-icon-clear am-icon" aria-hidden="true"></i>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<hr>-->
     <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
       <div class="am-list-label" id="list-label-5">详细地址</div>
-      <textarea rows="4" cols="4" style="font-size: 14px;color: #c1c1c1">详细地址111111111111111111111111111111111111111111详细地址详细地址111111111111111111111111111111111111111111详8</textarea>
+      <textarea rows="1" cols="1" style="font-size: 14px;color: #c1c1c1">{{name}}</textarea>
     </div>
     <hr>
     <div class="am-button-wrap">

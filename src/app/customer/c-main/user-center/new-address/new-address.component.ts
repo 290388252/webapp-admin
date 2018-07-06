@@ -11,12 +11,26 @@ import {Router} from '@angular/router';
 })
 export class NewAddressComponent implements OnInit {
   public emptyAddress: boolean;
+  private token;
+  public list = [];
   constructor( private appProperties: AppProperties,
                private appService: AppService,
                private router: Router) { }
 
   ngOnInit() {
-    this.emptyAddress = false;
+    this.token = getToken();
+    this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
+      data => {
+        console.log(data);
+        data.returnObject === null ? this.emptyAddress = true : this.emptyAddress = false;
+        if (!this.emptyAddress) {
+          this.list = data.returnObject;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   addAddress() {
     this.router.navigate(['cMain/addAddress']);
@@ -26,6 +40,10 @@ export class NewAddressComponent implements OnInit {
     } else {
     }
   }
-  ok() {
+  ok(id) {
+    this.router.navigate(['cMain/editAddress'], {
+      queryParams: {
+        id: id
+      }});
   }
 }

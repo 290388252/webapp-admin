@@ -26,7 +26,7 @@ export class FirstPageComponent implements OnInit {
       && urlParse(window.location.search)['token'] !== '') {
       const exp = new Date();
       exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 30);
-      document.cookie = 'adminToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
+      document.cookie = 'shopToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
     }
     console.log(urlParse(window.location.search)['token']);
     this.list = this.firstPageService.showGoods(getToken());
