@@ -30,13 +30,18 @@ export class PayComponent implements OnInit {
 
   ngOnInit() {
     this.token = getToken();
-    this.showShopCarPrice();
     this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
       data => {
         console.log(data);
-        this.name = data.returnObject[0]['name'];
-        this.receiver = data.returnObject[0]['name'];
-        this.phone = data.returnObject[0]['name'];
+        if (data.status === 0) {
+          alert('请先填写地址');
+          this.router.navigate(['cMain/newAddress']);
+        } else {
+          this.name = data.returnObject[0]['name'];
+          this.receiver = data.returnObject[0]['receiver'];
+          this.phone = data.returnObject[0]['phone'];
+          this.showShopCarPrice();
+        }
       },
       error => {
         console.log(error);

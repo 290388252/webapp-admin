@@ -83,6 +83,6 @@ export class CouponComponent implements OnInit {
     );
   }
   useCard() {
-    this.router.navigate(['cMain/shopCar']);
+    this.router.navigate(['cMain/firstPage']);
   }
 }
