@@ -1,8 +1,9 @@
-import {Component, DoCheck, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
+
 declare var wx: any;
 declare var WeixinJSBridge: any;
 
@@ -11,7 +12,7 @@ declare var WeixinJSBridge: any;
   templateUrl: './pay.component.html',
   styleUrls: ['./pay.component.css']
 })
-export class PayComponent implements OnInit, DoCheck{
+export class PayComponent implements OnInit {
   public list;
   public idList = [];
   public imgUrl = this.appProperties.shopImgUrl;
@@ -23,7 +24,9 @@ export class PayComponent implements OnInit, DoCheck{
   public receiver;
   public phone;
   public orderId: number;
-  constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) { }
+
+  constructor(private appService: AppService, private appProperties: AppProperties, private router: Router ) {
+  }
 
   ngOnInit() {
     this.token = getToken();
@@ -40,58 +43,34 @@ export class PayComponent implements OnInit, DoCheck{
       }
     );
   }
-  ngDoCheck(): void {
-    console.log(1);
-  }
+
   button(flag) {
     if (flag === 1) {
-      this.pay();
+      // this.pay(this.orderId);
+      console.log(this.orderId);
     } else if (flag === 2) {
       history.back();
     }
   }
-  pay() {
-    this.appService.postAliData(this.appProperties.shoppingCarUrl, '', this.token).subscribe(
-      data => {
-        console.log(data);
-        this.totalPrice = 0;
-        this.data = data.returnObject;
-        this.data.forEach(item => {
-          this.totalPrice += item.price * item.num;
-          this.num += item.num;
-          this.idList.push(item.id);
-        });
-        this.appService.postAliData(this.appProperties.shopStoreOrderAddUrl, {
-          product: this.idList.join(',')
+
+  pay(orderId) {
+        this.appService.postAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
+          orderId: orderId,
         }, this.token).subscribe(
-          data2 => {
-            console.log(data2);
-            this.appService.postAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
-              orderId: data2.returnObject,
-            }, this.token).subscribe(
-              data4 => {
-                console.log(data4);
-                if (typeof(WeixinJSBridge) === 'undefined') {
-                  this.onBridgeUndefindeReady(data4);
-                } else {
-                  this.onBridgeReady(data4);
-                }
-              },
-              error => {
-                console.log(error);
-              }
-            );
+          data4 => {
+            console.log(data4);
+            if (typeof(WeixinJSBridge) === 'undefined') {
+              this.onBridgeUndefindeReady(data4);
+            } else {
+              this.onBridgeReady(data4);
+            }
           },
-          error2 => {
-            console.log(error2);
+          error => {
+            console.log(error);
           }
         );
-      },
-      error => {
-        console.log(error);
-      }
-    );
   }
+
   onBridgeUndefindeReady(data) {
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', () => {
@@ -106,10 +85,12 @@ export class PayComponent implements OnInit, DoCheck{
       });
     }
   }
+
   // 调用微信支付接口
   onBridgeReady(data) {
     this.test(data);
   }
+
   // 调用微信支付接口测试
   test(data) {
     wx.config({
@@ -148,6 +129,7 @@ export class PayComponent implements OnInit, DoCheck{
       });
     });
   }
+
   showShopCarPrice() {
     this.appService.postAliData(this.appProperties.shoppingCarUrl, '', this.token).subscribe(
       data => {
@@ -166,6 +148,7 @@ export class PayComponent implements OnInit, DoCheck{
         }, this.token).subscribe(
           data2 => {
             console.log(data2);
+            alert(data2.message);
             this.orderId = data2.returnObject;
             this.appService.postAliData(this.appProperties.shopStoreUpdateUrl, {
               product: this.idList.join(','),
