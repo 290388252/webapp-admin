@@ -13,7 +13,7 @@
         </div>
         <p class="gutter-row-text">{{item.name || '无名字'}}</p>
         <span class="gutter-row-span">￥{{item.salesPrice}}</span>
-        <span class="gutter-row-icon"><img width="20px" height="20px" src="../../../../assets/icon/addCar.png" alt=""></span>
+        <span class="gutter-row-icon"><img (click)="addCar(item)" width="20px" height="20px" src="../../../../assets/icon/addCar.png" alt=""></span>
       </div>
 
       <!--<div nz-col class="gutter-row" nzSpan="12">-->

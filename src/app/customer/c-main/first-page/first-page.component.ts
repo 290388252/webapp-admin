@@ -19,7 +19,7 @@ export class FirstPageComponent implements OnInit {
   public list;
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
-  constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties) { }
+  constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties, private appService: AppService) { }
 
   ngOnInit() {
     if (urlParse(window.location.search)['token'] !== undefined
@@ -31,5 +31,20 @@ export class FirstPageComponent implements OnInit {
     console.log(urlParse(window.location.search)['token']);
     this.list = this.firstPageService.showGoods(getToken());
     console.log(this.list);
+  }
+  addCar(item) {
+    this.appService.postAliData(this.appProperties.shoppingAddUrl, {
+      itemId: item.id,
+      num: 1,
+      itemName: item.name
+    }, this.token).subscribe(
+      data => {
+        console.log(data);
+        alert(data.message);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

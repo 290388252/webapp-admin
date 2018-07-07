@@ -63,31 +63,7 @@
   margin-bottom: 5px;
   line-height: 20px;
   border-radius: 10px;
-  background-color: rgb(172, 19, 27);
-  text-align: center;
-  border: 1px solid rgba(187, 187, 187, 1);
-}
-.card-unusess{
-  color: white;
-  width: 90%;
-  height: 107px;
-  margin-left: 5%;
-  margin-bottom: 5px;
-  line-height: 20px;
-  border-radius: 10px;
   background-color: rgb(32, 172, 36);
-  text-align: center;
-  border: 1px solid rgba(187, 187, 187, 1);
-}
-.card-unusesss{
-  color: white;
-  width: 90%;
-  height: 107px;
-  margin-left: 5%;
-  margin-bottom: 5px;
-  line-height: 20px;
-  border-radius: 10px;
-  background-color: rgb(172, 169, 28);
   text-align: center;
   border: 1px solid rgba(187, 187, 187, 1);
 }
