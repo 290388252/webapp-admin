@@ -28,16 +28,20 @@ export class FirstPageComponent implements OnInit {
       exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 30);
       document.cookie = 'shopToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
     }
-    console.log(urlParse(window.location.search)['token']);
     this.list = this.firstPageService.showGoods(getToken());
-    console.log(this.list);
   }
-  addCar(item) {
+  addFirstCar(item) {
+    console.log(this.list);
+    console.log({
+      itemId: item.id,
+      num: 1,
+      itemName: item.name
+    });
     this.appService.postAliData(this.appProperties.shoppingAddUrl, {
       itemId: item.id,
       num: 1,
       itemName: item.name
-    }, this.token).subscribe(
+    }, getToken()).subscribe(
       data => {
         console.log(data);
         alert(data.message);

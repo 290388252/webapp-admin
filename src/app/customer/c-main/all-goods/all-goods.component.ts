@@ -3,7 +3,6 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
-import {AllGoodsService} from "./all-goods-service";
 
 @Component({
   selector: 'app-user-detail',
