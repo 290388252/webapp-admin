@@ -83,4 +83,7 @@ export class SalesRecordComponent implements OnInit {
     this.isVisible = false;
     this.isConfirmLoadingSails = false;
   }
+  toDate(date) {
+    return new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate();
+  }
 }

@@ -149,27 +149,16 @@ export class PayComponent implements OnInit {
         console.log(this.data);
         console.log(this.totalPrice);
         this.appService.postAliData(this.appProperties.shopStoreOrderAddUrl, {
-          product: this.idList.join(',')
+          product: this.idList.join(','),
+          location: this.name,
+          distributionModel: 1,
+          coupon: 1,
+          payType: 1
         }, this.token).subscribe(
           data2 => {
             console.log(data2);
             alert(data2.message);
             this.orderId = data2.returnObject;
-            this.appService.postAliData(this.appProperties.shopStoreUpdateUrl, {
-              product: this.idList.join(','),
-              location: this.name,
-              distributionModel: 1,
-              coupon: 1,
-              payType: 1,
-              orderId: this.orderId
-            }, this.token).subscribe(
-              data3 => {
-                console.log(data3);
-              },
-              error3 => {
-                console.log(error3);
-              }
-            );
           },
           error2 => {
             console.log(error2);
