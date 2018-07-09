@@ -19,7 +19,8 @@ export class FirstPageComponent implements OnInit {
   public list;
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
-  constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties, private appService: AppService) { }
+  constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties,
+               private appService: AppService, private router: Router) { }
 
   ngOnInit() {
     if (urlParse(window.location.search)['token'] !== undefined
@@ -50,5 +51,11 @@ export class FirstPageComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  goTo(id) {
+    this.router.navigate(['cMain/detail'], {
+      queryParams: {
+        id: id
+      }});
   }
 }

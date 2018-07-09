@@ -24,9 +24,9 @@ export class CouponComponent implements OnInit {
 
   ngOnInit() {
     this.token = getToken();
-    this.unUsed = true;
-    this.unUsed ? this.empty = false : this.empty = true;
-    this.coupon(1);
+    this.unEffective = true;
+    this.unEffective ? this.empty = false : this.empty = true;
+    this.coupon(2);
   }
   choose(flag) {
     if (flag === 1) {
@@ -84,5 +84,8 @@ export class CouponComponent implements OnInit {
   }
   useCard() {
     this.router.navigate(['cMain/firstPage']);
+  }
+  toDate(date) {
+    return new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate();
   }
 }

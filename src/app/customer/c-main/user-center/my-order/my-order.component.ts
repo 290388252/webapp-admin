@@ -11,15 +11,16 @@ import {Router} from '@angular/router';
 })
 export class MyOrderComponent implements OnInit {
   public list;
+  public noPayList;
+  public payList;
   public imgUrl = this.appProperties.shopImgUrl;
   public all: boolean;
   public noOrder: boolean;
   public order: boolean;
-  public token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1MzA2OTU0MDZ9.ZqlidKJd5XbEEbPVVFbu2HfG1_etZzr5jRISx5-LtU9n6HK5z73Lo-x_O3mKM0dA_yGVrM9iOdkQlAF5YsxCyg';
-  constructor(private appProperties: AppProperties) { }
+  constructor(private appService: AppService, private appProperties: AppProperties) { }
 
   ngOnInit() {
-    console.log(this.list);
+    this.orderList(0);
     this.all = false;
     this.noOrder = true;
     this.order = true;
@@ -29,14 +30,46 @@ export class MyOrderComponent implements OnInit {
       this.all = false;
       this.noOrder = true;
       this.order = true;
+      this.orderList(0);
     } else if (flag === 2) {
       this.all = true;
       this.noOrder = false;
       this.order = true;
+      this.orderList(1);
     } else if (flag === 3) {
       this.all = true;
       this.noOrder = true;
       this.order = false;
+      this.orderList(2);
     }
+  }
+  orderList(type) {
+    this.appService.postAliData(this.appProperties.shopStoreOrderFindUrl, {findType: type} , getToken()).subscribe(
+      data => {
+        console.log(data);
+        if (type === 0) {
+          this.list = data.returnObject;
+        } else if (type === 1) {
+          this.noPayList = data.returnObject;
+        } else if (type === 2) {
+          this.payList = data.returnObject;
+        }
+      },
+      error2 => {
+        console.log(error2);
+      }
+    );
+  }
+  toText(state) {
+    let text;
+    if (state === 10001) {
+      text = '未支付';
+    } else if (state === 10002) {
+      text = '已支付';
+    }
+    return text;
+  }
+  pay(item) {
+    console.log(item);
   }
 }

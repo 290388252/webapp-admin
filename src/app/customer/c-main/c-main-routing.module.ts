@@ -9,6 +9,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'firstPage'},
       { path: 'firstPage', loadChildren: './first-page/first-page.module#FirstPageModule' },
+      { path: 'detail', loadChildren: './detail/detail.module#DetailModule' },
       { path: 'allGoods', loadChildren: './all-goods/all-goods.module#AllGoodsModule' },
       { path: 'shopCar', loadChildren: './shop-car/shop-car.module#ShopCarModule' },
       { path: 'pay', loadChildren: './pay/pay.module#PayModule' },

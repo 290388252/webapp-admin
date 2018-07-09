@@ -1,35 +1,35 @@
 <div class="user-container">
   <ul class="menu-top" nz-menu [nzMode]="'horizontal'">
-    <li (click)="choose(1)" class="menu-li" nz-menu-item [nzSelected]="true">未领取</li>
-    <li (click)="choose(2)" class="menu-li" nz-menu-item>未使用</li>
+    <!--<li (click)="choose(1)" class="menu-li" nz-menu-item >未领取</li>-->
+    <li (click)="choose(2)" class="menu-li" nz-menu-item [nzSelected]="true">未使用</li>
     <li (click)="choose(3)" class="menu-li" nz-menu-item>已使用</li>
   </ul>
   <div *ngIf="empty" class="none">
     <img style="width: 35%;margin-bottom: 5px"  src="../../../../../assets/icon/wrong.png" alt="">
     <h4>空空如也~</h4>
   </div>
-  <div *ngIf="unUsed" class="layout">
-    <div class="card-unuses" *ngFor="let item of couponList">
-      <div style="float: left;margin-top: 20px">
-        <h2 style="color: white">￥{{item.deductionMoney}}</h2>
-        <span style="font-size: 12px;margin-left: 10px;">{{text(item)}}</span>
-      </div>
-      <div style="float: left;margin-left:5px;margin-top: 5px">
-        <span style="float: left">{{item.useWhereLabel}}</span>
-        <br>
-        <span style="float: left;font-size: 12px">限{{item.startTime}}-{{item.endTime}}使用</span>
-        <br>
-        <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>
-      </div>
-      <br>
-      <div class="line"></div>
-      <span (click)="pickCard(item)" class="use">立即领取</span>
-    </div>
+  <!--<div *ngIf="unUsed" class="layout">-->
+    <!--<div class="card-unuses" *ngFor="let item of couponList">-->
+      <!--<div style="float: left;margin-top: 20px">-->
+        <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
+        <!--<span style="font-size: 12px;margin-left: 10px;">{{text(item)}}</span>-->
+      <!--</div>-->
+      <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
+        <!--<span style="float: left">{{item.useWhereLabel}}</span>-->
+        <!--<br>-->
+        <!--<span style="float: left;font-size: 12px">限{{item.startTime}}-{{item.endTime}}使用</span>-->
+        <!--<br>-->
+        <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
+      <!--</div>-->
+      <!--<br>-->
+      <!--<div class="line"></div>-->
+      <!--<span (click)="pickCard(item)" class="use">立即领取</span>-->
+    <!--</div>-->
 
-    <div class="footer">
-      已经到底~
-    </div>
-  </div>
+    <!--<div class="footer">-->
+      <!--已经到底~-->
+    <!--</div>-->
+  <!--</div>-->
   <div *ngIf="unEffective" class="layout">
     <div class="card" *ngFor="let item of couponEffectiveList">
       <div style="float: left;margin-top: 20px">
@@ -39,7 +39,7 @@
       <div style="float: left;margin-left:5px;margin-top: 5px">
         <span style="float: left">{{item.useWhereLabel}}</span>
         <br>
-        <span style="float: left;font-size: 12px">限{{item.startTime}}-{{item.endTime}}使用</span>
+        <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
         <br>
         <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>
       </div>
@@ -52,38 +52,54 @@
     </div>
   </div>
   <div *ngIf="effective" class="layout">
-    <div class="card-unuse">
+    <div class="card" *ngFor="let item of couponEffectiveList">
       <div style="float: left;margin-top: 20px">
-        <h2 style="color: white">￥10</h2>
-        <span style="font-size: 12px;margin-left: 10px">满10元使用</span>
+        <h2 style="color: white">￥{{item.deductionMoney}}</h2>
+        <span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>
       </div>
       <div style="float: left;margin-left:5px;margin-top: 5px">
-        <span style="float: left">10元套餐抵扣券</span>
+        <span style="float: left">{{item.useWhereLabel}}</span>
         <br>
-        <span style="float: left;font-size: 12px">限2018.06.15-2018.06.25 使用</span>
+        <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
         <br>
         <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>
       </div>
       <br>
       <div class="line"></div>
-      <span class="use">已经使用过了~</span>
+      <span class="use">用过了~</span>
     </div>
-    <div class="card-unuse">
-      <div style="float: left;margin-top: 20px">
-        <h2 style="color: white">￥10</h2>
-        <span style="font-size: 12px;margin-left: 10px">满10元使用</span>
-      </div>
-      <div style="float: left;margin-left:5px;margin-top: 5px">
-        <span style="float: left">10元套餐抵扣券</span>
-        <br>
-        <span style="float: left;font-size: 12px">限2018.06.15-2018.06.25 使用</span>
-        <br>
-        <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>
-      </div>
-      <br>
-      <div class="line"></div>
-      <span class="use">已经使用过了~</span>
-    </div>
+    <!--<div class="card-unuse">-->
+      <!--<div style="float: left;margin-top: 20px">-->
+        <!--<h2 style="color: white">￥10</h2>-->
+        <!--<span style="font-size: 12px;margin-left: 10px">满10元使用</span>-->
+      <!--</div>-->
+      <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
+        <!--<span style="float: left">10元套餐抵扣券</span>-->
+        <!--<br>-->
+        <!--<span style="float: left;font-size: 12px">限2018.06.15-2018.06.25 使用</span>-->
+        <!--<br>-->
+        <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
+      <!--</div>-->
+      <!--<br>-->
+      <!--<div class="line"></div>-->
+      <!--<span class="use">已经使用过了~</span>-->
+    <!--</div>-->
+    <!--<div class="card-unuse">-->
+      <!--<div style="float: left;margin-top: 20px">-->
+        <!--<h2 style="color: white">￥10</h2>-->
+        <!--<span style="font-size: 12px;margin-left: 10px">满10元使用</span>-->
+      <!--</div>-->
+      <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
+        <!--<span style="float: left">10元套餐抵扣券</span>-->
+        <!--<br>-->
+        <!--<span style="float: left;font-size: 12px">限2018.06.15-2018.06.25 使用</span>-->
+        <!--<br>-->
+        <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
+      <!--</div>-->
+      <!--<br>-->
+      <!--<div class="line"></div>-->
+      <!--<span class="use">已经使用过了~</span>-->
+    <!--</div>-->
     <div class="footer">
       已经到底~
     </div>

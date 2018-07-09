@@ -26,6 +26,7 @@ export class AppProperties {
     public shopFrontCouponMyListUrl: string;
     public shopFrontCouponAddCouponToCustomerUrl: string;
     public shopStoreOrderAddUrl: string;
+    public shopStoreOrderFindUrl: string;
     // public shopStoreUpdateUrl: string;
     public shopUnifiedStoreOrderUrl: string;
     public shopAddressSelectUrl: string;
@@ -54,6 +55,7 @@ export class AppProperties {
       this.shoppingAddUrl = this.appUrl + '/shoppingCar/add';
       this.shoppingUpdateUrl = this.appUrl + '/shoppingCar/update';
       this.shopStoreOrderAddUrl = this.appUrl + '/order/storeOrderAdd';
+      this.shopStoreOrderFindUrl = this.appUrl + '/order/storeOrderFind';
       // this.shopStoreUpdateUrl = this.appUrl + '/order/storeOrderUpdate';
       this.shopUnifiedStoreOrderUrl = this.appUrl + '/order/unifiedStoreOrder ';
       this.shopAddressSelectUrl = this.appUrl + '/address/select';

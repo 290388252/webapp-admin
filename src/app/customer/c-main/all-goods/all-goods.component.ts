@@ -11,8 +11,10 @@ import {Router} from '@angular/router';
 })
 export class AllGoodsComponent implements OnInit {
   public list;
+  public couponList = [];
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
+  public unUsed;
   constructor(@Inject('showAllGoods') private allGoodsService, private appProperties: AppProperties, private appService: AppService) { }
 
   ngOnInit() {
@@ -23,12 +25,19 @@ export class AllGoodsComponent implements OnInit {
   sort(flag) {
     if (flag === 1) {
       this.list = this.allGoodsService.showAllGoods(this.token, '');
+      this.unUsed = false;
     } else if (flag === 2) {
       this.list = this.allGoodsService.showAllGoods(this.token, '');
+      this.unUsed = false;
     } else if (flag === 3) {
       this.list = this.allGoodsService.showAllGoods(this.token, {newProduct: 1});
+      this.unUsed = false;
     } else if (flag === 4) {
       this.list = this.allGoodsService.showAllGoods(this.token, {price: 1});
+      this.unUsed = false;
+    } else if (flag === 5) {
+      this.unUsed = true;
+      this.coupon();
     }
   }
   addCar(item) {
@@ -45,5 +54,33 @@ export class AllGoodsComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  coupon() {
+    this.appService.getAliData(this.appProperties.shopFrontCouponMyListUrl, {state: 1}, this.token).subscribe(
+      data => {
+        console.log(data);
+          this.couponList = data.returnObject;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  text(item) {
+    return item.money === 0 ? '固定减扣券' : '满' + item.money + '元使用';
+  }
+  pickCard(item) {
+    this.appService.postAliData(this.appProperties.shopFrontCouponAddCouponToCustomerUrl + '?couponId=' + item.id, '', this.token).subscribe(
+      data => {
+        console.log(data);
+        this.coupon();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  toDate(date) {
+    return new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate();
   }
 }

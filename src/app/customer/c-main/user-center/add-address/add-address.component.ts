@@ -56,7 +56,7 @@ export class AddAddressComponent implements OnInit {
       data => {
         console.log(data);
         if  (data.status === 1) {
-          this.router.navigate(['cMain/newAddress']);
+          this.router.navigate(['cMain/shopCar']);
         }
         this.lastConfirm = false;
       },
