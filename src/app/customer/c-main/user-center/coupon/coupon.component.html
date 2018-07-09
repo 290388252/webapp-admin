@@ -52,7 +52,7 @@
     </div>
   </div>
   <div *ngIf="effective" class="layout">
-    <div class="card" *ngFor="let item of couponEffectiveList">
+    <div class="card" *ngFor="let item of couponUnEffectiveList">
       <div style="float: left;margin-top: 20px">
         <h2 style="color: white">￥{{item.deductionMoney}}</h2>
         <span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>

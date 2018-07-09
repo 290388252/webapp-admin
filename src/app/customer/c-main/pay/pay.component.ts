@@ -158,7 +158,11 @@ export class PayComponent implements OnInit {
           data2 => {
             console.log(data2);
             alert(data2.message);
-            this.orderId = data2.returnObject;
+            if (data.status === 0) {
+              this.router.navigate(['cMain/shopCar']);
+            } else {
+              this.orderId = data2.returnObject;
+            }
           },
           error2 => {
             console.log(error2);

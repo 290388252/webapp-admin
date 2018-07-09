@@ -117,4 +117,7 @@ export class ShopCarComponent implements OnInit {
       }
     );
   }
+  toFixed(num) {
+    return Math.round(num * 100) / 100;
+  }
 }
