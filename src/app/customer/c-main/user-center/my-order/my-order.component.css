@@ -84,7 +84,7 @@
 .weui-form-preview__ft {
   position: relative;
   line-height: 30px;
-  border-top-style: ridge;
+  /*border-top-style: ridge;*/
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;

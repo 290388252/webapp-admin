@@ -57,7 +57,7 @@ export class AppProperties {
       this.shopStoreOrderAddUrl = this.appUrl + '/order/storeOrderAdd';
       this.shopStoreOrderFindUrl = this.appUrl + '/order/storeOrderFind';
       // this.shopStoreUpdateUrl = this.appUrl + '/order/storeOrderUpdate';
-      this.shopUnifiedStoreOrderUrl = this.appUrl + '/order/unifiedStoreOrder ';
+      this.shopUnifiedStoreOrderUrl = this.appUrl + '/order/storeOrderPay';
       this.shopAddressSelectUrl = this.appUrl + '/address/select';
       this.shopAddressUpdateUrl = this.appUrl + '/address/update';
       this.shopAddressAddUrl = this.appUrl + '/address/add';
