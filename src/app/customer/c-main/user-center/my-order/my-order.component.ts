@@ -63,9 +63,9 @@ export class MyOrderComponent implements OnInit {
   toText(state) {
     let text;
     if (state === 10001) {
-      text = '未支付';
-    } else if (state === 10002) {
       text = '已支付';
+    } else if (state === 10002) {
+      text = '未支付';
     }
     return text;
   }

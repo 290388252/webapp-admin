@@ -1,8 +1,8 @@
 <div class="user-container">
   <ul class="menu-top" nz-menu [nzMode]="'horizontal'">
     <li (click)="sort(1)" class="menu-li" nz-menu-item [nzSelected]="true">全部</li>
-    <li (click)="sort(2)" class="menu-li" nz-menu-item>未支付</li>
-    <li (click)="sort(3)" class="menu-li" nz-menu-item>已支付</li>
+    <li (click)="sort(2)" class="menu-li" nz-menu-item>已支付</li>
+    <li (click)="sort(3)" class="menu-li" nz-menu-item>未支付</li>
   </ul>
   <div [hidden]="all" class="order-layout">
     <!--<div class="items" *ngFor="let item of list">-->
@@ -91,7 +91,7 @@
       </div>
       <div class="weui-form-preview__ft">
         <div></div>
-        <a class="weui-btn weui-btn_primary" href="javascript:" (click)="pay(item)">支付</a>
+        <!--<a class="weui-btn weui-btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
         <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
       </div>
       <div style="margin-top: 10px;width: 100%"></div>
@@ -141,9 +141,9 @@
         <!--<a (click)="detail(item.ptCode)" href="javascript:;" class="weui-btn weui-btn_primary">详情</a>-->
         <!--</div>-->
       </div>
-      <div class="weui-form-preview__ft" [hidden]="item.state !== '10002'">
+      <div class="weui-form-preview__ft">
         <div></div>
-        <!--<a class="weui-btn weui-btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
+        <a class="weui-btn weui-btn_primary" href="javascript:" (click)="pay(item)">支付</a>
         <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
       </div>
       <div style="margin-top: 10px;width: 100%"></div>

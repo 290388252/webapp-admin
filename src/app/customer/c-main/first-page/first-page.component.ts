@@ -55,7 +55,8 @@ export class FirstPageComponent implements OnInit {
   goTo(id) {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
-        id: id
+        id: id,
+        type: 1
       }});
   }
 }

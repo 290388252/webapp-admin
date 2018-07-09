@@ -9,7 +9,7 @@
   <div class="gutter-example" *ngIf="!unUsed">
     <div nz-row nzGutter="16">
 
-      <div nz-col class="gutter-row" nzSpan="12" *ngFor="let item of list">
+      <div (click)="goTo(item.id)" nz-col class="gutter-row" nzSpan="12" *ngFor="let item of list">
         <div class="gutter-box">
           <img class="box-img" [src]="imgUrl+item.pic" alt="">
         </div>

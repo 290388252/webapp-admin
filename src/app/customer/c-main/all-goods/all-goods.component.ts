@@ -15,7 +15,8 @@ export class AllGoodsComponent implements OnInit {
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
   public unUsed;
-  constructor(@Inject('showAllGoods') private allGoodsService, private appProperties: AppProperties, private appService: AppService) { }
+  constructor(@Inject('showAllGoods') private allGoodsService, private appProperties: AppProperties,
+              private appService: AppService, private router: Router) { }
 
   ngOnInit() {
     this.token = getToken();
@@ -82,5 +83,12 @@ export class AllGoodsComponent implements OnInit {
   }
   toDate(date) {
     return new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate();
+  }
+  goTo(id) {
+    this.router.navigate(['cMain/detail'], {
+      queryParams: {
+        id: id,
+        type: 2
+      }});
   }
 }

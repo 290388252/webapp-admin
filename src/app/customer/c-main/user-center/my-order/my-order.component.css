@@ -88,6 +88,7 @@
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
+  padding-top: 5px;
 }
 .weui-form-preview__item {
   overflow: hidden;

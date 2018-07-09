@@ -65,6 +65,10 @@ export class DetailComponent implements OnInit {
     );
   }
   goTo() {
-    this.router.navigate(['cMain/firstPage']);
+    if (urlParse(window.location.href)['type'] === '1') {
+      this.router.navigate(['cMain/firstPage']);
+    } else if (urlParse(window.location.href)['type'] === '2') {
+      this.router.navigate(['cMain/allGoods']);
+    }
   }
 }
