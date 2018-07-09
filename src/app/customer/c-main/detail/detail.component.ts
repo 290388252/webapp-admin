@@ -17,6 +17,7 @@ export class DetailComponent implements OnInit {
     '../../../../assets/main/raw_1529043422.png'
   ];
   public id;
+  public name;
   public goodsList = [];
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
@@ -24,6 +25,7 @@ export class DetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = urlParse(window.location.href)['id'];
+    this.name = urlParse(window.location.href)['name'];
     this.showGoods();
   }
   showGoods() {
@@ -44,26 +46,6 @@ export class DetailComponent implements OnInit {
       }
     );
   }
-  addFirstCar(item) {
-    console.log({
-      itemId: item.id,
-      num: 1,
-      itemName: item.name
-    });
-    this.appService.postAliData(this.appProperties.shoppingAddUrl, {
-      itemId: item.id,
-      num: 1,
-      itemName: item.name
-    }, getToken()).subscribe(
-      data => {
-        console.log(data);
-        alert(data.message);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
   goTo() {
     if (urlParse(window.location.href)['type'] === '1') {
       this.router.navigate(['cMain/firstPage']);
@@ -71,4 +53,22 @@ export class DetailComponent implements OnInit {
       this.router.navigate(['cMain/allGoods']);
     }
   }
+  orderTo() {
+      this.appService.postAliData(this.appProperties.shoppingAddUrl, {
+        itemId: this.id,
+        num: 1,
+        itemName: this.name
+      }, getToken()).subscribe(
+        data => {
+          console.log(data);
+          alert(data.message);
+          if (data.status === 1) {
+            this.router.navigate(['cMain/shopCar']);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
 }

@@ -13,6 +13,10 @@ export class MyOrderComponent implements OnInit {
   public list;
   public noPayList;
   public payList;
+
+  public listTwo;
+  public noPayListTwo;
+  public payListTwo;
   public imgUrl = this.appProperties.shopImgUrl;
   public all: boolean;
   public noOrder: boolean;
@@ -48,11 +52,14 @@ export class MyOrderComponent implements OnInit {
       data => {
         console.log(data);
         if (type === 0) {
-          this.list = data.returnObject;
+          this.list = data.returnObject['storeOrder'];
+          this.listTwo = data.returnObject['machinesOrder'];
         } else if (type === 1) {
-          this.noPayList = data.returnObject;
+          this.noPayList = data.returnObject['storeOrder'];
+          this.noPayListTwo = data.returnObject['machinesOrder'];
         } else if (type === 2) {
-          this.payList = data.returnObject;
+          this.payList = data.returnObject['storeOrder'];
+          this.payListTwo = data.returnObject['machinesOrder'];
         }
       },
       error2 => {

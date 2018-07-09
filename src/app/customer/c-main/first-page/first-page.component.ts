@@ -52,10 +52,11 @@ export class FirstPageComponent implements OnInit {
       }
     );
   }
-  goTo(id) {
+  goTo(id, name) {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
         id: id,
+        name: name,
         type: 1
       }});
   }

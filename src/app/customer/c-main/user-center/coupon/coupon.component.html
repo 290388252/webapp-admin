@@ -31,7 +31,7 @@
     <!--</div>-->
   <!--</div>-->
   <div *ngIf="unEffective" class="layout">
-    <div class="card" *ngFor="let item of couponEffectiveList">
+    <div (click)="useCard()" class="card" *ngFor="let item of couponEffectiveList">
       <div style="float: left;margin-top: 20px">
         <h2 style="color: white">￥{{item.deductionMoney}}</h2>
         <span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>
@@ -45,7 +45,7 @@
       </div>
       <br>
       <div class="line"></div>
-      <span (click)="useCard()" class="use">立即使用</span>
+      <span class="use">立即使用</span>
     </div>
     <div class="footer">
       已经到底~

@@ -84,10 +84,11 @@ export class AllGoodsComponent implements OnInit {
   toDate(date) {
     return new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate();
   }
-  goTo(id) {
+  goTo(id, name) {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
         id: id,
+        name: name,
         type: 2
       }});
   }
