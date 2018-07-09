@@ -1,5 +1,5 @@
 import {AfterContentInit, Component, Inject, OnInit} from '@angular/core';
-import {getToken} from '../../../utils/util';
+import {getAdminToken} from '../../../utils/util';
 import {NzModalService} from 'ng-zorro-antd';
 import {AppProperties} from '../../../app.properties';
 
@@ -31,7 +31,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   ngAfterContentInit(): void {
   }
   ngOnInit() {
-    console.log(getToken());
+    console.log(getAdminToken());
     const initObj = this.replenishmentService.getInitData();
     console.log(initObj);
     if (initObj.homeValuesList.length !== 0) {

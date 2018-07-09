@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {getToken, urlParse} from '../../../utils/util';
+import {getAdminToken, urlParse} from '../../../utils/util';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
@@ -33,13 +33,13 @@ export class SalesRecordComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(getToken());
+    console.log(getAdminToken());
     const returnObj = this.salesRecordService.getSalesInitData();
     this.loading = true;
     this.saleList = returnObj.saleList;
     console.log(returnObj);
     this.loading = false;
-    // this.appService.postAliData(this.appProperties.salesUrl, '', getToken()).subscribe(
+    // this.appService.postAliData(this.appProperties.salesUrl, '', getAdminToken()).subscribe(
     //   data => {
     //     console.log(data);
     //     this.loading = false;
@@ -52,7 +52,7 @@ export class SalesRecordComponent implements OnInit {
   }
   // 搜索查询售货机列表
   onSearch() {
-    this.appService.postAliData(this.appProperties.salesUrl, {payCodeOrName: this.value}, getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.salesUrl, {payCodeOrName: this.value}, getAdminToken()).subscribe(
       data => {
         console.log(data);
         this.loading = false;

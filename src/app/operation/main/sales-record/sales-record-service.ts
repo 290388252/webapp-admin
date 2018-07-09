@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
-import {getToken} from '../../../utils/util';
+import {getAdminToken} from '../../../utils/util';
 
 @Injectable()
 export class SalesRecordService {
@@ -9,7 +9,7 @@ export class SalesRecordService {
   getSalesInitData(): object {
     const saleList = [];
     console.log('start');
-    this.appService.postAliData(this.appProperties.salesUrl, '', getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.salesUrl, '', getAdminToken()).subscribe(
       data => {
         console.log(data);
         data.returnObject.forEach(item => {

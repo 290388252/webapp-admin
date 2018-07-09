@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NzModalService} from 'ng-zorro-antd';
 import {AppProperties} from '../../../app.properties';
 import {AppService} from '../../../app-service';
-import {getToken, urlParse} from '../../../utils/util';
+import {getAdminToken, urlParse} from '../../../utils/util';
 
 @Component({
   selector: 'app-machine-detail',
@@ -32,8 +32,8 @@ export class MachineDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(getToken());
-    this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl, '' , getToken()).subscribe(
+    console.log(getAdminToken());
+    this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl, '' , getAdminToken()).subscribe(
       data => {
         console.log(data);
         if (data.status === 1) {
@@ -52,7 +52,7 @@ export class MachineDetailComponent implements OnInit {
   onSearch(): void {
     console.log(this._value);
     this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl + '?form=' + this._value,
-      '' , getToken()).subscribe(
+      '' , getAdminToken()).subscribe(
       data => {
         console.log(data);
         if (data.status === 1) {
@@ -71,7 +71,7 @@ export class MachineDetailComponent implements OnInit {
     this.isVisible = true;
     this.vmCode = vmCode;
     this.appService.getAliData(this.appProperties.aliMachineQueryDetailUrl,
-      {vmCode: this.vmCode}, getToken()).subscribe(
+      {vmCode: this.vmCode}, getAdminToken()).subscribe(
       data => {
         console.log(data);
         if (data.status === 1) {
@@ -124,7 +124,7 @@ export class MachineDetailComponent implements OnInit {
         vmCode: vmCode,
         startDate: startDate,
         endDate: endDate
-      } , getToken()).subscribe(
+      } , getAdminToken()).subscribe(
       data => {
         console.log(data);
         if (data.status === 1) {

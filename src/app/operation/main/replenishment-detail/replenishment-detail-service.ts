@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {getToken, urlParse} from '../../../utils/util';
+import {getAdminToken, urlParse} from '../../../utils/util';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {Router} from '@angular/router';
@@ -27,7 +27,7 @@ export class ReplenishmentDetailService {
       {value: '1', label: '100%', isLeaf: true}
     ];
     // 获取公司列表数据
-    this.appService.postAliData(this.appProperties.homeInithUrl, '', getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.homeInithUrl, '', getAdminToken()).subscribe(
       data => {
         console.log(data);
         homeList = data.returnObject;
@@ -40,7 +40,7 @@ export class ReplenishmentDetailService {
       }
     );
     // 获取初始列表数据
-    this.appService.postAliData(this.appProperties.replenishUrl, '', getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.replenishUrl, '', getAdminToken()).subscribe(
       data => {
         console.log(data);
         data.returnObject.replenishVMList.forEach(item => {
@@ -59,7 +59,7 @@ export class ReplenishmentDetailService {
   // 查看详情记录
   detailService(vmCode, rate) {
     const tradeDetailList = [];
-    this.appService.postAliData(this.appProperties.replenishUrl, {vmCode: vmCode, rate: rate}, getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.replenishUrl, {vmCode: vmCode, rate: rate}, getAdminToken()).subscribe(
       data => {
         data.returnObject.replenishList.forEach(item => {
           tradeDetailList.push(item);
@@ -77,7 +77,7 @@ export class ReplenishmentDetailService {
     this.appService.postAliData(this.appProperties.replenishUrl, {
       vmCode: vmCode,
       rate: rate,
-      companyId: companyId}, getToken()).subscribe(
+      companyId: companyId}, getAdminToken()).subscribe(
       data => {
         console.log(data);
         // this.loading = false;

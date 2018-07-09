@@ -51,8 +51,8 @@ export class PayComponent implements OnInit {
 
   button(flag) {
     if (flag === 1) {
-      // this.pay(this.orderId);
-      console.log(this.orderId);
+      this.pay(this.orderId);
+      // console.log(this.orderId);
     } else if (flag === 2) {
       history.back();
     }

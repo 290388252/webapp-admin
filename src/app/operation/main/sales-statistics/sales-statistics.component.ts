@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {getToken, urlParse} from '../../../utils/util';
+import {getAdminToken, urlParse} from '../../../utils/util';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
@@ -30,7 +30,7 @@ export class SalesStatisticsComponent implements OnInit {
     // 图表插件调用
     this.myChart = eCharts.init(document.getElementById('main'));
     // 获取公司初始化数据
-    this.appService.postAliData(this.appProperties.homeInithUrl, '', getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.homeInithUrl, '', getAdminToken()).subscribe(
       data => {
         console.log(data);
         this.homeList = data.returnObject;
@@ -43,7 +43,7 @@ export class SalesStatisticsComponent implements OnInit {
       }
     );
     // 获取七天数据
-    this.appService.getAliData(this.appProperties.payBeforeSevenDay, '', getToken()).subscribe(
+    this.appService.getAliData(this.appProperties.payBeforeSevenDay, '', getAdminToken()).subscribe(
       data => {
         console.log(data);
         this.yesterday = data.yesterday;
@@ -79,7 +79,7 @@ export class SalesStatisticsComponent implements OnInit {
   }
   // 搜索查询销售列表
   onSearch() {
-    this.appService.getAliData(this.appProperties.payBeforeSevenDay, '', getToken()).subscribe(
+    this.appService.getAliData(this.appProperties.payBeforeSevenDay, '', getAdminToken()).subscribe(
       data => {
         console.log(data);
         this.yesterday = data.yesterday;

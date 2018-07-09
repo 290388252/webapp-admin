@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
-import {getToken, urlParse} from '../../../utils/util';
+import {getAdminToken, getToken, urlParse} from '../../../utils/util';
 import {Router} from "@angular/router";
 
 @Component({
@@ -28,8 +28,8 @@ export class UserDetailComponent implements OnInit {
       exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 3);
       document.cookie = 'adminToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
     }
-    console.log(getToken());
-    this.appService.postAliData(this.appProperties.mainInfoUrl, '', getToken()).subscribe(
+    console.log(getAdminToken());
+    this.appService.postAliData(this.appProperties.mainInfoUrl, '', getAdminToken()).subscribe(
       data => {
         console.log(data);
         this.machinesNum = data.returnObject.machinesNum;
