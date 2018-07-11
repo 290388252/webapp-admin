@@ -195,7 +195,7 @@ export class PayComponent implements OnInit {
           product: this.idList.join(','),
           location: this.name,
           distributionModel: 1,
-          coupon: 1,
+          coupon: this.couponId,
           payType: 1
         }, this.token).subscribe(
           data2 => {

@@ -32,9 +32,11 @@ export class AppProperties {
     public shopAddressSelectUrl: string;
     public shopAddressUpdateUrl: string;
     public shopAddressAddUrl: string;
+    public shopAddCouponUrl: string;
     constructor() {
       // Public
       this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
+
       // this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
       this.adminLoginUrl = 'http://47.106.92.82:6662/ys_sms/admin/appLogin';
       this.smsSendUrl = 'http://47.106.92.82:6662/ys_sms/sms/send';
@@ -63,5 +65,6 @@ export class AppProperties {
       this.shopAddressAddUrl = this.appUrl + '/address/add';
       this.shopFrontCouponMyListUrl = this.appUrl + '/frontCoupon/myList';
       this.shopFrontCouponAddCouponToCustomerUrl = this.appUrl + '/frontCoupon/addCouponToCustomer';
+      this.shopAddCouponUrl = this.appUrl + '/order/customerCoupon';
     }
 }

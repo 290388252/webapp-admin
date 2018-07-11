@@ -28,7 +28,7 @@ export class DetailComponent implements OnInit {
     this.id = urlParse(window.location.href)['id'];
     this.name = urlParse(window.location.href)['name'];
     this.showGoods();
-    this.curId = 1;
+    this.curId = 3;
   }
   showGoods() {
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, '', getToken()).subscribe(
