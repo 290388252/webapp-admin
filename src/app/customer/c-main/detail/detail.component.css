@@ -29,7 +29,6 @@ h3 {
   height: 4px!important;
 }
 .gutter-example{
-  margin: 16px;
 }
 .gutter-box{
   margin-bottom: 5px;
@@ -70,4 +69,28 @@ h3 {
   height: 40px;
   position: fixed;
   bottom: 59px;
+  background: white;
+}
+.content{
+  background: white;
+  height: 500px;
+}
+.span-btn{
+  border-top: 1px solid #d9d9d9;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+.span-btn:last-child{
+  border-top: 1px solid #d9d9d9;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-right: 0 solid grey;
+}
+.active{
+  background: gray;
+  color: white;
 }

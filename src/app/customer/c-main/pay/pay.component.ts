@@ -15,6 +15,7 @@ declare var WeixinJSBridge: any;
 export class PayComponent implements OnInit {
   public list;
   public idList = [];
+  public couponList = [];
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
   public totalPrice;
@@ -24,6 +25,9 @@ export class PayComponent implements OnInit {
   public receiver;
   public phone;
   public orderId: number;
+  public isCoupon = false;
+  public couponId;
+  public couponLength;
 
   constructor(private appService: AppService, private appProperties: AppProperties, private router: Router ) {
   }
@@ -41,6 +45,7 @@ export class PayComponent implements OnInit {
           this.receiver = data.returnObject[0]['receiver'];
           this.phone = data.returnObject[0]['phone'];
           this.showShopCarPrice();
+          this.couponSum();
         }
       },
       error => {
@@ -48,7 +53,44 @@ export class PayComponent implements OnInit {
       }
     );
   }
+  couponSum() {
+    console.log(this.idList);
+    this.appService.postAliData(this.appProperties.shopAddCouponUrl, this.idList, this.token).subscribe(
+      data => {
+        console.log(data);
+        if (data.status === 0) {
+          this.router.navigate(['cMain/newAddress']);
+        } else if (data.status === 1) {
+          this.couponList = data.returnObject;
+          if (this.couponList !== null) {
+            this.couponLength = this.couponList.length;
+          } else {
+            this.couponLength = 0;
+          }
+          console.log('length');
+          console.log(this.couponLength);
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  selectCoupon(): void {
+    this.isCoupon = true;
+  }
+  choiceCoupon(couponId) {
+    this.couponId = couponId;
+  }
+  CouponCancel(): void {
+    console.log('Button ok clicked!');
+    this.isCoupon = false;
+  }
 
+  CouponOk(): void {
+    console.log('ok');
+    this.isCoupon = false;
+  }
   button(flag) {
     if (flag === 1) {
       this.pay(this.orderId);
@@ -169,6 +211,7 @@ export class PayComponent implements OnInit {
             console.log(error2);
           }
         );
+        this.couponSum();
       },
       error => {
         console.log(error);

@@ -21,12 +21,14 @@ export class DetailComponent implements OnInit {
   public goodsList = [];
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
+  public curId: number;
   constructor( private appProperties: AppProperties, private appService: AppService, private router: Router) { }
 
   ngOnInit() {
     this.id = urlParse(window.location.href)['id'];
     this.name = urlParse(window.location.href)['name'];
     this.showGoods();
+    this.curId = 1;
   }
   showGoods() {
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, '', getToken()).subscribe(
@@ -37,7 +39,7 @@ export class DetailComponent implements OnInit {
           if (item.id === Number.parseInt(this.id)) {
             console.log(item.details);
             const d = document.getElementById('desk');
-            d.innerHTML = d.innerHTML + item.details;
+            // d.innerHTML = d.innerHTML + item.details;
           }
         });
       },
@@ -45,6 +47,9 @@ export class DetailComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  selected(flag) {
+    this.curId = flag;
   }
   goTo() {
     if (urlParse(window.location.href)['type'] === '1') {

@@ -16,14 +16,31 @@
       <span>微信支付</span>
     </div>
   </div>
-  <div class="top">
+  <div class="top" (click)="selectCoupon()">
     <span style="float: left;margin-left: 10px"><strong>优惠券</strong></span>
     <br>
     <div style="float: left;margin-left: 10px;margin-top: 10px">
       <img style="width: 30px;height: 30px;" src="../../../../assets/icon/coupon.png" alt="">
-      <span>可用优惠券0张</span>
+      <span>可用优惠券{{couponLength}}张</span>
     </div>
   </div>
+  <nz-modal [(nzVisible)]="isCoupon" nzTitle="请选择优惠券" (nzOnCancel)="CouponCancel()" (nzOnOk)="CouponOk()" style="color: #6c757d">
+    <div *ngFor="let item of couponList" style="width: 346px;height: 56px;border-radius: 5px;border: 1px solid #CCCCCC;margin-bottom: 4px;display: flex">
+      <div style="flex-direction: column">
+        <div style="width: 260px;margin: 2px 0;margin-left: 14px;height: 24px;">
+          <h3 style="line-height: 24px;">{{item.name}}</h3>
+        </div>
+        <div style="width: 260px;margin: 2px 0;margin-left: 14px;height: 24px;text-align: right;">
+          <h3 style="line-height: 24px;">优惠:{{item.deductionMoney}}</h3>
+        </div>
+      </div>
+      <div style="flex-direction: column">
+        <div style="width: 64px;height: 100%;text-align: center;line-height: 64px;">
+          <input type="radio" (click)="choiceCoupon(item.id)" name="coupon" value="option1" aria-label="..." style="width: 18px;height: 18px;">
+        </div>
+      </div>
+    </div>
+  </nz-modal>
   <div class="detail">
     <span style="float: left;margin-left: 10px"><strong>订单信息</strong></span>
     <div class="items" *ngFor="let item of data">
