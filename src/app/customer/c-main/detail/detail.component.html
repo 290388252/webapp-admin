@@ -1,15 +1,15 @@
 <div class="user-container">
   <div class="container">
     <nz-carousel [nzEffect]="'fade'" nzAutoPlay>
-      <div nz-carousel-content *ngFor="let index of array"><img style="width: 100%;height: 100%" [src]="index" alt=""></div>
+      <div nz-carousel-content *ngFor="let index of imgList"><img style="width: 100%;height: 100%" [src]="imgUrl+index" alt=""></div>
     </nz-carousel>
     <div style="width: 100%;height: 70px">
-      <span style="float: left">【套装优惠】农夫山泉5L弱碱性矿泉水纯净水天然水</span>
+      <span style="float: left">【套装优惠】{{goodsObj['name']}}</span>
       <br>
-      <span style="float: left;margin-left: 5px">已售4127件</span>
+      <span style="float: left;margin-left: 5px">已售{{goodsObj['salesQuantity']}}件</span>
       <br>
-      <span style="float: left;margin-left: 5px;color: red">￥66.6</span>
-      <span style="float: right;margin-right: 5px">8391人已买</span>
+      <span style="float: left;margin-left: 5px;color: red">￥{{goodsObj['salesPrice']}}</span>
+      <span style="float: right;margin-right: 5px">{{goodsObj['purchaseTime']}}人已买</span>
     </div>
   </div>
   <div class="gutter-example">

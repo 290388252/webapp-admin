@@ -19,6 +19,7 @@ export class AppProperties {
     // Shopping Mall
     public shopingLogin: string;
     public shoppingGoodsUrl: string;
+    public shoppingGoodsDetailUrl: string;
     public shoppingCarUrl: string;
     public shoppingAddUrl: string;
     public shoppingUpdateUrl: string;
@@ -52,6 +53,7 @@ export class AppProperties {
       // Shopping Mall
       this.shopingLogin = 'http://47.106.92.82:6662/ys_sms/admin/shopRegister';
       this.shoppingGoodsUrl = this.appUrl + '/shoppingGoods/list';
+      this.shoppingGoodsDetailUrl = this.appUrl + '/shoppingGoods/productDetails';
       this.shoppingCarUrl = this.appUrl + '/shoppingCar/appListPage';
       this.shopImgUrl = this.appUrl + '/shoppingGoodsImg/';
       this.shoppingAddUrl = this.appUrl + '/shoppingCar/add';

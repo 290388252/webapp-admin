@@ -18,8 +18,10 @@ export class DetailComponent implements OnInit {
   ];
   public id;
   public name;
+  public goodsObj = {};
   public goodsList = [];
   public imgUrl = this.appProperties.shopImgUrl;
+  public imgList = [];
   public token;
   public curId: number;
   constructor( private appProperties: AppProperties, private appService: AppService, private router: Router) { }
@@ -31,17 +33,11 @@ export class DetailComponent implements OnInit {
     this.curId = 3;
   }
   showGoods() {
-    this.appService.postAliData(this.appProperties.shoppingGoodsUrl, '', getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {id: 34}, getToken()).subscribe(
       data => {
         console.log(data);
-        this.goodsList = data.returnObject;
-        data.returnObject.forEach(item => {
-          if (item.id === Number.parseInt(this.id)) {
-            console.log(item.details);
-            const d = document.getElementById('desk');
-            // d.innerHTML = d.innerHTML + item.details;
-          }
-        });
+        this.imgList = data.returnObject.pic.split(',');
+        this.goodsObj = data.returnObject;
       },
       error => {
         console.log(error);
