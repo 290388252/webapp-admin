@@ -19,7 +19,6 @@ export class DetailComponent implements OnInit {
   public id;
   public name;
   public goodsObj = {};
-  public goodsList = [];
   public imgUrl = this.appProperties.shopImgUrl;
   public imgList = [];
   public token;
@@ -33,7 +32,7 @@ export class DetailComponent implements OnInit {
     this.curId = 3;
   }
   showGoods() {
-    this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {id: 34}, getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {id: this.id}, getToken()).subscribe(
       data => {
         console.log(data);
         this.imgList = data.returnObject.pic.split(',');
@@ -46,6 +45,10 @@ export class DetailComponent implements OnInit {
   }
   selected(flag) {
     this.curId = flag;
+    if (flag === 1) {
+      const d = document.getElementById('desk');
+      d.innerHTML = this.goodsObj['details'];
+    }
   }
   goTo() {
     if (urlParse(window.location.href)['type'] === '1') {

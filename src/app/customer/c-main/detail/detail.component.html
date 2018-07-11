@@ -13,13 +13,14 @@
     </div>
   </div>
   <div class="gutter-example">
-    <div id="desk" class="content">
+    <div class="content">
       <div nz-row style="height: 50px;">
         <div (click)="selected(1)" [ngClass]="(curId === 1) ?'active':''" class="span-btn" nz-col nzSpan="8">图文详情</div>
         <div (click)="selected(2)" [ngClass]="(curId === 2) ?'active':''" class="span-btn" nz-col nzSpan="8">商品参数</div>
         <div (click)="selected(3)" [ngClass]="(curId === 3) ?'active':''" class="span-btn" nz-col nzSpan="8">购买须知</div>
       </div>
-      <div></div>
+      <div [hidden]="curId !== 1" id="desk"></div>
+      <!--<div *ngIf="curId === 1" id="desk" style="width: 100%;height: auto"></div>-->
       <div *ngIf="curId === 3">
         <p>1、正品保障 </p>
         <p style="text-indent:2em;">  售卖的所有产品均通过正规品牌商或供货商渠道采购，确保正品。产品均有中国人寿财产保险股份有限公司承担产品质量保证保险，请您放心购买。</p>
