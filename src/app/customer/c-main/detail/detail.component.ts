@@ -3,6 +3,7 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
+import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
   selector: 'app-user-detail',
@@ -48,6 +49,12 @@ export class DetailComponent implements OnInit {
     if (flag === 1) {
       const d = document.getElementById('desk');
       d.innerHTML = this.goodsObj['details'];
+    } else if (flag === 2) {
+      const d = document.getElementById('desks');
+      d.innerHTML = this.goodsObj['commodityParameters'];
+    } else if (flag === 3) {
+      const d = document.getElementById('deskss');
+      d.innerHTML = this.goodsObj['purchaseNotes'];
     }
   }
   goTo() {
@@ -58,21 +65,21 @@ export class DetailComponent implements OnInit {
     }
   }
   orderTo() {
-      this.appService.postAliData(this.appProperties.shoppingAddUrl, {
-        itemId: this.id,
-        num: 1,
-        itemName: this.name
-      }, getToken()).subscribe(
-        data => {
-          console.log(data);
-          alert(data.message);
-          if (data.status === 1) {
-            this.router.navigate(['cMain/shopCar']);
-          }
-        },
-        error => {
-          console.log(error);
+    this.appService.postAliData(this.appProperties.shoppingAddUrl, {
+      itemId: this.id,
+      num: 1,
+      itemName: this.name
+    }, getToken()).subscribe(
+      data => {
+        console.log(data);
+        alert(data.message);
+        if (data.status === 1) {
+          this.router.navigate(['cMain/shopCar']);
         }
-      );
-    }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }

@@ -59,13 +59,12 @@ export class PayComponent implements OnInit {
       data => {
         console.log(data);
         if (data.status === 0) {
-          this.router.navigate(['cMain/newAddress']);
+          this.couponLength = 0;
         } else if (data.status === 1) {
           this.couponList = data.returnObject;
+          this.couponId = undefined;
           if (this.couponList !== null) {
             this.couponLength = this.couponList.length;
-          } else {
-            this.couponLength = 0;
           }
           console.log('length');
           console.log(this.couponLength);
@@ -77,9 +76,12 @@ export class PayComponent implements OnInit {
     );
   }
   selectCoupon(): void {
-    this.isCoupon = true;
+    if (this.couponLength !== 0) {
+      this.isCoupon = true;
+    }
   }
   choiceCoupon(couponId) {
+
     this.couponId = couponId;
   }
   CouponCancel(): void {
