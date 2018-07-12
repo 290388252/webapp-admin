@@ -20,21 +20,21 @@ export class AllGoodsComponent implements OnInit {
 
   ngOnInit() {
     this.token = getToken();
-    this.list = this.allGoodsService.showAllGoods(this.token, '');
+    this.list = this.allGoodsService.showAllGoods(this.token, {type: 3});
     console.log(this.list);
   }
   sort(flag) {
     if (flag === 1) {
-      this.list = this.allGoodsService.showAllGoods(this.token, '');
+      this.list = this.allGoodsService.showAllGoods(this.token, {type: 3});
       this.unUsed = false;
     } else if (flag === 2) {
-      this.list = this.allGoodsService.showAllGoods(this.token, '');
+      this.list = this.allGoodsService.showAllGoods(this.token, {type: 3});
       this.unUsed = false;
     } else if (flag === 3) {
-      this.list = this.allGoodsService.showAllGoods(this.token, {newProduct: 1});
+      this.list = this.allGoodsService.showAllGoods(this.token, {newProduct: 1, type: 3});
       this.unUsed = false;
     } else if (flag === 4) {
-      this.list = this.allGoodsService.showAllGoods(this.token, {price: 1});
+      this.list = this.allGoodsService.showAllGoods(this.token, {price: 1, type: 3});
       this.unUsed = false;
     } else if (flag === 5) {
       this.unUsed = true;

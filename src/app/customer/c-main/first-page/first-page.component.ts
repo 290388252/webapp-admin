@@ -19,6 +19,7 @@ export class FirstPageComponent implements OnInit {
   public list;
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
+  public imgList = [];
   constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties,
                private appService: AppService, private router: Router) { }
 
@@ -29,7 +30,27 @@ export class FirstPageComponent implements OnInit {
       exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 30);
       document.cookie = 'shopToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
     }
-    this.list = this.firstPageService.showGoods(getToken());
+    this.showGoods(getToken());
+    this.list = this.firstPageService.showGoods(getToken(), 1);
+  }
+  showGoods(token) {
+    const goodsList = [];
+    this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {type: 2}, token).subscribe(
+      data => {
+        console.log(data);
+        const list = [];
+        // this.goodsList = data.returnObject;
+        data.returnObject.forEach(item => {
+          list.push(item.pic.split(','));
+        });
+        this.imgList = list.join(',').split(',');
+        console.log(this.imgList);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    return goodsList;
   }
   addFirstCar(item) {
     console.log(this.list);

@@ -11,7 +11,7 @@ export class ShopCarService implements OnInit {
   }
   showGoods(token) {
     const goodsList = [];
-    this.appService.postAliData(this.appProperties.shoppingGoodsUrl, '', token).subscribe(
+    this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {type: 1}, token).subscribe(
       data => {
         console.log(data);
         // this.goodsList = data.returnObject;

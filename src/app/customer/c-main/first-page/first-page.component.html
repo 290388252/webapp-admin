@@ -1,7 +1,7 @@
 <div class="user-container">
   <div class="container">
     <nz-carousel [nzEffect]="'fade'" nzAutoPlay>
-      <div nz-carousel-content *ngFor="let index of array"><img style="width: 100%;height: 100%" [src]="index" alt=""></div>
+      <div nz-carousel-content *ngFor="let index of imgList"><img style="width: 100%;height: 100%" [src]="imgUrl+index" alt=""></div>
     </nz-carousel>
   </div>
   <div class="gutter-example">

@@ -7,9 +7,9 @@ import {Router} from '@angular/router';
 @Injectable()
 export class FirstPageService {
   constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) {}
-  showGoods(token) {
+  showGoods(token, type) {
     const goodsList = [];
-    this.appService.postAliData(this.appProperties.shoppingGoodsUrl, '', token).subscribe(
+    this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {type: type}, token).subscribe(
       data => {
         console.log(data);
         // this.goodsList = data.returnObject;
