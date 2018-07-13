@@ -105,6 +105,7 @@ export class PayComponent implements OnInit {
   pay(orderId) {
         this.appService.postAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
           orderId: orderId,
+          url: 'http://webapp.youshuidaojia.com/cMain/pay'
         }, this.token).subscribe(
           data4 => {
             console.log(data4);
