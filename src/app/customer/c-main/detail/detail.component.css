@@ -15,9 +15,9 @@
 }
 [nz-carousel-content] {
   text-align: center;
-  height: 200px;
+  /*height: 200px;
   line-height: 200px;
-  background: #364d79;
+  background: #364d79;*/
   color: #fff;
   overflow: hidden;
 }
@@ -28,25 +28,36 @@ h3 {
   width: 4px!important;
   height: 4px!important;
 }
-.gutter-example{
-  /**/
+.gutter-example,.goods-detail{
+  margin: 10px;
 }
-.gutter-box{
-  margin-bottom: 5px;
-  height: 210px;
+.gutter-detialNav{
+  border-top: 1px solid #797979;
+  border-bottom: 1px solid #797979;
+  width:100%;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
-  line-height: 20px;
-  border-radius: 2px;
-  background-color: rgba(244, 244, 244, 1);
-  border: 1px solid rgba(244, 244, 244, 1);
+}
+.gutter-detialNav>li{
+  width: 33.33333%;
+  float: left;
+  border-right: 1px solid #797979;
+}
+.gutter-detialNav>li:last-child{
+  border-right: none;
+}
+.nav-active{
+  background: #797979;
+  color: #FFFFFF;
 }
 .gutter-row-text{
   margin-left: 5px;
   margin-bottom: 0;
   width: 99%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  /*overflow: hidden;
+  text-overflow:;
+  white-space: normal;*/
 }
 .gutter-row-span{
   margin-left: 5px;
@@ -57,41 +68,10 @@ h3 {
   margin-right: 5px;
   float: right;
 }
-.gutter-boxs{
-  height: 50px;
-}
-.box-img{
-  width: 50%;
-  height: 50%;
-  margin-top: 45px;
-}
 .finish{
   width: 100%;
   height: 40px;
   position: fixed;
   bottom: 59px;
-  background: white;
-}
-.content{
-  background: white;
-  height: 500px;
-}
-.span-btn{
-  border-top: 1px solid #d9d9d9;
-  text-align: center;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-right: 1px solid grey;
-  border-bottom: 1px solid grey;
-}
-.span-btn:last-child{
-  border-top: 1px solid #d9d9d9;
-  text-align: center;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-right: 0 solid grey;
-}
-.active{
-  background: gray;
-  color: white;
+  background: #FFFFFF;
 }

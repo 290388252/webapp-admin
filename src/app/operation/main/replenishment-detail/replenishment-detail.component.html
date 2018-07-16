@@ -10,7 +10,7 @@
       <nz-cascader
         style="width: 49%"
         [nzOptions]="nzOptions"
-        [nzPlaceHolder]="'货占比率'"
+        [nzPlaceHolder]="'缺货比率'"
         [nzAllowClear]="false"
         [(ngModel)]="selectValues"
         (ngModelChange)="onChanges($event)">
@@ -52,22 +52,22 @@
       <nz-table #nzTable [nzPageSize]="10" nzBordered [nzData]="[1]" [nzShowPagination]="false" [nzLoading]="loading">
         <thead nz-thead>
         <tr>
-          <th nz-th><span>公司名称</span></th>
-          <th style="text-align: center" nz-th><span>地址</span></th>
+          <!--<th nz-th><span>公司名称</span></th>-->
           <th style="text-align: center" nz-th><span>售货机号</span></th>
+          <th style="text-align: center" nz-th><span>地址</span></th>
           <th style="text-align: center" nz-th><span>详情</span></th>
         </tr>
         </thead>
         <tbody nz-tbody>
         <tr nz-tbody-tr *ngFor="let item of replenishList">
           <!--<tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">-->
-          <td nz-td>
-            <a>{{item.companyName}}</a>
-          </td>
-          <td style="text-align: center;word-wrap: break-word;width: 130px" nz-td>{{item.locationName}}</td>
+          <!--<td nz-td>-->
+            <!--<a>{{item.companyName}}</a>-->
+          <!--</td>-->
           <td nz-td>
             <a>{{item.vmCode}}</a>
           </td>
+          <td style="text-align: center;word-wrap: break-word;width: 130px" nz-td>{{item.locationName}}</td>
           <td style="text-align: center" nz-td>
             <button style="display: block" (click)="detail(item.vmCode)" nz-button [nzType]="'primary'">
               <span>详情</span>

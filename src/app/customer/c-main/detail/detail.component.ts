@@ -3,8 +3,6 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
-import {el} from "@angular/platform-browser/testing/src/browser_util";
-
 @Component({
   selector: 'app-user-detail',
   templateUrl: './detail.component.html',
@@ -30,7 +28,7 @@ export class DetailComponent implements OnInit {
     this.id = urlParse(window.location.href)['id'];
     this.name = urlParse(window.location.href)['name'];
     this.showGoods();
-    this.curId = 3;
+    this.curId = 1;
   }
   showGoods() {
     this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {id: this.id}, getToken()).subscribe(
@@ -38,6 +36,12 @@ export class DetailComponent implements OnInit {
         console.log(data);
         this.imgList = data.returnObject.pic.split(',');
         this.goodsObj = data.returnObject;
+        const a = document.getElementById('desk');
+        a.innerHTML = this.goodsObj['details'];
+        const b = document.getElementById('desks');
+        b.innerHTML = this.goodsObj['commodityParameters'];
+        const c = document.getElementById('deskss');
+        c.innerHTML = this.goodsObj['purchaseNotes'];
       },
       error => {
         console.log(error);
@@ -46,16 +50,6 @@ export class DetailComponent implements OnInit {
   }
   selected(flag) {
     this.curId = flag;
-    if (flag === 1) {
-      const d = document.getElementById('desk');
-      d.innerHTML = this.goodsObj['details'];
-    } else if (flag === 2) {
-      const d = document.getElementById('desks');
-      d.innerHTML = this.goodsObj['commodityParameters'];
-    } else if (flag === 3) {
-      const d = document.getElementById('deskss');
-      d.innerHTML = this.goodsObj['purchaseNotes'];
-    }
   }
   goTo() {
     if (urlParse(window.location.href)['type'] === '1') {
