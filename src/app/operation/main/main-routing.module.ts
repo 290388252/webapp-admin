@@ -10,6 +10,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'userDetail'},
       { path: 'salesRecord', loadChildren: './sales-record/sales-record.module#SalesRecordModule' },
       { path: 'userDetail', loadChildren: './user-detail/user-detail.module#UserDetailModule' },
+      { path: 'test', loadChildren: './test/test.module#TestModule' },
       { path: 'machineDetail', loadChildren: './machine-detail/machine-detail.module#MachineDetailModule' },
       { path: 'replenishmentDetail', loadChildren: './replenishment-detail/replenishment-detail.module#ReplenishmentDetailModule' },
       { path: 'salesStatistics', loadChildren: './sales-statistics/sales-statistics.module#SalesStatisticsModule' },

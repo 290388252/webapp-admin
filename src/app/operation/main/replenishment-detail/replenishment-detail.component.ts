@@ -20,7 +20,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public nzOptions = [];
   public selectValues: string;
   public homeValues: string;
-  public homeValuesList = [{value: '', label: '所有', isLeaf: true}];
+  public homeValuesList = [{value: 0, label: '所有', isLeaf: true}];
   public vmCode: string;
   public tradeDetailListLoading = true;
   constructor(private modalService: NzModalService,
@@ -67,6 +67,9 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
     console.log(returnObj);
     this.replenishList = returnObj.replenishList;
     this.initList = returnObj.initList;
+  }
+  round(ratio) {
+    return Math.round(ratio * 100);
   }
   // 查看详情记录
   detail(vmCode) {

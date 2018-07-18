@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     if ('addEventListener' in document) {
       document.addEventListener('DOMContentLoaded', () => {
-        FastClick.attach(document.body);
+        // FastClick.attach(document.body);
         }, false);
     }
   }
