@@ -13,7 +13,7 @@ export class ReplenishmentDetailService {
     const replenishList = [];
     const initList = [];
     const nzOptions = [
-      {value: '', label: '所有', isLeaf: true},
+      {value: '0', label: '所有', isLeaf: true},
       {value: '0', label: '0%', isLeaf: true},
       {value: '0.1', label: '10%', isLeaf: true},
       {value: '0.2', label: '20%', isLeaf: true},

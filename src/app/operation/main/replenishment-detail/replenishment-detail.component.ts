@@ -20,7 +20,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public nzOptions = [];
   public selectValues: string;
   public homeValues: string;
-  public homeValuesList = [{value: 0, label: '所有', isLeaf: true}];
+  public homeValuesList = [{value: '', label: '所有', isLeaf: true}];
   public vmCode: string;
   public tradeDetailListLoading = true;
   constructor(private modalService: NzModalService,

@@ -19,6 +19,7 @@ export class FirstPageComponent implements OnInit {
   public list;
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
+  public height;
   public imgList = [];
   constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties,
                private appService: AppService, private router: Router) { }
@@ -32,6 +33,11 @@ export class FirstPageComponent implements OnInit {
     }
     this.showGoods(getToken());
     this.list = this.firstPageService.showGoods(getToken(), 1);
+    this.getBannerHeight();
+  }
+  getBannerHeight() {
+    const banner = document.getElementById('banner');
+    this.height = (banner.offsetWidth) / 16 * 9 + 'px';
   }
   showGoods(token) {
     const goodsList = [];
@@ -41,7 +47,9 @@ export class FirstPageComponent implements OnInit {
         const list = [];
         // this.goodsList = data.returnObject;
         data.returnObject.forEach(item => {
-          list.push(item.pic.split(','));
+          if (item.advertisingPic !== null && item.advertisingPic !== undefined && item.advertisingPic !== '') {
+            list.push(item.advertisingPic);
+          }
         });
         this.imgList = list.join(',').split(',');
         console.log(this.imgList);

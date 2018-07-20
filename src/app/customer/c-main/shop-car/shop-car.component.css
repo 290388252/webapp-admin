@@ -28,9 +28,9 @@
 }
 .gutter-box{
   margin-bottom: 5px;
-  height: 210px;
   text-align: center;
-  line-height: 20px;
+  /*height: 210px;
+  line-height: 20px;*/
   border-radius: 2px;
   background-color: rgba(244, 244, 244, 1);
   border: 1px solid rgba(244, 244, 244, 1);
@@ -56,9 +56,9 @@
   height: 50px;
 }
 .box-img{
-  width: 50%;
-  height: 50%;
-  margin-top: 45px;
+  width: 100%;
+  /*height: 50%;
+  margin-top: 45px;*/
 }
 .edit{
   font-size: 25px;

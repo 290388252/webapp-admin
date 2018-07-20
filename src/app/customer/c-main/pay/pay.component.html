@@ -2,24 +2,22 @@
   <div class="top">
     <img style="width: 30px;height: 30px;margin-top: 20px;float: left" src="../../../../assets/icon/dw.png" alt="">
     <div style="margin-top: 15px;float: left">
-      <span>收货人：{{receiver}} 手机号：{{phone}}</span>
+      <span>收货人：{{receiver}}</span><span style="padding-left: 20px;">手机号：{{phone}}</span>
       <br>
       <span>{{name}}</span>
     </div>
     <img style="width: 30px;height: 30px;float: right;margin-top: 20px" src="../../../../assets/icon/right.png" alt="">
   </div>
   <div class="top">
-    <span style="float: left;margin-left: 10px"><strong>支付方式</strong></span>
-    <br>
-    <div style="float: left;margin-left: 10px;margin-top: 10px">
+    <span style="display: block;margin-left: 5px;padding: 5px;"><strong>支付方式</strong></span>
+    <div style="margin-left: 10px;">
       <img style="width: 30px;height: 30px;" src="../../../../assets/icon/wechat.png" alt="">
       <span>微信支付</span>
     </div>
   </div>
   <div class="top" (click)="selectCoupon()">
-    <span style="float: left;margin-left: 10px"><strong>优惠券</strong></span>
-    <br>
-    <div style="float: left;margin-left: 10px;margin-top: 10px">
+    <span style="display: block;margin-left: 5px;padding: 5px;"><strong>优惠券</strong></span>
+    <div style="margin-left: 10px;">
       <img style="width: 30px;height: 30px;" src="../../../../assets/icon/coupon.png" alt="">
       <span>可用优惠券{{couponLength}}张</span>
     </div>
@@ -42,22 +40,23 @@
     </div>
   </nz-modal>
   <div class="detail">
-    <span style="float: left;margin-left: 10px"><strong>订单信息</strong></span>
+    <span style="display: block;margin-left: 5px;padding: 5px; border-bottom:2px solid #f5f5f5"><strong>订单信息</strong></span>
     <div class="items" *ngFor="let item of data">
       <img src="{{imgUrl+item.pic}}" class="img">
-      <div style="float: left;margin-top: 20px;margin-left: 20px">
-        <h4 class="span-text">{{item.itemName}}</h4>
-        <h4 class="span-text" style="color: red">￥{{item.price}}</h4>
+      <div style="float: left;margin-left: 20px;width: 210px;">
+        <h4 style="display: block; height: 40px; width:100%; text-overflow: ellipsis;">{{item.itemName}}</h4>
+        <span style="color: red">￥{{item.price}}</span>
       </div>
-      <h4 style="float: right;margin-top: 40px;margin-right: 20px">x{{item.num}}</h4>
+      <h4 style="float: right; margin-top: 30px;">x{{item.num}}</h4>
+      <div style="clear: both"></div>
     </div>
-    <div class="pay-layout" style="float: left;margin-top: 2px">
-      <span style="float: left;margin-left: 10px;margin-top: 5px"><strong>支付金额</strong></span>
-      <span style="float: right;margin-right: 10px;margin-top: 5px">共计{{num}}件商品  总计：￥{{totalPrice}}</span>
+    <div class="pay-layout">
+      <span style="float: left;margin-left: 10px;"><strong>支付金额</strong></span>
+      <span style="float: right;margin-right: 10px;">共计{{num}}件商品，总计：<span style="color:red">￥{{totalPrice}}</span></span>
     </div>
     <!--footer-->
-    <div class="footer" style="float: left;margin-top: 2px">
-    </div>
+    <!--<div class="footer" style="float: left;margin-top: 2px">
+    </div>-->
   </div>
 
   <div class="mask">
@@ -65,9 +64,9 @@
 
   <div class="bottom">
     <button (click)="button(1)" class="finish" nz-button nzType="primary">支付</button>
-    <button (click)="button(2)" class="cancel ant-button">取消支付</button>
-    <div style="float: right">
-      <span><strong>实付金额:</strong><span style="color: red">￥{{totalPrice}}</span></span>
+    <!--<button (click)="button(2)" class="cancel ant-button">取消支付</button>-->
+    <div style="float: left; margin-left: 10px;">
+      <span><strong>实付金额：</strong><span style="color: red">￥{{totalPrice}}</span></span>
       <br>
       <span>(免运费)</span>
     </div>
