@@ -16,6 +16,7 @@ export class ShopCarService implements OnInit {
         console.log(data);
         // this.goodsList = data.returnObject;
         data.returnObject.forEach(item => {
+          item.pic = item.pic.split(',')[0];
           goodsList.push(item);
         });
       },

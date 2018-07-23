@@ -16,6 +16,7 @@ export class PayComponent implements OnInit {
   public list;
   public idList = [];
   public couponList = [];
+  public shopCartId = [];
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
   public totalPrice;
@@ -45,7 +46,7 @@ export class PayComponent implements OnInit {
           this.receiver = data.returnObject[0]['receiver'];
           this.phone = data.returnObject[0]['phone'];
           this.showShopCarPrice();
-          this.couponSum();
+          //this.couponSum();
         }
       },
       error => {
@@ -53,7 +54,7 @@ export class PayComponent implements OnInit {
       }
     );
   }
-  couponSum() {
+  /*couponSum() {
     console.log(this.idList);
     this.appService.postAliData(this.appProperties.shopAddCouponUrl, this.idList, this.token).subscribe(
       data => {
@@ -74,7 +75,7 @@ export class PayComponent implements OnInit {
         console.log(error);
       }
     );
-  }
+  }*/
   selectCoupon(): void {
     if (this.couponLength !== 0) {
       this.isCoupon = true;
@@ -95,30 +96,52 @@ export class PayComponent implements OnInit {
   }
   button(flag) {
     if (flag === 1) {
-      this.pay(this.orderId);
+      this.pay();
       // console.log(this.orderId);
     } else if (flag === 2) {
       history.back();
     }
   }
 
-  pay(orderId) {
-        this.appService.postAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
-          orderId: orderId,
-          url: 'http://webapp.youshuidaojia.com/cMain/pay'
-        }, this.token).subscribe(
-          data4 => {
-            console.log(data4);
-            if (typeof(WeixinJSBridge) === 'undefined') {
-              this.onBridgeUndefindeReady(data4);
-            } else {
-              this.onBridgeReady(data4);
+  pay() {
+    this.appService.postAliData(this.appProperties.shopStoreOrderAddUrl, {
+      product: this.shopCartId.join(','),
+      location: this.name,
+      distributionModel: 1,
+      coupon: this.couponId,
+      payType: 1
+    }, this.token).subscribe(
+      data2 => {
+        console.log(data2);
+        alert(data2.message);
+        if (data2.returnObject.orderState !== 10001) {
+          this.orderId = data2.returnObject.orderId;
+          this.appService.postAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
+            orderId: this.orderId,
+            url: 'http://webapp.youshuidaojia.com/cMain/pay'
+          }, this.token).subscribe(
+            data4 => {
+              console.log(data4);
+              if (typeof(WeixinJSBridge) === 'undefined') {
+                this.onBridgeUndefindeReady(data4);
+              } else {
+                this.onBridgeReady(data4);
+              }
+            },
+            error => {
+              console.log(error);
             }
-          },
-          error => {
-            console.log(error);
-          }
-        );
+          );
+        } else {
+          alert('支付完成！');
+          this.router.navigate(['cMain/shopCar']);
+        }
+      },
+      error2 => {
+        console.log(error2);
+      }
+    );
+
   }
 
   onBridgeUndefindeReady(data) {
@@ -188,33 +211,35 @@ export class PayComponent implements OnInit {
         this.totalPrice = 0;
         this.data = data.returnObject;
         this.data.forEach(item => {
+          item.pic = item.pic.split(',')[0];
           this.totalPrice += item.price * item.num;
           this.num += item.num;
-          this.idList.push(item.id);
+          this.idList.push(item.itemId);
+          this.shopCartId.push(item.id);
         });
         console.log(this.data);
         console.log(this.totalPrice);
-        this.appService.postAliData(this.appProperties.shopStoreOrderAddUrl, {
-          product: this.idList.join(','),
-          location: this.name,
-          distributionModel: 1,
-          coupon: this.couponId,
-          payType: 1
-        }, this.token).subscribe(
+        console.log(this.idList);
+        console.log(this.shopCartId.join(','));
+        this.appService.postAliData(this.appProperties.shopAddCouponUrl, this.idList, this.token).subscribe(
           data2 => {
             console.log(data2);
-            alert(data2.message);
-            if (data.status === 0) {
-              this.router.navigate(['cMain/shopCar']);
-            } else {
-              this.orderId = data2.returnObject;
+            if (data2.status === 0) {
+              this.couponLength = 0;
+            } else if (data2.status === 1) {
+              this.couponList = data2.returnObject;
+              this.couponId = undefined;
+              if (this.couponList !== null) {
+                this.couponLength = this.couponList.length;
+              }
+              console.log('length');
+              console.log(this.couponLength);
             }
           },
           error2 => {
             console.log(error2);
           }
         );
-        this.couponSum();
       },
       error => {
         console.log(error);

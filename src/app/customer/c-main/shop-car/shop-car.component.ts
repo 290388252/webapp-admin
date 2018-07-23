@@ -106,6 +106,7 @@ export class ShopCarComponent implements OnInit {
         this.totalPrice = 0;
         this.data = data.returnObject;
         this.data.forEach(item => {
+          item.pic = item.pic.split(',')[0];
           this.totalPrice += item.price * item.num;
         });
         this.data.length <= 0 ? this.empty = true : this.empty = false;

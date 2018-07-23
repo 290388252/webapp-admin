@@ -9,11 +9,14 @@ export class FirstPageService {
   constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) {}
   showGoods(token, type) {
     const goodsList = [];
+    // let imageList = [];
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {type: type}, token).subscribe(
       data => {
         console.log(data);
         // this.goodsList = data.returnObject;
         data.returnObject.forEach(item => {
+          item.pic = item.pic.split(',')[0];
+          // item.pic =
           goodsList.push(item);
         });
       },
