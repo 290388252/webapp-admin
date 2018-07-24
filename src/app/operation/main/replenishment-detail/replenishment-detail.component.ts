@@ -2,6 +2,7 @@ import {AfterContentInit, Component, Inject, OnInit} from '@angular/core';
 import {getAdminToken} from '../../../utils/util';
 import {NzModalService} from 'ng-zorro-antd';
 import {AppProperties} from '../../../app.properties';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-replenishment-detail',
@@ -25,6 +26,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public tradeDetailListLoading = true;
   constructor(private modalService: NzModalService,
               private appProperties: AppProperties,
+              private router: Router,
               @Inject('replenishment') private replenishmentService) {
     this.loading = true;
   }
@@ -67,6 +69,9 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
     console.log(returnObj);
     this.replenishList = returnObj.replenishList;
     this.initList = returnObj.initList;
+  }
+  onBaidu() {
+    this.router.navigate(['main/map']);
   }
   round(ratio) {
     return Math.round(ratio * 100);
