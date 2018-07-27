@@ -252,4 +252,7 @@ export class PayComponent implements OnInit {
       }
     );
   }
+  toFixed(num) {
+    return Math.round(num * 100) / 100;
+  }
 }

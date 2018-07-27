@@ -5,33 +5,33 @@
     <li (click)="choose(3)" class="menu-li" nz-menu-item>已使用</li>
   </ul>
   <div *ngIf="empty" class="none">
-    <img style="width: 35%;margin-bottom: 5px"  src="../../../../../assets/icon/wrong.png" alt="">
+    <img style="width: 35%;margin-bottom: 5px" src="../../../../../assets/icon/wrong.png" alt="">
     <h4>空空如也~</h4>
   </div>
   <!--<div *ngIf="unUsed" class="layout">-->
-    <!--<div class="card-unuses" *ngFor="let item of couponList">-->
-      <!--<div style="float: left;margin-top: 20px">-->
-        <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
-        <!--<span style="font-size: 12px;margin-left: 10px;">{{text(item)}}</span>-->
-      <!--</div>-->
-      <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
-        <!--<span style="float: left">{{item.useWhereLabel}}</span>-->
-        <!--<br>-->
-        <!--<span style="float: left;font-size: 12px">限{{item.startTime}}-{{item.endTime}}使用</span>-->
-        <!--<br>-->
-        <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
-      <!--</div>-->
-      <!--<br>-->
-      <!--<div class="line"></div>-->
-      <!--<span (click)="pickCard(item)" class="use">立即领取</span>-->
-    <!--</div>-->
+  <!--<div class="card-unuses" *ngFor="let item of couponList">-->
+  <!--<div style="float: left;margin-top: 20px">-->
+  <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
+  <!--<span style="font-size: 12px;margin-left: 10px;">{{text(item)}}</span>-->
+  <!--</div>-->
+  <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
+  <!--<span style="float: left">{{item.useWhereLabel}}</span>-->
+  <!--<br>-->
+  <!--<span style="float: left;font-size: 12px">限{{item.startTime}}-{{item.endTime}}使用</span>-->
+  <!--<br>-->
+  <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
+  <!--</div>-->
+  <!--<br>-->
+  <!--<div class="line"></div>-->
+  <!--<span (click)="pickCard(item)" class="use">立即领取</span>-->
+  <!--</div>-->
 
-    <!--<div class="footer">-->
-      <!--已经到底~-->
-    <!--</div>-->
+  <!--<div class="footer">-->
+  <!--已经到底~-->
+  <!--</div>-->
   <!--</div>-->
   <div *ngIf="unEffective" class="layout">
-    <div (click)="useCard()" class="card" *ngFor="let item of couponEffectiveList">
+    <div class="card" *ngFor="let item of couponEffectiveList">
       <div style="float: left;margin-top: 20px">
         <h2 style="color: white">￥{{item.deductionMoney}}</h2>
         <span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>
@@ -41,16 +41,48 @@
         <br>
         <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
         <br>
-        <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>
+        <span *ngIf="turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">仅限购买特殊商品使用</span>
+        <span *ngIf="!turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">全品类商品使用</span>
       </div>
       <br>
       <div class="line"></div>
-      <span class="use">立即使用</span>
+      <span *ngIf="turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useSpecialCard(item.id)">立即使用a</span>
+      <span *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard()">立即使用</span>
     </div>
     <div class="footer">
       已经到底~
     </div>
   </div>
+  <nz-modal [(nzVisible)]="specialModal" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]=null
+            (nzOnCancel)="useSpecialCardHide()">
+    <ng-template #modalTitle>
+      商品
+    </ng-template>
+    <ng-template #modalContent>
+      <div style="width: 346px;height: 80px;border-bottom:1px dashed #666666 ;margin-bottom: 4px;display: flex;overflow: hidden;"
+           *ngFor="let item of specialGoodsList">
+        <div style="width:80px;height: 100%;vertical-align: middle;
+        text-align: center;">
+          <img style="width: 78px;height: 78px;" [src]=imgUrl+trunImg(item.pic)>
+        </div>
+        <div style="width: 266px;height: 100%;">
+          <div style="width: 100%;height: 50px;letter-spacing: 2px;padding-left: 4px;font-size: 16px;">{{item.name}}</div>
+          <div style="width: 100%;height: 30px;line-height: 30px;padding: 0 4px;">
+            <div style="float: left;width: 80px;">￥{{item.salesPrice}}</div>
+            <div style="float: right;width: 100px;" (click)="addCar(item)">
+              <span style="position: relative;top: -4px;"><img style="width: 20px;height: 20px;color: #666666" src="../../../../assets/icon/addCar.png" alt=""></span>加入购物车</div>
+          </div>
+
+        </div>
+      </div>
+    </ng-template>
+
+    <!--<ng-template #modalFooter>-->
+    <!--<span>Modal Footer: </span>-->
+    <!--<button nz-button nzType="default" (click)="handleCancel()">Custom Callback</button>-->
+    <!--<button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">Custom Submit</button>-->
+    <!--</ng-template>-->
+  </nz-modal>
   <div *ngIf="effective" class="layout">
     <div class="card" *ngFor="let item of couponUnEffectiveList">
       <div style="float: left;margin-top: 20px">
@@ -69,36 +101,36 @@
       <span class="use">用过了~</span>
     </div>
     <!--<div class="card-unuse">-->
-      <!--<div style="float: left;margin-top: 20px">-->
-        <!--<h2 style="color: white">￥10</h2>-->
-        <!--<span style="font-size: 12px;margin-left: 10px">满10元使用</span>-->
-      <!--</div>-->
-      <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
-        <!--<span style="float: left">10元套餐抵扣券</span>-->
-        <!--<br>-->
-        <!--<span style="float: left;font-size: 12px">限2018.06.15-2018.06.25 使用</span>-->
-        <!--<br>-->
-        <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
-      <!--</div>-->
-      <!--<br>-->
-      <!--<div class="line"></div>-->
-      <!--<span class="use">已经使用过了~</span>-->
+    <!--<div style="float: left;margin-top: 20px">-->
+    <!--<h2 style="color: white">￥10</h2>-->
+    <!--<span style="font-size: 12px;margin-left: 10px">满10元使用</span>-->
+    <!--</div>-->
+    <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
+    <!--<span style="float: left">10元套餐抵扣券</span>-->
+    <!--<br>-->
+    <!--<span style="float: left;font-size: 12px">限2018.06.15-2018.06.25 使用</span>-->
+    <!--<br>-->
+    <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
+    <!--</div>-->
+    <!--<br>-->
+    <!--<div class="line"></div>-->
+    <!--<span class="use">已经使用过了~</span>-->
     <!--</div>-->
     <!--<div class="card-unuse">-->
-      <!--<div style="float: left;margin-top: 20px">-->
-        <!--<h2 style="color: white">￥10</h2>-->
-        <!--<span style="font-size: 12px;margin-left: 10px">满10元使用</span>-->
-      <!--</div>-->
-      <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
-        <!--<span style="float: left">10元套餐抵扣券</span>-->
-        <!--<br>-->
-        <!--<span style="float: left;font-size: 12px">限2018.06.15-2018.06.25 使用</span>-->
-        <!--<br>-->
-        <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
-      <!--</div>-->
-      <!--<br>-->
-      <!--<div class="line"></div>-->
-      <!--<span class="use">已经使用过了~</span>-->
+    <!--<div style="float: left;margin-top: 20px">-->
+    <!--<h2 style="color: white">￥10</h2>-->
+    <!--<span style="font-size: 12px;margin-left: 10px">满10元使用</span>-->
+    <!--</div>-->
+    <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
+    <!--<span style="float: left">10元套餐抵扣券</span>-->
+    <!--<br>-->
+    <!--<span style="float: left;font-size: 12px">限2018.06.15-2018.06.25 使用</span>-->
+    <!--<br>-->
+    <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
+    <!--</div>-->
+    <!--<br>-->
+    <!--<div class="line"></div>-->
+    <!--<span class="use">已经使用过了~</span>-->
     <!--</div>-->
     <div class="footer">
       已经到底~

@@ -62,7 +62,7 @@
     </div>
     <div class="pay-layout">
       <span style="float: left;margin-left: 10px;"><strong>支付金额</strong></span>
-      <span style="float: right;margin-right: 10px;">共计{{num}}件商品，总计：<span style="color:red">￥{{totalPrice}}</span></span>
+      <span style="float: right;margin-right: 10px;">共计{{num}}件商品，总计：<span style="color:red">￥{{toFixed(totalPrice)}}</span></span>
     </div>
     <!--footer-->
     <!--<div class="footer" style="float: left;margin-top: 2px">
@@ -76,7 +76,7 @@
     <button (click)="button(1)" class="finish" nz-button nzType="primary">支付</button>
     <!--<button (click)="button(2)" class="cancel ant-button">取消支付</button>-->
     <div style="float: left; margin-left: 10px;">
-      <span><strong>实付金额：</strong><span style="color: red">￥{{totalPrice}}</span></span>
+      <span><strong>实付金额：</strong><span style="color: red">￥{{toFixed(totalPrice)}}</span></span>
       <br>
       <span>(免运费)</span>
     </div>
