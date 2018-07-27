@@ -15,6 +15,7 @@ export class AppProperties {
     public aliMachineQueryVMListUrl: string;
     public aliMachineQueryDetailUrl: string;
     public aliMachineQueryTradeDetailUrl: string;
+    public vendingMachinesInfoListPageUrl: string;
 
     // Shopping Mall
     public shopingLogin: string;
@@ -52,6 +53,7 @@ export class AppProperties {
       this.aliMachineQueryVMListUrl = this.appUrl + '/aliMachine/queryVMList';
       this.aliMachineQueryDetailUrl = this.appUrl + '/aliMachine/queryItem';
       this.aliMachineQueryTradeDetailUrl = this.appUrl + '/aliMachine/queryTradeDetail';
+      this.vendingMachinesInfoListPageUrl = this.appUrl + '/vendingMachinesInfo/listPage';
 
       // Shopping Mall
       this.shopingLogin = 'http://47.106.92.82:6662/ys_sms/admin/shopRegister';

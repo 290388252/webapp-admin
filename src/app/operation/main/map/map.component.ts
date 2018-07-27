@@ -58,10 +58,11 @@ export class MapComponent implements OnInit {
   // }
 
    ngOnInit() {
-     this.appService.postAliData(this.appProperties.replenishUrl, '', getAdminToken()).subscribe(
+     this.appService.getAliData(this.appProperties.vendingMachinesInfoListPageUrl, {isShowAll: 1}, getAdminToken()).subscribe(
        data => {
          console.log(data);
-         this.baiduMap(data.returnObject.replenishVMList);
+         console.log(data.returnObject);
+         this.baiduMap(data.returnObject);
        },
        error => {
          console.log(error);
@@ -70,7 +71,7 @@ export class MapComponent implements OnInit {
   }
   baiduMap(list) {
     const map = new BMap.Map('container'); // 创建地图实例
-    const point = new BMap.Point(list[1]['lon'], list[1]['lat']); // 创建点坐标
+    const point = new BMap.Point(list[0]['lon'], list[0]['lat']); // 创建点坐标
     console.log(list[1]['lon'] );
     console.log(list);
     // const point = new BMap.Point(113.478284, 23.119538); // 创建点坐标
