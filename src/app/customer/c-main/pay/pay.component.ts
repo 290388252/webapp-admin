@@ -29,6 +29,7 @@ export class PayComponent implements OnInit {
   public isCoupon = false;
   public couponId;
   public couponLength;
+  public radioValue;
 
   constructor(private appService: AppService, private appProperties: AppProperties, private router: Router ) {
   }
@@ -53,6 +54,11 @@ export class PayComponent implements OnInit {
         console.log(error);
       }
     );
+    this.radioValue = '1';
+  }
+  print(val) {
+    this.radioValue = val;
+    console.log(this.radioValue);
   }
   /*couponSum() {
     console.log(this.idList);
@@ -107,9 +113,9 @@ export class PayComponent implements OnInit {
     this.appService.postAliData(this.appProperties.shopStoreOrderAddUrl, {
       product: this.shopCartId.join(','),
       location: this.name,
-      distributionModel: 1,
+      distributionModel: this.radioValue,
       coupon: this.couponId,
-      payType: 1
+      payType: 1,
     }, this.token).subscribe(
       data2 => {
         console.log(data2);

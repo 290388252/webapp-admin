@@ -6,12 +6,15 @@ import {PayComponent} from './pay.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
     // ElModule,
-    PayRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    PayRoutingModule,
   ],
   providers: [AppService, AppProperties],
   declarations: [PayComponent]

@@ -26,7 +26,7 @@ export class UserCenterComponent implements OnInit {
     } else if (flag === 4) {
       this.router.navigate(['cMain/newAddress']);
     } else if (flag === 5) {
-      // this.router.navigate(['cMain/newAddress']);
+      this.router.navigate(['cMain/mySaveWater']);
     }
   }
 }

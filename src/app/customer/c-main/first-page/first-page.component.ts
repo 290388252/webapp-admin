@@ -21,8 +21,10 @@ export class FirstPageComponent implements OnInit {
   public token;
   public height;
   public imgList = [];
+  public currentPic = 0;
   constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties,
-               private appService: AppService, private router: Router) { }
+               private appService: AppService, private router: Router) {
+  }
 
   ngOnInit() {
     if (urlParse(window.location.search)['token'] !== undefined
@@ -40,25 +42,26 @@ export class FirstPageComponent implements OnInit {
     this.height = (banner.offsetWidth) / 16 * 9 + 'px';
   }
   showGoods(token) {
-    const goodsList = [];
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {type: 2}, token).subscribe(
       data => {
-        console.log(data);
-        const list = [];
-        // this.goodsList = data.returnObject;
         data.returnObject.forEach(item => {
           if (item.advertisingPic !== null && item.advertisingPic !== undefined && item.advertisingPic !== '') {
-            list.push(item.advertisingPic);
+            this.imgList.push({id: item.id, name: item.name, bannerImg: item.advertisingPic});
           }
         });
-        this.imgList = list.join(',').split(',');
         console.log(this.imgList);
+        setInterval(() => {
+          const num = (this.currentPic + 1) % this.imgList.length;
+          this.currentPic = num;
+        }, 5000);
       },
       error => {
         console.log(error);
       }
     );
-    return goodsList;
+  }
+  changebanner(num) {
+    this.currentPic = num;
   }
   addFirstCar(item) {
     console.log(this.list);

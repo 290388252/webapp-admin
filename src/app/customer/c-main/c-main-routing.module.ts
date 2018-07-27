@@ -19,6 +19,8 @@ const routes: Routes = [
       { path: 'editAddress', loadChildren: './user-center/edit-address/edit-address.module#EditAddressModule' },
       { path: 'coupon', loadChildren: './user-center/coupon/coupon.module#CouponModule' },
       { path: 'myOrder', loadChildren: './user-center/my-order/my-order.module#MyOrderModule' },
+      { path: 'mySaveWater', loadChildren: './user-center/my-saveWater/my-saveWater.module#MySaveWaterModule' },
+      { path: 'waterRecord', loadChildren: './waterRecord/waterRecord.module#WaterRecordModule' },
     ]
   }
 ];
