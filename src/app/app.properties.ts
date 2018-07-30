@@ -26,6 +26,7 @@ export class AppProperties {
     public shoppingUpdateUrl: string;
     public shopImgUrl: string;
     public shopFrontCouponMyListUrl: string;
+    public shopSpecialGoodsUrl: string;
     public shopFrontCouponAddCouponToCustomerUrl: string;
     public shopStoreOrderAddUrl: string;
     public shopStoreOrderFindUrl: string;
@@ -40,10 +41,10 @@ export class AppProperties {
     public shopCustomerGetStockUrl: string;
     constructor() {
       // Public
-      // this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
+      // this.appUrl = 'http://192.168.0.111:6662/ys_admin'; // localtest
 
       this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
-      this.adminLoginUrl = 'http://47.106.92.82:6662/ys_sms/admin/appLogin';
+      this.adminLoginUrl = 'http://47.106.92.82:6662/ys_sms/admin/appLogin ';
       this.smsSendUrl = 'http://47.106.92.82:6662/ys_sms/sms/send';
       this.mainInfoUrl = this.appUrl + '/home/initInfo';
       this.salesUrl = this.appUrl + '/home/payRecord';
@@ -71,6 +72,7 @@ export class AppProperties {
       this.shopAddressUpdateUrl = this.appUrl + '/address/update';
       this.shopAddressAddUrl = this.appUrl + '/address/add';
       this.shopFrontCouponMyListUrl = this.appUrl + '/frontCoupon/myList';
+      this.shopSpecialGoodsUrl = this.appUrl + '/frontCoupon/findShoppingGoodsBean';
       this.shopFrontCouponAddCouponToCustomerUrl = this.appUrl + '/frontCoupon/addCouponToCustomer';
       this.shopAddCouponUrl = this.appUrl + '/order/customerCoupon';
       this.orderUnifiedOrderUrl = 'http://47.106.92.82:6662/ys_sms/order/unifiedOrder';
