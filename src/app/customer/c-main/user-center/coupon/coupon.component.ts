@@ -28,6 +28,9 @@ export class CouponComponent implements OnInit {
 
   ngOnInit() {
     this.token = getToken();
+    if (this.token === null || this.token === undefined || this.token === 'undefined') {
+      this.token = urlParse(window.location.href)['token'];
+    }
     this.unEffective = true;
     this.unEffective ? this.empty = false : this.empty = true;
     this.coupon(2);
@@ -75,19 +78,19 @@ export class CouponComponent implements OnInit {
   }
   ok() {
   }
-  turnToBind(item,useWhere) {
+  turnToBind(item, useWhere) {
     let isShow;
-    if(item === 1) {
+    if (item === 1) {
       // 特殊商品
-      if(useWhere === 1) {
+      if (useWhere === 1) {
       //  机器商品
         isShow = false;
         return isShow;
-      }else {
+      } else {
         isShow = true;
         return isShow;
       }
-    }else if(item === 0) {
+    } else if (item === 0) {
       // 全品类
       isShow = false;
       return isShow;
