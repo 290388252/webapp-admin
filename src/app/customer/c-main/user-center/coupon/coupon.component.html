@@ -43,6 +43,7 @@
         <br>
         <span *ngIf="turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">仅限购买特殊商品使用</span>
         <span *ngIf="!turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">全品类商品使用</span>
+        <span style="margin-left: 140px;">共有{{item.quantity}}张</span>
       </div>
       <br>
       <div class="line"></div>

@@ -21,6 +21,8 @@ export class CMainComponent implements OnInit {
     } else if (url.indexOf('replenishmentDetail') > -1) {
       this.curId = 4;
     } else {
+      console.log('url');
+      console.log(url);
       this.curId = 1;
     }
   }
