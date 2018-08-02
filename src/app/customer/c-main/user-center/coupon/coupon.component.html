@@ -41,13 +41,13 @@
         <br>
         <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
         <br>
-        <span *ngIf="turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">仅限购买特殊商品使用</span>
-        <span *ngIf="!turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">全品类商品使用</span>
-        <span style="margin-left: 140px;">共有{{item.quantity}}张</span>
+        <span *ngIf="turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">仅限购买特殊商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余{{item.quantity}}张</span>
+        <span *ngIf="!turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">全品类商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余{{item.quantity}}张</span>
+        <!--<span style="margin-left: 140px;">共有{{item.quantity}}张</span>-->
       </div>
       <br>
       <div class="line"></div>
-      <span *ngIf="turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useSpecialCard(item.id)">立即使用a</span>
+      <span *ngIf="turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useSpecialCard(item.id)">立即使用</span>
       <span *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard()">立即使用</span>
     </div>
     <div class="footer">
@@ -95,7 +95,7 @@
         <br>
         <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
         <br>
-        <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>
+        <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已使用{{item.useQuantity}}张</span>
       </div>
       <br>
       <div class="line"></div>

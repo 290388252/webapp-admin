@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from '../../../../app-service';
 import {AppProperties} from '../../../../app.properties';
 import {getToken, urlParse} from '../../../../utils/util';
@@ -22,9 +22,11 @@ export class CouponComponent implements OnInit {
   specialModal = false;
   isConfirmLoading = false;
   private token;
-  constructor( private appProperties: AppProperties,
-               private appService: AppService,
-               private router: Router) { }
+
+  constructor(private appProperties: AppProperties,
+              private appService: AppService,
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.token = getToken();
@@ -35,6 +37,7 @@ export class CouponComponent implements OnInit {
     this.unEffective ? this.empty = false : this.empty = true;
     this.coupon(2);
   }
+
   choose(flag) {
     if (flag === 1) {
       this.unUsed = true;
@@ -53,6 +56,7 @@ export class CouponComponent implements OnInit {
       this.coupon(3);
     }
   }
+
   coupon(state) {
     this.appService.getAliData(this.appProperties.shopFrontCouponMyListUrl, {state: state}, this.token).subscribe(
       data => {
@@ -61,6 +65,21 @@ export class CouponComponent implements OnInit {
           this.couponList = data.returnObject;
         } else if (state === 2) {
           this.couponEffectiveList = data.returnObject;
+          // console.log('ok');
+          // if (this.couponEffectiveList.length) {
+          //   for (let i = 0; i < this.couponEffectiveList.length;i++) {
+          //     if (data.returnObject[i].quantity) {
+          //       if (data.returnObject[0].quantity > 0) {
+          //         console.log(data.returnObject[0].quantity);
+          //         console.log(data.returnObject[0].quantity > 0);
+          //         for () {
+          //
+          //         }
+          //       }
+          //     }
+          //   }
+          //
+          // }
         } else if (state === 3) {
           this.couponUnEffectiveList = data.returnObject;
         }
@@ -70,20 +89,24 @@ export class CouponComponent implements OnInit {
       }
     );
   }
+
   text(item) {
     return item.money === 0 ? '固定减扣券' : '满' + item.money + '元使用';
   }
+
   textTwo(item) {
     return item.money === 0 ? '可直接使用券' : item.money + '元套餐抵扣券';
   }
+
   ok() {
   }
+
   turnToBind(item, useWhere) {
     let isShow;
     if (item === 1) {
       // 特殊商品
       if (useWhere === 1) {
-      //  机器商品
+        //  机器商品
         isShow = false;
         return isShow;
       } else {
@@ -108,9 +131,11 @@ export class CouponComponent implements OnInit {
       }
     );
   }
+
   useCard(id) {
     this.router.navigate(['cMain/firstPage']);
   }
+
   useSpecialCard(id): void {
     this.specialModal = true;
     console.log(id);
@@ -126,6 +151,7 @@ export class CouponComponent implements OnInit {
       }
     );
   }
+
   // 图片格式
   trunImg(list) {
     // console.log(list);
@@ -138,6 +164,7 @@ export class CouponComponent implements OnInit {
       return list;
     }
   }
+
   addCar(item) {
     this.appService.postAliData(this.appProperties.shoppingAddUrl, {
       itemId: item.id,
@@ -153,9 +180,11 @@ export class CouponComponent implements OnInit {
       }
     );
   }
+
   useSpecialCardHide(): void {
     this.specialModal = false;
   }
+
   toDate(date) {
     return new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate();
   }

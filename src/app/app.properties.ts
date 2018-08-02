@@ -16,6 +16,7 @@ export class AppProperties {
     public aliMachineQueryDetailUrl: string;
     public aliMachineQueryTradeDetailUrl: string;
     public vendingMachinesInfoListPageUrl: string;
+    public vendingLineFindLineByForm: string;
 
     // Shopping Mall
     public shopingLogin: string;
@@ -41,7 +42,7 @@ export class AppProperties {
     public shopCustomerGetStockUrl: string;
     constructor() {
       // Public
-      // this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
+      // this.appUrl = 'http://192.168.0.109:6662/ys_admin'; // localtest
 
       this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
       this.adminLoginUrl = 'http://47.106.92.82:6662/ys_sms/admin/appLogin ';
@@ -54,7 +55,9 @@ export class AppProperties {
       this.aliMachineQueryVMListUrl = this.appUrl + '/aliMachine/queryVMList';
       this.aliMachineQueryDetailUrl = this.appUrl + '/aliMachine/queryItem';
       this.aliMachineQueryTradeDetailUrl = this.appUrl + '/aliMachine/queryTradeDetail';
-      this.vendingMachinesInfoListPageUrl = this.appUrl + '/vendingMachinesInfo/listPage';
+      this.vendingMachinesInfoListPageUrl = 'http://192.168.0.104:6662/ys_admin' + '/vendingMachinesInfo/listPage';
+      this.vendingLineFindLineByForm = 'http://192.168.0.104:6662/ys_admin' + '/vendingLine/findLineByForm';
+      // this.vendingMachinesInfoListPageUrl = this.appUrl + '/vendingMachinesInfo/listPage';
 
       // Shopping Mall
       this.shopingLogin = 'http://47.106.92.82:6662/ys_sms/admin/shopRegister';

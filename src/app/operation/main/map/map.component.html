@@ -1,1 +1,10 @@
+<nz-cascader
+  style="width: 49%;height: 5%"
+  [nzOptions]="nzOptions"
+  [nzPlaceHolder]="'选择线路'"
+  [nzAllowClear]="false"
+  [(ngModel)]="selectValues"
+  (ngModelChange)="onChanges($event)">
+</nz-cascader>
+<button style="width: 49%;" (click)="onSearch()" nz-button nzType="primary" nzSearch><i class="anticon anticon-search"></i>点击搜索</button>
 <div id="container"></div>

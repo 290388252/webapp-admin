@@ -17,6 +17,9 @@ declare var BMAPLIB_TAB_FROM_HERE: any;
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+  public nzOptions = [{value: '', label: '', isLeaf: true}];
+  public selectValues: string;
+  public id = [];
   constructor(private router: Router,
               private modalService: NzModalService,
               private activatedRoute: ActivatedRoute,
@@ -58,22 +61,73 @@ export class MapComponent implements OnInit {
   // }
 
    ngOnInit() {
-     this.appService.getAliData(this.appProperties.vendingMachinesInfoListPageUrl, {isShowAll: 1}, getAdminToken()).subscribe(
+     // this.nzOptions = [
+     //   {value: '0', label: '所有', isLeaf: true},
+     //   {value: '0', label: '0%', isLeaf: true},
+     //   {value: '0.1', label: '10%', isLeaf: true},
+     //   {value: '0.2', label: '20%', isLeaf: true},
+     //   {value: '0.3', label: '30%', isLeaf: true},
+     //   {value: '0.4', label: '40%', isLeaf: true},
+     //   {value: '0.5', label: '50%', isLeaf: true},
+     //   {value: '0.6', label: '60%', isLeaf: true},
+     //   {value: '0.7', label: '70%', isLeaf: true},
+     //   {value: '0.8', label: '80%', isLeaf: true},
+     //   {value: '0.9', label: '90%', isLeaf: true},
+     //   {value: '1', label: '100%', isLeaf: true}
+     // ];
+     this.appService.postAliData(this.appProperties.vendingLineFindLineByForm, {isShowAll: 1}, getAdminToken()).subscribe(
        data => {
          console.log(data);
-         console.log(data.returnObject);
-         this.baiduMap(data.returnObject);
+         if (data.status !== -1) {
+           data.returnObject.forEach(item => {
+             this.nzOptions.push({value: `${item.id},${item.companyId},${item.areaId}`, label: item.name, isLeaf: true});
+           });
+         }
        },
        error => {
          console.log(error);
        }
      );
+     this.baiduMap([{lon: 113.50238, lat: 23.15673, locationName: '广州市黄埔区开发区开源大道11号B10栋4层', companyName: '优水到家'}]);
+     // this.appService.getAliData(this.appProperties.vendingMachinesInfoListPageUrl, {isShowAll: 1}, getAdminToken()).subscribe(
+     //   data => {
+     //     console.log(data);
+     //     console.log(data.returnObject);
+     //     this.baiduMap(data.returnObject);
+     //   },
+     //   error => {
+     //     console.log(error);
+     //   }
+     // );
+  }
+  onChanges(e) {
+    console.log(e[0].split(','));
+    this.id = e[0].split(',');
+  }
+  onSearch() {
+    console.log(this.nzOptions);
+    console.log(this.id);
+    this.appService.getAliData(this.appProperties.vendingMachinesInfoListPageUrl,
+      {
+        isShowAll: 1,
+        lineId: this.id[0],
+        companyId: this.id[1],
+        areaId: this.id[2]
+      }, getAdminToken()).subscribe(
+      data => {
+        console.log(data);
+        console.log(data.returnObject);
+        this.baiduMap(data.returnObject);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   baiduMap(list) {
+    console.log(list);
     const map = new BMap.Map('container'); // 创建地图实例
     const point = new BMap.Point(list[0]['lon'], list[0]['lat']); // 创建点坐标
-    console.log(list[1]['lon'] );
-    console.log(list);
     // const point = new BMap.Point(113.478284, 23.119538); // 创建点坐标
     map.centerAndZoom(point, 15);  // 初始化地图，设置中心点坐标和地图级别
     map.enableScrollWheelZoom(true);     // 开启鼠标滚轮缩放
