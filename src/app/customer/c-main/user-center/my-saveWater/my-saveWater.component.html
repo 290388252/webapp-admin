@@ -1,0 +1,30 @@
+<div class="user-container">
+  <div class="header">
+    <h3>我的存水</h3>
+  </div>
+  <div style="width: 100%;">
+    <div class="empty-car" [hidden]="!empty">
+      <img style="width: 50px;height: 50px;margin-top: 10%" src="../../../../assets/icon/package.png" alt="">
+      <span style="display: block; margin:10px 0px;color: grey">仓库空空如也,快去买点呗~</span>
+      <button (click)="goto()" nz-button nzType="default" style="color: #1890ff;">逛逛首页</button>
+    </div>
+  </div>
+  <div [hidden]="empty">
+    <div class="items" *ngFor="let item of data">
+      <img src="{{imgUrl+item.pic}}" class="img">
+      <div style="float: left;margin-left: 3%;width: 40%;">
+        <h4 class="mult_line_ellipsis">{{item.itemName}}</h4>
+        <span (click)="record(item)" style="text-decoration: underline;">消费记录</span>
+      </div>
+      <div style="float: right;">
+        <span style="display: block; margin-bottom: 21px;">剩余<span style="color: red;">{{item.stock-item.pickNum}}{{item.unit}}</span></span>
+        <button (click)="addFirstCar(item)" nz-button nzType="primary"
+                style="padding: 3px 5px!important; height: auto!important;">加入购物车</button>
+      </div>
+      <div style="clear: both"></div>
+    </div>
+    <div style="text-align: center;">
+      <span style="display: block; margin:5px 0px;color: grey">没有更多了~~</span>
+    </div>
+  </div>
+</div>

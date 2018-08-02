@@ -1,0 +1,26 @@
+<div class="user-container">
+  <div class="header">
+    <h3>提水记录</h3>
+  </div>
+  <div style="width: 100%;">
+    <div class="empty-car" [hidden]="!empty">
+      <img style="width: 50px;height: 50px;margin-top: 10%" src="../../../../assets/icon/record.png" alt="">
+      <span style="display: block; margin:10px 0px;color: grey">暂时没有该商品的提水记录,快去买点呗~</span>
+    </div>
+  </div>
+  <div [hidden]="empty">
+    <div class="items" *ngFor="let item of data">
+      <img src="{{imgUrl+pic}}" class="img">
+      <div style="float: left;margin-left: 3%; width: 60%;">
+        <div class="mult_line_ellipsis">{{name}}</div>
+        <span style="float: left;">{{item.createTime}}</span>
+      </div>
+      <span style="float: right; margin-top: 50px;">X{{item.pickNum}}</span>
+      <div style="clear: both"></div>
+    </div>
+    <div style="text-align: center;">
+      <span style="display: block; margin:5px 0px;color: grey">没有更多了~~</span>
+    </div>
+  </div>
+</div>
+
