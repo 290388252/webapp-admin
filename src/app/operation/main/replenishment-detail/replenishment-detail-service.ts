@@ -59,7 +59,7 @@ export class ReplenishmentDetailService {
   // 查看详情记录
   detailService(vmCode, rate) {
     const tradeDetailList = [];
-    this.appService.postAliData(this.appProperties.replenishUrl, {vmCode: vmCode, rate: rate}, getAdminToken()).subscribe(
+    this.appService.getAliData(this.appProperties.replenishUrl, {vmCode: vmCode, rate: rate}, getAdminToken()).subscribe(
       data => {
         data.returnObject.replenishList.forEach(item => {
           tradeDetailList.push(item);
@@ -74,7 +74,7 @@ export class ReplenishmentDetailService {
   searchService(vmCode, rate, companyId) {
     const replenishList = [];
     const initList = [];
-    this.appService.postAliData(this.appProperties.replenishUrl, {
+    this.appService.getAliData(this.appProperties.replenishUrl, {
       vmCode: vmCode,
       rate: rate,
       companyId: companyId}, getAdminToken()).subscribe(

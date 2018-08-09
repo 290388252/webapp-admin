@@ -81,9 +81,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   replenishDetail(list) {
     let text;
     const name = list.name === '' ? '无名' : list.name;
-    if (list.num === 0) {
-      text = `${name}/卖完了`;
-    } else if (list.fullNum - list.num === 0) {
+    if (list.fullNum - list.num === 0) {
       text = `${name}/已满`;
     } else {
       text = `${name}/需补${list.fullNum - list.num}`;
