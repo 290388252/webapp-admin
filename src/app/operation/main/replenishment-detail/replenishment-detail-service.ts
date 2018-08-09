@@ -40,7 +40,7 @@ export class ReplenishmentDetailService {
       }
     );
     // 获取初始列表数据
-    this.appService.postAliData(this.appProperties.replenishUrl, '', getAdminToken()).subscribe(
+    this.appService.getAliData(this.appProperties.replenishUrl, '', getAdminToken()).subscribe(
       data => {
         console.log(data);
         data.returnObject.replenishVMList.forEach(item => {

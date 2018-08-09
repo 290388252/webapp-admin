@@ -26,7 +26,7 @@ export class SalesStatisticsComponent implements OnInit {
   }
   ngOnInit() {
     console.log(document.body.scrollHeight);
-    document.getElementById('sales').style.height = (document.body.scrollHeight + 55) + 'px';
+    // document.getElementById('sales').style.height = (document.body.scrollHeight + 55) + 'px';
     // 图表插件调用
     this.myChart = eCharts.init(document.getElementById('main'));
     // 获取公司初始化数据
@@ -53,14 +53,25 @@ export class SalesStatisticsComponent implements OnInit {
           title: {
             text: '元/日期'
           },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '30px',
+            containLabel: true
+          },
           tooltip: {},
           legend: {
             data: ['销量']
           },
           xAxis: {
-            data: data.days
+            data: data.days,
+            axisTick: {
+              alignWithLabel: true
+            }
           },
-          yAxis: {},
+          yAxis: {
+            type : 'value'
+          },
           series: [{
             name: '销量',
             type: 'bar',

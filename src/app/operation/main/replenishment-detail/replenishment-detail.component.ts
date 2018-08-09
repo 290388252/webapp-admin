@@ -3,6 +3,7 @@ import {getAdminToken} from '../../../utils/util';
 import {NzModalService} from 'ng-zorro-antd';
 import {AppProperties} from '../../../app.properties';
 import {Router} from "@angular/router";
+import {AppService} from "../../../app-service";
 
 @Component({
   selector: 'app-replenishment-detail',
@@ -26,6 +27,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public tradeDetailListLoading = true;
   constructor(private modalService: NzModalService,
               private appProperties: AppProperties,
+              private appService: AppService,
               private router: Router,
               @Inject('replenishment') private replenishmentService) {
     this.loading = true;
@@ -75,6 +77,18 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   }
   round(ratio) {
     return Math.round(ratio * 100);
+  }
+  replenishDetail(list) {
+    let text;
+    const name = list.name === '' ? '无名' : list.name;
+    if (list.num === 0) {
+      text = `${name}/卖完了`;
+    } else if (list.fullNum - list.num === 0) {
+      text = `${name}/已满`;
+    } else {
+      text = `${name}/需补${list.fullNum - list.num}`;
+    }
+    return text;
   }
   // 查看详情记录
   detail(vmCode) {
