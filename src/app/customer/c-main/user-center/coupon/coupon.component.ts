@@ -43,7 +43,7 @@ export class CouponComponent implements OnInit {
       this.unUsed = true;
       this.unEffective = false;
       this.effective = false;
-      this.coupon(1);
+      this.coupon(4);
     } else if (flag === 2) {
       this.unUsed = false;
       this.unEffective = true;
@@ -61,7 +61,7 @@ export class CouponComponent implements OnInit {
     this.appService.getAliData(this.appProperties.shopFrontCouponMyListUrl, {state: state}, this.token).subscribe(
       data => {
         console.log(data);
-        if (state === 1) {
+        if (state === 4) {
           this.couponList = data.returnObject;
         } else if (state === 2) {
           this.couponEffectiveList = data.returnObject;

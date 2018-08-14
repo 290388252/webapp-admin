@@ -23,7 +23,7 @@
   z-index: 1000;
 }
 .menu-li{
-  width: 50%;
+  width: 33%;
   text-align: center;
 }
 .none{
@@ -63,7 +63,7 @@
   margin-bottom: 5px;
   line-height: 20px;
   border-radius: 10px;
-  background-color: rgb(32, 172, 36);
+  background-color: rgb(172, 172, 172);
   text-align: center;
   border: 1px solid rgba(187, 187, 187, 1);
 }
