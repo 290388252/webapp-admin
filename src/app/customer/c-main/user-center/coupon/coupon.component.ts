@@ -29,9 +29,9 @@ export class CouponComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.token = getToken();
+    this.token = urlParse(window.location.href)['token'];
     if (this.token === null || this.token === undefined || this.token === 'undefined') {
-      this.token = urlParse(window.location.href)['token'];
+      this.token = getToken();
     }
     this.unEffective = true;
     this.unEffective ? this.empty = false : this.empty = true;
