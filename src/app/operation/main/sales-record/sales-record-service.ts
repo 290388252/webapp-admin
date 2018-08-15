@@ -12,9 +12,12 @@ export class SalesRecordService {
     this.appService.postAliData(this.appProperties.salesUrl, '', getAdminToken()).subscribe(
       data => {
         console.log(data);
-        data.returnObject.forEach(item => {
-          saleList.push(item);
-        });
+        if (data.status === 1 ) {
+          data.returnObject.forEach(item => {
+            saleList.push(item);
+          });
+        } else if (data.status === 0) {
+        }
       },
       error => {
         console.log(error);

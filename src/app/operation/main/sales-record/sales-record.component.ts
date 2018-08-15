@@ -13,6 +13,8 @@ import {NzModalService} from 'ng-zorro-antd';
 export class SalesRecordComponent implements OnInit {
   public value = '';
   public loading: boolean;
+  public hidden: boolean;
+  public hiddenData: boolean;
   public isVisible = false;
   public isConfirmLoadingSails = false;
   public saleList = [];
@@ -34,11 +36,24 @@ export class SalesRecordComponent implements OnInit {
 
   ngOnInit() {
     console.log(getAdminToken());
-    const returnObj = this.salesRecordService.getSalesInitData();
-    this.loading = true;
-    this.saleList = returnObj.saleList;
-    console.log(returnObj);
-    this.loading = false;
+    // const returnObj = this.salesRecordService.getSalesInitData();
+    this.appService.postAliData(this.appProperties.salesUrl, '', getAdminToken()).subscribe(
+      data => {
+        console.log(data);
+        if (data.status === 1) {
+          this.hidden = true;
+          this.hiddenData = false;
+          this.loading = false;
+          this.saleList = data.returnObject;
+        } else if (data.status === 0) {
+          this.hidden = false;
+          this.hiddenData = true;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
     // this.appService.postAliData(this.appProperties.salesUrl, '', getAdminToken()).subscribe(
     //   data => {
     //     console.log(data);

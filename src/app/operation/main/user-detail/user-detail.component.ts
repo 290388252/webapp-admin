@@ -11,11 +11,11 @@ import {Router} from "@angular/router";
 })
 export class UserDetailComponent implements OnInit {
 
-  public machinesNum: number;
-  public replenishNum: number;
-  public troubleNum: number;
-  public sumNum: number;
-  public sumPrice: number;
+  public machinesNum: any;
+  public replenishNum: any;
+  public troubleNum: any;
+  public sumNum: any;
+  public sumPrice: any;
 
   constructor( private appProperties: AppProperties,
                private appService: AppService,
@@ -32,18 +32,26 @@ export class UserDetailComponent implements OnInit {
     this.appService.postAliData(this.appProperties.mainInfoUrl, '', getAdminToken()).subscribe(
       data => {
         console.log(data);
-        this.machinesNum = data.returnObject.machinesNum;
-        this.replenishNum = data.returnObject.replenishNum;
-        this.troubleNum = data.returnObject.troubleNum;
-        if (data.returnObject.sumPayRecordDto.sumNum === '') {
-          this.sumNum = 0;
-        } else {
-          this.sumNum = data.returnObject.sumPayRecordDto.sumNum;
-        }
-        if (data.returnObject.sumPayRecordDto.sumPrice === '') {
-          this.sumPrice = 0;
-        } else {
-          this.sumPrice = data.returnObject.sumPayRecordDto.sumPrice;
+        if (data.status === 1) {
+          this.machinesNum = data.returnObject.machinesNum;
+          this.replenishNum = data.returnObject.replenishNum;
+          this.troubleNum = data.returnObject.troubleNum;
+          // if (data.returnObject.sumPayRecordDto.sumNum === '') {
+            this.sumNum = data.returnObject.sumPayRecordDto.sumNum;
+          // } else {
+          //   this.sumNum = data.returnObject.sumPayRecordDto.sumNum;
+          // }
+          if (data.returnObject.sumPayRecordDto.sumPrice === '' || data.returnObject.sumPayRecordDto.sumPrice === null) {
+            this.sumPrice = 0;
+          } else {
+            this.sumPrice = data.returnObject.sumPayRecordDto.sumPrice;
+          }
+        } else if (data.status === 0) {
+          this.sumNum = '***';
+          this.sumPrice = '***';
+          this.machinesNum = '***';
+          this.replenishNum = data.returnObject.replenishNum;
+          this.troubleNum = '***';
         }
       },
       error => {

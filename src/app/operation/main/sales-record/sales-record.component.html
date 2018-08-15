@@ -1,4 +1,4 @@
-<div style="padding-bottom: 10%">
+<div style="padding-bottom: 10%" [hidden]="hiddenData">
   <div style="padding-bottom: 10%">
     <div class="title">
       <!--<nz-input id="input"  [nzType]="'search'" [nzPlaceHolder]="'输入售货机编码或者地址'" [(ngModel)]="_value" (nzOnSearch)="onSearch($event)"></nz-input>-->
@@ -84,4 +84,9 @@
       </nz-modal>
     </div>
   </div>
+</div>
+<div class="am-message result" style="background-size: 100% 0;margin-top: 25%" [hidden]="hidden">
+  <i class="am-icon result warn"></i>
+  <div class="am-message-main">温馨提示</div>
+  <div class="am-message-sub">很抱歉您没有权限查看</div>
 </div>
