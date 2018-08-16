@@ -13,8 +13,8 @@ import {NzModalService} from 'ng-zorro-antd';
 export class SalesRecordComponent implements OnInit {
   public value = '';
   public loading: boolean;
-  public hidden: boolean;
-  public hiddenData: boolean;
+  public hidden = true;
+  public hiddenData = false;
   public isVisible = false;
   public isConfirmLoadingSails = false;
   public saleList = [];

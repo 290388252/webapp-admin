@@ -63,6 +63,8 @@ export class UserDetailComponent implements OnInit {
     this.router.navigate(['main/replenishmentDetail']);
   }
   right() {
-    this.router.navigate(['main/machineDetail']);
+    if (this.machinesNum !== '***') {
+      this.router.navigate(['main/machineDetail']);
+    }
   }
 }
