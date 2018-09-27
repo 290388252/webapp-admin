@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 export class AppProperties {
     // public
     public appUrl: string;
+    public smsUrl: string;
     public adminLoginUrl: string;
     public smsSendUrl: string;
     public mainInfoUrl: string;
@@ -16,6 +17,7 @@ export class AppProperties {
     public aliMachineQueryDetailUrl: string;
     public aliMachineQueryTradeDetailUrl: string;
     public vendingMachinesInfoListPageUrl: string;
+    public vendingMachinesInfoNearbyListPageUrl: string;
     public vendingLineFindLineByForm: string;
 
     // Shopping Mall
@@ -42,11 +44,13 @@ export class AppProperties {
     public shopCustomerGetStockUrl: string;
     constructor() {
       // Public
-      this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
+      this.appUrl = 'http://192.168.0.117:8769/ys_admin'; // localtest
 
-      // this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
-      this.adminLoginUrl = 'http://47.106.92.82:6662/ys_sms/admin/appLogin ';
-      this.smsSendUrl = 'http://47.106.92.82:6662/ys_sms/sms/send';
+      this.smsUrl = 'http://192.168.0.117:8769/ys_sms'; // localtest
+      // this.appUrl = 'http://119.23.233.123:6662/ys_admin';
+      // this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
+      this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
+      this.smsSendUrl = this.smsUrl + '/sms/send';
       this.mainInfoUrl = this.appUrl + '/home/initInfo';
       this.salesUrl = this.appUrl + '/home/payRecord';
       this.replenishUrl = this.appUrl + '/home/replenish';
@@ -58,9 +62,10 @@ export class AppProperties {
       // this.vendingMachinesInfoListPageUrl = 'http://192.168.0.104:6662/ys_admin' + '/vendingMachinesInfo/listPage';
       this.vendingLineFindLineByForm = this.appUrl +  '/vendingLine/findLineByForm';
       this.vendingMachinesInfoListPageUrl = this.appUrl + '/vendingMachinesInfo/listPage';
+      this.vendingMachinesInfoNearbyListPageUrl = this.appUrl + '/vendingMachinesInfo/nearbyListPage?';
 
       // Shopping Mall
-      this.shopingLogin = 'http://47.106.92.82:6662/ys_sms/admin/shopRegister';
+      this.shopingLogin = this.smsUrl + '/admin/shopRegister';
       this.shoppingGoodsUrl = this.appUrl + '/shoppingGoods/list';
       this.shoppingGoodsDetailUrl = this.appUrl + '/shoppingGoods/productDetails';
       this.shoppingCarUrl = this.appUrl + '/shoppingCar/appListPage';
@@ -78,7 +83,7 @@ export class AppProperties {
       this.shopSpecialGoodsUrl = this.appUrl + '/frontCoupon/findShoppingGoodsBean';
       this.shopFrontCouponAddCouponToCustomerUrl = this.appUrl + '/frontCoupon/addCouponToCustomer';
       this.shopAddCouponUrl = this.appUrl + '/order/customerCoupon';
-      this.orderUnifiedOrderUrl = 'http://47.106.92.82:6662/ys_sms/order/unifiedOrder';
+      this.orderUnifiedOrderUrl = this.smsUrl + '/order/unifiedOrder';
       this.shopGetPickRecordUrl = this.appUrl + '/storeCustomer/getPickRecord';
       this.shopCustomerGetStockUrl = this.appUrl + '/storeCustomer/getStock';
     }

@@ -21,6 +21,7 @@ const routes: Routes = [
       { path: 'myOrder', loadChildren: './user-center/my-order/my-order.module#MyOrderModule' },
       { path: 'mySaveWater', loadChildren: './user-center/my-saveWater/my-saveWater.module#MySaveWaterModule' },
       { path: 'waterRecord', loadChildren: './waterRecord/waterRecord.module#WaterRecordModule' },
+      { path: 'cardMap', loadChildren: './cardMap/map.module#MapModule' },
     ]
   }
 ];

@@ -27,10 +27,17 @@ export class CLoginService {
               if (data.msg !== 'success') {
                 alert(data.msg);
               }
-              this.router.navigate(['cMain/firstPage'], {
-                queryParams: {
-                  token: data.data
-                }});
+              if (urlParse(window.location.search)['card'] === 1 || urlParse(window.location.search)['card'] === '1') {
+                this.router.navigate(['cMain/coupon'], {
+                  queryParams: {
+                    token: data.data
+                  }});
+              } else {
+                this.router.navigate(['cMain/firstPage'], {
+                  queryParams: {
+                    token: data.data
+                  }});
+              }
             }
           }
         },

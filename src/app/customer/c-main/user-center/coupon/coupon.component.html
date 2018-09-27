@@ -91,8 +91,9 @@
       </div>
       <br>
       <div class="line"></div>
-      <span *ngIf="turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useSpecialCard(item.id)">立即使用</span>
-      <span *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard()">立即使用</span>
+      <span [hidden]="status === 2" *ngIf="turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useSpecialCard(item.id)">立即使用</span>
+      <span [hidden]="status === 2" *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard(1)">立即使用</span>
+      <span [hidden]="status !== 2" *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard(2)">立即领取</span>
     </div>
     <div class="footer">
       已经到底~

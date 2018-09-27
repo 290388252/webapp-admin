@@ -18,6 +18,8 @@ export class CouponComponent implements OnInit {
   public couponUnEffectiveList = [];
   public couponEffectiveList = [];
   public specialGoodsList = [];
+  public status;
+  public openId;
   public imgUrl = this.appProperties.shopImgUrl;
   specialModal = false;
   isConfirmLoading = false;
@@ -61,10 +63,20 @@ export class CouponComponent implements OnInit {
     this.appService.getAliData(this.appProperties.shopFrontCouponMyListUrl, {state: state}, this.token).subscribe(
       data => {
         console.log(data);
+        this.status = data.status;
+        this.openId = data.returnObject.openId;
         if (state === 4) {
-          this.couponList = data.returnObject;
+          if (this.status === 1) {
+            this.couponList = data.returnObject;
+          } else if (this.status === 2) {
+            this.couponList = data.returnObject.couponList;
+          }
         } else if (state === 2) {
-          this.couponEffectiveList = data.returnObject;
+          if (this.status === 1) {
+            this.couponEffectiveList = data.returnObject;
+          } else if (this.status === 2) {
+            this.couponEffectiveList = data.returnObject.couponList;
+          }
           // console.log('ok');
           // if (this.couponEffectiveList.length) {
           //   for (let i = 0; i < this.couponEffectiveList.length;i++) {
@@ -81,7 +93,11 @@ export class CouponComponent implements OnInit {
           //
           // }
         } else if (state === 3) {
-          this.couponUnEffectiveList = data.returnObject;
+          if (this.status === 1) {
+            this.couponUnEffectiveList = data.returnObject;
+          } else if (this.status === 2) {
+            this.couponUnEffectiveList = data.returnObject.couponList;
+          }
         }
       },
       error => {
@@ -133,7 +149,15 @@ export class CouponComponent implements OnInit {
   }
 
   useCard(id) {
-    this.router.navigate(['cMain/firstPage']);
+    if (id === 1 || id === '1') {
+      this.router.navigate(['cMain/firstPage']);
+    } else if (id === 2 || id === '2') {
+      this.router.navigate(['cLogin'], {
+        queryParams: {
+          card: 1,
+          openId: this.openId
+        }});
+    }
   }
 
   useSpecialCard(id): void {
