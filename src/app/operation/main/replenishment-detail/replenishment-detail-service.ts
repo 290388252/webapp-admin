@@ -80,6 +80,10 @@ export class ReplenishmentDetailService {
       companyId: companyId}, getAdminToken()).subscribe(
       data => {
         console.log(data);
+        console.log({
+          vmCode: vmCode,
+          rate: rate,
+          companyId: companyId});
         // this.loading = false;
         data.returnObject.replenishVMList.forEach(item => {
           replenishList.push(item);

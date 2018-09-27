@@ -2,7 +2,7 @@
   <ul class="menu-top" nz-menu [nzMode]="'horizontal'">
     <li (click)="choose(2)" class="menu-li" nz-menu-item [nzSelected]="true">未使用</li>
     <li (click)="choose(3)" class="menu-li" nz-menu-item>已使用</li>
-    <li (click)="choose(1)" class="menu-li" nz-menu-item >已过期</li>
+    <li (click)="choose(1)" class="menu-li" nz-menu-item>已过期</li>
   </ul>
   <div *ngIf="empty" class="none">
     <img style="width: 35%;margin-bottom: 5px" src="../../../../../assets/icon/wrong.png" alt="">
@@ -16,7 +16,7 @@
         <h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>
         <span style="font-size: 12px;margin-left: 10px">满{{item.money}}减{{item.deductionMoney}}</span>
       </div>
-      <!--固定-->
+      <!--立减券-->
       <div style="float: left;margin-top: 20px" *ngIf="(item.type === 2)">
         <h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>
         <span style="font-size: 12px;margin-left: 10px">立减券</span>
@@ -26,9 +26,15 @@
         <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
         <span style="font-size: 12px;margin-left: 10px">折扣券</span>
       </div>
+      <!--固定折扣-->
+      <div style="float: left;margin-top: 20px;position: relative;" *ngIf="(item.type === 4)">
+        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
+        <span style="font-size: 12px;position: absolute;top: 24px;width: 90px;left: 58px;">最大优惠{{item.maximumDiscount}}元</span>
+        <span style="font-size: 12px;">固定折扣券</span>
+      </div>
       <!--<div style="float: left;margin-top: 20px">-->
-        <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
-        <!--<span style="font-size: 12px;margin-left: 10px;">{{text(item)}}</span>-->
+      <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
+      <!--<span style="font-size: 12px;margin-left: 10px;">{{text(item)}}</span>-->
       <!--</div>-->
       <div style="float: left;margin-left:5px;margin-top: 5px">
         <span style="float: left">{{item.useWhereLabel}}</span>
@@ -50,8 +56,8 @@
   <div *ngIf="unEffective" class="layout">
     <div class="card" [hidden]="!couponEffectiveList" *ngFor="let item of couponEffectiveList">
       <!--<div style="float: left;margin-top: 20px" *ngIf="(item.type === 1)">-->
-        <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
-        <!--<span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>-->
+      <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
+      <!--<span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>-->
       <!--</div>-->
       <!--满减-->
       <div style="float: left;margin-top: 20px" *ngIf="(item.type === 1)">
@@ -67,6 +73,12 @@
       <div style="float: left;margin-top: 20px" *ngIf="(item.type === 3)">
         <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
         <span style="font-size: 12px;margin-left: 10px">折扣券</span>
+      </div>
+      <!--固定折扣-->
+      <div style="float: left;margin-top: 20px;position: relative;" *ngIf="(item.type === 4)">
+        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
+        <span style="font-size: 12px;position: absolute;top: 24px;width: 90px;left: 58px;">最大优惠{{item.maximumDiscount}}元</span>
+        <span style="font-size: 12px">固定折扣券</span>
       </div>
       <div style="float: left;margin-left:5px;margin-top: 5px">
         <span style="float: left">{{item.useWhereLabel}}</span>
@@ -92,18 +104,22 @@
       商品
     </ng-template>
     <ng-template #modalContent>
-      <div style="width: 346px;height: 80px;border-bottom:1px dashed #666666 ;margin-bottom: 4px;display: flex;overflow: hidden;"
-           *ngFor="let item of specialGoodsList">
+      <div
+        style="width: 346px;height: 80px;border-bottom:1px dashed #666666 ;margin-bottom: 4px;display: flex;overflow: hidden;"
+        *ngFor="let item of specialGoodsList">
         <div style="width:80px;height: 100%;vertical-align: middle;
         text-align: center;">
           <img style="width: 78px;height: 78px;" [src]=imgUrl+trunImg(item.pic)>
         </div>
         <div style="width: 266px;height: 100%;">
-          <div style="width: 100%;height: 50px;letter-spacing: 2px;padding-left: 4px;font-size: 16px;">{{item.name}}</div>
+          <div style="width: 100%;height: 50px;letter-spacing: 2px;padding-left: 4px;font-size: 16px;">{{item.name}}
+          </div>
           <div style="width: 100%;height: 30px;line-height: 30px;padding: 0 4px;">
             <div style="float: left;width: 80px;">￥{{item.salesPrice}}</div>
             <div style="float: right;width: 100px;" (click)="addCar(item)">
-              <span style="position: relative;top: -4px;"><img style="width: 20px;height: 20px;color: #666666" src="../../../../assets/icon/addCar.png" alt=""></span>加入购物车</div>
+              <span style="position: relative;top: -4px;"><img style="width: 20px;height: 20px;color: #666666"
+                                                               src="../../../../assets/icon/addCar.png" alt=""></span>加入购物车
+            </div>
           </div>
 
         </div>
@@ -134,9 +150,15 @@
         <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
         <span style="font-size: 12px;margin-left: 10px">折扣券</span>
       </div>
+      <!--固定折扣-->
+      <div style="float: left;margin-top: 20px;position: relative;" *ngIf="(item.type === 4)">
+        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
+        <span style="font-size: 12px;position: absolute;top: 24px;width: 90px;left: 58px;">最大优惠{{item.maximumDiscount}}元</span>
+        <span style="font-size: 12px;">固定折扣券</span>
+      </div>
       <!--<div style="float: left;margin-top: 20px">-->
-        <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
-        <!--<span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>-->
+      <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
+      <!--<span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>-->
       <!--</div>-->
       <div style="float: left;margin-left:5px;margin-top: 5px">
         <span style="float: left">{{item.useWhereLabel}}</span>

@@ -44,6 +44,7 @@ export class FirstPageComponent implements OnInit {
   showGoods(token) {
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {type: 2}, token).subscribe(
       data => {
+        console.log(data)
         data.returnObject.forEach(item => {
           if (item.advertisingPic !== null && item.advertisingPic !== undefined && item.advertisingPic !== '') {
             this.imgList.push({id: item.id, name: item.name, bannerImg: item.advertisingPic});
@@ -77,7 +78,12 @@ export class FirstPageComponent implements OnInit {
     }, getToken()).subscribe(
       data => {
         console.log(data);
-        alert(data.message);
+        if (data.status === 2) {
+          alert(data.message);
+          window.location.href = data.returnObject;
+        } else {
+          alert(data.message);
+        }
       },
       error => {
         console.log(error);

@@ -128,10 +128,14 @@ export class PayComponent implements OnInit {
           }, this.token).subscribe(
             data4 => {
               console.log(data4);
-              if (typeof(WeixinJSBridge) === 'undefined') {
-                this.onBridgeUndefindeReady(data4);
+              if (data4.status === 2) {
+                window.location.href = data4.returnObject;
               } else {
-                this.onBridgeReady(data4);
+                if (typeof(WeixinJSBridge) === 'undefined') {
+                  this.onBridgeUndefindeReady(data4);
+                } else {
+                  this.onBridgeReady(data4);
+                }
               }
             },
             error => {

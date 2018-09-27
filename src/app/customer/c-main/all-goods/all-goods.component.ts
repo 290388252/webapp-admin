@@ -49,7 +49,12 @@ export class AllGoodsComponent implements OnInit {
     }, this.token).subscribe(
       data => {
         console.log(data);
-        alert(data.message);
+        if (data.status === 2) {
+          alert(data.message);
+          window.location.href = data.returnObject;
+        } else {
+          alert(data.message);
+        }
       },
       error => {
         console.log(error);

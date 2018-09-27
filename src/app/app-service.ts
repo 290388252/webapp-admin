@@ -37,9 +37,9 @@ export class AppService {
   }
 
   /**
-   * @param url地址
-   * @param options提交的数据
-   * @param myheaders可选参数设置头
+   * @param:url地址
+   * @param:options提交的数据
+   * @param:myheaders可选参数设置头
    * @title:封装一个post请求数据的
    */
   postData(url: string, options: any, tokens?: any | null): Observable<any> {

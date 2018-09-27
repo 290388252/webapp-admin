@@ -56,8 +56,12 @@ export class ShopCarComponent implements OnInit {
     }, this.token).subscribe(
       data => {
         console.log(data);
-        alert(data.message);
-        this.showShopCarList();
+        if (data.status === 2) {
+          window.location.href = data.returnObject;
+        } else {
+          alert(data.message);
+          this.showShopCarList();
+        }
       },
       error => {
         console.log(error);

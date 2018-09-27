@@ -81,11 +81,11 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   replenishDetail(list) {
     let text;
     const name = list.name === '' ? '无名' : list.name;
-    if (list.fullNum - list.num === 0) {
-      text = `${name}/已满`;
-    } else {
-      text = `${name}/需补${list.fullNum - list.num}`;
-    }
+    // if (list.fullNum - list.num === 0) {
+      // text = `${name}/已满`;
+    // } else {
+      text = `${name}/补${list.fullNum - list.num} ${list.num}/${list.fullNum}`;
+    // }
     return text;
   }
   // 查看详情记录
