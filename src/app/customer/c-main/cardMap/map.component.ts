@@ -36,58 +36,53 @@ export class MapComponent implements OnInit {
     const point = new BMap.Point('113.50238', '23.15673'); // 创建点坐标
     map.centerAndZoom(point, 15);  // 初始化地图，设置中心点坐标和地图级别
     map.enableScrollWheelZoom(true);     // 开启鼠标滚轮缩放
-
+    const _this = this;
     const geolocation = new BMap.Geolocation();
     geolocation.getCurrentPosition(function (r) {
-      if (this.getStatus() === 0) {
         const mk = new BMap.Marker(r.point);
         map.addOverlay(mk);
         map.panTo(r.point);
         console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
-        this.lon = r.point.lng;
-        this.lat = r.point.lat;
-      } else {
-        alert('failed' + this.getStatus());
-      }
-    }, {enableHighAccuracy: true});
-    this.appService.getAliData(this.appProperties.vendingMachinesInfoNearbyListPageUrl + `lon=${this.lon}&lat=${this.lat}`,
-      '', getToken()).subscribe(
-      data => {
-        console.log(data);
-        console.log(data.returnObject);
-        const list = data.returnObject;
-        for (let i = 0; i < list.length; i++) {
-          const marker = new BMap.Marker(new BMap.Point(list[i]['lon'], list[i]['lat']));  // 创建标注
-          const content = list[i]['locationName'];
-          const opts = {
-            width: 250,     // 信息窗口宽度
-            height: 80,     // 信息窗口高度
-            title: list[i]['companyName'], // 信息窗口标题
-            enableMessage: true // 设置允许信息窗发送短息
-          };
-          marker.enableDragging(); // marker可拖拽
-          map.addOverlay(marker);               // 将标注添加到地图中
-          addClickHandler(content, marker, opts);
-        }
-
-        function addClickHandler(content, marker, opts) {
-          marker.addEventListener('click', (e) => {
-              openInfo(content, e, opts);
+        _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `lon=${r.point.lng}&lat=${r.point.lat}`,
+          '', getToken()).subscribe(
+          data => {
+            console.log(data);
+            console.log(data.returnObject);
+            const list = data.returnObject;
+            for (let i = 0; i < list.length; i++) {
+              const marker = new BMap.Marker(new BMap.Point(list[i]['lon'], list[i]['lat']));  // 创建标注
+              const content = list[i]['locationName'];
+              const opts = {
+                width: 250,     // 信息窗口宽度
+                height: 80,     // 信息窗口高度
+                title: list[i]['companyName'], // 信息窗口标题
+                enableMessage: true // 设置允许信息窗发送短息
+              };
+              marker.enableDragging(); // marker可拖拽
+              map.addOverlay(marker);               // 将标注添加到地图中
+              addClickHandler(content, marker, opts);
             }
-          );
-        }
 
-        function openInfo(content, e, opts) {
-          const p = e.target;
-          const points = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-          const infoWindows = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
-          map.openInfoWindow(infoWindows, points); // 开启信息窗口
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+            function addClickHandler(content, marker, opts) {
+              marker.addEventListener('click', (e) => {
+                  // openInfo(content, e, opts);
+                console.log('????????????');
+                }
+              );
+            }
+
+            function openInfo(content, e, opts) {
+              const p = e.target;
+              const points = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+              const infoWindows = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
+              map.openInfoWindow(infoWindows, points); // 开启信息窗口
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }, {enableHighAccuracy: true});
     // const data_info = [
     //   [113.32819, 23.139837, '地址：北京市东城区王府井大街88号乐天银泰百货八层'],
     //   [113.389098, 23.174244, '地址：北京市东城区东华门大街'],
