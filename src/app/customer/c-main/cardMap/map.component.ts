@@ -18,6 +18,7 @@ export class MapComponent implements OnInit {
   public id = [];
   private lon;
   private lat;
+  private token;
 
   constructor(private router: Router,
               private modalService: NzModalService,
@@ -27,6 +28,11 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (getToken() === null || getToken() === undefined || getToken() === 'undefined') {
+      this.token = urlParse(window.location.search)['shopToken'];
+    } else {
+      this.token = getToken();
+    }
     // this.baiduMap([{lon: 113.50238, lat: 23.15673, locationName: '广州市黄埔区开发区开源大道11号B10栋4层', companyName: '优水到家'}]);
     this.baiduMap();
   }
@@ -44,7 +50,7 @@ export class MapComponent implements OnInit {
         map.panTo(r.point);
         console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
         _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `lon=${r.point.lng}&lat=${r.point.lat}`,
-          '', getToken()).subscribe(
+          '', _this.token).subscribe(
           data => {
             console.log(data);
             console.log(data.returnObject);

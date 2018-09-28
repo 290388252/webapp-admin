@@ -37,9 +37,9 @@ export class CouponComponent implements OnInit {
     if (this.token === null || this.token === undefined || this.token === 'undefined') {
       this.token = getToken();
     }
-    this.unEffective = true;
-    this.unEffective ? this.empty = false : this.empty = true;
-    this.coupon(2);
+    this.couponGet = true;
+    this.couponGet ? this.empty = false : this.empty = true;
+    this.coupon(5);
   }
 
   choose(flag) {
@@ -79,14 +79,10 @@ export class CouponComponent implements OnInit {
         if (state === 4) {
           if (this.status === 1) {
             this.couponList = data.returnObject;
-          } else if (this.status === 2) {
-            this.couponList = data.returnObject.couponList;
           }
         } else if (state === 2) {
           if (this.status === 1) {
             this.couponEffectiveList = data.returnObject;
-          } else if (this.status === 2) {
-            this.couponEffectiveList = data.returnObject.couponList;
           }
           // console.log('ok');
           // if (this.couponEffectiveList.length) {
@@ -106,13 +102,9 @@ export class CouponComponent implements OnInit {
         } else if (state === 3) {
           if (this.status === 1) {
             this.couponUnEffectiveList = data.returnObject;
-          } else if (this.status === 2) {
-            this.couponUnEffectiveList = data.returnObject.couponList;
           }
         } else if (state === 5) {
-          if (this.status === 1) {
-            this.couponUnEffectiveList = data.returnObject;
-          } else if (this.status === 2) {
+           if (this.status === 2) {
             this.couponGetList = data.returnObject.couponList;
           }
         }
