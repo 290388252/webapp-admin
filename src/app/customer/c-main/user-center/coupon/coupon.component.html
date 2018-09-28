@@ -1,12 +1,58 @@
 <div class="user-container">
   <ul class="menu-top" nz-menu [nzMode]="'horizontal'">
-    <li (click)="choose(2)" class="menu-li" nz-menu-item [nzSelected]="true">未使用</li>
+    <li (click)="choose(5)" class="menu-li" nz-menu-item [nzSelected]="true">可领取</li>
+    <li (click)="choose(2)" class="menu-li" nz-menu-item>未使用</li>
     <li (click)="choose(3)" class="menu-li" nz-menu-item>已使用</li>
     <li (click)="choose(1)" class="menu-li" nz-menu-item>已过期</li>
   </ul>
   <div *ngIf="empty" class="none">
     <img style="width: 35%;margin-bottom: 5px" src="../../../../../assets/icon/wrong.png" alt="">
     <h4>空空如也~</h4>
+  </div>
+  <!--可领取-->
+  <div *ngIf="couponGet" class="layout">
+    <div class="card" [hidden]="!couponGetList" *ngFor="let item of couponGet">
+      <!--<div style="float: left;margin-top: 20px" *ngIf="(item.type === 1)">-->
+      <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
+      <!--<span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>-->
+      <!--</div>-->
+      <!--满减-->
+      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 1)">
+        <h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>
+        <span style="font-size: 12px;margin-left: 10px">满{{item.money}}减{{item.deductionMoney}}</span>
+      </div>
+      <!--固定-->
+      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 2)">
+        <h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>
+        <span style="font-size: 12px;margin-left: 10px">立减券</span>
+      </div>
+      <!--折扣-->
+      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 3)">
+        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
+        <span style="font-size: 12px;margin-left: 10px">折扣券</span>
+      </div>
+      <!--固定折扣-->
+      <div style="float: left;margin-top: 20px;position: relative;" *ngIf="(item.type === 4)">
+        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
+        <span style="font-size: 12px;position: absolute;top: 24px;width: 90px;left: 58px;">最大优惠{{item.maximumDiscount}}元</span>
+        <span style="font-size: 12px">固定折扣券</span>
+      </div>
+      <div style="float: left;margin-left:5px;margin-top: 5px">
+        <span style="float: left">{{item.useWhereLabel}}</span>
+        <br>
+        <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
+        <br>
+        <span *ngIf="turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">仅限购买特殊商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余{{item.quantity}}张</span>
+        <span *ngIf="!turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">全品类商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余{{item.quantity}}张</span>
+        <!--<span style="margin-left: 140px;">共有{{item.quantity}}张</span>-->
+      </div>
+      <br>
+      <div class="line"></div>
+      <span [hidden]="status !== 2" *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard(2)">立即领取</span>
+    </div>
+    <div class="footer">
+      已经到底~
+    </div>
   </div>
   <!--已过期-->
   <div *ngIf="unUsed" class="layout">
@@ -93,7 +139,7 @@
       <div class="line"></div>
       <span [hidden]="status === 2" *ngIf="turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useSpecialCard(item.id)">立即使用</span>
       <span [hidden]="status === 2" *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard(1)">立即使用</span>
-      <span [hidden]="status !== 2" *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard(2)">立即领取</span>
+      <!--<span [hidden]="status !== 2" *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard(2)">立即领取</span>-->
     </div>
     <div class="footer">
       已经到底~

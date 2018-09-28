@@ -14,9 +14,11 @@ export class CouponComponent implements OnInit {
   public unUsed: boolean;
   public unEffective: boolean;
   public effective: boolean;
+  public couponGet: boolean;
   public couponList = [];
   public couponUnEffectiveList = [];
   public couponEffectiveList = [];
+  public couponGetList = [];
   public specialGoodsList = [];
   public status;
   public openId;
@@ -45,17 +47,26 @@ export class CouponComponent implements OnInit {
       this.unUsed = true;
       this.unEffective = false;
       this.effective = false;
+      this.couponGet = false;
       this.coupon(4);
     } else if (flag === 2) {
       this.unUsed = false;
       this.unEffective = true;
       this.effective = false;
+      this.couponGet = false;
       this.coupon(2);
     } else if (flag === 3) {
       this.unUsed = false;
       this.unEffective = false;
       this.effective = true;
+      this.couponGet = false;
       this.coupon(3);
+    } else if (flag === 5) {
+      this.unUsed = false;
+      this.unEffective = false;
+      this.effective = false;
+      this.couponGet = true;
+      this.coupon(5);
     }
   }
 
@@ -97,6 +108,12 @@ export class CouponComponent implements OnInit {
             this.couponUnEffectiveList = data.returnObject;
           } else if (this.status === 2) {
             this.couponUnEffectiveList = data.returnObject.couponList;
+          }
+        } else if (state === 5) {
+          if (this.status === 1) {
+            this.couponUnEffectiveList = data.returnObject;
+          } else if (this.status === 2) {
+            this.couponGetList = data.returnObject.couponList;
           }
         }
       },
@@ -150,7 +167,7 @@ export class CouponComponent implements OnInit {
 
   useCard(id) {
     if (id === 1 || id === '1') {
-      this.router.navigate(['cMain/firstPage']);
+      this.router.navigate(['cMain/cardMap']);
     } else if (id === 2 || id === '2') {
       this.router.navigate(['cLogin'], {
         queryParams: {

@@ -51,31 +51,31 @@ export class MapComponent implements OnInit {
             const list = data.returnObject;
             for (let i = 0; i < list.length; i++) {
               const marker = new BMap.Marker(new BMap.Point(list[i]['lon'], list[i]['lat']));  // 创建标注
-              const content = list[i]['locationName'];
+              const content = list[i]['locatoinName'];
               const opts = {
                 width: 250,     // 信息窗口宽度
                 height: 80,     // 信息窗口高度
-                title: list[i]['companyName'], // 信息窗口标题
+                title: '优水到家', // 信息窗口标题
                 enableMessage: true // 设置允许信息窗发送短息
               };
               marker.enableDragging(); // marker可拖拽
               map.addOverlay(marker);               // 将标注添加到地图中
-              addClickHandler(content, marker, opts);
+              addClickHandler(content, marker, opts, map);
             }
 
-            function addClickHandler(content, marker, opts) {
+            function addClickHandler(content, marker, opts, maps) {
               marker.addEventListener('click', (e) => {
-                  // openInfo(content, e, opts);
-                console.log('????????????');
+                  openInfo(content, e, opts, maps);
                 }
               );
             }
 
-            function openInfo(content, e, opts) {
+            function openInfo(content, e, opts, maps) {
               const p = e.target;
               const points = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
               const infoWindows = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
-              map.openInfoWindow(infoWindows, points); // 开启信息窗口
+              maps.openInfoWindow(infoWindows, points); // 开启信息窗口
+              // console.log(content, e.target, opts, maps, infoWindows);
             }
           },
           error => {
