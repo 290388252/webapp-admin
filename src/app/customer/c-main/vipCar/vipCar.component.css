@@ -1,0 +1,36 @@
+.title{
+  margin: 5px;
+}
+.user-container{
+  position: absolute;
+  /*padding-bottom: 130px;*/
+  /*height: 100%;*/
+  width: 100%;
+  background: #f2f2f2;
+  font-family:Microsoft Yahei;
+}
+.container {
+  width: 100%;
+}
+/*input[type="radio"] + label::before {*/
+  /*content: "\a0"; !*不换行空格*!*/
+  /*display: inline-block;*/
+  /*vertical-align: middle;*/
+  /*font-size: 18px;*/
+  /*width: 1em;*/
+  /*height: 1em;*/
+  /*margin-right: .4em;*/
+  /*border-radius: 50%;*/
+  /*border: 1px solid #01cd78;*/
+  /*text-indent: .15em;*/
+  /*line-height: 1;*/
+/*}*/
+/*input[type="radio"]:checked + label::before {*/
+  /*background-color: #01cd78;*/
+  /*background-clip: content-box;*/
+  /*padding: .2em;*/
+/*}*/
+/*input[type="radio"] {*/
+  /*position: absolute;*/
+  /*clip: rect(0, 0, 0, 0);*/
+/*}*/
