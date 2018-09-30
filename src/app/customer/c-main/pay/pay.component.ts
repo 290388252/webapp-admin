@@ -122,7 +122,7 @@ export class PayComponent implements OnInit {
         alert(data2.message);
         if (data2.returnObject.orderState !== 10001) {
           this.orderId = data2.returnObject.orderId;
-          this.appService.postAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
+          this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
             orderId: this.orderId,
             url: 'http://webapp.youshuidaojia.com/cMain/pay'
           }, this.token).subscribe(

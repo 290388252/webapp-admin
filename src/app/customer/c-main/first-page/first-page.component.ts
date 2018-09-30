@@ -22,6 +22,7 @@ export class FirstPageComponent implements OnInit {
   public height;
   public imgList = [];
   public currentPic = 0;
+  public judgeVip;
   constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties,
                private appService: AppService, private router: Router) {
   }
@@ -36,6 +37,23 @@ export class FirstPageComponent implements OnInit {
     this.showGoods(getToken());
     this.list = this.firstPageService.showGoods(getToken(), 1);
     this.getBannerHeight();
+    this.judgeVip = false;
+    this.getVip();
+  }
+  getVip() {
+    this.appService.postAliData(this.appProperties.judgeVipUrl, {}, getToken()).subscribe(
+      data => {
+        console.log(data);
+        if (data.status === 1) {
+          this.judgeVip = false;
+        } else {
+          this.judgeVip = true;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   getBannerHeight() {
     const banner = document.getElementById('banner');
@@ -71,7 +89,7 @@ export class FirstPageComponent implements OnInit {
       num: 1,
       itemName: item.name
     });
-    this.appService.postAliData(this.appProperties.shoppingAddUrl, {
+    this.appService.getAliData(this.appProperties.shoppingAddUrl, {
       itemId: item.id,
       num: 1,
       itemName: item.name
@@ -97,5 +115,9 @@ export class FirstPageComponent implements OnInit {
         name: name,
         type: 1
       }});
+  }
+  // 会员
+  vipBuy() {
+    this.router.navigate(['cMain/vipCar']);
   }
 }

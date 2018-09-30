@@ -14,11 +14,11 @@ export class CouponComponent implements OnInit {
   public unUsed: boolean;
   public unEffective: boolean;
   public effective: boolean;
-  public couponGet: boolean;
+  // public couponGet: boolean;
   public couponList = [];
   public couponUnEffectiveList = [];
   public couponEffectiveList = [];
-  public couponGetList = [];
+  // public couponGetList = [];
   public specialGoodsList = [];
   public status;
   public openId;
@@ -35,11 +35,28 @@ export class CouponComponent implements OnInit {
   ngOnInit() {
     this.token = urlParse(window.location.href)['token'];
     if (this.token === null || this.token === undefined || this.token === 'undefined') {
-      this.token = getToken();
+      // this.token = getToken();
+      this.appService.getData(this.appProperties.adminGetShopTokenUrl, null).subscribe(
+        data => {
+          console.log(data);
+          if (data.status === 1) {
+            window.location.href = data.returnObject.url;
+          } else if (data.status === 2) {
+            this.token = data.returnObject.token;
+            this.coupon(2);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
-    this.couponGet = true;
-    this.couponGet ? this.empty = false : this.empty = true;
-    this.coupon(5);
+    console.log(this.token);
+    this.unEffective = true;
+    this.unEffective ? this.empty = false : this.empty = true;
+    if (this.token !== undefined) {
+      this.coupon(2);
+    }
   }
 
   choose(flag) {
@@ -47,25 +64,25 @@ export class CouponComponent implements OnInit {
       this.unUsed = true;
       this.unEffective = false;
       this.effective = false;
-      this.couponGet = false;
+      // this.couponGet = false;
       this.coupon(4);
     } else if (flag === 2) {
       this.unUsed = false;
       this.unEffective = true;
       this.effective = false;
-      this.couponGet = false;
+      // this.couponGet = false;
       this.coupon(2);
     } else if (flag === 3) {
       this.unUsed = false;
       this.unEffective = false;
       this.effective = true;
-      this.couponGet = false;
+      // this.couponGet = false;
       this.coupon(3);
     } else if (flag === 5) {
       this.unUsed = false;
       this.unEffective = false;
       this.effective = false;
-      this.couponGet = true;
+      // this.couponGet = true;
       this.coupon(5);
     }
   }
@@ -75,7 +92,9 @@ export class CouponComponent implements OnInit {
       data => {
         console.log(data);
         this.status = data.status;
-        this.openId = data.returnObject.openId;
+        if (data.returnObject !== null) {
+          this.openId = data.returnObject.openId;
+        }
         if (state === 4) {
           if (this.status === 1) {
             this.couponList = data.returnObject;
@@ -103,11 +122,12 @@ export class CouponComponent implements OnInit {
           if (this.status === 1) {
             this.couponUnEffectiveList = data.returnObject;
           }
-        } else if (state === 5) {
-           if (this.status === 2) {
-            this.couponGetList = data.returnObject.couponList;
-          }
         }
+        // else if (state === 5) {
+        //    if (this.status === 2 && data.returnObject !== null) {
+        //     this.couponGetList = data.returnObject.couponList;
+        //   }
+        // }
       },
       error => {
         console.log(error);

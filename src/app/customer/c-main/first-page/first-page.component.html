@@ -7,80 +7,86 @@
     </nz-carousel>
   </div>-->
   <div class="bannerContainer" id="banner" [style.height]="height">
-    <ul class="bannerPicList" >
+    <ul class="bannerPicList">
       <li *ngFor="let item of imgList; let i = index" [hidden]="currentPic !== i" (click)="goTo(item.id, item.name)">
         <img style="display:block;width: 100%;height: 100%" [src]="imgUrl+item.bannerImg" [alt]="">
       </li>
     </ul>
     <div class="bannerBtnList">
       <ul>
-        <li *ngFor="let item of imgList; let i = index"><span [class.picBtn]="currentPic === i" (click)="changebanner(i)"></span></li>
+        <li *ngFor="let item of imgList; let i = index"><span [class.picBtn]="currentPic === i"
+                                                              (click)="changebanner(i)"></span></li>
         <div style="clear: both"></div>
       </ul>
     </div>
   </div>
+  <!--<div style="width: 100%;background: antiquewhite;" (click)="vipBuy()">-->
+  <div style="width: 100%;background: antiquewhite;" (click)="vipBuy()" *ngIf="judgeVip">
+    <img src="../../../../assets/icon/vipBanner.jpg" style="width: 100%;height: auto">
+  </div>
   <div class="gutter-example">
     <div nz-row nzGutter="16">
 
-      <div  nz-col class="gutter-row" style="margin-bottom: 10px;" nzSpan="12" *ngFor="let item of list">
+      <div nz-col class="gutter-row" style="margin-bottom: 10px;" nzSpan="12" *ngFor="let item of list">
         <div (click)="goTo(item.id, item.name)" class="gutter-box">
           <img class="box-img" [src]="imgUrl+item.pic" alt="">
         </div>
         <p class="gutter-row-text">{{item.name || '无名字'}}</p>
         <span class="gutter-row-span">￥{{item.salesPrice}}</span>
-        <span class="gutter-row-icon"><img (click)="addFirstCar(item)" style="width: 20px;height: 20px" src="../../../../assets/icon/addCar.png" alt=""></span>
+        <span class="gutter-row-icon"><img (click)="addFirstCar(item)" style="width: 20px;height: 20px"
+                                           src="../../../../assets/icon/addCar.png" alt=""></span>
       </div>
 
       <!--<div nz-col class="gutter-row" nzSpan="12">-->
-        <!--<div class="gutter-box">-->
-          <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-        <!--</div>-->
-        <!--<p class="gutter-row-text">1234555</p>-->
-        <!--<span class="gutter-row-span">$80</span>-->
+      <!--<div class="gutter-box">-->
+      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
+      <!--</div>-->
+      <!--<p class="gutter-row-text">1234555</p>-->
+      <!--<span class="gutter-row-span">$80</span>-->
       <!--</div>-->
       <!--<div nz-col class="gutter-row" nzSpan="12">-->
-        <!--<div class="gutter-box">-->
-          <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-        <!--</div>-->
-        <!--<p class="gutter-row-text">1234555</p>-->
-        <!--<span class="gutter-row-span">$80</span>-->
+      <!--<div class="gutter-box">-->
+      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
       <!--</div>-->
-
-      <!--<div nz-col class="gutter-row" nzSpan="12">-->
-        <!--<div class="gutter-box">-->
-          <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-        <!--</div>-->
-        <!--<p class="gutter-row-text">1234555</p>-->
-        <!--<span class="gutter-row-span">$80</span>-->
+      <!--<p class="gutter-row-text">1234555</p>-->
+      <!--<span class="gutter-row-span">$80</span>-->
       <!--</div>-->
 
       <!--<div nz-col class="gutter-row" nzSpan="12">-->
-        <!--<div class="gutter-box">-->
-          <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-        <!--</div>-->
-        <!--<p class="gutter-row-text">1234555</p>-->
-        <!--<span class="gutter-row-span">$80</span>-->
+      <!--<div class="gutter-box">-->
+      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
+      <!--</div>-->
+      <!--<p class="gutter-row-text">1234555</p>-->
+      <!--<span class="gutter-row-span">$80</span>-->
+      <!--</div>-->
+
+      <!--<div nz-col class="gutter-row" nzSpan="12">-->
+      <!--<div class="gutter-box">-->
+      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
+      <!--</div>-->
+      <!--<p class="gutter-row-text">1234555</p>-->
+      <!--<span class="gutter-row-span">$80</span>-->
       <!--</div>-->
       <!--<div nz-col class="gutter-row" nzSpan="12">-->
-        <!--<div class="gutter-box">-->
-          <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-        <!--</div>-->
-        <!--<p class="gutter-row-text">1234555</p>-->
-        <!--<span class="gutter-row-span">$80</span>-->
+      <!--<div class="gutter-box">-->
+      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
+      <!--</div>-->
+      <!--<p class="gutter-row-text">1234555</p>-->
+      <!--<span class="gutter-row-span">$80</span>-->
       <!--</div>-->
       <!--<div nz-col class="gutter-row" nzSpan="12">-->
-        <!--<div class="gutter-box">-->
-          <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-        <!--</div>-->
-        <!--<p class="gutter-row-text">1234555</p>-->
-        <!--<span class="gutter-row-span">$80</span>-->
+      <!--<div class="gutter-box">-->
+      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
+      <!--</div>-->
+      <!--<p class="gutter-row-text">1234555</p>-->
+      <!--<span class="gutter-row-span">$80</span>-->
       <!--</div>-->
       <!--<div nz-col class="gutter-row" nzSpan="12">-->
-        <!--<div class="gutter-box">-->
-          <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-        <!--</div>-->
-        <!--<p class="gutter-row-text">1234555</p>-->
-        <!--<span class="gutter-row-span">$80</span>-->
+      <!--<div class="gutter-box">-->
+      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
+      <!--</div>-->
+      <!--<p class="gutter-row-text">1234555</p>-->
+      <!--<span class="gutter-row-span">$80</span>-->
       <!--</div>-->
     </div>
     <!--footer-->

@@ -7,6 +7,7 @@ export class AppProperties {
     public appUrl: string;
     public smsUrl: string;
     public adminLoginUrl: string;
+    public adminGetShopTokenUrl: string;
     public smsSendUrl: string;
     public mainInfoUrl: string;
     public salesUrl: string;
@@ -33,6 +34,10 @@ export class AppProperties {
     public shopFrontCouponAddCouponToCustomerUrl: string;
     public shopStoreOrderAddUrl: string;
     public shopStoreOrderFindUrl: string;
+    public shopVipCarListUrl: string;
+    public judgeVipUrl;
+    public shopVipBuyUrl;
+    public shopVipAddUrl;
     // public shopStoreUpdateUrl: string;
     public shopUnifiedStoreOrderUrl: string;
     public orderUnifiedOrderUrl: string;
@@ -44,12 +49,12 @@ export class AppProperties {
     public shopCustomerGetStockUrl: string;
     constructor() {
       // Public
-      this.appUrl = 'http://192.168.0.117:8769/ys_admin'; // localtest
+      this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
+      this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
 
-      this.smsUrl = 'http://192.168.0.117:8769/ys_sms'; // localtest
-      // this.appUrl = 'http://119.23.233.123:6662/ys_admin';
-      // this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
+
       this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
+      this.adminGetShopTokenUrl = this.smsUrl + '/admin/getShopToken1';
       this.smsSendUrl = this.smsUrl + '/sms/send';
       this.mainInfoUrl = this.appUrl + '/home/initInfo';
       this.salesUrl = this.appUrl + '/home/payRecord';
@@ -86,5 +91,9 @@ export class AppProperties {
       this.orderUnifiedOrderUrl = this.smsUrl + '/order/unifiedOrder';
       this.shopGetPickRecordUrl = this.appUrl + '/storeCustomer/getPickRecord';
       this.shopCustomerGetStockUrl = this.appUrl + '/storeCustomer/getStock';
+      this.shopVipCarListUrl = this.appUrl + '/memberType/list';
+      this.judgeVipUrl = this.appUrl + '/member/judgeMember';
+      this.shopVipBuyUrl = this.appUrl + '/memberOrder/payMemebr';
+      this.shopVipAddUrl = this.appUrl + '/memberOrder/add';
     }
 }

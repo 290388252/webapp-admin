@@ -33,7 +33,7 @@ export class CLoginService {
                     token: data.data
                   }});
               } else {
-                this.router.navigate(['cMain/firstPage'], {
+                this.router.navigate(['cMain/coupon'], {
                   queryParams: {
                     token: data.data
                   }});

@@ -49,7 +49,7 @@ export class ShopCarComponent implements OnInit {
   }
   addCar(item) {
     console.log(item);
-    this.appService.postAliData(this.appProperties.shoppingAddUrl, {
+    this.appService.getAliData(this.appProperties.shoppingAddUrl, {
       itemId: item.id,
       num: 1,
       itemName: item.name

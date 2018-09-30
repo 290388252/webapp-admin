@@ -42,7 +42,7 @@ export class AllGoodsComponent implements OnInit {
     }
   }
   addCar(item) {
-    this.appService.postAliData(this.appProperties.shoppingAddUrl, {
+    this.appService.getAliData(this.appProperties.shoppingAddUrl, {
       itemId: item.id,
       num: 1,
       itemName: item.name
