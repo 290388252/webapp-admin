@@ -47,11 +47,14 @@ export class AppProperties {
     public shopAddCouponUrl: string;
     public shopGetPickRecordUrl: string;
     public shopCustomerGetStockUrl: string;
+    public shopUserMoneyUrl: string;
+    public shopPrepaidAddUrl: string;
+    public shopPrepaidBuyUrl: string;
     constructor() {
       // Public
       this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
+      // this.appUrl = 'http://192.168.0.117:8769/ys_admin'; // localtest
       this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
-
 
       this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
       this.adminGetShopTokenUrl = this.smsUrl + '/admin/getShopToken1';
@@ -95,5 +98,8 @@ export class AppProperties {
       this.judgeVipUrl = this.appUrl + '/member/judgeMember';
       this.shopVipBuyUrl = this.appUrl + '/memberOrder/payMemebr';
       this.shopVipAddUrl = this.appUrl + '/memberOrder/add';
+      this.shopUserMoneyUrl = this.appUrl + '/member/findBean';
+      this.shopPrepaidAddUrl = this.appUrl + '/memberOrder/add';
+      this.shopPrepaidBuyUrl = this.appUrl + '/memberOrder/payBalance';
     }
 }

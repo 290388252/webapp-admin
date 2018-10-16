@@ -45,9 +45,9 @@ export class FirstPageComponent implements OnInit {
       data => {
         console.log(data);
         if (data.status === 1) {
-          this.judgeVip = false;
-        } else {
           this.judgeVip = true;
+        } else {
+          this.judgeVip = false;
         }
       },
       error => {

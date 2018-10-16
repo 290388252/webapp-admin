@@ -16,6 +16,7 @@ const routes: Routes = [
       { path: 'replenishmentDetail', loadChildren: './replenishment-detail/replenishment-detail.module#ReplenishmentDetailModule' },
       { path: 'salesStatistics', loadChildren: './sales-statistics/sales-statistics.module#SalesStatisticsModule' },
       { path: 'myDetail', loadChildren: './my-detail/my-detail.module#MyDetailModule' }
+
     ]
   },
   ];

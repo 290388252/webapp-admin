@@ -1,29 +1,42 @@
 <div class="user-container">
-  <div class="container" style="padding-bottom: 104px;">
+  <div class="container">
+    <div
+      style="background: #ffffff;margin: 0 auto;width: 100%;height: 30px;line-height: 30px;text-align: left;font-size: 18px;color: #417ece;padding-left: 16px;">
+      <span (click)="goTo()"><i class="anticon anticon-left"></i></span>
+    </div>
     <!--<div style="margin: 0 auto;width: 100%;text-align: center;height: 30px;line-height: 30px;font-size: 18px;font-weight: bold;color: #666666">优水到家PLUS会员</div>-->
     <div style="padding: 0 20px;margin-top: 10px;">
-      <div *ngFor="let item of vipCarList" style="width: 100%;background: #f9a935;border-radius: 4px;text-align: center;margin-bottom: 10px;padding:10px 20px 10px 20px;">
-        <h3 style="font-weight: bold;color: #F5F5DC;font-size: 18px;">{{item.type}}</h3>
-        <h4>充值{{item.money}}元/月，即成为{{item.type}}</h4>
-        <h4>{{item.remark}}</h4>
+      <div style="width: 100%;background: #f9a935;border-radius: 4px;text-align: center;margin-bottom: 10px;padding:10px 20px 10px 20px;">
+        <h3 style="font-weight: bold;color: #F5F5DC;font-size: 18px;">冬日送温暖&nbsp;PLUS会员计划</h3>
         <div style="width: 200px;height: 1px;background: #F5F5DC;margin: 0 auto;margin-bottom: 4px;"></div>
-        <h4>享受全场95折优惠</h4>
-        <div style="width: 160px;height: 34px;border-radius: 17px;letter-spacing: 4px;background: #41414d;margin: 0 auto;line-height: 30px;color: #faf9fc" (click)="vipBuy(item.id, item.type, item.money, item.validity)">立即购买</div>
+        <h4 style="font-size: 16px;">充<span style="font-size: 26px;font-weight: bold;">100</span>送<span style="font-size: 26px;font-weight: bold;">100</span></h4>
+        <h4 style="font-size: 12px;color:#F5F5DC ">通过本页面充值100元成为PLUS会员(有效期一个月)，立即获赠价值100元优惠券(3张20元券、3张10元券、2张5元券)，充值不限次数，多充多送!</h4>
+        <div style="width: 160px;height: 34px;border-radius: 17px;letter-spacing: 4px;background: #41414d;margin: 0 auto;
+        line-height: 30px;color: #faf9fc" (click)="vipBuy(this.vipMoney)">立即购买</div>
       </div>
     </div>
-    <div style="display: flex;flex-direction: column;align-items: center;padding: 20px;padding-top: 10px;">
-      <div style="height: 26px;background: #82a9f7;border-radius: 13px;font-size: 18px;color: white;line-height: 26px;text-align: center;">
-        <span style="width: 14px;height: 14px;position: relative;top: -2px;left: 2px"><i class="anticon anticon-caret-left" style="font-size: 12px;margin-right: 4px;"></i></span>
+    <!--<div style="padding: 0 20px;margin-top: 10px;">-->
+      <!--<div *ngFor="let item of vipCarList" style="width: 100%;background: #f9a935;border-radius: 4px;text-align: center;margin-bottom: 10px;padding:10px 20px 10px 20px;">-->
+        <!--<h3 style="font-weight: bold;color: #F5F5DC;font-size: 18px;">{{item.type}}</h3>-->
+        <!--<h4>充值{{item.money}}元/月，即成为{{item.type}}</h4>-->
+        <!--<h4>{{item.remark}}</h4>-->
+        <!--<div style="width: 200px;height: 1px;background: #F5F5DC;margin: 0 auto;margin-bottom: 4px;"></div>-->
+        <!--<h4>享受全场95折优惠</h4>-->
+        <!--<div style="width: 160px;height: 34px;border-radius: 17px;letter-spacing: 4px;background: #41414d;margin: 0 auto;line-height: 30px;color: #faf9fc" (click)="vipBuy(item.id, item.type, item.money, item.validity)">立即购买</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div id="coupon_mes">
+      <div class="coupon_title">
+        <span class="coupon_icon_left"><i class="anticon anticon-caret-left" style="font-size: 12px;margin-right: 4px;"></i></span>
         <span>权益介绍</span>
-        <span style="width: 14px;height: 14px;position: relative;top: -2px;right: 2px;"><i class="anticon anticon-caret-right" style="font-size: 12px;margin-left: 4px;"></i></span>
-
+        <span class="coupon_icon_right"><i class="anticon anticon-caret-right" style="font-size: 12px;margin-left: 4px;"></i></span>
       </div>
-      <div style="width: 100%;border-radius: 6px;margin-top: 10px;overflow: hidden;">
-        <div style="width: 100%;height: 60px;background: #464587;color: #fdfdfd;font-size: 16px;letter-spacing: 1px;line-height: 68px;padding-left: 10px;">
-          <img src="../../../../assets/icon/vipIcon.png" style="width: 45px;height: 45px;margin-top: -20px;margin-right: 4px;">优水到家PLUS会员权益介绍</div>
+      <div class="coupon_content">
+        <div class="coupon_img">
+          <img src="../../../../assets/icon/vipIcon.png" style="width: 36px;height: 36px;margin-top: -12px;margin-right: 4px;">优水到家PLUS会员权益介绍</div>
         <div style="background: #fdfdfd;padding: 10px;color: #666666">
-          <h4>1、享受全场95折优惠，在支付时候享受折上折（个别特价抢购商品除外）；</h4>
-          <h4>2、会员双倍积分，积分可以兑换礼品和消费现金抵用（100积分等于1元）；</h4>
+          <h4>1、会员双倍积分，积分可以兑换礼品和消费现金抵用（100积分等于1元）；</h4>
+          <h4>2、会员日(每月17、18号)当天，充值100元，即获赠价值100元优惠券(3张20元券、3张10元券、2张5元券)；</h4>
           <h4>3、每月优水商城精选优品专享优惠；</h4>
           <h4>4、享受团购产品退换货免运费；</h4>
           <h4>5、使用客服时，享有优先回复的权益；</h4>

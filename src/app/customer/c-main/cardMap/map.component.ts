@@ -19,6 +19,7 @@ export class MapComponent implements OnInit {
   private lon;
   private lat;
   private token;
+  public lineList;
 
   constructor(private router: Router,
               private modalService: NzModalService,
@@ -39,25 +40,49 @@ export class MapComponent implements OnInit {
 
   baiduMap() {
     const map = new BMap.Map('container'); // 创建地图实例
-    const point = new BMap.Point('113.50238', '23.15673'); // 创建点坐标
-    map.centerAndZoom(point, 15);  // 初始化地图，设置中心点坐标和地图级别
+    // const point = new BMap.Point('113.50238', '23.15673'); // 创建点坐标
+    // const point = new BMap.Point('113.472844','23.173217'); // 创建点坐标
     map.enableScrollWheelZoom(true);     // 开启鼠标滚轮缩放
     const _this = this;
+    // 获取用户坐标
     const geolocation = new BMap.Geolocation();
     geolocation.getCurrentPosition(function (r) {
-        const mk = new BMap.Marker(r.point);
-        map.addOverlay(mk);
-        map.panTo(r.point);
-        console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
-        _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `lon=${r.point.lng}&lat=${r.point.lat}`,
-          '', _this.token).subscribe(
-          data => {
-            console.log(data);
-            console.log(data.returnObject);
-            const list = data.returnObject;
-            for (let i = 0; i < list.length; i++) {
-              const marker = new BMap.Marker(new BMap.Point(list[i]['lon'], list[i]['lat']));  // 创建标注
-              const content = list[i]['locatoinName'];
+      //根据point对象创建标记遮挡物，并添加到地图中
+      // 创建标注
+      // const mk = new BMap.Marker(r.point);
+      // 将标注添加到地图中
+      // map.addOverlay(mk);
+      //将地图中心设置为获得的当前位置
+      // map.panTo(r.point);
+      map.centerAndZoom(r.point, 15);  // 初始化地图，设置中心点坐标和地图级别
+      // 自定义样式
+      addMarker(r.point);
+      function addMarker(point) {  // 创建图标对象
+        var myIcon = new BMap.Icon('../../../../assets/icon/dw2.png', new BMap.Size(20, 20), {offset: new BMap.Size(10, 25)});
+        // 创建标注对象并添加到地图
+        var marker = new BMap.Marker(point, {icon: myIcon});
+        map.addOverlay(marker);
+      }
+      // alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+      //
+
+      // const list = [{'lon':'113.513346','lat':'23.161773','locatoinName':'东荟城'},
+      //   {'lon':'113.50713','lat':'23.160238','locatoinName':'公交站'},
+      //   {'lon':'113.502107','lat':'23.156644','locatoinName':'A1'}];
+      // _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `lon=${r.point.lng}&lat=${r.point.lat}`,
+      let date=new Date();
+      let timer=date.getTime().toString();
+      _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `time=`+ timer,
+        {'lon':r.point.lng,'lat':r.point.lat}, _this.token).subscribe(
+        data => {
+          console.log('请求');
+          console.log(data);
+          _this.lineList = data.returnObject;
+          if(_this.lineList.length > 0) {
+            console.log('123');
+            for (let i = 0; i < _this.lineList.length; i++) {
+              const marker = new BMap.Marker(new BMap.Point(_this.lineList[i]['lon'], _this.lineList[i]['lat']));  // 创建标注
+              const content = _this.lineList[i]['locatoinName'];
               const opts = {
                 width: 250,     // 信息窗口宽度
                 height: 80,     // 信息窗口高度
@@ -68,37 +93,32 @@ export class MapComponent implements OnInit {
               map.addOverlay(marker);               // 将标注添加到地图中
               addClickHandler(content, marker, opts, map);
             }
-
-            function addClickHandler(content, marker, opts, maps) {
-              marker.addEventListener('click', (e) => {
-                  openInfo(content, e, opts, maps);
-                }
-              );
-            }
-
-            function openInfo(content, e, opts, maps) {
-              const p = e.target;
-              const points = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-              const infoWindows = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
-              maps.openInfoWindow(infoWindows, points); // 开启信息窗口
-              // console.log(content, e.target, opts, maps, infoWindows);
-            }
-          },
-          error => {
-            console.log(error);
           }
-        );
+          function addClickHandler(content, marker, opts, maps) {
+            marker.addEventListener('click', (e) => {
+                openInfo(content, e, opts, maps);
+              }
+            );
+          }
+
+          function openInfo(content, e, opts, maps) {
+            const p = e.target;
+            const points = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+            const infoWindows = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
+            maps.openInfoWindow(infoWindows, points); // 开启信息窗口
+            // console.log(content, e.target, opts, maps, infoWindows);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+      // _this.lineList = [{'lon':'113.513346','lat':'23.161773','locatoinName':'东荟城'},
+      //   {'lon':'113.50713','lat':'23.160238','locatoinName':'公交站'},
+      //   {'lon':'113.502107','lat':'23.156644','locatoinName':'A1'}];
+
+
+
     }, {enableHighAccuracy: true});
-    // const data_info = [
-    //   [113.32819, 23.139837, '地址：北京市东城区王府井大街88号乐天银泰百货八层'],
-    //   [113.389098, 23.174244, '地址：北京市东城区东华门大街'],
-    //   [113.384043, 23.125398, '地址：北京市东城区正义路甲5号']
-    // ];
-    // const opts = {
-    //   width : 250,     // 信息窗口宽度
-    //   height: 80,     // 信息窗口高度
-    //   title : '信息窗口' , // 信息窗口标题
-    //   enableMessage: true // 设置允许信息窗发送短息
-    // };
   }
 }

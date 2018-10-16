@@ -5,6 +5,16 @@
   </div>
   <div class="am-list">
     <a class="am-list-item">
+      <div (click)="detail(6)" class="am-list-content">余额</div>
+      <span style="color: #666666">{{userMoney}}元</span>
+      <div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>
+    </a>
+    <a class="am-list-item">
+      <div class="am-list-content">我的积分</div>
+      <span style="color: #666666">{{userIntegral}}分</span>
+      <div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>
+    </a>
+    <a class="am-list-item">
       <div (click)="detail(1)" class="am-list-content">我的订单</div>
       <div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>
     </a>

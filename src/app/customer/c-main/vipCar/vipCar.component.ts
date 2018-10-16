@@ -13,7 +13,8 @@ export class VipCarComponent implements OnInit {
   public isConfirm;
   public disConfirm;
   public token;
-  public vipCarList;
+  public vipMoney;
+  // public vipCarList;
   constructor( private appProperties: AppProperties, private appService: AppService, private router: Router) { }
 
   ngOnInit() {
@@ -21,22 +22,23 @@ export class VipCarComponent implements OnInit {
     this.token = getToken();
     this.isConfirm = false;
     this.disConfirm = false;
-    this.getDate();
+    this.vipMoney = 0.01;
+    // this.getDate();
   }
 
   getDate() {
-    this.appService.postAliData(this.appProperties.shopVipCarListUrl, {}, this.token).subscribe(
-      data => {
-        console.log(123);
-        if (data.status === 1) {
-          this.vipCarList = data.returnObject;
-          console.log(this.vipCarList);
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    // this.appService.postAliData(this.appProperties.shopVipCarListUrl, {}, this.token).subscribe(
+    //   data => {
+    //     console.log(123);
+    //     if (data.status === 1) {
+    //       this.vipCarList = data.returnObject;
+    //       console.log(this.vipCarList);
+    //     }
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
   }
   checkBox() {
     const check = document.getElementsByClassName('checkA');
@@ -53,14 +55,13 @@ export class VipCarComponent implements OnInit {
     this.disConfirm = true;
   }
   // 会员
-  vipBuy(vipTypeId,vipType,vipMoney,vipValidity) {
-    console.log(vipValidity);
+  vipBuy(vipMoney) {
     this.router.navigate(['cMain/vipPay'], {
       queryParams: {
-        vipType: vipType,
-        vipTypeId: vipTypeId,
-        vipMoney: vipMoney,
-        vipValidity: vipValidity
+        vipMoney: vipMoney
       }});
+  }
+  goTo() {
+    this.router.navigate(['cMain/firstPage']);
   }
 }

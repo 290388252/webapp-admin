@@ -35,21 +35,24 @@ export class CouponComponent implements OnInit {
   ngOnInit() {
     this.token = urlParse(window.location.href)['token'];
     if (this.token === null || this.token === undefined || this.token === 'undefined') {
-      // this.token = getToken();
-      this.appService.getData(this.appProperties.adminGetShopTokenUrl, null).subscribe(
-        data => {
-          console.log(data);
-          if (data.status === 1) {
-            window.location.href = data.returnObject.url;
-          } else if (data.status === 2) {
-            this.token = data.returnObject.token;
-            this.coupon(2);
+      if (urlParse(window.location.search)['coupon'] === 1 || urlParse(window.location.search)['coupon'] === '1') {
+        this.token = getToken();
+      } else {
+        this.appService.getData(this.appProperties.adminGetShopTokenUrl, null).subscribe(
+          data => {
+            console.log(data);
+            if (data.status === 1) {
+              window.location.href = data.returnObject.url;
+            } else if (data.status === 2) {
+              this.token = data.returnObject.token;
+              this.coupon(2);
+            }
+          },
+          error => {
+            console.log(error);
           }
-        },
-        error => {
-          console.log(error);
-        }
-      );
+        );
+      }
     }
     console.log(this.token);
     this.unEffective = true;

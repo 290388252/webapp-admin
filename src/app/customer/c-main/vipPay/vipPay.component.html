@@ -7,54 +7,54 @@
     </div>
     <div>
       <!--地址-->
-      <div style="background-color:white;margin-right: 20px;position: relative;width: 100%;padding-right: 26px;" *ngIf="this.vipValidity === '2'">
-        <div *ngIf="!addressFalse"
-             style="height:64px;background-color:white;margin-right: 20px;position: relative;width: 100%;margin-top: 2px;padding-right: 26px;padding-top: 8px;color: #949494">
-          <div style="margin-right: 20px;height: 64px;padding-left: 26px;">
-            <div style="height: 26px;width: 100%;line-height: 26px;">
-              <div style="float:left;">收货人：{{consignee}}</div>
-              <div style="float: right;">{{iphone}}</div>
-            </div>
-            <div style="height: 38px;width: 100%;">配送地址：{{address}}</div>
-          </div>
-          <div
-            style="width: 20px;height: 64px;position: absolute;top: 0;right: 0;line-height: 64px;text-align: center;color: #949494;font-size: 18px;">
-            <i class="anticon anticon-right" (click)="showModal()"></i>
-          </div>
-        </div>
-        <div *ngIf="addressFalse">
-          <div
-            style="width: 120px;height: 64px;position: absolute;top: 0;left: 0;line-height: 64px;text-align: center;color: #949494;font-size: 18px;">
-            配送地址
-          </div>
-          <div
-            style="margin-left: 120px;height: 64px;text-align: right;line-height: 64px;font-weight: bold;font-size: 18px;">
-            <button nz-button nzType="primary" (click)="showModal()">
-              <span>请填写配送地址</span>
-            </button>
-          </div>
-        </div>
+      <!--<div style="background-color:white;margin-right: 20px;position: relative;width: 100%;padding-right: 26px;" *ngIf="this.vipValidity === '2'">-->
+        <!--<div *ngIf="!addressFalse"-->
+             <!--style="height:64px;background-color:white;margin-right: 20px;position: relative;width: 100%;margin-top: 2px;padding-right: 26px;padding-top: 8px;color: #949494">-->
+          <!--<div style="margin-right: 20px;height: 64px;padding-left: 26px;">-->
+            <!--<div style="height: 26px;width: 100%;line-height: 26px;">-->
+              <!--<div style="float:left;">收货人：{{consignee}}</div>-->
+              <!--<div style="float: right;">{{iphone}}</div>-->
+            <!--</div>-->
+            <!--<div style="height: 38px;width: 100%;">配送地址：{{address}}</div>-->
+          <!--</div>-->
+          <!--<div-->
+            <!--style="width: 20px;height: 64px;position: absolute;top: 0;right: 0;line-height: 64px;text-align: center;color: #949494;font-size: 18px;">-->
+            <!--<i class="anticon anticon-right" (click)="showModal()"></i>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div *ngIf="addressFalse">-->
+          <!--<div-->
+            <!--style="width: 120px;height: 64px;position: absolute;top: 0;left: 0;line-height: 64px;text-align: center;color: #949494;font-size: 18px;">-->
+            <!--配送地址-->
+          <!--</div>-->
+          <!--<div-->
+            <!--style="margin-left: 120px;height: 64px;text-align: right;line-height: 64px;font-weight: bold;font-size: 18px;">-->
+            <!--<button nz-button nzType="primary" (click)="showModal()">-->
+              <!--<span>请填写配送地址</span>-->
+            <!--</button>-->
+          <!--</div>-->
+        <!--</div>-->
 
-      </div>
+      <!--</div>-->
 
-      <!--modal-->
-      <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent"
-                [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
-        <ng-template #modalTitle>
-          请填写配送地址
-        </ng-template>
-        <ng-template #modalContent>
-          <input nz-input placeholder="收货人" [(ngModel)]="inConsignee" style="margin-bottom: 10px;">
-          <input nz-input placeholder="联系方式" [(ngModel)]="inIphone" style="margin-bottom: 10px;">
-          <input nz-input placeholder="详细地址" [(ngModel)]="inAddress">
+      <!--&lt;!&ndash;modal&ndash;&gt;-->
+      <!--<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent"-->
+                <!--[nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">-->
+        <!--<ng-template #modalTitle>-->
+          <!--请填写配送地址-->
+        <!--</ng-template>-->
+        <!--<ng-template #modalContent>-->
+          <!--<input nz-input placeholder="收货人" [(ngModel)]="inConsignee" style="margin-bottom: 10px;">-->
+          <!--<input nz-input placeholder="联系方式" [(ngModel)]="inIphone" style="margin-bottom: 10px;">-->
+          <!--<input nz-input placeholder="详细地址" [(ngModel)]="inAddress">-->
 
-        </ng-template>
-        <ng-template #modalFooter>
-          <button nz-button nzType="default" (click)="handleCancel()">取消</button>
-          <button nz-button nzType="primary" (click)="handleOk()">保存</button>
-        </ng-template>
-      </nz-modal>
-      <div style="color: red;width: 100%;text-align: center;" *ngIf="allAddress"><span><i class="anticon anticon-close-circle" style="color: red;margin-right: 8px;"></i></span>请输入完整配送信息!</div>
+        <!--</ng-template>-->
+        <!--<ng-template #modalFooter>-->
+          <!--<button nz-button nzType="default" (click)="handleCancel()">取消</button>-->
+          <!--<button nz-button nzType="primary" (click)="handleOk()">保存</button>-->
+        <!--</ng-template>-->
+      <!--</nz-modal>-->
+      <!--<div style="color: red;width: 100%;text-align: center;" *ngIf="allAddress"><span><i class="anticon anticon-close-circle" style="color: red;margin-right: 8px;"></i></span>请输入完整配送信息!</div>-->
       <!--开通服务-->
       <div
         style="height:56px;background-color:white;margin-right: 20px;position: relative;width: 100%;margin-top: 2px;padding-right: 26px;">
@@ -64,7 +64,7 @@
         </div>
         <div
           style="margin-left: 120px;height: 56px;text-align: right;line-height: 56px;font-weight: bold;font-size: 18px;">
-          {{vipType}}
+          PLUS会员
         </div>
       </div>
       <!--付款方式-->
@@ -88,7 +88,7 @@
         </div>
         <div
           style="margin-left: 120px;height: 56px;text-align: right;line-height: 56px;font-weight: bold;font-size: 16px;">
-          有效期至:{{vipTime}}
+          1个月
         </div>
       </div>
       <!--金额-->

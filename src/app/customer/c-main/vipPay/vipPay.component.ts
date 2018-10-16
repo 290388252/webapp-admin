@@ -16,10 +16,10 @@ declare var WeixinJSBridge: any;
 export class VipPayComponent implements OnInit {
   public imgUrl = this.appProperties.shopImgUrl;
   // get
-  public vipType;
-  public vipTypeId;
+  // public vipType;
+  // public vipTypeId;
   public vipMoney;
-  public vipValidity;
+  // public vipValidity;
   // address
   public isVisible;
   public addressFalse;
@@ -37,17 +37,16 @@ export class VipPayComponent implements OnInit {
   public isConfirm;
   public disConfirm;
   public token;
-  public vipCarList;
 
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router) {
   }
 
   ngOnInit() {
-    this.vipType = urlParse(window.location.href)['vipType'];
+    // this.vipType = urlParse(window.location.href)['vipType'];
     this.vipMoney = urlParse(window.location.href)['vipMoney'];
-    this.vipTypeId = urlParse(window.location.href)['vipTypeId'];
-    this.vipValidity = urlParse(window.location.href)['vipValidity'];
-    this.getTime();
+    // this.vipTypeId = urlParse(window.location.href)['vipTypeId'];
+    // this.vipValidity = urlParse(window.location.href)['vipValidity'];
+    // this.getTime();
     this.token = getToken();
     this.isConfirm = false;
     this.disConfirm = false;
@@ -57,101 +56,88 @@ export class VipPayComponent implements OnInit {
     this.iphone = undefined;
     this.address = undefined;
     this.addressTrue = false;
-    // this.getDate();
+    this.getDate();
     this.allAddress = false;
   }
-
-  getTime() {
-    const nowDate = new Date();
-    // compare
-    let nowY = nowDate.getFullYear();
-    let nowM = nowDate.getMonth() + 1;
-    let nowD = nowDate.getDate();
-    if (this.vipValidity === '1') {
-      if (nowM === 12) {
-        this.vipTime = (nowY + 1) + '/' + '1' + '/' + (nowD < 10 ? ('0' + nowD) : nowD);
-      } else {
-        this.vipTime = nowY + '/' + ((nowM + 1) < 10 ? '0' + (nowM + 1) : (nowM + 1)) + '/' + (nowD < 10 ? ('0' + nowD) : nowD);
-      }
-    }
-    if (this.vipValidity === '2') {
-      this.vipTime = (nowY + 1) + '/' + (nowM < 10 ? '0' + nowM : nowM) + '/' + (nowD < 10 ? ('0' + nowD) : nowD);
-    }
-    console.log('123');
-    console.log(this.vipTime);
-
-  }
+// 时间转换
+  // getTime() {
+  //   const nowDate = new Date();
+  //   // compare
+  //   let nowY = nowDate.getFullYear();
+  //   let nowM = nowDate.getMonth() + 1;
+  //   let nowD = nowDate.getDate();
+  //   if (this.vipValidity === '1') {
+  //     if (nowM === 12) {
+  //       this.vipTime = (nowY + 1) + '/' + '1' + '/' + (nowD < 10 ? ('0' + nowD) : nowD);
+  //     } else {
+  //       this.vipTime = nowY + '/' + ((nowM + 1) < 10 ? '0' + (nowM + 1) : (nowM + 1)) + '/' + (nowD < 10 ? ('0' + nowD) : nowD);
+  //     }
+  //   }
+  //   if (this.vipValidity === '2') {
+  //     this.vipTime = (nowY + 1) + '/' + (nowM < 10 ? '0' + nowM : nowM) + '/' + (nowD < 10 ? ('0' + nowD) : nowD);
+  //   }
+  //   console.log('123');
+  //   console.log(this.vipTime);
+  //
+  // }
 
   getDate() {
-    this.appService.getAliData(this.appProperties.shopVipCarListUrl, {'flag': 1}, this.token).subscribe(
-      data => {
-        console.log(123);
-        if (data.status === 1) {
-          this.vipCarList = data.returnObject;
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    // this.appService.getAliData(this.appProperties.shopVipCarListUrl, {'flag': 1}, this.token).subscribe(
+    //   data => {
+    //     console.log(123);
+    //     if (data.status === 1) {
+    //       this.vipCarList = data.returnObject;
+    //     }
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
   }
 
-  // 填写地址
-  showModal(): void {
-    this.isVisible = true;
-    this.inConsignee = this.consignee;
-    this.inIphone = this.iphone;
-    this.inAddress = this.address;
-    // 判断是否首次填写
-    this.addressTrue = true;
-  }
-
-  handleOk(): void {
-    this.isVisible = false;
-    this.addressFalse = false;
-    this.consignee = this.inConsignee;
-    this.iphone = this.inIphone;
-    this.address = this.inAddress;
-    if (this.inConsignee === undefined || this.inConsignee === null || this.inConsignee === ''
-      || this.inIphone === undefined || this.inIphone === null || this.inIphone === ''
-      || this.inAddress === undefined || this.inAddress === null || this.inAddress === '') {
-      this.allAddress = true;
-    } else {
-      this.allAddress = false;
-    }
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
-    // if (this.addressTrue === true) {
-    //   this.addressFalse = false;
-    // } else {
-    //   this.addressFalse = true;
-    // }
-    this.addressFalse = true;
-
-  }
+  // // 填写地址
+  // showModal(): void {
+  //   this.isVisible = true;
+  //   this.inConsignee = this.consignee;
+  //   this.inIphone = this.iphone;
+  //   this.inAddress = this.address;
+  //   // 判断是否首次填写
+  //   this.addressTrue = true;
+  // }
+  //
+  // handleOk(): void {
+  //   this.isVisible = false;
+  //   this.addressFalse = false;
+  //   this.consignee = this.inConsignee;
+  //   this.iphone = this.inIphone;
+  //   this.address = this.inAddress;
+  //   if (this.inConsignee === undefined || this.inConsignee === null || this.inConsignee === ''
+  //     || this.inIphone === undefined || this.inIphone === null || this.inIphone === ''
+  //     || this.inAddress === undefined || this.inAddress === null || this.inAddress === '') {
+  //     this.allAddress = true;
+  //   } else {
+  //     this.allAddress = false;
+  //   }
+  // }
+  //
+  // handleCancel(): void {
+  //   this.isVisible = false;
+  //   // if (this.addressTrue === true) {
+  //   //   this.addressFalse = false;
+  //   // } else {
+  //   //   this.addressFalse = true;
+  //   // }
+  //   this.addressFalse = true;
+  //
+  // }
 
   goTo() {
     this.router.navigate(['cMain/vipCar']);
   }
 
   vipBuy() {
-    // 如果年会员 填写地址
-    if (this.vipValidity === '2') {
-      if (this.consignee === undefined || this.consignee === null
-        || this.iphone === undefined || this.iphone === null
-        || this.address === undefined || this.address === null) {
-        this.allAddress = true;
-        return;
-      }
-    }
     this.appService.postAliData(this.appProperties.shopVipAddUrl, {
-      memberTypeId: this.vipTypeId,
       price: this.vipMoney,
-      consignee: this.consignee,
-      consigneePhone: this.iphone,
-      address: this.address,
     }, this.token).subscribe(
       data2 => {
         console.log(data2);
@@ -161,7 +147,7 @@ export class VipPayComponent implements OnInit {
           console.log(this.orderId);
           this.appService.getAliData(this.appProperties.shopVipBuyUrl, {
             orderId: this.orderId,
-            url: 'http://webapp.youshuidaojia.com/cMain/VipPay'
+            url: 'http://webapp.youshuidaojia.com/cMain/vipPay'
           }, this.token).subscribe(
             data4 => {
               console.log(data4);

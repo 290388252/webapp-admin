@@ -18,12 +18,15 @@ const routes: Routes = [
       { path: 'addAddress', loadChildren: './user-center/add-address/add-address.module#AddAddressModule' },
       { path: 'editAddress', loadChildren: './user-center/edit-address/edit-address.module#EditAddressModule' },
       { path: 'coupon', loadChildren: './user-center/coupon/coupon.module#CouponModule' },
+      { path: 'prepaid', loadChildren: './prepaid/prepaid.module#PrepaidModule' },
       { path: 'myOrder', loadChildren: './user-center/my-order/my-order.module#MyOrderModule' },
       { path: 'mySaveWater', loadChildren: './user-center/my-saveWater/my-saveWater.module#MySaveWaterModule' },
       { path: 'waterRecord', loadChildren: './waterRecord/waterRecord.module#WaterRecordModule' },
       { path: 'vipCar', loadChildren: './vipCar/vipCar.module#VipCarModule' },
       { path: 'vipPay', loadChildren: './vipPay/vipPay.module#VipPayModule' },
       { path: 'cardMap', loadChildren: './cardMap/map.module#MapModule' },
+      { path: 'prepaidPay', loadChildren: './prepaidPay/prepaidPay.module#PrepaidPayModule' },
+
     ]
   }
 ];

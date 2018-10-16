@@ -1,36 +1,91 @@
-.title{
+.title {
   margin: 5px;
 }
-.user-container{
+
+.user-container {
   position: absolute;
   /*padding-bottom: 130px;*/
   /*height: 100%;*/
   width: 100%;
   background: #f2f2f2;
-  font-family:Microsoft Yahei;
+  font-family: Microsoft Yahei;
 }
+
 .container {
   width: 100%;
 }
+
+#coupon_mes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  padding-top: 10px;
+}
+
+#coupon_mes .coupon_title {
+  height: 26px;
+  background: #82a9f7;
+  border-radius: 13px;
+  font-size: 18px;
+  color: white;
+  line-height: 26px;
+  text-align: center;
+}
+
+#coupon_mes .coupon_icon_left {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: -2px;
+  left: 2px
+}
+
+#coupon_mes .coupon_icon_right {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: -2px;
+  right: 2px;
+}
+
+#coupon_mes .coupon_content {
+  width: 100%;
+  border-radius: 6px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+#coupon_mes .coupon_img {
+  width: 100%;
+  height: 60px;
+  background: #464587;
+  color: #fdfdfd;
+  font-size: 16px;
+  letter-spacing: 1px;
+  line-height: 68px;
+  padding-left: 10px;
+}
+
 /*input[type="radio"] + label::before {*/
-  /*content: "\a0"; !*不换行空格*!*/
-  /*display: inline-block;*/
-  /*vertical-align: middle;*/
-  /*font-size: 18px;*/
-  /*width: 1em;*/
-  /*height: 1em;*/
-  /*margin-right: .4em;*/
-  /*border-radius: 50%;*/
-  /*border: 1px solid #01cd78;*/
-  /*text-indent: .15em;*/
-  /*line-height: 1;*/
+/*content: "\a0"; !*不换行空格*!*/
+/*display: inline-block;*/
+/*vertical-align: middle;*/
+/*font-size: 18px;*/
+/*width: 1em;*/
+/*height: 1em;*/
+/*margin-right: .4em;*/
+/*border-radius: 50%;*/
+/*border: 1px solid #01cd78;*/
+/*text-indent: .15em;*/
+/*line-height: 1;*/
 /*}*/
 /*input[type="radio"]:checked + label::before {*/
-  /*background-color: #01cd78;*/
-  /*background-clip: content-box;*/
-  /*padding: .2em;*/
+/*background-color: #01cd78;*/
+/*background-clip: content-box;*/
+/*padding: .2em;*/
 /*}*/
 /*input[type="radio"] {*/
-  /*position: absolute;*/
-  /*clip: rect(0, 0, 0, 0);*/
+/*position: absolute;*/
+/*clip: rect(0, 0, 0, 0);*/
 /*}*/

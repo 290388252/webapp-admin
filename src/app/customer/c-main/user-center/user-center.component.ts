@@ -10,23 +10,48 @@ import {Router} from '@angular/router';
   styleUrls: ['./user-center.component.css']
 })
 export class UserCenterComponent implements OnInit {
+  public token;
+  public userMoney;
+  public userIntegral;
   constructor( private appProperties: AppProperties,
                private appService: AppService,
                private router: Router) { }
 
   ngOnInit() {
+    this.token = getToken();
+    this.getDate();
+  }
+  getDate() {
+    this.appService.postAliData(this.appProperties.shopUserMoneyUrl, {}, this.token).subscribe(
+      data => {
+        console.log(123);
+        if (data.status === 1) {
+          this.userMoney = data.returnObject.userBalance;
+          this.userIntegral = data.returnObject.integral;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   detail(flag) {
     if (flag === 1) {
       this.router.navigate(['cMain/myOrder']);
     } else if (flag === 2) {
-      this.router.navigate(['cMain/coupon']);
+      this.router.navigate(['cMain/coupon'], {
+        queryParams: {
+          coupon: 1
+        }
+      });
     } else if (flag === 3) {
       this.router.navigate(['cMain/shopCar']);
     } else if (flag === 4) {
       this.router.navigate(['cMain/newAddress']);
     } else if (flag === 5) {
       this.router.navigate(['cMain/mySaveWater']);
+    } else if (flag === 6) {
+      this.router.navigate(['cMain/prepaid']);
     }
   }
 }
