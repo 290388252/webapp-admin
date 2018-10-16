@@ -1,0 +1,23 @@
+<div class="user-container">
+  <div class="container">
+    <div style="width: 100%;background: #417ece;height: 200px;color: #fefef6;padding: 12px;">
+      <div style="width: 100%;text-align: center;letter-spacing: 10px;font-size: 18px;position: relative;">
+        <span style="position: absolute;left:0" (click)="goTo('userCenter')"><i class="anticon anticon-left"></i></span>
+        余额
+      </div>
+      <div style="width: 100%;margin-top: 20px;">
+        <p style="color: #F8F8F8">余额账户</p>
+        <span style="font-size: 40px;">{{userMoney}}元</span>
+        <!--<p>目前积分：{{userIntegral}}分</p>-->
+      </div>
+    </div>
+    <div style="width: 100%;position: relative;height: 50px;background: #ffffff;overflow: hidden;" (click)="goTo('prepaidPay')">
+      <div style="height: 50px;margin-right: 50px;line-height: 50px;padding-left: 12px;letter-spacing: 10px;font-size: 16px;color: #333333">充值</div>
+      <div style="width: 50px;height: 50px;position: absolute;right: 12px;top: 0;line-height: 50px;text-align: right;">
+        <i class="anticon anticon-right"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+
