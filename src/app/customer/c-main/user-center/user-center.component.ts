@@ -52,6 +52,8 @@ export class UserCenterComponent implements OnInit {
       this.router.navigate(['cMain/mySaveWater']);
     } else if (flag === 6) {
       this.router.navigate(['cMain/prepaid']);
+    } else if (flag === 7) {
+      this.router.navigate(['cMain/cardMap']);
     }
   }
 }
