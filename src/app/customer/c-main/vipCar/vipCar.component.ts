@@ -22,7 +22,7 @@ export class VipCarComponent implements OnInit {
     this.token = getToken();
     this.isConfirm = false;
     this.disConfirm = false;
-    this.vipMoney = 0.01;
+    this.vipMoney = 100;
     // this.getDate();
   }
 

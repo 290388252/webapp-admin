@@ -57,12 +57,14 @@ export class MapComponent implements OnInit {
       map.centerAndZoom(r.point, 15);  // 初始化地图，设置中心点坐标和地图级别
       // 自定义样式
       addMarker(r.point);
+
       function addMarker(point) {  // 创建图标对象
-        var myIcon = new BMap.Icon('../../../../assets/icon/dw2.png', new BMap.Size(20, 20), {offset: new BMap.Size(10, 25)});
+        let myIcon = new BMap.Icon('../../../../assets/icon/dw2.png', new BMap.Size(20, 20), {offset: new BMap.Size(10, 25)});
         // 创建标注对象并添加到地图
-        var marker = new BMap.Marker(point, {icon: myIcon});
+        let marker = new BMap.Marker(point, {icon: myIcon});
         map.addOverlay(marker);
       }
+
       // alert('您的位置：' + r.point.lng + ',' + r.point.lat);
       //
 
@@ -70,18 +72,24 @@ export class MapComponent implements OnInit {
       //   {'lon':'113.50713','lat':'23.160238','locatoinName':'公交站'},
       //   {'lon':'113.502107','lat':'23.156644','locatoinName':'A1'}];
       // _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `lon=${r.point.lng}&lat=${r.point.lat}`,
-      let date=new Date();
-      let timer=date.getTime().toString();
-      _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `time=`+ timer,
-        {'lon':r.point.lng,'lat':r.point.lat}, _this.token).subscribe(
+      let date = new Date();
+      let timer = date.getTime().toString();
+      _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `time=` + timer,
+        {'lon': r.point.lng, 'lat': r.point.lat}, _this.token).subscribe(
         data => {
           console.log('请求');
           console.log(data);
           _this.lineList = data.returnObject;
-          if(_this.lineList.length > 0) {
+          if (_this.lineList.length > 0) {
             console.log('123');
             for (let i = 0; i < _this.lineList.length; i++) {
-              const marker = new BMap.Marker(new BMap.Point(_this.lineList[i]['lon'], _this.lineList[i]['lat']));  // 创建标注
+              // var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+              //   offset: new BMap.Size(10, 25), // 指定定位位置
+              //   imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+              // });
+              // ,{icon: myIcon}
+              let myIconA = new BMap.Icon('../../../../assets/icon/mapIcon.png', new BMap.Size(25, 25), {offset: new BMap.Size(10, 25)});
+              const marker = new BMap.Marker(new BMap.Point(_this.lineList[i]['lon'], _this.lineList[i]['lat']), {icon: myIconA});  // 创建标注
               const content = _this.lineList[i]['locatoinName'];
               const opts = {
                 width: 250,     // 信息窗口宽度
@@ -94,6 +102,7 @@ export class MapComponent implements OnInit {
               addClickHandler(content, marker, opts, map);
             }
           }
+
           function addClickHandler(content, marker, opts, maps) {
             marker.addEventListener('click', (e) => {
                 openInfo(content, e, opts, maps);
@@ -116,7 +125,6 @@ export class MapComponent implements OnInit {
       // _this.lineList = [{'lon':'113.513346','lat':'23.161773','locatoinName':'东荟城'},
       //   {'lon':'113.50713','lat':'23.160238','locatoinName':'公交站'},
       //   {'lon':'113.502107','lat':'23.156644','locatoinName':'A1'}];
-
 
 
     }, {enableHighAccuracy: true});
