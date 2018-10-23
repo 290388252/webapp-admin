@@ -23,6 +23,22 @@
         [(ngModel)]="homeValues"
         (ngModelChange)="onHomeChanges($event)">
       </nz-cascader>
+      <nz-cascader
+        style="width: 49%"
+        [nzOptions]="otherCompanyValuesList"
+        [nzPlaceHolder]="'请选择补货公司'"
+        [nzAllowClear]="false"
+        [(ngModel)]="otherCompanyId"
+        (ngModelChange)="onVersionChanges($event)">
+      </nz-cascader>
+      <nz-cascader
+        style="width: 49%"
+        [nzOptions]="versionValuesList"
+        [nzPlaceHolder]="'请选择版本'"
+        [nzAllowClear]="true"
+        [(ngModel)]="versionValues"
+        (ngModelChange)="onVersionChanges($event)">
+      </nz-cascader>
       <!--<nz-cascader-->
         <!--style="width: 49%"-->
         <!--[nzOptions]="homeList"-->

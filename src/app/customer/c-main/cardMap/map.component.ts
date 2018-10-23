@@ -47,21 +47,21 @@ export class MapComponent implements OnInit {
     // 获取用户坐标
     const geolocation = new BMap.Geolocation();
     geolocation.getCurrentPosition(function (r) {
-      //根据point对象创建标记遮挡物，并添加到地图中
+      // 根据point对象创建标记遮挡物，并添加到地图中
       // 创建标注
       // const mk = new BMap.Marker(r.point);
       // 将标注添加到地图中
       // map.addOverlay(mk);
-      //将地图中心设置为获得的当前位置
+      // 将地图中心设置为获得的当前位置
       // map.panTo(r.point);
       map.centerAndZoom(r.point, 15);  // 初始化地图，设置中心点坐标和地图级别
       // 自定义样式
       addMarker(r.point);
 
       function addMarker(point) {  // 创建图标对象
-        let myIcon = new BMap.Icon('../../../../assets/icon/dw2.png', new BMap.Size(20, 20), {offset: new BMap.Size(10, 25)});
+        const myIcon = new BMap.Icon('../../../../assets/icon/dw2.png', new BMap.Size(20, 20), {offset: new BMap.Size(10, 25)});
         // 创建标注对象并添加到地图
-        let marker = new BMap.Marker(point, {icon: myIcon});
+        const marker = new BMap.Marker(point, {icon: myIcon});
         map.addOverlay(marker);
       }
 
@@ -72,8 +72,8 @@ export class MapComponent implements OnInit {
       //   {'lon':'113.50713','lat':'23.160238','locatoinName':'公交站'},
       //   {'lon':'113.502107','lat':'23.156644','locatoinName':'A1'}];
       // _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `lon=${r.point.lng}&lat=${r.point.lat}`,
-      let date = new Date();
-      let timer = date.getTime().toString();
+      const date = new Date();
+      const timer = date.getTime().toString();
       _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `time=` + timer,
         {'lon': r.point.lng, 'lat': r.point.lat}, _this.token).subscribe(
         data => {
@@ -88,7 +88,7 @@ export class MapComponent implements OnInit {
               //   imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
               // });
               // ,{icon: myIcon}
-              let myIconA = new BMap.Icon('../../../../assets/icon/mapIcon.png', new BMap.Size(25, 25), {offset: new BMap.Size(10, 25)});
+              const myIconA = new BMap.Icon('../../../../assets/icon/mapIcon.png', new BMap.Size(25, 25), {offset: new BMap.Size(10, 25)});
               const marker = new BMap.Marker(new BMap.Point(_this.lineList[i]['lon'], _this.lineList[i]['lat']), {icon: myIconA});  // 创建标注
               const content = _this.lineList[i]['locatoinName'];
               const opts = {

@@ -19,6 +19,7 @@ export class AppProperties {
     public aliMachineQueryTradeDetailUrl: string;
     public vendingMachinesInfoListPageUrl: string;
     public vendingMachinesInfoNearbyListPageUrl: string;
+    public litOtherCompanyForSelectUrl: string;
     public vendingLineFindLineByForm: string;
 
     // Shopping Mall
@@ -53,7 +54,7 @@ export class AppProperties {
     constructor() {
       // Public
       this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
-      // this.appUrl = 'http://192.168.0.117:8769/ys_admin'; // localtest
+      // this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
       this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
 
       this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
@@ -71,6 +72,7 @@ export class AppProperties {
       this.vendingLineFindLineByForm = this.appUrl +  '/vendingLine/findLineByForm';
       this.vendingMachinesInfoListPageUrl = this.appUrl + '/vendingMachinesInfo/listPage';
       this.vendingMachinesInfoNearbyListPageUrl = this.appUrl + '/vendingMachinesInfo/nearbyListPage?';
+      this.litOtherCompanyForSelectUrl = this.appUrl + '/replenishCompanyMachines/listOtherCompanyForSelect';
 
       // Shopping Mall
       this.shopingLogin = this.smsUrl + '/admin/shopRegister';

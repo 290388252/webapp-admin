@@ -9,7 +9,9 @@ export class ReplenishmentDetailService {
   constructor(private appService: AppService, private appProperties: AppProperties) {}
   getInitData() {
     let homeList = [];
+    let otherCompanyList = [];
     const homeValuesList = [{value: '', label: '所有', isLeaf: true}];
+    const otherCompanyValuesList = [{value: '', label: '所有', isLeaf: true}];
     const replenishList = [];
     const initList = [];
     const nzOptions = [
@@ -39,6 +41,18 @@ export class ReplenishmentDetailService {
         console.log(error);
       }
     );
+    this.appService.getAliData(this.appProperties.litOtherCompanyForSelectUrl, '', getAdminToken()).subscribe(
+      data => {
+        console.log(data);
+        otherCompanyList = data;
+        otherCompanyList.forEach(item => {
+          otherCompanyValuesList.push({value: item.companyId, label: item.companyName, isLeaf: true});
+        });
+      },
+      error => {
+        console.log(error);
+      }
+    );
     // 获取初始列表数据
     this.appService.getAliData(this.appProperties.replenishUrl, '', getAdminToken()).subscribe(
       data => {
@@ -54,7 +68,7 @@ export class ReplenishmentDetailService {
         console.log(error);
       }
     );
-    return {nzOptions, homeList, homeValuesList, replenishList, initList};
+    return {nzOptions, homeList, homeValuesList, replenishList, initList, otherCompanyValuesList};
   }
   // 查看详情记录
   detailService(vmCode, rate) {
@@ -71,13 +85,15 @@ export class ReplenishmentDetailService {
     );
     return tradeDetailList;
   }
-  searchService(vmCode, rate, companyId) {
+  searchService(vmCode, rate, companyId, version, otherCompanyId) {
     const replenishList = [];
     const initList = [];
     this.appService.getAliData(this.appProperties.replenishUrl, {
       vmCode: vmCode,
       rate: rate,
-      companyId: companyId}, getAdminToken()).subscribe(
+      companyId: companyId,
+      version: version,
+      otherCompanyId : otherCompanyId}, getAdminToken()).subscribe(
       data => {
         console.log(data);
         console.log({

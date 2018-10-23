@@ -22,7 +22,11 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public nzOptions = [];
   public selectValues: string;
   public homeValues: string;
+  public versionValues: string;
+  public otherCompanyId: string;
   public homeValuesList = [{value: '', label: '所有', isLeaf: true}];
+  public otherCompanyValuesList = [{value: '', label: '所有', isLeaf: true}];
+  public versionValuesList = [{value: '1', label: '版本1', isLeaf: true}, {value: '2', label: '版本2', isLeaf: true}];
   public vmCode: string;
   public tradeDetailListLoading = true;
   constructor(private modalService: NzModalService,
@@ -45,6 +49,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
     this.homeValuesList = initObj.homeValuesList;
     this.replenishList = initObj.replenishList;
     this.initList = initObj.initList;
+    this.otherCompanyValuesList = initObj.otherCompanyValuesList;
   }
   // 监听input改变
   onChanges(event) {
@@ -54,6 +59,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   onHomeChanges(e) {
     console.log(this.homeValues[0]);
   }
+  onVersionChanges(e) {}
   // 搜索查询售货机列表
   onSearch() {
     console.log(this.value);
@@ -64,7 +70,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
     if (this.homeValues) {
       companyId = this.homeValues[0];
     }
-    const returnObj = this.replenishmentService.searchService(this.value, rate, companyId);
+    const returnObj = this.replenishmentService.searchService(this.value, rate, companyId, this.versionValues, this.otherCompanyId);
     if (returnObj.replenishList !== 0) {
       this.loading = false;
     }
