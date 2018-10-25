@@ -129,7 +129,7 @@
       <div style="float: left;margin-left:5px;margin-top: 5px">
         <span style="float: left">{{item.useWhereLabel}}</span>
         <br>
-        <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
+        <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}至{{toDate(item.endTime)}}使用</span>
         <br>
         <span *ngIf="turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">仅限购买特殊商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余{{item.quantity}}张</span>
         <span *ngIf="!turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">全品类商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余{{item.quantity}}张</span>

@@ -1,21 +1,98 @@
 <div class="user-container">
+  <div style="position: fixed;top: 4px;left:4px;width: 34px;height: 34px;z-index: 9999" (click)="goTo()">
+    <img src="../../../../assets/icon/shareIcon.png" style="width: 34px;height: 34px;"></div>
   <div class="container">
     <nz-carousel [nzEffect]="'fade'" nzAutoPlay>
-      <div nz-carousel-content *ngFor="let index of imgList"><img style="width: 100%;height: 100%" [src]="imgUrl+index" alt=""></div>
+      <div nz-carousel-content *ngFor="let index of array"><img style="width: 100%;height: 100%" [src]="index"
+                                                                alt=""></div>
     </nz-carousel>
   </div>
   <div class="gutter-example">
     <div class="gutter-row">
       <p class="gutter-row-text" style="font-weight: bold;">{{name}}</p>
       <p class="gutter-row-text">已销{{goodsObj['salesQuantity']}}件</p>
-      <span class="gutter-row-span">￥{{goodsObj['salesPrice']}}</span>
-      <span class="gutter-row-icon">{{goodsObj['purchaseTime']}}人已买</span>
+      <span class="gutter-row-span" *ngIf="goodsObj['isConglomerateCommodity'] === 0">￥{{goodsObj['salesPrice']}}</span>
+      <span class="gutter-row-span" *ngIf="goodsObj['isConglomerateCommodity'] === 1">
+        <span style="text-decoration:line-through;color: #666666">￥{{goodsObj['salesPrice']}}</span>
+        <span>￥{{goodsObj['groupPurchasePrice']}}</span>
+        <span style="margin-left: 10px;color: #666666;">{{grouponNumber}}人成团</span>
+      </span>
+      <span class="gutter-row-icon">已拼{{goodsObj['salesQuantity']}}件</span>
     </div>
   </div>
+  <!--团购成员-->
+  <div class="groupon" *ngIf="listShow">
+    <div style="height: 24px;line-height: 24px;color: #333333;padding-left: 4px;position: relative;">
+      {{grouponTotal}}人在拼单,可直接参与
+      <span style="position: absolute;right: 4px;color: #BFBFBF" (click)="showModal()">查看全部<i
+        class="anticon anticon-right"></i></span>
+    </div>
+
+    <div style="position: relative;height: 48px;border-top: 1px solid #D4D4D4;">
+      <div class="groupon_l">
+        <span style="position: absolute;left: 16px;top: 4px;"><img src="../../../../assets/icon/userIcon.png" style="width: 25px;height: 25px;">{{turnPhone(grouponList[0].phone)}}</span>
+        <span class="groupon_l_T">差<span style="color: red">{{grouponList[0].totalStaff - grouponList[0].participationNUm - 1}}</span>人拼成</span>
+        <span class="groupon_l_B">有效期至{{turnData(grouponList[0].updateTime)}}</span>
+      </div>
+      <div class="groupon_r" (click)="showQuantity(grouponList[0]['id'])">去拼单</div>
+    </div>
+
+    <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]=null
+              (nzOnCancel)="handleCancel()">
+      <ng-template #modalTitle>
+        正在拼单
+      </ng-template>
+      <ng-template #modalContent>
+        <div style="position: relative;height: 48px;border-bottom: 1px solid #D4D4D4;"
+             *ngFor="let item of grouponList">
+          <div style="text-align: right;margin-right: 70px;">
+            <span style="position: absolute;left: 0px;top: 4px;"><img src="../../../../assets/icon/userIcon.png" style="width: 25px;height: 25px;">{{turnPhone(item.phone)}}</span>
+            <span class="groupon_l_T">差<span style="color: red">{{item.totalStaff - item.participationNUm - 1}}</span>人拼成</span>
+            <span class="groupon_l_B">有效期至{{turnData(item.updateTime)}}</span>
+          </div>
+          <div class="groupon_r_modal" (click)="showQuantity(item['id'])">去拼单</div>
+        </div>
+      </ng-template>
+    </nz-modal>
+
+    <!---->
+  </div>
+  <!--数量-->
+  <nz-modal [(nzVisible)]="isVisibleA" [nzTitle]="modalTitleA" [nzContent]="modalContentA" [nzFooter]="modalFooterA"
+            (nzOnCancel)="quantityCancel()">
+    <ng-template #modalTitleA>
+      请确认购买数量
+    </ng-template>
+
+    <ng-template #modalContentA>
+      <div style="display: flex">
+        <div style="flex: 1;height: 60px;">
+          <img [src]="imgUrl+pic" style="width: 60px;height: 60px;">
+        </div>
+        <div style="flex: 2;height: 60px;">
+          购买数量：<input type="tel" class="form-control" [(ngModel)]="quantity" name="quantity"
+                      style="display: inline-block;width: 50px;"
+                      oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                      onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
+          <div style="color: red" *ngIf="quantityFalse">*请输入大于0的数量</div>
+          <!--<nz-input-number [(ngModel)]="quantity" [nzSize]="'small'" [nzMin]="1" [nzMax]="10" [nzStep]="1" style="width: 60px;" oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"-->
+          <!--onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}"></nz-input-number>-->
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #modalFooterA>
+      <button nz-button nzType="default" (click)="quantityCancel()">取消</button>
+      <button nz-button nzType="primary"
+              (click)="grouponGo(quantity,goodsObj['id'],goodsObj['name'],goodsObj['groupPurchasePrice'],grouponId,pic)">
+        提交
+      </button>
+    </ng-template>
+  </nz-modal>
   <ul class="gutter-detialNav">
-    <li (click)="selected(1)" [class]="(curId === 1)  ? 'nav-active' : ''" >图文详情</li>
-    <li (click)="selected(2)" [class]="(curId === 2)  ? 'nav-active' : ''" >商品参数</li>
-    <li (click)="selected(3)" [class]="(curId === 3)  ? 'nav-active' : ''" >购买须知</li>
+    <li (click)="selected(1)" [class]="(curId === 1)  ? 'nav-active' : ''">图文详情</li>
+    <li (click)="selected(2)" [class]="(curId === 2)  ? 'nav-active' : ''">商品参数</li>
+    <li (click)="selected(3)" [class]="(curId === 3)  ? 'nav-active' : ''">购买须知</li>
   </ul>
   <div [hidden]="curId !== 1" class="goods-detail">
     <div id="desk">
@@ -31,9 +108,29 @@
   </div>
   <!--footer-->
   <div style="width: 100%;height: 100px"></div>
-  <div class="finish">
-    <button style="width: 49%;height: 100%" (click)="goTo()"  nz-button nzType="primary">返回</button>
-    <button style="width: 49%;height: 100%" (click)="orderTo()"  nz-button nzType="primary">加入购物车</button>
+  <!--非团购-->
+  <div class="finish" *ngIf="goodsObj['isConglomerateCommodity'] === 0">
+    <button style="width: 49%;height: 100%" (click)="goTo()" nz-button nzType="primary">返回</button>
+    <button style="width: 49%;height: 100%" (click)="orderTo()" nz-button nzType="primary">加入购物车</button>
+  </div>
+  <!--团购-->
+  <div class="finishA" *ngIf="goodsObj['isConglomerateCommodity'] === 1">
+    <div style="flex: 1;height: 100%;background: #f7f7f7;line-height: 40px;">
+      <span (click)="share()"><i class="anticon anticon-export" style="margin-right: 2px;"></i>分享</span>
+    </div>
+    <div style="flex: 1;height: 100%;background: #e8aeaa;color: #fcffff">
+      <span style="display: block;line-height: 20px;">￥{{goodsObj['salesPrice']}}</span>
+      <span style="display: block;line-height: 20px;">原价购买</span>
+    </div>
+    <!--grouponGo(quantity,goodsObj['id'],goodsObj['name'],goodsObj['groupPurchasePrice'],null,pic)-->
+    <div style="flex: 1;height: 100%;background: #ce4034;color: #fcffff" (click)="showQuantity(null)">
+      <span style="display: block;line-height: 20px;">￥{{goodsObj['groupPurchasePrice']}}</span>
+      <span style="display: block;line-height: 20px;">发起拼单</span>
+    </div>
+
+    <!--<button style="flex: 1;height: 100%" (click)="goTo()"  nz-button nzType="primary">返回</button>-->
+    <!--<button style="flex: 1;height: 100%" (click)="goTo()"  nz-button nzType="primary">原价购买</button>-->
+    <!--<button style="flex: 1;height: 100%" (click)="orderTo()"  nz-button nzType="primary">拼价购买</button>-->
   </div>
 </div>
 

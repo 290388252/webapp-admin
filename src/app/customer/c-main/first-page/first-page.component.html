@@ -28,13 +28,24 @@
     <div nz-row nzGutter="16">
 
       <div nz-col class="gutter-row" style="margin-bottom: 10px;" nzSpan="12" *ngFor="let item of list">
-        <div (click)="goTo(item.id, item.name)" class="gutter-box">
+        <div (click)="goTo(item.id, item.name, item.pic)" class="gutter-box">
           <img class="box-img" [src]="imgUrl+item.pic" alt="">
         </div>
         <p class="gutter-row-text">{{item.name || '无名字'}}</p>
-        <span class="gutter-row-span">￥{{item.salesPrice}}</span>
-        <span class="gutter-row-icon"><img (click)="addFirstCar(item)" style="width: 20px;height: 20px"
-                                           src="../../../../assets/icon/addCar.png" alt=""></span>
+        <!--非团购商品-->
+        <div *ngIf="item.isConglomerateCommodity === 0">
+          <span class="gutter-row-span">￥{{item.salesPrice}}</span>
+          <span class="gutter-row-icon"><img (click)="addFirstCar(item)" style="width: 20px;height: 20px"
+                                             src="../../../../assets/icon/addCar.png" alt=""></span>
+        </div>
+        <!--团购商品-->
+        <div *ngIf="item.isConglomerateCommodity === 1" style="position: relative;">
+          <span class="goodsPrice">￥{{item.salesPrice}}</span>
+          <div class="goodsIcon" (click)="goTo(item.id, item.name, item.pic)">去拼团<i class="anticon anticon-right"></i></div>
+          <!--<span class="gutter-row-span">￥{{item.salesPrice}}</span>-->
+          <!--<span class="gutter-row-icon"><img (click)="addFirstCar(item)" style="width: 20px;height: 20px"-->
+                                             <!--src="../../../../assets/icon/addCar.png" alt=""></span>-->
+        </div>
       </div>
 
       <!--<div nz-col class="gutter-row" nzSpan="12">-->

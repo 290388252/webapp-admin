@@ -26,7 +26,7 @@ const routes: Routes = [
       { path: 'vipPay', loadChildren: './vipPay/vipPay.module#VipPayModule' },
       { path: 'cardMap', loadChildren: './cardMap/map.module#MapModule' },
       { path: 'prepaidPay', loadChildren: './prepaidPay/prepaidPay.module#PrepaidPayModule' },
-
+      { path: 'grouponPay', loadChildren: './grouponPay/grouponPay.module#GrouponPayModule' },
     ]
   }
 ];

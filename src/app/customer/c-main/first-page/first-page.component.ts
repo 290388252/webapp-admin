@@ -108,11 +108,13 @@ export class FirstPageComponent implements OnInit {
       }
     );
   }
-  goTo(id, name) {
+  goTo(id, name, pic) {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
         id: id,
         name: name,
+        pic: pic,
+        // isConglomerateCommodity: isConglomerateCommodity,
         type: 1
       }});
   }

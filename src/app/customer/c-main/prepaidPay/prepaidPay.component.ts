@@ -55,7 +55,7 @@ export class PrepaidPayComponent implements OnInit {
     }
 
   }
-
+  
   prepaidPay() {
     if (this.prepaidMoney <= 0.00 || this.prepaidMoney === undefined || this.prepaidMoney === null || this.prepaidMoney === '') {
       this.prepaidMoney = undefined;

@@ -1,7 +1,8 @@
-.title{
+.title {
   margin: 5px;
 }
-.user-container{
+
+.user-container {
   position: absolute;
   padding-bottom: 10%;
   height: 100%;
@@ -10,10 +11,12 @@
   /*background: url("../../../../assets/main/bs-bg.jpg");*/
   /*background-size: 150% 100%;*/
 }
+
 .container {
   width: 100%;
 }
-.bannerContainer{
+
+.bannerContainer {
   text-align: center;
   width: 100%;
   /*height: 200px;
@@ -23,25 +26,30 @@
   overflow: hidden;
   position: relative;
 }
-.bannerContainer .bannerPicList,.bannerContainer .bannerPicList li {
+
+.bannerContainer .bannerPicList, .bannerContainer .bannerPicList li {
   width: 100%;
   height: 100%;
 }
-.bannerBtnList{
+
+.bannerBtnList {
   position: absolute;
   bottom: 20px;
   width: 100%;
 }
+
 .bannerBtnList ul {
   width: fit-content;
   margin: 0px auto;
   text-align: center;
 }
-.bannerBtnList li{
+
+.bannerBtnList li {
   list-style: none;
   float: left !important;
   margin: 0px 5px;
 }
+
 .bannerContainer .bannerBtnList span {
   height: 8px;
   width: 8px;
@@ -51,23 +59,28 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
 .bannerContainer .bannerBtnList span.picBtn {
   height: 12px !important;
   width: 12px !important;
   margin: 0px !important;
   border-radius: 6px !important;
 }
+
 h3 {
   color: #fff;
 }
+
 .ant-carousel .slick-dots li button {
-  width: 4px!important;
-  height: 4px!important;
+  width: 4px !important;
+  height: 4px !important;
 }
-.gutter-example{
-  margin:10px;
+
+.gutter-example {
+  margin: 10px;
 }
-.gutter-box{
+
+.gutter-box {
   margin-bottom: 5px;
   /*height: 210px;
   line-height: 20px;*/
@@ -76,7 +89,8 @@ h3 {
   background-color: rgba(244, 244, 244, 1);
   border: 1px solid rgba(244, 244, 244, 1);
 }
-.gutter-row-text{
+
+.gutter-row-text {
   margin-left: 5px;
   margin-bottom: 0;
   width: 99%;
@@ -84,19 +98,40 @@ h3 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.gutter-row-span{
+
+.gutter-row-span {
   margin-left: 5px;
   margin-bottom: 0;
   color: red;
 }
-.gutter-row-icon{
+
+.gutter-row-icon {
   margin-right: 5px;
   float: right;
 }
-.gutter-boxs{
+
+.goodsPrice {
+  padding: 1px 0;
+  display: inline-block;
+  color: red
+}
+
+.goodsIcon {
+  background: #f34348;
+  color: #fcffff;
+  display: inline-block;
+  position: absolute;
+  right: 0px;
+  padding: 1px 8px;
+  padding-right: 5px;
+  border-radius: 12px
+}
+
+.gutter-boxs {
   height: 50px;
 }
-.box-img{
+
+.box-img {
   width: 100%;
   display: block;
   /*height: 50%;

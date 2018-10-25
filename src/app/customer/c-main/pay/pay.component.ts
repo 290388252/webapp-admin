@@ -30,6 +30,7 @@ export class PayComponent implements OnInit {
   public couponId;
   public couponLength;
   public radioValue;
+  public locationId;
 
   constructor(private appService: AppService, private appProperties: AppProperties, private router: Router ) {
   }
@@ -46,6 +47,7 @@ export class PayComponent implements OnInit {
           this.name = data.returnObject[0]['name'];
           this.receiver = data.returnObject[0]['receiver'];
           this.phone = data.returnObject[0]['phone'];
+          this.locationId = data.returnObject[0]['id'];
           this.showShopCarPrice();
           //this.couponSum();
         }
@@ -112,7 +114,7 @@ export class PayComponent implements OnInit {
   pay() {
     this.appService.postAliData(this.appProperties.shopStoreOrderAddUrl, {
       product: this.shopCartId.join(','),
-      location: this.name,
+      addressId: this.locationId,
       distributionModel: this.radioValue,
       coupon: this.couponId,
       payType: 1,

@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 // import { ElModule } from 'element-angular';
-import {DetailRoutingModule} from './detail-routing.module';
-import {DetailComponent} from './detail.component';
+import { GrouponPayRoutingModule } from './grouponPay-routing.module';
+import {GrouponPayComponent} from './grouponPay.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
@@ -12,11 +12,10 @@ import {FormsModule} from "@angular/forms";
     CommonModule,
     NgZorroAntdModule,
     FormsModule,
-    DetailRoutingModule
+    // ElModule,
+    GrouponPayRoutingModule
   ],
   providers: [AppService, AppProperties],
-  declarations: [DetailComponent]
+  declarations: [GrouponPayComponent]
 })
-export class DetailModule {
-}
-
+export class GrouponPayModule { }

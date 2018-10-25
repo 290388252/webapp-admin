@@ -19,6 +19,7 @@ export class ShopCarService implements OnInit {
           item.pic = item.pic.split(',')[0];
           goodsList.push(item);
         });
+        console.log(goodsList);
       },
       error => {
         console.log(error);

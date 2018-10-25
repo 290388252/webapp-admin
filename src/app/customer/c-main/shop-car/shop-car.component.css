@@ -52,6 +52,22 @@
   margin-right: 5px;
   float: right;
 }
+.goodsPrice {
+  padding: 1px 0;
+  display: inline-block;
+  color: red
+}
+
+.goodsIcon {
+  background: #f34348;
+  color: #fcffff;
+  display: inline-block;
+  position: absolute;
+  right: 0px;
+  padding: 1px 8px;
+  padding-right: 5px;
+  border-radius: 12px
+}
 .gutter-boxs{
   height: 50px;
 }

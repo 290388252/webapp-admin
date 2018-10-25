@@ -1,7 +1,9 @@
-.title{
+
+.title {
   margin: 5px;
 }
-.user-container{
+
+.user-container {
   position: absolute;
   padding-bottom: 10%;
   height: 100%;
@@ -10,9 +12,11 @@
   /*background: url("../../../../assets/main/bs-bg.jpg");*/
   /*background-size: 150% 100%;*/
 }
+
 .container {
   width: 100%;
 }
+
 [nz-carousel-content] {
   text-align: center;
   /*height: 200px;
@@ -21,38 +25,97 @@
   color: #fff;
   overflow: hidden;
 }
+
 h3 {
   color: #fff;
 }
+
 .ant-carousel .slick-dots li button {
-  width: 4px!important;
-  height: 4px!important;
+  width: 4px !important;
+  height: 4px !important;
 }
-.gutter-example,.goods-detail{
+
+.gutter-example, .goods-detail {
   margin: 10px;
 }
-.gutter-detialNav{
+
+.groupon {
+  width: 100%;
+  height: 88px;
+  background: #ffffff;
+  border-top: 8px solid #f7f7f7;
+  border-bottom: 8px solid #f7f7f7;
+}
+[nz-carousel-groupon] {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+}
+.groupon_l {
+  text-align: right;
+  margin-right: 86px;
+}
+
+.groupon_l_T {
+  display: block;
+  line-height: 30px;
+}
+
+.groupon_l_B {
+  display: block;
+  line-height: 8px;
+  font-size: 12px;
+}
+
+.groupon_r {
+  background: #f34348;
+  color: #fcffff;
+  display: inline-block;
+  position: absolute;
+  right: 6px;
+  top: 8px;
+  padding: 6px 16px;
+  border-radius: 4px
+}
+.groupon_r_modal {
+  background: #f34348;
+  color: #fcffff;
+  display: inline-block;
+  position: absolute;
+  right: 6px;
+  top: 8px;
+  padding: 6px 6px;
+  border-radius: 4px
+}
+.gutter-detialNav {
   border-top: 1px solid #797979;
   border-bottom: 1px solid #797979;
-  width:100%;
+  width: 100%;
   height: 40px;
   line-height: 40px;
   text-align: center;
 }
-.gutter-detialNav>li{
+
+.gutter-detialNav > li {
   width: 33.33333%;
   float: left;
   height: 100%;
   border-right: 1px solid #797979;
 }
-.gutter-detialNav>li:last-child{
+
+.gutter-detialNav > li:last-child {
   border-right: none;
 }
-.nav-active{
+
+.nav-active {
   background: #797979;
   color: #FFFFFF;
 }
-.gutter-row-text{
+
+.gutter-row-text {
   margin-left: 5px;
   margin-bottom: 0;
   width: 99%;
@@ -60,19 +123,32 @@ h3 {
   text-overflow:;
   white-space: normal;*/
 }
-.gutter-row-span{
+
+.gutter-row-span {
   margin-left: 5px;
   margin-bottom: 0;
   color: red;
 }
-.gutter-row-icon{
+
+.gutter-row-icon {
   margin-right: 5px;
   float: right;
 }
-.finish{
+
+.finish {
   width: 100%;
   height: 40px;
   position: fixed;
   bottom: 59px;
   background: #FFFFFF;
+}
+
+.finishA {
+  width: 100%;
+  height: 40px;
+  position: fixed;
+  bottom: 59px;
+  background: #FFFFFF;
+  display: flex;
+  text-align: center;
 }
