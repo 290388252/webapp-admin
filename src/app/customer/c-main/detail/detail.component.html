@@ -31,8 +31,9 @@
     <div style="position: relative;height: 48px;border-top: 1px solid #D4D4D4;">
       <div class="groupon_l">
         <span style="position: absolute;left: 16px;top: 4px;"><img src="../../../../assets/icon/userIcon.png" style="width: 25px;height: 25px;">{{turnPhone(grouponList[0].phone)}}</span>
-        <span class="groupon_l_T">差<span style="color: red">{{grouponList[0].totalStaff - grouponList[0].participationNUm - 1}}</span>人拼成</span>
-        <span class="groupon_l_B">有效期至{{turnData(grouponList[0].updateTime)}}</span>
+        <span class="groupon_l_T">差<span style="color: red">{{grouponNumber - grouponList[0].participationNUm - 1}}</span>人拼成</span>
+        <!--<span class="groupon_l_B">剩余<span id="abc">{{countDown(grouponList[0].endTime)}}</span></span>-->
+        <span class="groupon_l_B">有效期至{{turnData(grouponList[0].endTime)}}</span>
       </div>
       <div class="groupon_r" (click)="showQuantity(grouponList[0]['id'])">去拼单</div>
     </div>
@@ -47,8 +48,9 @@
              *ngFor="let item of grouponList">
           <div style="text-align: right;margin-right: 70px;">
             <span style="position: absolute;left: 0px;top: 4px;"><img src="../../../../assets/icon/userIcon.png" style="width: 25px;height: 25px;">{{turnPhone(item.phone)}}</span>
-            <span class="groupon_l_T">差<span style="color: red">{{item.totalStaff - item.participationNUm - 1}}</span>人拼成</span>
-            <span class="groupon_l_B">有效期至{{turnData(item.updateTime)}}</span>
+            <span class="groupon_l_T">差<span style="color: red">{{grouponNumber - item.participationNUm - 1}}</span>人拼成</span>
+            <span class="groupon_l_B">有效期至{{turnData(item.endTime)}}</span>
+            <!--<span class="groupon_l_B">有效期至<span [id]="'a'+item.id">{{countDown(item.updateTime,item.id)}}</span></span>-->
           </div>
           <div class="groupon_r_modal" (click)="showQuantity(item['id'])">去拼单</div>
         </div>
@@ -116,9 +118,9 @@
   <!--团购-->
   <div class="finishA" *ngIf="goodsObj['isConglomerateCommodity'] === 1">
     <div style="flex: 1;height: 100%;background: #f7f7f7;line-height: 40px;">
-      <span (click)="share()"><i class="anticon anticon-export" style="margin-right: 2px;"></i>分享</span>
+      <span (click)="share('点击右上角分享', 2000)"><i class="anticon anticon-export" style="margin-right: 2px;"></i>分享</span>
     </div>
-    <div style="flex: 1;height: 100%;background: #e8aeaa;color: #fcffff">
+    <div style="flex: 1;height: 100%;background: #e8aeaa;color: #fcffff" (click)="orderTo()">
       <span style="display: block;line-height: 20px;">￥{{goodsObj['salesPrice']}}</span>
       <span style="display: block;line-height: 20px;">原价购买</span>
     </div>

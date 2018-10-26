@@ -22,7 +22,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public nzOptions = [];
   public selectValues: string;
   public homeValues: string;
-  public versionValues: string;
+  public versionValues = '1';
   public otherCompanyId: string;
   public homeValuesList = [{value: '', label: '所有', isLeaf: true}];
   public otherCompanyValuesList = [{value: '', label: '所有', isLeaf: true}];
