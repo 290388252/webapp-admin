@@ -1,1 +1,15 @@
-<div id="container"></div>
+<!--<div style="width: 100%;height: 60px;background: antiquewhite;"></div>-->
+<div style="width: 100%;height: 50px;background: #ffffff;position: fixed;top: 0;z-index: 999;padding:9px 60px 9px 9px;">
+  <nz-input-group nzSuffixIcon="anticon anticon-search">
+    <input type="text" id="address" nz-input placeholder="请输入地址查看附近售水机" [(ngModel)]="location">
+    <span style="position: absolute;width: 35px;height: 32px;z-index: 99;right: 0;" id="check"></span>
+  </nz-input-group>
+  <button nz-button nzType="primary" style="position: absolute;top: 9px;right: 6px;padding: 0 10px;" (click)="goTo(mapLng,mapLat,userAddress)">列表</button>
+  <div id="abc"></div>
+</div>
+<div style="width: 100%;height: 100%;" *ngIf="detailShow">
+  <span style="position: absolute;right: 20px;top: 32px;z-index: 999;font-size: 28px;" (click)="closeView()">&times;</span>
+  <img src="../../../../assets/icon/noVm2.png" style="display: block;width: 106px;height: 106px;position: absolute;top: 50%;left: 50%;margin-top: -156px;margin-left: -53px">
+  <img src="../../../../assets/icon/noVm1.png" style="display: block;width: 196px;height: 12px;position: absolute;top: 50%;left: 50%;margin-top: -38px;margin-left: -88px">
+</div>
+<div id="contain"></div>

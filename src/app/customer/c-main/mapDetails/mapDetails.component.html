@@ -1,0 +1,30 @@
+<div class="user-container">
+  <div class="container" style="padding-bottom: 104px;">
+    <!--header-->
+    <div style="width: 100%;border: 12px solid #cccccc;padding: 18px 16px 18px 14px;">
+        <div style="width: 100%;position: relative;" *ngIf="!vmError">
+          <span style="position: absolute;top: 7px;"><img src="../../../../assets/icon/dw3.png" style="width: 20px;height: 20px;"></span>
+          <h4 style="font-size: 12px;margin-left: 28px;">{{address}}</h4>
+        </div>
+        <div style="width: 100%;position: relative;height: 20px;line-height: 20px;" *ngIf="!vmError">
+          <span style="position: absolute;"><img src="../../../../assets/icon/warningIcon.png" style="width: 18px;height: 18px;"></span>
+          <h4 style="font-size: 12px;margin-left: 28px;">机器状态:{{vmState}}</h4>
+        </div>
+      <div style="width: 100%;position: relative;height: 20px;line-height: 20px;" *ngIf="vmError">
+        <span style="position: absolute;"><img src="../../../../assets/icon/warningIcon.png" style="width: 18px;height: 18px;"></span>
+        <h4 style="font-size: 12px;margin-left: 28px;">机器状态:{{vmState}}</h4>
+      </div>
+
+    </div>
+    <div style="width: 100%;padding: 12px 25px;background: #ffffff;" [hidden]="!detailsList">
+      <div style="width: 100%;position: relative;height: 102px;background: #ffffff;padding: 18px 0;border-bottom: 1px solid #cccccc;" *ngFor="let item of detailsList" >
+        <span style="position: absolute;"><img [src]="imgUrl+item.pic" style="width: 64px;height: 64px;"></span>
+        <h6 style="font-size: 12px;margin-left: 74px;">{{item.itemName}}</h6>
+        <h6 style="font-size: 12px;margin-left: 74px;">剩余：{{item.num}}</h6>
+        <span style="position: absolute;right: 0;">￥{{item.price}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+

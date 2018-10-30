@@ -1,0 +1,15 @@
+.title{
+  margin: 5px;
+}
+.user-container{
+  position: absolute;
+  /*padding-bottom: 130px;*/
+  height: 100%;
+  width: 100%;
+  background: #ffffff;
+  font-family:Microsoft Yahei;
+}
+.container {
+  width: 100%;
+}
+

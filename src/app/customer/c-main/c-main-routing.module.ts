@@ -27,6 +27,12 @@ const routes: Routes = [
       { path: 'cardMap', loadChildren: './cardMap/map.module#MapModule' },
       { path: 'prepaidPay', loadChildren: './prepaidPay/prepaidPay.module#PrepaidPayModule' },
       { path: 'grouponPay', loadChildren: './grouponPay/grouponPay.module#GrouponPayModule' },
+      { path: 'mapDetails', loadChildren: './mapDetails/mapDetails.module#MapDetailsModule' },
+      { path: 'mapList', loadChildren: './mapList/mapList.module#MapListModule' },
+      { path: 'mapResult', loadChildren: './mapResult/mapResult.module#MapResultModule' },
+
+
+
     ]
   }
 ];

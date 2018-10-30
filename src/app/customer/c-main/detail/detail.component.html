@@ -7,6 +7,8 @@
                                                                 alt=""></div>
     </nz-carousel>
   </div>
+  <div id="timer2"></div>
+  <div id="timer3"></div>
   <div class="gutter-example">
     <div class="gutter-row">
       <p class="gutter-row-text" style="font-weight: bold;">{{name}}</p>
@@ -24,7 +26,7 @@
   <div class="groupon" *ngIf="listShow">
     <div style="height: 24px;line-height: 24px;color: #333333;padding-left: 4px;position: relative;">
       {{grouponTotal}}人在拼单,可直接参与
-      <span style="position: absolute;right: 4px;color: #BFBFBF" (click)="showModal()">查看全部<i
+      <span style="position: absolute;right: 4px;color: #BFBFBF" (click)="showModal(grouponList)">查看全部<i
         class="anticon anticon-right"></i></span>
     </div>
 
@@ -32,10 +34,12 @@
       <div class="groupon_l">
         <span style="position: absolute;left: 16px;top: 4px;"><img src="../../../../assets/icon/userIcon.png" style="width: 25px;height: 25px;">{{turnPhone(grouponList[0].phone)}}</span>
         <span class="groupon_l_T">差<span style="color: red">{{grouponNumber - grouponList[0].participationNUm - 1}}</span>人拼成</span>
-        <!--<span class="groupon_l_B">剩余<span id="abc">{{countDown(grouponList[0].endTime)}}</span></span>-->
-        <span class="groupon_l_B">有效期至{{turnData(grouponList[0].endTime)}}</span>
+        <span class="groupon_l_B"><span id="timer1"></span></span>
+        <!--<span class="groupon_l_B">有效期至{{turnData(grouponList[0].endTime)}}</span>-->
       </div>
-      <div class="groupon_r" (click)="showQuantity(grouponList[0]['id'])">去拼单</div>
+      <!--<button nz-button nzType="primary">拼单</button>-->
+      <!--<div class="groupon_r" name="timer1" (click)="showQuantity(grouponList[0]['id'])"><img src="../../../../assets/icon/groupIcon.png" style="width: 50px;height: 25px;"></div>-->
+      <div class="groupon_r" (click)="showQuantity(grouponList[0]['id'])"><button nz-button nzType="primary" [disabled]="verifyTime(grouponList[0].endTime)">拼团</button></div>
     </div>
 
     <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]=null
@@ -49,10 +53,11 @@
           <div style="text-align: right;margin-right: 70px;">
             <span style="position: absolute;left: 0px;top: 4px;"><img src="../../../../assets/icon/userIcon.png" style="width: 25px;height: 25px;">{{turnPhone(item.phone)}}</span>
             <span class="groupon_l_T">差<span style="color: red">{{grouponNumber - item.participationNUm - 1}}</span>人拼成</span>
-            <span class="groupon_l_B">有效期至{{turnData(item.endTime)}}</span>
-            <!--<span class="groupon_l_B">有效期至<span [id]="'a'+item.id">{{countDown(item.updateTime,item.id)}}</span></span>-->
+            <!--<span class="groupon_l_B">有效期至{{turnData(item.endTime)}}</span>-->
+            <span class="groupon_l_B"><span [id]="'a'+item.id"></span></span>
           </div>
-          <div class="groupon_r_modal" (click)="showQuantity(item['id'])">去拼单</div>
+
+          <div class="groupon_r_modal" (click)="showQuantity(item['id'])"><button nz-button nzType="primary" [disabled]="verifyTime(item.endTime)">拼团</button></div>
         </div>
       </ng-template>
     </nz-modal>

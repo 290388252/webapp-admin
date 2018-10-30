@@ -134,6 +134,7 @@ h3 {
 .box-img {
   width: 100%;
   display: block;
+  height: 140%;
   /*height: 50%;
   margin-top: 45px;*/
 }

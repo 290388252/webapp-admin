@@ -29,7 +29,7 @@
 
       <div nz-col class="gutter-row" style="margin-bottom: 10px;" nzSpan="12" *ngFor="let item of list">
         <div (click)="goTo(item.id, item.name, item.pic)" class="gutter-box">
-          <img class="box-img" [src]="imgUrl+item.pic" style="width: 100%;height: 140px;">
+          <img style="width: 100%;display: block;height: 140%;" [src]="imgUrl+item.pic">
         </div>
         <p class="gutter-row-text">{{item.name || '无名字'}}</p>
         <!--非团购商品-->

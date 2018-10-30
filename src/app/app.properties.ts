@@ -48,6 +48,8 @@ export class AppProperties {
   public shopUnifiedStoreOrderUrl: string;
   public orderUnifiedOrderUrl: string;
   public shopAddressSelectUrl: string;
+  public mapDetailsAUrl: string;
+  public mapDetailsBUrl: string;
   public shopAddressUpdateUrl: string;
   public shopAddressAddUrl: string;
   public shopAddCouponUrl: string;
@@ -93,6 +95,8 @@ export class AppProperties {
     // this.shopStoreUpdateUrl = this.appUrl + '/order/storeOrderUpdate';
     this.shopUnifiedStoreOrderUrl = this.appUrl + '/order/storeOrderPay';
     this.shopAddressSelectUrl = this.appUrl + '/address/select';
+    this.mapDetailsAUrl = this.appUrl + '/vendingMachinesWay/listAll';
+    this.mapDetailsBUrl = this.appUrl + '/vendingMachinesWay/listAll2';
     this.shopAddressUpdateUrl = this.appUrl + '/address/update';
     this.shopAddressAddUrl = this.appUrl + '/address/add';
     this.shopFrontCouponMyListUrl = this.appUrl + '/frontCoupon/myList';

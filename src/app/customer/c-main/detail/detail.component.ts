@@ -62,43 +62,41 @@ export class DetailComponent implements OnInit {
 
   }
 
-  countDown(times) {
-    let endTime = (new Date(times).getTime() - new Date().getTime()) / 1000;
-    let timer = null;
-    timer = setInterval(function () {
-      let hour = 0;
-      let minute = 0;
-      let second = 0;//时间默认值
-      if (endTime > 0) {
-        hour = Math.floor(endTime / (60 * 60));
-        minute = Math.floor(endTime / 60) - (hour * 60);
-        second = Math.floor(endTime) - (hour * 60 * 60) - (minute * 60);
+  countDown(maxtime, fn) {
+    var timer = setInterval(function () {
+      if (maxtime >= 0) {
+        let hours = Math.floor(maxtime / (60 * 60));
+        let minutes = Math.floor(maxtime / 60) - (hours * 60);
+        let seconds = Math.floor(maxtime % 60);
+        let endHour;
+        let endMinutes;
+        let endSeconds;
+        if (hours <= 9) {
+          endHour = '0' + hours;
+        } else {
+          endHour = hours;
+        }
+        if (minutes <= 9) {
+          endMinutes = '0' + minutes;
+        } else {
+          endMinutes = minutes;
+        }
+        if (seconds <= 9) {
+          endSeconds = '0' + seconds;
+        } else {
+          endSeconds = seconds;
+        }
+        let msg = "距离结束还有" + endHour + '时' + endMinutes + "分" + endSeconds + "秒";
+        fn(msg);
+        // if (maxtime == 5 * 60) alert('注意，还有5分钟!');
+        --maxtime;
       }
-      if (hour <= 9) {
-        this.endHour = '0' + hour;
-      } else {
-        this.endHour = hour;
+      else {
+        clearInterval(timer);
+        fn("已结束!");
       }
-      if (minute <= 9) {
-        this.endMinute = '0' + minute;
-      } else {
-        this.endMinute = minute;
-      }
-      if (second <= 9) {
-        this.endSecond = '0' + second;
-      } else {
-        this.endSecond = second;
-      }
-      // console.log(this.endHour + "小时：" + this.endMinute + "分钟：" + this.endSecond + "秒");
-      document.getElementById('abc').innerHTML = this.endHour + ":" + this.endMinute + ":" + this.endSecond;
-      endTime--;
     }, 1000);
-    if (endTime <= 0) {
-      clearInterval(timer);
-      // document.getElementById('abc').innerHTML=this.endHour + ":" + this.endMinute + ":" + this.endSecond;
-    }
   }
-
 
   showGoods() {
     this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {id: this.id}, '').subscribe(
@@ -123,7 +121,13 @@ export class DetailComponent implements OnInit {
         console.log(data);
         this.grouponList = data.returnObject;
         // this.countDown(this.grouponList[0].endTime);
-        this.arr = [];
+        console.log(this.grouponList.length > 0);
+        if (this.grouponList.length > 0) {
+          let endTime = (new Date(this.grouponList[0].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
+          this.countDown(endTime, function (msg) {
+            document.getElementById('timer1').innerHTML = msg;
+          });
+        }
         // for (let i = 0; i < this.grouponList.length; i++) {
         //   const obj = this.grouponList[i];
         //   this.arr.push(obj.id);
@@ -143,9 +147,30 @@ export class DetailComponent implements OnInit {
     );
 
   }
+  verifyTime(time) {
+    console.log(time);
+    let value = (new Date(time.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
+    if(value > 0 ){
+      return false;
+    }else {
+      return true;
+    }
+  }
 
-  showModal(): void {
+  showModal(list): void {
     this.isVisible = true;
+    console.log(list);
+    if (list.length > 0) {
+      console.log('2');
+      console.log(list);
+      for (let i = 0; i < list.length; i++) {
+        let endTime = (new Date(list[i].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
+        this.countDown(endTime, function (msg) {
+          document.getElementById(('a' + list[i].id)).innerHTML = msg;
+        });
+      }
+
+    }
   }
 
   handleCancel(): void {
@@ -195,7 +220,9 @@ export class DetailComponent implements OnInit {
   }
 
   turnPhone(phone) {
-    return phone = phone.substr(0, 3) + "*****" + phone.substr(8);
+    if(phone) {
+      return phone = phone.substr(0, 3) + "*****" + phone.substr(8);
+    }
   }
 
   turnData(date) {

@@ -62,7 +62,7 @@ export class FirstPageComponent implements OnInit {
   showGoods(token) {
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {type: 2}, token).subscribe(
       data => {
-        console.log(data)
+        console.log(data);
         data.returnObject.forEach(item => {
           if (item.advertisingPic !== null && item.advertisingPic !== undefined && item.advertisingPic !== '') {
             this.imgList.push({id: item.id, name: item.name, bannerImg: item.advertisingPic});

@@ -71,24 +71,16 @@ h3 {
 }
 
 .groupon_r {
-  background: #f34348;
-  color: #fcffff;
   display: inline-block;
   position: absolute;
   right: 6px;
   top: 8px;
-  padding: 6px 16px;
-  border-radius: 4px
 }
 .groupon_r_modal {
-  background: #f34348;
-  color: #fcffff;
   display: inline-block;
   position: absolute;
   right: 6px;
   top: 8px;
-  padding: 6px 6px;
-  border-radius: 4px
 }
 .gutter-detialNav {
   border-top: 1px solid #797979;
