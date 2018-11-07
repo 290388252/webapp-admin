@@ -3,8 +3,8 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {ActivatedRoute, Router} from '@angular/router';
-import {isCombinedNodeFlagSet} from "tslint";
-import {NzModalService} from "ng-zorro-antd";
+import {isCombinedNodeFlagSet} from 'tslint';
+import {NzModalService} from 'ng-zorro-antd';
 
 declare var BMap: any;
 
@@ -14,16 +14,18 @@ declare var BMap: any;
   styleUrls: ['./mapList.component.css']
 })
 export class MapListComponent implements OnInit {
-  public imgUrl = this.appProperties.shopImgUrl;
+  public imgUrl = this.appProperties.filesImgUrl;
   // get
   public detailsList;
   public mapLng;
   public mapLat;
-  public imageUrl = this.appProperties.shopImgUrl;
+  // public imageUrl = this.appProperties.shopImgUrl;
   public location;
   public detailShow;
   public userAddress;
   public token;
+  public show;
+  public imgShow;
 
   constructor(private appProperties: AppProperties,
               private appService: AppService,
@@ -37,7 +39,7 @@ export class MapListComponent implements OnInit {
     this.mapLat = urlParse(window.location.href)['mapLat'];
     this.userAddress = urlParse(window.location.href)['userAddress'];
     this.location = this.userAddress;
-    this.token = getToken();
+    // this.token = getToken();
     this.getVmDetails(this.mapLng, this.mapLat);
     this.baiduCheck(1);
 
@@ -47,17 +49,19 @@ export class MapListComponent implements OnInit {
   getVmDetails(mapLng, mapLat) {
     const date = new Date();
     const timer = date.getTime().toString();
-    this.appService.getAliData(this.appProperties.vendingMachinesInfoNearbyListPageUrl + `time=` + timer,
-      {'lon': mapLng, 'lat': mapLat}, this.token).subscribe(
+    this.appService.getData(this.appProperties.vendingMachinesInfoNearbyListPageUrl + `time=` + timer,
+      {'lon': mapLng, 'lat': mapLat}).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.detailsList = data.returnObject;
-          // console.log(this.detailsList.length === 0);
-          if(this.detailsList.length === 0) {
-            this.detailShow = false;
-          }else {
+          if (this.detailsList.length === 0) {
             this.detailShow = true;
+            this.show = false;
+            this.imgShow = true;
+          } else {
+            this.detailShow = false;
+            this.show = true;
+            this.imgShow = false;
           }
         }
 
@@ -75,99 +79,108 @@ export class MapListComponent implements OnInit {
 
   // 搜索地址
   baiduCheck(version) {
-    console.log('123');
 
-    let map = new BMap.Map(); // 创建地图实例
+    const map = new BMap.Map(); // 创建地图实例
     const _this = this;
 
-    //搜索
+    // 搜索
     function G(id) {
       return document.getElementById(id);
     }
+    setTimeout(() => {
+      const ac = new BMap.Autocomplete(    // 建立一个自动完成的对象
+        {
+          'input': 'address'
+          , 'location': map
+        });
 
-    let ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-      {
-        "input": "address"
-        , "location": map
+      ac.addEventListener('onhighlight', function (e) {  // 鼠标放在下拉列表上的事件
+        let str = '';
+        let _value = e.fromitem.value;
+        let value = '';
+        if (e.fromitem.index > -1) {
+          value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str = 'FromItem<br />index = ' + e.fromitem.index + '<br />value = ' + value;
+
+        value = '';
+        if (e.toitem.index > -1) {
+          _value = e.toitem.value;
+          value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str += '<br />ToItem<br />index = ' + e.toitem.index + '<br />value = ' + value;
+        G('address').innerHTML = str;
       });
 
-    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
-      let str = "";
-      let _value = e.fromitem.value;
-      let value = "";
-      if (e.fromitem.index > -1) {
-        value = _value.province + _value.city + _value.district + _value.street + _value.business;
-      }
-      str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-
-      value = "";
-      if (e.toitem.index > -1) {
-        _value = e.toitem.value;
-        value = _value.province + _value.city + _value.district + _value.street + _value.business;
-      }
-      str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-      G("address").innerHTML = str;
-    });
-
-    let myValue;
-    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
-      let _value = e.item.value;
-      myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
-      G("address").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-      setPlace();
-    });
-
-    function setPlace() {
-      console.log(12333);
-      map.clearOverlays();    //清除地图上所有覆盖物
-      function myFun() {
-        console.log(local.getResults());
-        console.log('1111');
-        let searchPoint = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-        _this.mapLng = searchPoint.lng;
-        _this.mapLat = searchPoint.lat;
-        _this.getVmDetails(_this.mapLng, _this.mapLat);
-
-      }
-
-      let local = new BMap.LocalSearch(map, { //智能搜索
-        onSearchComplete: myFun
+      let myValue;
+      ac.addEventListener('onconfirm', function (e) {    // 鼠标点击下拉列表后的事件
+        const _value = e.item.value;
+        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        G('address').innerHTML = 'onconfirm<br />index = ' + e.item.index + '<br />myValue = ' + myValue;
+        setPlace();
       });
-      local.search(myValue);
-    }
 
-    //
-    //   搜索按钮
-    window.onload=function(){
-      document.getElementById('check').onclick = function () {
-        setPlaceA();
+      function setPlace() {
+        map.clearOverlays();    // 清除地图上所有覆盖物
+        function myFun() {
+          const searchPoint = local.getResults().getPoi(0).point;    // 获取第一个智能搜索的结果
+          _this.mapLng = searchPoint.lng;
+          _this.mapLat = searchPoint.lat;
+          window.onload = function () {
+            document.getElementById('check').onclick = function () {
+              setPlaceA();
+            };
+          }
+          _this.getVmDetails(_this.mapLng, _this.mapLat);
+
+        }
+
+        const local = new BMap.LocalSearch(map, { // 智能搜索
+          onSearchComplete: myFun
+        });
+        local.search(myValue);
       }
-    }
+    });
+
     function setPlaceA() {
       function myFun() {
-        // console.log(local.getResults().getPoi(0).point);
-        let searchPoint = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-        console.log(searchPoint);
+        const searchPoint = local.getResults().getPoi(0).point;    // 获取第一个智能搜索的结果
         _this.mapLng = searchPoint.lng;
         _this.mapLat = searchPoint.lat;
+        window.onload = function () {
+          document.getElementById('check').onclick = function () {
+            setPlaceA();
+          };
+        }
         _this.getVmDetails(_this.mapLng, _this.mapLat);
 
       }
-      let local = new BMap.LocalSearch(map, { //智能搜索
+
+      const local = new BMap.LocalSearch(map, { // 智能搜索
         onSearchComplete: myFun
       });
       local.search(_this.location);
     }
+    setTimeout(() => {
+      document.getElementById('check').onclick = function () {
+        setPlaceA();
+      };
+    });
+  }
 
-  }
-  closeView() {
-    this.detailShow = true;
-    this.location = undefined;
-  }
   goTo() {
     this.router.navigate(['cMain/cardMap']);
   }
-
+  empty() {
+    this.detailsList = [];
+    this.imgShow = false;
+  }
+  cancel() {
+    this.show = true;
+    this.detailShow = false;
+    this.location = undefined;
+    this.detailsList = [];
+  }
   goDetails(vmCode, version) {
     this.router.navigate(['cMain/mapDetails'], {
       queryParams: {

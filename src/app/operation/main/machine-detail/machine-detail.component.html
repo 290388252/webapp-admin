@@ -14,7 +14,7 @@
       <tr>
         <th nz-th><span>机器编号</span></th>
         <th style="text-align: center" nz-th><span>位置</span></th>
-        <th style="text-align: center" nz-th><span>详情</span></th>
+        <th style="text-align: center" nz-th><span>操作</span></th>
       </tr>
       </thead>
       <tbody nz-tbody>
@@ -28,7 +28,7 @@
           <button style="margin-bottom: 5px;display: block" (click)="sails(item.vmCode)" nz-button [nzType]="'primary'">
             <span>销售情况</span>
           </button>
-          <button style="display: block" (click)="detail(item.vmCode)" nz-button [nzType]="'primary'">
+          <button style="display: block" (click)="detail(item.vmCode, item.machineVersion)" nz-button [nzType]="'primary'">
             <span>详情</span>
           </button>
         </td>

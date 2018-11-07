@@ -32,6 +32,7 @@ export class AppProperties {
   public shoppingAddUrl: string;
   public shoppingUpdateUrl: string;
   public shopImgUrl: string;
+  public filesImgUrl: string;
   public shopFrontCouponMyListUrl: string;
   public shopSpecialGoodsUrl: string;
   public shopFrontCouponAddCouponToCustomerUrl: string;
@@ -58,6 +59,7 @@ export class AppProperties {
   public shopUserMoneyUrl: string;
   public shopPrepaidAddUrl: string;
   public shopPrepaidBuyUrl: string;
+  public payFinishShowUrl: string;
   constructor() {
     // this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
     this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
@@ -88,6 +90,7 @@ export class AppProperties {
     this.shoppingNewJudgeUrl = this.appUrl + '/tblCustomerSpellGroup/isRepeatedSpellGroup';
     this.shoppingCarUrl = this.appUrl + '/shoppingCar/appListPage';
     this.shopImgUrl = this.appUrl + '/shoppingGoodsImg/';
+    this.filesImgUrl = this.appUrl + '/files/';
     this.shoppingAddUrl = this.appUrl + '/shoppingCar/add';
     this.shoppingUpdateUrl = this.appUrl + '/shoppingCar/update';
     this.shopStoreOrderAddUrl = this.appUrl + '/order/storeOrderAdd';
@@ -116,5 +119,7 @@ export class AppProperties {
     this.grouponAddUrl = this.appUrl + '/order/storeOrderSpellGroupAdd';
     this.grouponBuyUrl = this.appUrl + '/order/storeOrderSpellGroupPay';
     this.wechatShareInfoUrl = this.appUrl + '/wechat/shareInfo';
+
+    this.payFinishShowUrl = this.appUrl + '/ys_admin/order/storeOrderFininshPay ';
   }
 }

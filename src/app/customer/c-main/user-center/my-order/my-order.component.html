@@ -78,13 +78,13 @@
         </div>
         <div class="weui-form-preview__item">
           <label class="weui-form-preview__label">状态：</label>
-          <span class="weui-form-preview__value">{{(item.state)}}</span>
+          <span class="weui-form-preview__value">{{item.stateName}}</span>
         </div>
         <!--<div class="weui-form-preview__item">-->
           <!--<a (click)="detail(item.ptCode)" href="javascript:;" class="weui-btn weui-btn_primary">详情</a>-->
         <!--</div>-->
       </div>
-      <div class="weui-form-preview__ft" [hidden]="item.state === '出货完成'">
+      <div class="weui-form-preview__ft" [hidden]="item.state === 10001">
         <div></div>
         <a class="weui-btn weui-btn_primary" href="javascript:" (click)="payM(item)">支付</a>
         <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
@@ -161,7 +161,7 @@
         </div>
         <div class="weui-form-preview__item">
           <label class="weui-form-preview__label">状态：</label>
-          <span class="weui-form-preview__value">{{(item.state)}}</span>
+          <span class="weui-form-preview__value">{{(item.stateName)}}</span>
         </div>
         <!--<div class="weui-form-preview__item">-->
         <!--<a (click)="detail(item.ptCode)" href="javascript:;" class="weui-btn weui-btn_primary">详情</a>-->
@@ -252,7 +252,7 @@
         </div>
         <div class="weui-form-preview__item">
           <label class="weui-form-preview__label">状态：</label>
-          <span class="weui-form-preview__value">{{(item.state)}}</span>
+          <span class="weui-form-preview__value">{{(item.stateName)}}</span>
         </div>
         <!--<div class="weui-form-preview__item">-->
         <!--<a (click)="detail(item.ptCode)" href="javascript:;" class="weui-btn weui-btn_primary">详情</a>-->

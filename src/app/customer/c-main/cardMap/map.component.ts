@@ -4,7 +4,7 @@ import {NzModalService} from 'ng-zorro-antd';
 import {AppProperties} from '../../../app.properties';
 import {AppService} from '../../../app-service';
 import {getToken, urlParse} from '../../../utils/util';
-import * as $ from 'jquery'
+// import * as $ from 'jquery'
 
 declare var BMap: any;
 
@@ -26,9 +26,10 @@ export class MapComponent implements OnInit {
   public map;
   // public local;
   public location;
+  public firstLocation;
   public userPoint;
-  public detailShow;
   public userAddress;
+  public detailShow = false;
 
   constructor(private router: Router,
               private modalService: NzModalService,
@@ -48,19 +49,18 @@ export class MapComponent implements OnInit {
   }
 
   baiduMap() {
-    let map = new BMap.Map('contain'); // 创建地图实例
+    const map = new BMap.Map('contain'); // 创建地图实例
     // const point = new BMap.Point('113.50238', '23.15673'); // 创建点坐标
-    map.enableScrollWheelZoom(true);     // 开启鼠标滚轮缩放
+    // map.enableScrollWheelZoom(true);     // 开启鼠标滚轮缩放
     const _this = this;
     _this.map = map;
     // 获取用户坐标
     const geolocation = new BMap.Geolocation();
 
     geolocation.getCurrentPosition(function (r) {
-      console.log(r);
       let _value = r.address;
       _this.userAddress = _value.province + _value.city + _value.district + _value.street + _value.street_number;
-      console.log(_this.userAddress);
+      _this.firstLocation = _this.userAddress;
       // 根据point对象创建标记遮挡物，并添加到地图中
       // 创建标注
       // const mk = new BMap.Marker(r.point);
@@ -79,20 +79,19 @@ export class MapComponent implements OnInit {
 
 
       // 添加定位控件
-      let geolocationControl = new BMap.GeolocationControl();
-      geolocationControl.addEventListener("locationSuccess", function (e) {
-        console.log(e);
+      const geolocationControl = new BMap.GeolocationControl();
+      geolocationControl.addEventListener('locationSuccess', function (e) {
         let _value = e.addressComponent;
         _this.userAddress = _value.province + _value.city + _value.district + _value.street + _value.streetNumber;
         map.clearOverlays();
         addMarker(e.point);
         paint(e.point);
-        G("address").innerHTML = '';
+        G('address').innerHTML = '';
         _this.mapLng = e.point.lng;
         _this.mapLat = e.point.lat;
 
       });
-      geolocationControl.addEventListener("locationError", function (e) {
+      geolocationControl.addEventListener('locationError', function (e) {
         // 定位失败事件
         alert(e.message);
       });
@@ -103,36 +102,36 @@ export class MapComponent implements OnInit {
         return document.getElementById(id);
       }
 
-      let ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+      const ac = new BMap.Autocomplete(    // 建立一个自动完成的对象
         {
-          "input": "address"
-          , "location": map
+          'input': 'address'
+          , 'location': map
         });
 
-      ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
-        let str = "";
+      ac.addEventListener('onhighlight', function (e) {  // 鼠标放在下拉列表上的事件
+        let str = '';
         let _value = e.fromitem.value;
-        let value = "";
+        let value = '';
         if (e.fromitem.index > -1) {
           value = _value.province + _value.city + _value.district + _value.street + _value.business;
         }
-        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+        str = 'FromItem<br />index = ' + e.fromitem.index + '<br />value = ' + value;
 
-        value = "";
+        value = '';
         if (e.toitem.index > -1) {
           _value = e.toitem.value;
           value = _value.province + _value.city + _value.district + _value.street + _value.business;
         }
-        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-        G("address").innerHTML = str;
+        str += '<br />ToItem<br />index = ' + e.toitem.index + '<br />value = ' + value;
+        G('address').innerHTML = str;
 
       });
 
       let myValue;
-      ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
-        let _value = e.item.value;
+      ac.addEventListener('onconfirm', function (e) {    // 鼠标点击下拉列表后的事件
+        const _value = e.item.value;
         myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
-        G("address").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+        G('address').innerHTML = 'onconfirm<br />index = ' + e.item.index + '<br />myValue = ' + myValue;
         _this.userAddress = myValue;
         setPlace();
       });
@@ -141,9 +140,7 @@ export class MapComponent implements OnInit {
         // map.clearOverlays();    //清除地图上所有覆盖物
         function myFun() {
 
-          let searchPoint = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-          console.log(searchPoint.lng);
-          console.log(searchPoint.lat);
+          const searchPoint = local.getResults().getPoi(0).point;    // 获取第一个智能搜索的结果
           _this.mapLng = searchPoint.lng;
           _this.mapLat = searchPoint.lat;
           getList(searchPoint);
@@ -151,7 +148,7 @@ export class MapComponent implements OnInit {
           // map.addOverlay(new BMap.Marker(searchPoint));    //添加标注
         }
 
-        let local = new BMap.LocalSearch(map, { //智能搜索
+        const local = new BMap.LocalSearch(map, { // 智能搜索
           onSearchComplete: myFun
         });
         local.search(myValue);
@@ -164,39 +161,28 @@ export class MapComponent implements OnInit {
         setPlaceA();
       };
     };
+
     // 绘制坐标
     function paint(point) {
-      console.log(point);
       const date = new Date();
       const timer = date.getTime().toString();
-
-      _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `time=` + timer,
-        {'lon': point.lng, 'lat': point.lat}, _this.token).subscribe(
+      // addMarker(point);
+      _this.appService.getData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `time=` + timer,
+        {'lon': point.lng, 'lat': point.lat}).subscribe(
         data => {
-          console.log('请求');
-          console.log(data);
           _this.lineList = data.returnObject;
           if (_this.lineList.length > 0) {
-            console.log('123');
             for (let i = 0; i < _this.lineList.length; i++) {
-              // var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
-              //   offset: new BMap.Size(10, 25), // 指定定位位置
-              //   imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
-              // });
-              // ,{icon: myIcon}
-              // + '<input onclick="mapM()" type="button" id="abc11" value="详情" style="width: 50px;margin-top: 9px;margin-left: 200px;">'
-              // + '<button (click)="mapDetails(_this.lineList[i].code)" nz-button nzType="primary" style="width: 50px;margin-top: 9px;margin-left: 200px;">详情</button>'
               const myIconA = new BMap.Icon('../../../../assets/icon/mapIcon.png', new BMap.Size(25, 25), {offset: new BMap.Size(10, 25)});
               const marker = new BMap.Marker(new BMap.Point(_this.lineList[i]['lon'], _this.lineList[i]['lat']), {icon: myIconA});  // 创建标注
               const vmCode = _this.lineList[i]['code'];
               const vmVersion = _this.lineList[i]['machineVersion'];
               const vmDistance = _this.lineList[i]['distance'];
-              console.log(vmVersion);
               const content = _this.lineList[i]['locatoinName'] + '<div id="LoginBox">'
                 + '<span id="vmCode" style="display: none">' + vmCode + '</span>'
                 + '<span id="vmVersion" style="display: none">' + vmVersion + '</span>'
                 + '<span id="vmDistance" style="position: absolute;top: 0;right: 36px;">' + Math.round(vmDistance) + 'm</span>'
-                + '<input onclick="javascript:{window.location.href = \'http://localhost:4202/cMain/mapDetails?vmCode=\' + document.getElementById(\'vmCode\').innerHTML + \'&version=\' +document.getElementById(\'vmVersion\').innerHTML}" type="button" id="abc11" value="详情" style="width: 50px;margin-top: 1px;margin-left: 200px;">'
+                + '<input onclick="javascript:{window.location.href = \'http://webapp.youshuidaojia.com/cMain/mapDetails?vmCode=\' + document.getElementById(\'vmCode\').innerHTML + \'&version=\' +document.getElementById(\'vmVersion\').innerHTML}" type="button" id="abc11" value="详情 >" style="background:none;border:none;width: 50px;margin-top: 1px;margin-left: 200px;color: #3e85ff;">'
                 + '</div>';
               const opts = {
                 width: 250,     // 信息窗口宽度
@@ -205,13 +191,16 @@ export class MapComponent implements OnInit {
                 enableMessage: true // 设置允许信息窗发送短息
 
               };
-              marker.enableDragging(); // marker可拖拽
+              marker.disableDragging(); // marker可拖拽
               map.addOverlay(marker);               // 将标注添加到地图中
               addClickHandler(content, marker, opts, map);
             }
 
           } else {
             _this.detailShow = true;
+            setTimeout(() => {
+              _this.detailShow = false;
+            }, 3000);
           }
 
           function addClickHandler(content, marker, opts, maps) {
@@ -245,20 +234,21 @@ export class MapComponent implements OnInit {
       const marker = new BMap.Marker(point, {icon: myIcon});
       map.addOverlay(marker);
     }
+
     // 按钮搜索
     function setPlaceA() {
       // map.clearOverlays();
-      _this.userAddress = location;
+      _this.userAddress = _this.firstLocation;
+
       function myFun() {
-        let searchPoint = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-        console.log(searchPoint);
+        const searchPoint = local.getResults().getPoi(0).point;    // 获取第一个智能搜索的结果
         _this.mapLng = searchPoint.lng;
         _this.mapLat = searchPoint.lat;
         getList(searchPoint);
 
       }
 
-      let local = new BMap.LocalSearch(map, { //智能搜索
+      const local = new BMap.LocalSearch(map, { // 智能搜索
         onSearchComplete: myFun
       });
       local.search(_this.location);
@@ -268,10 +258,9 @@ export class MapComponent implements OnInit {
     function getList(searchPoint) {
       const date = new Date();
       const timer = date.getTime().toString();
-      _this.appService.getAliData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `time=` + timer,
-        {'lon': searchPoint.lng, 'lat': searchPoint.lat}, _this.token).subscribe(
+      _this.appService.getData(_this.appProperties.vendingMachinesInfoNearbyListPageUrl + `time=` + timer,
+        {'lon': searchPoint.lng, 'lat': searchPoint.lat}).subscribe(
         data => {
-          console.log(data);
           if (data.status === 1) {
             if (data.returnObject.length > 0) {
               map.clearOverlays();
@@ -280,7 +269,14 @@ export class MapComponent implements OnInit {
               addMarker(searchPoint);
               paint(searchPoint);
             } else {
+              map.clearOverlays();
+              map.centerAndZoom(searchPoint, 14);
+              // paint(searchPoint);
+              addMarker(searchPoint);
               _this.detailShow = true;
+              setTimeout(() => {
+                _this.detailShow = false;
+              }, 3000);
             }
           }
 
@@ -291,11 +287,8 @@ export class MapComponent implements OnInit {
       );
     }
   }
-  closeView() {
-    this.detailShow = false;
-    this.location = undefined;
-  }
-  goTo(mapLng, mapLat,userAddress) {
+
+  goTo(mapLng, mapLat, userAddress) {
     this.router.navigate(['cMain/mapList'], {
       queryParams: {
         mapLng: mapLng,
@@ -305,4 +298,12 @@ export class MapComponent implements OnInit {
     });
   }
 
+  check() {
+    this.detailShow = false;
+  }
+
+  cancel() {
+    this.detailShow = false;
+    this.location = undefined;
+  }
 }

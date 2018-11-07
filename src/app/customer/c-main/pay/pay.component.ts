@@ -49,7 +49,7 @@ export class PayComponent implements OnInit {
           this.phone = data.returnObject[0]['phone'];
           this.locationId = data.returnObject[0]['id'];
           this.showShopCarPrice();
-          //this.couponSum();
+          // this.couponSum();
         }
       },
       error => {
@@ -145,8 +145,9 @@ export class PayComponent implements OnInit {
             }
           );
         } else {
-          alert('支付完成！');
-          this.router.navigate(['cMain/shopCar']);
+          // alert('支付完成！');
+          // this.router.navigate(['cMain/shopCar']);
+          this.router.navigate(['cMain/payFinish']);
         }
       },
       error2 => {

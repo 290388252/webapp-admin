@@ -88,8 +88,16 @@ export class ReplenishmentDetailService {
   searchService(vmCode, rate, companyId, version, otherCompanyId) {
     const replenishList = [];
     const initList = [];
+    const vaild = /^\d*$/;
+    let machineCode = '', address = '';
+    if (vaild.test(vmCode)) {
+      machineCode = vmCode;
+    } else {
+      address = vmCode;
+    }
     this.appService.getAliData(this.appProperties.replenishUrl, {
-      vmCode: vmCode,
+      vmCode: machineCode,
+      address: address,
       rate: rate,
       companyId: companyId,
       version: version,

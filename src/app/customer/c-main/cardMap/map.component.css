@@ -4,3 +4,15 @@
   overflow: hidden;
 }
 
+.BMap_shadow {
+  display: none !important;
+}
+::-webkit-input-placeholder{/*Webkit browsers*/
+  color:#cccccc;
+}
+:-moz-placeholder{/*Mozilla Firefox 4 to 8*/
+  color:#cccccc;
+}
+:-ms-input-placeholder{/*Internet Explorer 10+*/
+  color:#cccccc;
+}

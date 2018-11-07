@@ -1,6 +1,7 @@
 .user-container{
   position: absolute;
   padding-bottom: 10%;
+  margin-bottom: 70px;
   height: 100%;
   width: 100%;
   background: rgba(82,94,113,.05);

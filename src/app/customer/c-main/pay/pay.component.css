@@ -24,7 +24,7 @@
   height: 45px;
   background: white;
   position: fixed;
-  bottom: 0;
+  bottom: 60px;
   z-index: 200;
 }
 .pay-layout{

@@ -80,7 +80,7 @@ export class MyOrderComponent implements OnInit {
   }
   pay(item) {
     console.log(item);
-    this.appService.postAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
+    this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
       orderId: item.id,
       url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
     }, getToken()).subscribe(

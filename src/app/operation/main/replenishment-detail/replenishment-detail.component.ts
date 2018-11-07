@@ -20,7 +20,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public replenishList = [];
   public tradeDetailList = [];
   public nzOptions = [];
-  public selectValues: string;
+  public selectValues = '0.3';
   public homeValues: string;
   public versionValues = '1';
   public otherCompanyId: string;

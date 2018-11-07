@@ -1,15 +1,26 @@
 <!--<div style="width: 100%;height: 60px;background: antiquewhite;"></div>-->
 <div style="width: 100%;height: 50px;background: #ffffff;position: fixed;top: 0;z-index: 999;padding:9px 60px 9px 9px;">
-  <nz-input-group nzSuffixIcon="anticon anticon-search">
-    <input type="text" id="address" nz-input placeholder="请输入地址查看附近售水机" [(ngModel)]="location">
-    <span style="position: absolute;width: 35px;height: 32px;z-index: 99;right: 0;" id="check"></span>
-  </nz-input-group>
-  <button nz-button nzType="primary" style="position: absolute;top: 9px;right: 6px;padding: 0 10px;" (click)="goTo(mapLng,mapLat,userAddress)">列表</button>
-  <div id="abc"></div>
+  <!--<nz-input-group nzSuffixIcon="anticon anticon-search">-->
+  <!--<input type="text" id="address" nz-input placeholder="请输入地址查看附近售水机" [(ngModel)]="location" (click)="check()" style="background: #f3f3f3;">-->
+  <!--<span style="position: absolute;width: 35px;height: 32px;z-index: 99;right: 0;" id="check"></span>-->
+  <!--</nz-input-group>-->
+  <input type="text" id="address" [(ngModel)]="location" (click)="check()" placeholder="请输入地址查看附近售水机"
+         style="background: #f3f3f3;border: none;width: 100%;height: 32px;padding-right: 30px;color: #cccccc;">
+  <span id="check" style="position: absolute;height: 100%;width: 30px;top: 0;right: 60px;">
+    <img src="../../../../assets/icon/search.png" style="width: 12px;height: 12px;position: absolute;top: 50%;margin-top: -6px;left: 50%;margin-left: -6px;"></span>
+  <button nz-button nzType="primary" style="position: absolute;top: 9px;right: 6px;padding: 0 10px;background: #3e85ff;"
+          (click)="goTo(mapLng,mapLat,userAddress)">列表
+  </button>
+  <!--<button nz-button nzType="primary" style="position: absolute;top: 9px;right: 6px;padding: 0 10px;" (click)="cancel()" [hidden]="show">取消</button>-->
 </div>
-<div style="width: 100%;height: 100%;" *ngIf="detailShow">
-  <span style="position: absolute;right: 20px;top: 32px;z-index: 999;font-size: 28px;" (click)="closeView()">&times;</span>
-  <img src="../../../../assets/icon/noVm2.png" style="display: block;width: 106px;height: 106px;position: absolute;top: 50%;left: 50%;margin-top: -156px;margin-left: -53px">
-  <img src="../../../../assets/icon/noVm1.png" style="display: block;width: 196px;height: 12px;position: absolute;top: 50%;left: 50%;margin-top: -38px;margin-left: -88px">
+<div
+  style="width: 172px;height: 48px;position: absolute;z-index: 99999;top: 50%;margin-top: -100px;left: 50%;margin-left: -86px;"
+  *ngIf="detailShow">
+  <img src="../../../../assets/icon/mapAlertB.png" style="width: 172px;height: 48px;">
+</div>
+<div
+  style="width: 152px;height: 28px;position: absolute;z-index: 99999;top: 50%;margin-top: -89px;left: 50%;margin-left: -76px;"
+  *ngIf="detailShow">
+  <img src="../../../../assets/icon/mapAlertA.png" style="width: 152px;height: 28px;">
 </div>
 <div id="contain"></div>

@@ -21,6 +21,7 @@ export class MachineDetailComponent implements OnInit {
   public detailList = [];
   public tradeDetailList = [];
   public vmCode: string;
+  public machineVersion;
   public detailListLoading = true;
   public tradeDetailListLoading = true;
   constructor(private router: Router,
@@ -67,11 +68,12 @@ export class MachineDetailComponent implements OnInit {
     );
   }
   // 售货机详情
-  detail(vmCode) {
+  detail(vmCode, version) {
     this.isVisible = true;
     this.vmCode = vmCode;
+    this.machineVersion = version;
     this.appService.getAliData(this.appProperties.aliMachineQueryDetailUrl,
-      {vmCode: this.vmCode}, getAdminToken()).subscribe(
+      {vmCode: this.vmCode, machineVersion: this.machineVersion}, getAdminToken()).subscribe(
       data => {
         console.log(data);
         if (data.status === 1) {
