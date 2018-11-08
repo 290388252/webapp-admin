@@ -2,16 +2,21 @@
   <div style="position: fixed;top: 4px;left:4px;width: 34px;height: 34px;z-index: 9999" (click)="goTo()">
     <img src="../../../../assets/icon/shareIcon.png" style="width: 34px;height: 34px;"></div>
   <div class="container">
-    <nz-carousel [nzEffect]="'fade'" nzAutoPlay>
-      <div nz-carousel-content *ngFor="let index of array"><img style="width: 100%;height: 100%" [src]="index"
-                                                                alt=""></div>
-    </nz-carousel>
+    <div style="width: 80%;height: 80%;margin: 0 auto;">
+      <nz-carousel [nzEffect]="'fade'" nzAutoPlay>
+        <div nz-carousel-content *ngFor="let index of imgList"><img style="width: 100%;height: 100%" [src]="imgUrl+index"
+                                                                    alt=""></div>
+      </nz-carousel>
+    </div>
+
   </div>
   <div id="timer2"></div>
   <div id="timer3"></div>
   <div class="gutter-example">
     <div class="gutter-row">
-      <p class="gutter-row-text" style="font-weight: bold;">{{name}}</p>
+      <div class="gutter-row-text" style="font-weight: bold;height: 16px;line-height: 16px;">
+        <span style="width: 41px;height: 16px;margin-right: 4px;" *ngIf="typeId === 26">
+          <img src="../../../../assets/icon/11icon.png" style="width: 41px;height: 16px;"></span>{{name}}</div>
       <p class="gutter-row-text">已销{{goodsObj['salesQuantity']}}件</p>
       <span class="gutter-row-span" *ngIf="goodsObj['isConglomerateCommodity'] === 0">￥{{goodsObj['salesPrice']}}</span>
       <span class="gutter-row-span" *ngIf="goodsObj['isConglomerateCommodity'] === 1">

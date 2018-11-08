@@ -199,9 +199,10 @@ export class PayComponent implements OnInit {
         paySign: data.payInfo.sign, // 支付签名
         success: (res) => {
           if (res.errMsg === 'chooseWXPay:ok') {
-            window.location.href = 'http://webapp.youshuidaojia.com/cMain/userCenter';
+            // window.location.href = 'http://webapp.youshuidaojia.com/cMain/userCenter';
             // this.router.navigate(['cMain/shopCar']);
             console.log('支付成功');
+            this.router.navigate(['cMain/payFinish']);
           } else {
             alert('支付失败');
           }

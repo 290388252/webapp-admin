@@ -3,7 +3,7 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
-import {toNumber} from "ng-zorro-antd/src/core/util/convert";
+import {toNumber} from 'ng-zorro-antd/src/core/util/convert';
 
 declare var WeixinJSBridge: any;
 declare var wx: any;
@@ -14,12 +14,12 @@ declare var wx: any;
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  array = [
-    '../../../../assets/main/raw_1529043263.png',
-    '../../../../assets/main/raw_1529043326.png',
-    '../../../../assets/main/raw_1529043367.png',
-    '../../../../assets/main/raw_1529043422.png'
-  ];
+  // array = [
+  //   '../../../../assets/main/raw_1529043263.png',
+  //   '../../../../assets/main/raw_1529043326.png',
+  //   '../../../../assets/main/raw_1529043367.png',
+  //   '../../../../assets/main/raw_1529043422.png'
+  // ];
   public id;
   public name;
   // 判断是否为团购商品
@@ -35,6 +35,7 @@ export class DetailComponent implements OnInit {
   public endMinute;
   public endSecond;
   public quantity;
+  public typeId;
   //
   public grouponList;
   public grouponNumber;
@@ -63,11 +64,11 @@ export class DetailComponent implements OnInit {
   }
 
   countDown(maxtime, fn) {
-    var timer = setInterval(function () {
+    const timer = setInterval(function () {
       if (maxtime >= 0) {
-        let hours = Math.floor(maxtime / (60 * 60));
-        let minutes = Math.floor(maxtime / 60) - (hours * 60);
-        let seconds = Math.floor(maxtime % 60);
+        const hours = Math.floor(maxtime / (60 * 60));
+        const minutes = Math.floor(maxtime / 60) - (hours * 60);
+        const seconds = Math.floor(maxtime % 60);
         let endHour;
         let endMinutes;
         let endSeconds;
@@ -86,14 +87,13 @@ export class DetailComponent implements OnInit {
         } else {
           endSeconds = seconds;
         }
-        let msg = "距离结束还有" + endHour + '时' + endMinutes + "分" + endSeconds + "秒";
+        const msg = '距离结束还有' + endHour + '时' + endMinutes + '分' + endSeconds + '秒';
         fn(msg);
         // if (maxtime == 5 * 60) alert('注意，还有5分钟!');
         --maxtime;
-      }
-      else {
+      } else {
         clearInterval(timer);
-        fn("已结束!");
+        fn('已结束!');
       }
     }, 1000);
   }
@@ -103,7 +103,11 @@ export class DetailComponent implements OnInit {
       data => {
         console.log(data);
         this.imgList = data.returnObject.pic.split(',');
+        console.log('123');
+        console.log(this.imgList);
         this.goodsObj = data.returnObject;
+        this.name = data.returnObject.name;
+        this.typeId = data.returnObject.typeId;
         const a = document.getElementById('desk');
         a.innerHTML = this.goodsObj['details'];
         const b = document.getElementById('desks');
@@ -123,7 +127,7 @@ export class DetailComponent implements OnInit {
         // this.countDown(this.grouponList[0].endTime);
         console.log(this.grouponList.length > 0);
         if (this.grouponList.length > 0) {
-          let endTime = (new Date(this.grouponList[0].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
+          const endTime = (new Date(this.grouponList[0].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
           this.countDown(endTime, function (msg) {
             document.getElementById('timer1').innerHTML = msg;
           });
@@ -147,12 +151,13 @@ export class DetailComponent implements OnInit {
     );
 
   }
+
   verifyTime(time) {
     console.log(time);
-    let value = (new Date(time.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
-    if(value > 0 ){
+    const value = (new Date(time.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
+    if (value > 0) {
       return false;
-    }else {
+    } else {
       return true;
     }
   }
@@ -164,7 +169,7 @@ export class DetailComponent implements OnInit {
       console.log('2');
       console.log(list);
       for (let i = 0; i < list.length; i++) {
-        let endTime = (new Date(list[i].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
+        const endTime = (new Date(list[i].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
         this.countDown(endTime, function (msg) {
           document.getElementById(('a' + list[i].id)).innerHTML = msg;
         });
@@ -220,20 +225,19 @@ export class DetailComponent implements OnInit {
   }
 
   turnPhone(phone) {
-    if(phone) {
-      return phone = phone.substr(0, 3) + "*****" + phone.substr(8);
+    if (phone) {
+      return phone = phone.substr(0, 3) + '*****' + phone.substr(8);
     }
   }
 
   turnData(date) {
     const nowDate = new Date(date.replace(/-/g, '/'));
     // console.log(nowDate);
-    let nowY = nowDate.getFullYear();
-    let nowM = nowDate.getMonth() + 1;
-    let nowD = nowDate.getDate();
-    let nowHours = nowDate.getHours();
-    let nowMinutes = nowDate.getMinutes();
-    // return new Date(date.replace(/-/g,'/')).getFullYear() + '-' + (new Date(date.replace(/-/g,'/')).getMonth() + 1) + '-' + new Date(date.replace(/-/g,'/')).getDate();
+    const nowY = nowDate.getFullYear();
+    const nowM = nowDate.getMonth() + 1;
+    const nowD = nowDate.getDate();
+    const nowHours = nowDate.getHours();
+    const nowMinutes = nowDate.getMinutes();
     const endTime = nowY + '-' + nowM + '-' + nowD + '   ' + (nowHours < 10 ? '0' + nowHours : nowHours) + ':' + (nowMinutes < 10 ? '0' + nowMinutes : nowMinutes);
     return endTime;
   }

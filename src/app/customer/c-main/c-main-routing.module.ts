@@ -30,6 +30,8 @@ const routes: Routes = [
       {path: 'mapDetails', loadChildren: './mapDetails/mapDetails.module#MapDetailsModule'},
       {path: 'mapList', loadChildren: './mapList/mapList.module#MapListModule' },
       {path: 'payFinish', loadChildren: './payFinish/payFinish.module#PayFinishModule' },
+      {path: 'promotions', loadChildren: './promotions/promotions.module#PromotionsModule' },
+      {path: 'waterCoupon', loadChildren: './user-center/waterCoupon/waterCoupon.module#WaterCouponModule'}
     ]
   }
 ];

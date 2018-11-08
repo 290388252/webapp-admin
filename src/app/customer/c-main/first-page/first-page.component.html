@@ -8,7 +8,8 @@
   </div>-->
   <div class="bannerContainer" id="banner" [style.height]="height">
     <ul class="bannerPicList">
-      <li *ngFor="let item of imgList; let i = index" [hidden]="currentPic !== i" (click)="goTo(item.id, item.name)">
+      <li *ngFor="let item of imgList; let i = index" [hidden]="currentPic !== i">
+      <!--<li *ngFor="let item of imgList; let i = index" [hidden]="currentPic !== i" (click)="goTo(item.id, item.name)">-->
         <img style="display:block;width: 100%;height: 100%" [src]="imgUrl+item.bannerImg" [alt]="">
       </li>
     </ul>
@@ -21,9 +22,9 @@
     </div>
   </div>
   <!--<div style="width: 100%;background: antiquewhite;" (click)="vipBuy()">-->
-  <div style="width: 100%;background: antiquewhite;" (click)="vipBuy()" *ngIf="judgeVip">
-    <img src="../../../../assets/icon/vipBanner.jpg" style="width: 100%;height: auto">
-  </div>
+  <!--<div style="width: 100%;background: antiquewhite;" (click)="vipBuy()" *ngIf="judgeVip">-->
+    <!--<img src="../../../../assets/icon/vipBanner.jpg" style="width: 100%;height: auto">-->
+  <!--</div>-->
   <div class="gutter-example">
     <div nz-row nzGutter="16">
 

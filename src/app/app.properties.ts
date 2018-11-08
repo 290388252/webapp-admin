@@ -33,9 +33,12 @@ export class AppProperties {
   public shoppingUpdateUrl: string;
   public shopImgUrl: string;
   public filesImgUrl: string;
+  public promotionsImgUrl: string;
   public shopFrontCouponMyListUrl: string;
   public shopSpecialGoodsUrl: string;
   public shopFrontCouponAddCouponToCustomerUrl: string;
+  public shoppingWaterCouponUrl: string;
+  public shoppingPromotionsUrl: string;
   public shopStoreOrderAddUrl: string;
   public shopStoreOrderFindUrl: string;
   public shopVipCarListUrl: string;
@@ -60,9 +63,10 @@ export class AppProperties {
   public shopPrepaidAddUrl: string;
   public shopPrepaidBuyUrl: string;
   public payFinishShowUrl: string;
+  public payFinishGetCouponUrl: string;
   constructor() {
-    // this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
-    this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
+    this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
+    // this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
     this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
 
     this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
@@ -91,6 +95,7 @@ export class AppProperties {
     this.shoppingCarUrl = this.appUrl + '/shoppingCar/appListPage';
     this.shopImgUrl = this.appUrl + '/shoppingGoodsImg/';
     this.filesImgUrl = this.appUrl + '/files/';
+    this.promotionsImgUrl = this.appUrl + '/vmAdvertisingImg/';
     this.shoppingAddUrl = this.appUrl + '/shoppingCar/add';
     this.shoppingUpdateUrl = this.appUrl + '/shoppingCar/update';
     this.shopStoreOrderAddUrl = this.appUrl + '/order/storeOrderAdd';
@@ -105,6 +110,8 @@ export class AppProperties {
     this.shopFrontCouponMyListUrl = this.appUrl + '/frontCoupon/myList';
     this.shopSpecialGoodsUrl = this.appUrl + '/frontCoupon/findShoppingGoodsBean';
     this.shopFrontCouponAddCouponToCustomerUrl = this.appUrl + '/frontCoupon/addCouponToCustomer';
+    this.shoppingWaterCouponUrl = this.appUrl + '/carryWaterVouchersCustomer/myCarryWaterVouchers';
+    this.shoppingPromotionsUrl = this.appUrl + '/vendingMachinesAdvertising/list';
     this.shopAddCouponUrl = this.appUrl + '/order/customerCoupon';
     this.orderUnifiedOrderUrl = this.smsUrl + '/order/unifiedOrder';
     this.shopGetPickRecordUrl = this.appUrl + '/storeCustomer/getPickRecord';
@@ -120,6 +127,7 @@ export class AppProperties {
     this.grouponBuyUrl = this.appUrl + '/order/storeOrderSpellGroupPay';
     this.wechatShareInfoUrl = this.appUrl + '/wechat/shareInfo';
 
-    this.payFinishShowUrl = this.appUrl + '/ys_admin/order/storeOrderFininshPay ';
+    this.payFinishShowUrl = this.appUrl + '/order/storeOrderFininshPay';
+    this.payFinishGetCouponUrl = this.appUrl + '/coupon/get';
   }
 }
