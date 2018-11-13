@@ -243,10 +243,14 @@ export class DetailComponent implements OnInit {
   }
 
   goTo() {
-    if (urlParse(window.location.href)['type'] === '1') {
-      this.router.navigate(['cMain/firstPage']);
-    } else if (urlParse(window.location.href)['type'] === '2') {
-      this.router.navigate(['cMain/allGoods']);
+    if (getToken() === null || getToken() === undefined) {
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1';
+    } else {
+      if (urlParse(window.location.href)['type'] === '1') {
+        this.router.navigate(['cMain/firstPage']);
+      } else if (urlParse(window.location.href)['type'] === '2') {
+        this.router.navigate(['cMain/allGoods']);
+      }
     }
   }
 
@@ -361,7 +365,7 @@ export class DetailComponent implements OnInit {
 
   orderTo() {
     if (getToken() === null || getToken() === undefined) {
-      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://ym//://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1';
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1';
     } else {
       this.appService.getAliData(this.appProperties.shoppingAddUrl, {
         itemId: this.id,

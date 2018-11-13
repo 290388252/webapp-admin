@@ -18,6 +18,8 @@ export class PromotionsComponent implements OnInit {
   public token;
   public vmCode;
   public couponList;
+  img;
+  abc;
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router) {
   }
 
@@ -26,20 +28,29 @@ export class PromotionsComponent implements OnInit {
     // this.getTime();
     this.token = getToken();
     this.getDate();
+
   }
 
   getDate() {
-    this.appService.postAliData(this.appProperties.shoppingPromotionsUrl, {'vmCode': this.vmCode}, this.token).subscribe(
-      data => {
-        if (data.status === 1) {
-          console.log(data);
-          this.couponList = data.returnObject;
+    if (getToken() === null || getToken() === undefined) {
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1';
+    } else {
+      this.appService.postAliData(this.appProperties.shoppingPromotionsUrl, {'vmCode': this.vmCode}, this.token).subscribe(
+        data => {
+          if (data.status === 1) {
+            console.log(data);
+            this.couponList = data.returnObject;
+            // this.abc = data.returnObject[0].themeImg;
+            // this.img = 'background-image: url(\'' + this.imgUrl + this.abc + '\')';
+            // document.getElementById('aaa').style.backgroundImage = 'url(' + this.imgUrl + this.abc + ')';
+            // console.log( document.getElementById('aaa').style);
+          }
+        },
+        error => {
+          console.log(error);
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      );
+    }
   }
 
   goTo(id) {
@@ -47,6 +58,7 @@ export class PromotionsComponent implements OnInit {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
         id: id
-      }});
+      }
+    });
   }
 }

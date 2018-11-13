@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {getToken} from '../../utils/util';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-c-main',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CMainComponent implements OnInit {
   public curId: number;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     console.log(window.location.href);
@@ -28,5 +30,12 @@ export class CMainComponent implements OnInit {
   }
   selected(flag) {
     this.curId = flag;
+    if (flag === 1) {
+      if (getToken() === null || getToken() === undefined) {
+        window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1';
+      } else {
+        this.router.navigate(['cMain/firstPage']);
+      }
+    }
   }
 }
