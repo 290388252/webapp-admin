@@ -11,20 +11,19 @@ import {Router} from '@angular/router';
 })
 export class CouponComponent implements OnInit {
   public empty: boolean;
-  public unUsed: boolean;
-  public unEffective: boolean;
+  public overDue: boolean;
   public effective: boolean;
+  public used: boolean;
   // public couponGet: boolean;
-  public couponList = [];
-  public couponUnEffectiveList = [];
-  public couponEffectiveList = [];
+  public overDueList = [];
+  public effectiveList = [];
+  public usedList = [];
   // public couponGetList = [];
   public specialGoodsList = [];
   public status;
   public openId;
   public imgUrl = this.appProperties.shopImgUrl;
   specialModal = false;
-  isConfirmLoading = false;
   private token;
 
   constructor(private appProperties: AppProperties,
@@ -40,7 +39,6 @@ export class CouponComponent implements OnInit {
       } else {
         this.appService.getData(this.appProperties.adminGetShopTokenUrl, null).subscribe(
           data => {
-            console.log(data);
             if (data.status === 1) {
               window.location.href = data.returnObject.url;
             } else if (data.status === 2) {
@@ -54,83 +52,56 @@ export class CouponComponent implements OnInit {
         );
       }
     }
-    console.log(this.token);
-    this.unEffective = true;
-    this.unEffective ? this.empty = false : this.empty = true;
+    this.effective = true;
+    this.effective ? this.empty = false : this.empty = true;
     if (this.token !== undefined) {
       this.coupon(2);
     }
   }
 
   choose(flag) {
-    if (flag === 1) {
-      this.unUsed = true;
-      this.unEffective = false;
+    if (flag === 3) {
+      // 过期
+      this.overDue = true;
       this.effective = false;
-      // this.couponGet = false;
+      this.used = false;
       this.coupon(4);
     } else if (flag === 2) {
-      this.unUsed = false;
-      this.unEffective = true;
+      // 已使用
+      this.overDue = false;
       this.effective = false;
-      // this.couponGet = false;
-      this.coupon(2);
-    } else if (flag === 3) {
-      this.unUsed = false;
-      this.unEffective = false;
-      this.effective = true;
-      // this.couponGet = false;
+      this.used = true;
       this.coupon(3);
-    } else if (flag === 5) {
-      this.unUsed = false;
-      this.unEffective = false;
-      this.effective = false;
-      // this.couponGet = true;
-      this.coupon(5);
+    } else if (flag === 1) {
+      // 未使用
+      this.overDue = false;
+      this.effective = true;
+      this.used = false;
+      this.coupon(2);
     }
   }
 
   coupon(state) {
     this.appService.getAliData(this.appProperties.shopFrontCouponMyListUrl, {state: state}, this.token).subscribe(
       data => {
-        console.log(data);
         this.status = data.status;
         if (data.returnObject !== null) {
           this.openId = data.returnObject.openId;
         }
         if (state === 4) {
           if (this.status === 1) {
-            this.couponList = data.returnObject;
+            this.overDueList = data.returnObject;
           }
         } else if (state === 2) {
           if (this.status === 1) {
-            this.couponEffectiveList = data.returnObject;
+            this.effectiveList = data.returnObject;
           }
-          // console.log('ok');
-          // if (this.couponEffectiveList.length) {
-          //   for (let i = 0; i < this.couponEffectiveList.length;i++) {
-          //     if (data.returnObject[i].quantity) {
-          //       if (data.returnObject[0].quantity > 0) {
-          //         console.log(data.returnObject[0].quantity);
-          //         console.log(data.returnObject[0].quantity > 0);
-          //         for () {
-          //
-          //         }
-          //       }
-          //     }
-          //   }
-          //
-          // }
         } else if (state === 3) {
           if (this.status === 1) {
-            this.couponUnEffectiveList = data.returnObject;
+            this.usedList = data.returnObject;
           }
         }
-        // else if (state === 5) {
-        //    if (this.status === 2 && data.returnObject !== null) {
-        //     this.couponGetList = data.returnObject.couponList;
-        //   }
-        // }
+
       },
       error => {
         console.log(error);
@@ -171,7 +142,6 @@ export class CouponComponent implements OnInit {
   pickCard(item) {
     this.appService.postAliData(this.appProperties.shopFrontCouponAddCouponToCustomerUrl + '?couponId=' + item.id, '', this.token).subscribe(
       data => {
-        console.log(data);
         this.coupon(1);
       },
       error => {
@@ -188,16 +158,15 @@ export class CouponComponent implements OnInit {
         queryParams: {
           card: 1,
           openId: this.openId
-        }});
+        }
+      });
     }
   }
 
   useSpecialCard(id): void {
     this.specialModal = true;
-    console.log(id);
     this.appService.postAliData(this.appProperties.shopSpecialGoodsUrl + '?couponId=' + id, '', this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.specialGoodsList = data.returnObject;
         }
@@ -210,11 +179,9 @@ export class CouponComponent implements OnInit {
 
   // 图片格式
   trunImg(list) {
-    // console.log(list);
     if (list.indexOf(',') !== -1) {
       const imgList = list.split(',');
       list = imgList[0];
-      // console.log(list);
       return list;
     } else {
       return list;
@@ -228,7 +195,6 @@ export class CouponComponent implements OnInit {
       itemName: item.name
     }, this.token).subscribe(
       data => {
-        console.log(data);
         alert(data.message);
       },
       error => {
@@ -242,6 +208,6 @@ export class CouponComponent implements OnInit {
   }
 
   toDate(date) {
-    return new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate();
+    return new Date(date).getFullYear() + '.' + (new Date(date).getMonth() + 1) + '.' + new Date(date).getDate();
   }
 }

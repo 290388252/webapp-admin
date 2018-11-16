@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import 'rxjs/Rx';
 
 @Injectable()
@@ -55,6 +55,7 @@ export class AppProperties {
   public mapDetailsAUrl: string;
   public mapDetailsBUrl: string;
   public shopAddressUpdateUrl: string;
+  public shopAddressCheckUrl: string;
   public shopAddressAddUrl: string;
   public shopAddCouponUrl: string;
   public shopGetPickRecordUrl: string;
@@ -64,9 +65,16 @@ export class AppProperties {
   public shopPrepaidBuyUrl: string;
   public payFinishShowUrl: string;
   public payFinishGetCouponUrl: string;
+
+  public shopCarSaveUrl: string;
+  public backSelectUrl: string;
+  public shopCarDelUrl: string;
+  public shopCouponListUrl: string;
+
+
   constructor() {
     this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
-    // this.appUrl = 'http://192.168.0.104:6662/ys_admin'; // localtest
+    // this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
     this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
 
     this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
@@ -81,11 +89,10 @@ export class AppProperties {
     this.aliMachineQueryDetailUrl = this.appUrl + '/aliMachine/queryItem';
     this.aliMachineQueryTradeDetailUrl = this.appUrl + '/aliMachine/queryTradeDetail';
     // this.vendingMachinesInfoListPageUrl = 'http://192.168.0.104:6662/ys_admin' + '/vendingMachinesInfo/listPage';
-    this.vendingLineFindLineByForm = this.appUrl +  '/vendingLine/findLineByForm';
+    this.vendingLineFindLineByForm = this.appUrl + '/vendingLine/findLineByForm';
     this.vendingMachinesInfoListPageUrl = this.appUrl + '/vendingMachinesInfo/listPage';
     this.vendingMachinesInfoNearbyListPageUrl = this.appUrl + '/vendingMachinesInfo/nearbyListPage?';
     this.litOtherCompanyForSelectUrl = this.appUrl + '/replenishCompanyMachines/listOtherCompanyForSelect';
-
     // Shopping Mall
     this.shopingLogin = this.smsUrl + '/admin/shopRegister';
     this.shoppingGoodsUrl = this.appUrl + '/shoppingGoods/list';
@@ -106,6 +113,7 @@ export class AppProperties {
     this.mapDetailsAUrl = this.appUrl + '/vendingMachinesWay/listAll';
     this.mapDetailsBUrl = this.appUrl + '/vendingMachinesWay/listAll2';
     this.shopAddressUpdateUrl = this.appUrl + '/address/update';
+    this.shopAddressCheckUrl = this.appUrl + '/address/selectById';
     this.shopAddressAddUrl = this.appUrl + '/address/add';
     this.shopFrontCouponMyListUrl = this.appUrl + '/frontCoupon/myList';
     this.shopSpecialGoodsUrl = this.appUrl + '/frontCoupon/findShoppingGoodsBean';
@@ -129,5 +137,9 @@ export class AppProperties {
 
     this.payFinishShowUrl = this.appUrl + '/order/storeOrderFininshPay';
     this.payFinishGetCouponUrl = this.appUrl + '/coupon/get';
+    this.shopCarSaveUrl = this.appUrl + '/shoppingCar/save';
+    this.backSelectUrl = this.appUrl + '/shoppingCar/backSelect';
+    this.shopCarDelUrl = this.appUrl + '/shoppingCar/del';
+    this.shopCouponListUrl = this.appUrl + '/frontCoupon/myList';
   }
 }

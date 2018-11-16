@@ -7,10 +7,12 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../../app-service';
 import {AppProperties} from '../../../../app.properties';
 // import { WeUiModule, ButtonConfig } from 'ngx-weui';
+import {FormsModule} from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
+    FormsModule,
     // ElModule,
     // WeUiModule.forRoot(),
     NewAddressRoutingModule

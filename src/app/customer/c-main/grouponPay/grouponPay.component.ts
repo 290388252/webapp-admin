@@ -95,9 +95,9 @@ export class GrouponPayComponent implements OnInit {
   }
 
   handleOk(): void {
-    if(this.inConsignee === undefined || this.inConsignee === null || this.inConsignee === ''
-    || this.inIphone === undefined || this.inIphone === null || this.inIphone === ''
-    || this.inAddress === undefined || this.inAddress === null || this.inAddress === '') {
+    if (this.inConsignee === undefined || this.inConsignee === null || this.inConsignee === ''
+      || this.inIphone === undefined || this.inIphone === null || this.inIphone === ''
+      || this.inAddress === undefined || this.inAddress === null || this.inAddress === '') {
       this.isShow = true;
       return;
     }
@@ -108,7 +108,7 @@ export class GrouponPayComponent implements OnInit {
     }, this.token).subscribe(
       data => {
         console.log(data);
-        if  (data.status === 1) {
+        if (data.status === 1) {
           this.isShow = false;
           this.isVisible = false;
           this.getLocation();
@@ -132,11 +132,12 @@ export class GrouponPayComponent implements OnInit {
     this.inIphone = this.iphone;
     this.inAddress = this.address;
   }
+
   // handleCancelA(): void {
   //   this.isVisible = false;
   // }
   handleAlter(): void {
-    if(this.inConsignee === undefined || this.inConsignee === null || this.inConsignee === ''
+    if (this.inConsignee === undefined || this.inConsignee === null || this.inConsignee === ''
       || this.inIphone === undefined || this.inIphone === null || this.inIphone === ''
       || this.inAddress === undefined || this.inAddress === null || this.inAddress === '') {
       this.isShow = true;
@@ -150,7 +151,7 @@ export class GrouponPayComponent implements OnInit {
     }, this.token).subscribe(
       data => {
         console.log(data);
-        if  (data.status === 1) {
+        if (data.status === 1) {
           this.isShow = false;
           this.isVisible = false;
           this.getLocation();
@@ -162,6 +163,7 @@ export class GrouponPayComponent implements OnInit {
     );
 
   }
+
   goTo(id, name, pic) {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
@@ -170,7 +172,8 @@ export class GrouponPayComponent implements OnInit {
         pic: pic,
         // isConglomerateCommodity: isConglomerateCommodity,
         type: 1
-      }});
+      }
+    });
   }
 
   grouponBuy() {
@@ -180,7 +183,7 @@ export class GrouponPayComponent implements OnInit {
     console.log(this.totalMoney);
     console.log(this.grouponId);
     console.log(this.locationId);
-    if(this.noneAddress === true) {
+    if (this.noneAddress === true) {
       alert('请输入地址');
       return;
     }
@@ -196,7 +199,7 @@ export class GrouponPayComponent implements OnInit {
     }, this.token).subscribe(
       data2 => {
         console.log(data2);
-        if(data2.status !== 0) {
+        if (data2.status !== 0) {
           alert(data2.message);
           if (data2.returnObject.orderState !== 10001) {
             this.orderId = data2.returnObject.orderId;

@@ -6,11 +6,14 @@ import {MyOrderComponent} from './my-order.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../../app-service';
 import {AppProperties} from '../../../../app.properties';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
     // ElModule,
+    FormsModule,
+    ReactiveFormsModule,
     MyOrderRoutingModule
   ],
   providers: [AppService, AppProperties],

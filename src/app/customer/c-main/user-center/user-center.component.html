@@ -3,7 +3,30 @@
     <img class="header-img" src="../../../../assets/main/logogaokao.png" alt="">
     <span class="header-span">用户名</span>
   </div>
-  <div class="am-list">
+  <ul class="customer-list">
+    <li (click)="detail(1)">
+      <span class="icon-list1 left">余额</span>
+      <span class="right">{{userMoney}}元<i class="icon-arrow"></i></span>
+      <div class="clear-fix"></div>
+    </li>
+    <li>
+      <span class="icon-list2 left">我的积分</span>
+      <span class="right">{{userIntegral}}分<i class="icon-arrow"></i></span>
+      <div class="clear-fix"></div>
+    </li>
+    <li (click)="detail(2)"><span class="icon-list3">我的订单</span></li>
+    <li (click)="detail(3)"><span class="icon-list4">我的存水</span></li>
+  </ul>
+  <ul class="customer-list">
+    <li (click)="detail(4)"><span class="icon-list5">我的优惠券</span></li>
+    <li (click)="detail(5)"><span class="icon-list5">我的提水券</span></li>
+    <li (click)="detail(6)"><span class="icon-list6">我的购物车</span></li>
+    <li (click)="detail(7)"><span class="icon-list7">我的地址</span></li>
+  </ul>
+  <ul class="customer-list">
+    <li (click)="detail(8)"><span class="icon-list8">附近售货机</span></li>
+  </ul>
+  <!--<div class="am-list">
     <a class="am-list-item">
       <div (click)="detail(6)" class="am-list-content">余额</div>
       <span style="color: #666666">{{userMoney}}元</span>
@@ -15,25 +38,25 @@
       <div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>
     </a>
     <a class="am-list-item">
-      <div (click)="detail(1)" class="am-list-content">我的订单</div>
+      <div  class="am-list-content">我的订单</div>
       <div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>
     </a>
     <a class="am-list-item">
       <div (click)="detail(5)" class="am-list-content">我的存水</div>
       <div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>
     </a>
-    <!--<div class="am-list-body">-->
-      <!--<div class="am-list-item">-->
-        <!--<div class="am-list-content">标题文字</div>-->
-      <!--</div>-->
-    <!--</div>-->
+    &lt;!&ndash;<div class="am-list-body">&ndash;&gt;
+      &lt;!&ndash;<div class="am-list-item">&ndash;&gt;
+        &lt;!&ndash;<div class="am-list-content">标题文字</div>&ndash;&gt;
+      &lt;!&ndash;</div>&ndash;&gt;
+    &lt;!&ndash;</div>&ndash;&gt;
   </div>
   <div class="am-list">
     <div class="am-list-body">
-      <!--<a class="am-list-item" (click)="detail(1)">-->
-        <!--<div class="am-list-content">我的套餐</div>-->
-        <!--<div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>-->
-      <!--</a>-->
+      &lt;!&ndash;<a class="am-list-item" (click)="detail(1)">&ndash;&gt;
+        &lt;!&ndash;<div class="am-list-content">我的套餐</div>&ndash;&gt;
+        &lt;!&ndash;<div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>&ndash;&gt;
+      &lt;!&ndash;</a>&ndash;&gt;
       <a class="am-list-item" (click)="detail(2)">
         <div class="am-list-content">我的优惠卷</div>
         <div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>
@@ -50,10 +73,10 @@
         <div class="am-list-content">我的地址</div>
         <div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>
       </a>
-      <!--<a class="am-list-item" (click)="detail(5)">-->
-        <!--<div class="am-list-content">管理账号</div>-->
-        <!--<div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>-->
-      <!--</a>-->
+      &lt;!&ndash;<a class="am-list-item" (click)="detail(5)">&ndash;&gt;
+        &lt;!&ndash;<div class="am-list-content">管理账号</div>&ndash;&gt;
+        &lt;!&ndash;<div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>&ndash;&gt;
+      &lt;!&ndash;</a>&ndash;&gt;
     </div>
   </div>
   <div class="am-list">
@@ -63,5 +86,5 @@
         <div class="am-list-arrow" aria-hidden="true"><span class="am-icon arrow horizontal"></span></div>
       </a>
     </div>
-  </div>
+  </div>-->
 </div>

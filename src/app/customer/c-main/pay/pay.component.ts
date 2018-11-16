@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 declare var wx: any;
 declare var WeixinJSBridge: any;
@@ -29,20 +29,34 @@ export class PayComponent implements OnInit {
   public isCoupon = false;
   public couponId;
   public couponLength;
-  public radioValue;
+  public radioValue = '2';
   public locationId;
+  public ids: string;
+  public reduceMoney = 0;
+  public totalMoney = 0;
 
-  constructor(private appService: AppService, private appProperties: AppProperties, private router: Router ) {
+  constructor(private appService: AppService, private appProperties: AppProperties,
+              private router: Router, private routeInfo: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.routeInfo.queryParams.subscribe(
+      params => {
+        this.ids = params.ids;
+      }
+    );
     this.token = getToken();
     this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
       data => {
         console.log(data);
         if (data.status === 0) {
           alert('请先填写地址');
-          this.router.navigate(['cMain/newAddress']);
+          this.router.navigate(['cMain/addAddress'], {
+            queryParams: {
+              isAdd: 1,
+              shopCar: 1
+            }
+          });
         } else {
           this.name = data.returnObject[0]['name'];
           this.receiver = data.returnObject[0]['receiver'];
@@ -56,12 +70,12 @@ export class PayComponent implements OnInit {
         console.log(error);
       }
     );
-    this.radioValue = '1';
+    // this.radioValue = '1';
   }
-  print(val) {
-    this.radioValue = val;
-    console.log(this.radioValue);
-  }
+  // print(val) {
+  //   this.radioValue = val;
+  //   console.log(this.radioValue);
+  // }
   /*couponSum() {
     console.log(this.idList);
     this.appService.postAliData(this.appProperties.shopAddCouponUrl, this.idList, this.token).subscribe(
@@ -89,9 +103,11 @@ export class PayComponent implements OnInit {
       this.isCoupon = true;
     }
   }
-  choiceCoupon(couponId) {
-
-    this.couponId = couponId;
+  choiceCoupon(item) {
+    this.reduceMoney = 0;
+    console.log(item);
+    this.couponId = item.id;
+    this.reduceMoney = item.deductionMoney;
   }
   CouponCancel(): void {
     console.log('Button ok clicked!');
@@ -100,6 +116,7 @@ export class PayComponent implements OnInit {
 
   CouponOk(): void {
     console.log('ok');
+    this.totalMoney = this.totalPrice - this.reduceMoney;
     this.isCoupon = false;
   }
   button(flag) {
@@ -219,7 +236,9 @@ export class PayComponent implements OnInit {
   }
 
   showShopCarPrice() {
-    this.appService.postAliData(this.appProperties.shoppingCarUrl, '', this.token).subscribe(
+    console.log('+++');
+    console.log(this.ids);
+    this.appService.postAliData(this.appProperties.shoppingCarUrl, {ids: this.ids}, this.token).subscribe(
       data => {
         console.log(data);
         this.totalPrice = 0;
@@ -227,6 +246,7 @@ export class PayComponent implements OnInit {
         this.data.forEach(item => {
           item.pic = item.pic.split(',')[0];
           this.totalPrice += item.price * item.num;
+          this.totalMoney = this.totalPrice;
           this.num += item.num;
           this.idList.push(item.itemId);
           this.shopCartId.push(item.id);
@@ -235,7 +255,7 @@ export class PayComponent implements OnInit {
         console.log(this.totalPrice);
         console.log(this.idList);
         console.log(this.shopCartId.join(','));
-        this.appService.postAliData(this.appProperties.shopAddCouponUrl, this.idList, this.token).subscribe(
+        this.appService.getAliData(this.appProperties.shopCouponListUrl, {state: 5}, this.token).subscribe(
           data2 => {
             console.log(data2);
             if (data2.status === 0) {

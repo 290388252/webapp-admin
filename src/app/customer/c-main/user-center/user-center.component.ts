@@ -41,29 +41,29 @@ export class UserCenterComponent implements OnInit {
 
   detail(flag) {
     if (flag === 1) {
-      this.router.navigate(['cMain/myOrder']);
+      this.router.navigate(['cMain/prepaid']);
     } else if (flag === 2) {
+      this.router.navigate(['cMain/myOrder']);
+    } else if (flag === 3) {
+      this.router.navigate(['cMain/mySaveWater']);
+    } else if (flag === 4) {
       this.router.navigate(['cMain/coupon'], {
         queryParams: {
           coupon: 1
         }
       });
-    } else if (flag === 3) {
-      this.router.navigate(['cMain/shopCar']);
-    } else if (flag === 4) {
-      this.router.navigate(['cMain/newAddress']);
     } else if (flag === 5) {
-      this.router.navigate(['cMain/mySaveWater']);
-    } else if (flag === 6) {
-      this.router.navigate(['cMain/prepaid']);
-    } else if (flag === 7) {
-      this.router.navigate(['cMain/cardMap']);
-    } else if (flag === 8) {
       this.router.navigate(['cMain/waterCoupon'], {
         queryParams: {
           coupon: 1
         }
       });
+    } else if (flag === 6) {
+      this.router.navigate(['cMain/shopCar']);
+    } else if (flag === 7) {
+      this.router.navigate(['cMain/newAddress']);
+    } else if (flag === 8) {
+      this.router.navigate(['cMain/cardMap']);
     }
   }
 }

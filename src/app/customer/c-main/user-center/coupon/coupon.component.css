@@ -1,96 +1,132 @@
 @import "~ngx-weui/index.css";
-.user-container{
+
+.user-container {
   position: absolute;
   padding-bottom: 10%;
   height: 100%;
   width: 100%;
-  background: white;
+  background: #f3f3f3;
   /*background: url("../../../../assets/main/bs-bg.jpg");*/
   /*background-size: 150% 100%;*/
 }
+
 .container {
   width: 100%;
 }
-.layout{
+
+.layout {
   position: absolute;
-  top: 60px;
+  top: 48px;
   width: 100%;
+  background: #f3f3f3;
+  padding: 10px;
 }
-.menu-top{
+
+.menu-top {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
-.menu-li{
+
+.menu-li {
   width: 33%;
   text-align: center;
 }
-.none{
-  left: 40%;
+
+/**/
+.couponOut {
+  width: 100%;
+  height: 90px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.couponUrlA {
+  background-image: url("../../../../../assets/icon/couponA.png");
+}
+.couponUrlB {
+  background-image: url("../../../../../assets/icon/couponB.png");
+}
+.couponUrlC {
+  background-image: url("../../../../../assets/icon/couponC.png");
+}
+.couponUrlD {
+  background-image: url("../../../../../assets/icon/couponD.png");
+}
+.couponUrlNone {
+  background: #CCCCCC;
+}
+.couponImg {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 86px;
+  height: 90px;
   position: absolute;
-  top: 25%;
+  top: 0;
+  left: 0;
 }
-.card{
-  color: white;
-  width: 90%;
-  height: 107px;
-  margin-left: 5%;
-  margin-bottom: 5px;
-  line-height: 20px;
-  border-radius: 10px;
-  background-color: rgba(29, 130, 200, 1);
+
+.couponImg_in {
+  position: absolute;
+  color: #ffffff;
+  width: 100%;
   text-align: center;
-  border: 1px solid rgba(187, 187, 187, 1);
+  top: 50%;
+  margin-top: -23px;
 }
-.card-unuse{
-  color: white;
-  width: 90%;
-  height: 107px;
-  margin-left: 5%;
-  margin-bottom: 5px;
+
+.coupon_cont {
+  margin-left: 86px;
+  height: 90px;
+  position: relative;
+  padding: 10px 26px 0 10px;
+  font-size: 12px;
+  background: #ffffff;
+}
+
+.coupon_name {
+  position: relative;
+  padding-left: 48px;
+  height: 20px;
   line-height: 20px;
-  border-radius: 10px;
-  background-color: rgb(172, 172, 172);
-  text-align: center;
-  border: 1px solid rgba(187, 187, 187, 1);
+  font-size: 14px;
+  color: #333333;
 }
-.card-unuses{
-  color: white;
-  width: 90%;
-  height: 107px;
-  margin-left: 5%;
-  margin-bottom: 5px;
-  line-height: 20px;
-  border-radius: 10px;
-  background-color: rgb(172, 172, 172);
-  text-align: center;
-  border: 1px solid rgba(187, 187, 187, 1);
+
+.coupon_nameImg {
+  width: 42px;
+  height: 16px;
+  position: absolute;
+  left: 0;
+  top: 2px;
 }
-.footer{
-  width: 90%;
-  height: 85px;
-  margin-left: 5%;
-  background-color: rgba(238, 238, 238, 0.1);
+
+.coupon_time {
+  display: block;
+  margin-top: 14px;
+  height: 18px;
+  line-height: 18px;
+}
+
+.coupon_useImg {
+  position: absolute;
+  right: 8px;
+  bottom: 28px;
+  width: 54px;
+  height: 18px;
+}
+.coupon_usedImg {
+  position: absolute;
+  right: -14px;
+  top: 0;
+  width: 44px;
+  height: 24px;
+}
+.footer {
+  width: 100%;
+  height: 74px;
+  background-color: #f3f3f3;
   text-align: center;
   color: grey;
-}
-.line{
-  float: left;
-  width: 95%;
-  margin-left: 2%;
-  margin-top: 1px;
-  height: 1px;
-  border-top: white 1px dashed;
-}
-.use{
-  float: left;
-  margin-left: 40%;
-  font-size: 12px;
-}
-.use:active{
-  float: left;
-  margin-left: 40%;
-  font-size: 12px;
-  color: #eeeeee;
 }

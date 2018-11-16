@@ -15,94 +15,93 @@
     </ul>
     <div class="bannerBtnList">
       <ul>
-        <li *ngFor="let item of imgList; let i = index"><span [class.picBtn]="currentPic === i"
-                                                              (click)="changebanner(i)"></span></li>
+        <li *ngFor="let item of imgList; let i = index">
+          <span [class.picBtn]="currentPic === i" (click)="changebanner(i)"></span></li>
         <div style="clear: both"></div>
       </ul>
     </div>
   </div>
-  <!--<div style="width: 100%;background: antiquewhite;" (click)="vipBuy()">-->
-  <!--<div style="width: 100%;background: antiquewhite;" (click)="vipBuy()" *ngIf="judgeVip">-->
-    <!--<img src="../../../../assets/icon/vipBanner.jpg" style="width: 100%;height: auto">-->
-  <!--</div>-->
-  <div class="gutter-example">
-    <div nz-row nzGutter="16">
+  <div class="firstNav">
+    <ul>
+      <li (click)="turnToPage(1)">
+        <img src="../../../../assets/icon/firstIcon/icon-nav1.png"/>
+        <span>瓶装水</span>
+      </li>
+      <li (click)="turnToPage(2)">
+        <img src="../../../../assets/icon/firstIcon/icon-nav2.png"/>
+        <span>饮水设备</span>
+      </li>
+      <li (click)="turnToPage(3)">
+        <img src="../../../../assets/icon/firstIcon/icon-nav3.png"/>
+        <span>领优惠券</span>
+      </li>
+      <li (click)="turnToPage(4)">
+        <img src="../../../../assets/icon/firstIcon/icon-nav4.png"/>
+        <span>积分商城</span>
+      </li>
+      <div class="clear-fix"></div>
+    </ul>
+  </div>
+  <div class="firstList">
+    <div class="listTitle">
+      <span class="title_img">为您精选</span>
+    </div>
+    <ul class="listContent">
+      <li class="list" *ngFor="let item of list">
+        <div (click)="goTo(item.id, item.name, item.pic)" class="list_img" style="width: 40%; height: 100%; float: left; padding-right: 10px;">
+          <img style="width: 100%;height: 100%; display: block;" [src]="imgUrl+item.pic">
+        </div>
+        <div class="list_goods" style="width: 60%; height: 100%; float: left; position: relative">
+          <div class="list_goods_name" (click)="goTo(item.id, item.name, item.pic)">{{item.name || '无名字'}}</div>
+          <!--非团购商品-->
+          <div style="width: 100%;position: absolute; height: 45px; bottom: 0px;">
+            <div style="float: left;">
+              <span class="span-text">厂家直销</span>
+              <span class="span-price" >￥{{item.salesPrice}}</span>
+              <span *ngIf="item.isConglomerateCommodity === 1" style="font-size: 12px; padding-left: 10px;">已拼{{item.salesQuantity}}件</span>
+            </div>
+            <div *ngIf="item.isConglomerateCommodity === 0" style="float: right; width: 30px;height: 30px; margin-top: 15px;">
+              <img (click)="addFirstCar(item)" style="width: 100%; height: 100%; display: block" src="../../../../assets/icon/firstIcon/icon-addCart.png" alt="">
+            </div>
+            <div class="clear-fix"></div>
+          </div>
+          <!--团购商品-->
+          <!--<div *ngIf="item.isConglomerateCommodity === 1">
+            <span class="gutter-row-span">￥{{item.salesPrice}}</span>
+            <div class="gutter-row-icon" (click)="goTo(item.id, item.name, item.pic)">
+              <img style="width: 44px;height: 20px" src="../../../../assets/icon/groupIcon.png" alt=""></div>
+          </div>-->
+        </div>
+        <div class="clear-fix"></div>
+      </li>
+    </ul>
 
+    <!--footer-->
+    <div style="width: 100%;height: 50px"></div>
+  </div>
+ <!-- <div class="gutter-example">
+    <div nz-row nzGutter="16">
       <div nz-col class="gutter-row" style="margin-bottom: 10px;" nzSpan="12" *ngFor="let item of list">
         <div (click)="goTo(item.id, item.name, item.pic)" class="gutter-box">
           <img style="width: 100%;display: block;height: 140%;" [src]="imgUrl+item.pic">
         </div>
         <p class="gutter-row-text">{{item.name || '无名字'}}</p>
-        <!--非团购商品-->
+        &lt;!&ndash;非团购商品&ndash;&gt;
         <div *ngIf="item.isConglomerateCommodity === 0">
           <span class="gutter-row-span">￥{{item.salesPrice}}</span>
-          <span class="gutter-row-icon"><img (click)="addFirstCar(item)" style="width: 20px;height: 20px"
-                                             src="../../../../assets/icon/addCar.png" alt=""></span>
+          <span class="gutter-row-icon">
+            <img (click)="addFirstCar(item)" style="width: 20px;height: 20px" src="../../../../assets/icon/addCar.png" alt="">
+          </span>
         </div>
-        <!--团购商品-->
+        &lt;!&ndash;团购商品&ndash;&gt;
         <div *ngIf="item.isConglomerateCommodity === 1">
           <span class="gutter-row-span">￥{{item.salesPrice}}</span>
-          <div class="gutter-row-icon" (click)="goTo(item.id, item.name, item.pic)"><img style="width: 44px;height: 20px"
-                                                                                         src="../../../../assets/icon/groupIcon.png" alt=""></div>
-          <!--<span class="gutter-row-span">￥{{item.salesPrice}}</span>-->
-          <!--<span class="gutter-row-icon"><img (click)="addFirstCar(item)" style="width: 20px;height: 20px"-->
-                                             <!--src="../../../../assets/icon/addCar.png" alt=""></span>-->
+          <div class="gutter-row-icon" (click)="goTo(item.id, item.name, item.pic)">
+            <img style="width: 44px;height: 20px" src="../../../../assets/icon/groupIcon.png" alt=""></div>
         </div>
       </div>
-
-      <!--<div nz-col class="gutter-row" nzSpan="12">-->
-      <!--<div class="gutter-box">-->
-      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-      <!--</div>-->
-      <!--<p class="gutter-row-text">1234555</p>-->
-      <!--<span class="gutter-row-span">$80</span>-->
-      <!--</div>-->
-      <!--<div nz-col class="gutter-row" nzSpan="12">-->
-      <!--<div class="gutter-box">-->
-      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-      <!--</div>-->
-      <!--<p class="gutter-row-text">1234555</p>-->
-      <!--<span class="gutter-row-span">$80</span>-->
-      <!--</div>-->
-
-      <!--<div nz-col class="gutter-row" nzSpan="12">-->
-      <!--<div class="gutter-box">-->
-      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-      <!--</div>-->
-      <!--<p class="gutter-row-text">1234555</p>-->
-      <!--<span class="gutter-row-span">$80</span>-->
-      <!--</div>-->
-
-      <!--<div nz-col class="gutter-row" nzSpan="12">-->
-      <!--<div class="gutter-box">-->
-      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-      <!--</div>-->
-      <!--<p class="gutter-row-text">1234555</p>-->
-      <!--<span class="gutter-row-span">$80</span>-->
-      <!--</div>-->
-      <!--<div nz-col class="gutter-row" nzSpan="12">-->
-      <!--<div class="gutter-box">-->
-      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-      <!--</div>-->
-      <!--<p class="gutter-row-text">1234555</p>-->
-      <!--<span class="gutter-row-span">$80</span>-->
-      <!--</div>-->
-      <!--<div nz-col class="gutter-row" nzSpan="12">-->
-      <!--<div class="gutter-box">-->
-      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-      <!--</div>-->
-      <!--<p class="gutter-row-text">1234555</p>-->
-      <!--<span class="gutter-row-span">$80</span>-->
-      <!--</div>-->
-      <!--<div nz-col class="gutter-row" nzSpan="12">-->
-      <!--<div class="gutter-box">-->
-      <!--<img class="box-img" src="http://119.23.233.123:6662/ys_admin/files/0.png" alt="">-->
-      <!--</div>-->
-      <!--<p class="gutter-row-text">1234555</p>-->
-      <!--<span class="gutter-row-span">$80</span>-->
-      <!--</div>-->
     </div>
-    <!--footer-->
+    &lt;!&ndash;footer&ndash;&gt;
     <div style="width: 100%;height: 50px"></div>
-  </div>
+  </div>-->
 </div>

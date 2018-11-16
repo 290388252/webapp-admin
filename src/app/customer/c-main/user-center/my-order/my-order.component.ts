@@ -3,6 +3,7 @@ import {AppService} from '../../../../app-service';
 import {AppProperties} from '../../../../app.properties';
 import {getToken, urlParse} from '../../../../utils/util';
 import {Router} from '@angular/router';
+
 declare var wx: any;
 declare var WeixinJSBridge: any;
 
@@ -12,56 +13,74 @@ declare var WeixinJSBridge: any;
   styleUrls: ['./my-order.component.css']
 })
 export class MyOrderComponent implements OnInit {
-  public list;
-  public noPayList;
-  public payList;
+  public orderType;
+  public allList;
+  public prepaidList;
+  public unPayList;
 
-  public listTwo;
-  public noPayListTwo;
-  public payListTwo;
+  // public listTwo;
+  // public noPayListTwo;
+  // public payListTwo;
   public imgUrl = this.appProperties.shopImgUrl;
+  public vmImgUrl = this.appProperties.filesImgUrl;
   public all: boolean;
   public noOrder: boolean;
   public order: boolean;
-  constructor(private appService: AppService, private appProperties: AppProperties) { }
+
+  constructor(private appService: AppService, private appProperties: AppProperties) {
+  }
 
   ngOnInit() {
+    this.orderType = '1';
     this.orderList(0);
     this.all = false;
     this.noOrder = true;
     this.order = true;
   }
+
   sort(flag) {
-    if (flag === 1) {
+    if (flag === 0) {
       this.all = false;
       this.noOrder = true;
       this.order = true;
       this.orderList(0);
-    } else if (flag === 2) {
+    } else if (flag === 1) {
       this.all = true;
       this.noOrder = false;
       this.order = true;
       this.orderList(1);
-    } else if (flag === 3) {
+    } else if (flag === 2) {
       this.all = true;
       this.noOrder = true;
       this.order = false;
       this.orderList(2);
     }
   }
+
+  changeRadio() {
+    console.log(this.orderType);
+    let type;
+    if (this.all === false) {
+      type = 0;
+    } else if (this.noOrder === false) {
+      type = 1;
+    } else if (this.order === false) {
+      type = 2;
+    }
+    this.orderList(type);
+  }
+
   orderList(type) {
-    this.appService.postAliData(this.appProperties.shopStoreOrderFindUrl, {findType: type} , getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.shopStoreOrderFindUrl, {findType: type, orderType: this.orderType},
+      getToken()).subscribe(
       data => {
         console.log(data);
         if (type === 0) {
-          this.list = data.returnObject['storeOrder'];
-          this.listTwo = data.returnObject['machinesOrder'];
+          this.allList = data.returnObject;
         } else if (type === 1) {
-          this.noPayList = data.returnObject['storeOrder'];
-          this.noPayListTwo = data.returnObject['machinesOrder'];
+          this.prepaidList = data.returnObject;
         } else if (type === 2) {
-          this.payList = data.returnObject['storeOrder'];
-          this.payListTwo = data.returnObject['machinesOrder'];
+          this.unPayList = data.returnObject;
         }
       },
       error2 => {
@@ -69,34 +88,65 @@ export class MyOrderComponent implements OnInit {
       }
     );
   }
-  toText(state) {
-    let text;
-    if (state === 10001) {
-      text = '已支付';
-    } else if (state === 10002) {
-      text = '未支付';
-    }
-    return text;
-  }
+
   pay(item) {
-    console.log(item);
-    this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
-      orderId: item.id,
-      url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
-    }, getToken()).subscribe(
-      data4 => {
-        console.log(data4);
-        if (typeof(WeixinJSBridge) === 'undefined') {
-          this.onBridgeUndefindeReady(data4);
-        } else {
-          this.onBridgeReady(data4);
+    // 商城
+    if (item.type === 1) {
+      this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
+        orderId: item.id,
+        url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
+      }, getToken()).subscribe(
+        data4 => {
+          console.log(data4);
+          if (typeof(WeixinJSBridge) === 'undefined') {
+            this.onBridgeUndefindeReady(data4);
+          } else {
+            this.onBridgeReady(data4);
+          }
+        },
+        error => {
+          console.log(error);
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      );
+    } else if (item.type === 2) {
+      // 机器
+      this.appService.getAliData(this.appProperties.orderUnifiedOrderUrl, {
+        orderId: item.id,
+        url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
+      }, getToken()).subscribe(
+        data4 => {
+          console.log(data4);
+          if (typeof(WeixinJSBridge) === 'undefined') {
+            this.onBridgeUndefindeReady(data4);
+          } else {
+            this.onBridgeReady(data4);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else if (item.type === 3) {
+      // 团购
+      this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
+        orderId: item.id,
+        url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
+      }, getToken()).subscribe(
+        data4 => {
+          console.log(data4);
+          if (typeof(WeixinJSBridge) === 'undefined') {
+            this.onBridgeUndefindeReady(data4);
+          } else {
+            this.onBridgeReady(data4);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
+
   payM(item) {
     console.log(item);
     this.appService.postAliData(this.appProperties.orderUnifiedOrderUrl, {
@@ -116,6 +166,7 @@ export class MyOrderComponent implements OnInit {
       }
     );
   }
+
   onBridgeUndefindeReady(data) {
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', () => {
@@ -158,7 +209,7 @@ export class MyOrderComponent implements OnInit {
         paySign: data.payInfo.sign, // 支付签名
         success: (res) => {
           if (res.errMsg === 'chooseWXPay:ok') {
-            window.location.href = 'http://webapp.youshuidaojia.com/cMain/userCenter';
+            window.location.href = 'http://webapp.youshuidaojia.com/cMain/myOrder';
             // this.router.navigate(['cMain/shopCar']);
             console.log('支付成功');
           } else {

@@ -37,10 +37,11 @@ export class PrepaidComponent implements OnInit {
   }
   goTo(flag) {
     console.log(flag === 'prepaidPay');
-    if(flag === 'userCenter') {
+    if (flag === 'userCenter') {
       this.router.navigate(['cMain/userCenter']);
-    } else if(flag === 'prepaidPay') {
+    } else if (flag === 'prepaidPay') {
       this.router.navigate(['cMain/prepaidPay']);
     }
 
-  }}
+  }
+}

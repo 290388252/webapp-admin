@@ -1,189 +1,95 @@
 <div class="user-container">
-  <div style="padding-top: 0;" class="am-list am-list-form">
-    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
-      <div class="am-list-label" id="list-label-2">收货人</div>
-      <div class="am-list-control">
-        <input id="demo-input-2" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-2" [(ngModel)]="receiver" name="receiver">
-      </div>
-      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-2">
-        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
-      </div>
-    </div>
-    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
-      <div class="am-list-label" id="list-label-3">手机号码</div>
-      <div class="am-list-control">
-        <input id="demo-input-3" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-3" [(ngModel)]="phone" name="phone">
-      </div>
-      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-3">
-        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
-      </div>
-    </div>
-    <!--<div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">-->
-      <!--<div class="am-list-label" id="list-label-4">地区</div>-->
-      <!--<div class="am-list-control">-->
-        <!--<input (click)="pick()" id="demo-input-4" type="text" placeholder="点击选择" value=""-->
-               <!--aria-labelledby="list-label-4">-->
-      <!--</div>-->
-      <!--<div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">-->
-        <!--<i class="am-icon-clear am-icon" aria-hidden="true"></i>-->
-      <!--</div>-->
-    <!--</div>-->
-    <div style="margin-bottom: 5px" class="am-list-item am-input-autoclear">
-      <div class="am-list-label" id="list-label-5">详细地址</div>
-      <div class="am-list-control">
-        <input id="demo-input-5" type="text" placeholder="内容内容" value="" aria-labelledby="list-label-5" [(ngModel)]="name" name="name">
-      </div>
-      <div class="am-list-clear" tabindex="0" aria-label="清空输入框" aria-controls="demo-input-4">
-        <i class="am-icon-clear am-icon" aria-hidden="true"></i>
-      </div>
-    </div>
-    <div class="am-list">
-      <div class="am-list-body">
-        <div class="am-list-item">
-          <div class="am-list-content">设置未默认地址</div>
-          <div class="am-switch">
-            <input type="checkbox" name="s1" class="am-switch-checkbox" (change)="onChecked()"  id="demo-s-1" >
-            <label class="am-switch-label" for="demo-s-1">
-              <div class="am-switch-inner"></div>
-              <div class="am-switch-switch"></div>
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="am-button-wrap">
-      <button (click)="ok()" class="am-button blue">确定</button>
-    </div>
+  <!--新增-->
+  <div class="title" *ngIf="isAdd === '1'">
+    <span class="title_l" (click)="goTo()"><i class="anticon anticon-left"></i></span>
+    新增地址
+    <!--<button class="title_r" nz-button nzType="default">Default</button>-->
+    <button class="title_r" (click)="addAddress()" [disabled]="disable">保存</button>
   </div>
-  <div *ngIf="lastConfirm" class="am-dialog-mask show"></div>
-  <!-- A11Y: 对话框隐藏时设置 aria-hidden="true"，显示时设置 aria-hidden="false" -->
-  <div *ngIf="lastConfirm" class="am-dialog show" role="dialog" aria-hidden="false">
-    <div class="am-dialog-wrap">
-      <div class="am-dialog-body">
-        <p>请再次确认</p>
-        <p class="am-dialog-brief">地址:{{name}}</p>
-      </div>
-      <div class="am-dialog-footer">
-        <a (click)="cancelContent()" class="am-dialog-button">取消</a>
-        <a (click)="confirmContent()" class="am-dialog-button">确定</a>
+  <div class="cont" *ngIf="isAdd === '1'">
+    <div style="width: 100%;height: 34px;line-height: 34px;padding: 0 10px;color: #333333">
+      联系人
+    </div>
+    <div class="cont_input_t">
+      <div class="cont_input_t_l">姓名:</div>
+      <div class="cont_input_t_r">
+        <input type="text" [(ngModel)]="addName">
       </div>
     </div>
+    <div class="cont_input_t">
+      <div class="cont_input_t_l"></div>
+      <div class="cont_input_t_r">
+        <nz-radio-group [(ngModel)]="addSex">
+          <label nz-radio nzValue="1">先生</label>
+          <label nz-radio nzValue="0">女士</label>
+        </nz-radio-group>
+      </div>
+    </div>
+    <div class="cont_input_t">
+      <div class="cont_input_t_l">手机:</div>
+      <div class="cont_input_t_r">
+        <input type="text" [(ngModel)]="addPhone">
+      </div>
+    </div>
+    <div style="width: 100%;height: 34px;line-height: 34px;padding: 0 10px;color: #333333">
+      收货地址
+    </div>
+    <div class="cont_input_t">
+      <div class="cont_input_b_l">详细地址:</div>
+      <div class="cont_input_b_r">
+        <input type="text" [(ngModel)]="addSite">
+      </div>
+    </div>
+    <div class="cont_input_b">
+      设置为默认地址
+      <span style="position: absolute;right: 10px;"><nz-switch [(ngModel)]="addSwitch"></nz-switch></span>
+    </div>
+    <div style="width: 100%;text-align: center;color: red;margin-top: 8px;" *ngIf="addShow">*请输入完整信息</div>
   </div>
-  <div *ngIf="isChoose" class="mask"></div>
-  <div *ngIf="isChoose" class="pick">
-    <div style="width: 100%;height: 30px">
-      <span (click)="cancel()" class="pick-span">取消</span>
-      <span (click)="confirm()" class="pick-span">确定</span>
+  <div class="title" *ngIf="isAdd === '0'">
+    <span class="title_l" (click)="goTo()"><i class="anticon anticon-left"></i></span>
+    编辑地址
+    <span class="title_r" (click)="alterAddress()">保存</span>
+  </div>
+  <div class="cont" *ngIf="isAdd === '0'">
+    <div style="width: 100%;height: 34px;line-height: 34px;padding: 0 10px;color: #333333">
+      联系人
     </div>
-    <div class="city-layout">
-      <div class="child-layout">
-          <h3>北京</h3>
-          <h3>天津</h3>
-          <h3>河北省</h3>
-          <h3>山西省</h3>
-          <h3>内蒙古自治区</h3>
-          <h3>辽宁省</h3>
-          <h3>吉林省</h3>
-          <h3>黑龙江省</h3>
-          <h3>上海</h3>
-          <h3>江苏省</h3>
-          <h3>浙江省</h3>
-          <h3>安徽省</h3>
-          <h3>福建省</h3>
-          <h3>江西省</h3>
-          <h3>山东省</h3>
-          <h3>河南省</h3>
-          <h3>湖北省</h3>
-          <h3>湖南省</h3>
-          <h3>广东省</h3>
-          <h3>广西壮族自治区</h3>
-          <h3>海南省</h3>
-          <h3>重庆</h3>
-          <h3>四川省</h3>
-          <h3>贵州省</h3>
-          <h3>云南省</h3>
-          <h3>西藏自治区</h3>
-          <h3>陕西省</h3>
-          <h3>甘肃省</h3>
-          <h3>青海省</h3>
-          <h3>宁夏回族自治区</h3>
-          <h3>新疆维吾尔自治区</h3>
-          <h3>台湾省</h3>
-          <h3>香港特别行政区</h3>
-          <h3>澳门特别行政区</h3>
-      </div>
-      <div class="child-layout">
-        <h3>北京</h3>
-        <h3>天津</h3>
-        <h3>河北省</h3>
-        <h3>山西省</h3>
-        <h3>内蒙古自治区</h3>
-        <h3>辽宁省</h3>
-        <h3>吉林省</h3>
-        <h3>黑龙江省</h3>
-        <h3>上海</h3>
-        <h3>江苏省</h3>
-        <h3>浙江省</h3>
-        <h3>安徽省</h3>
-        <h3>福建省</h3>
-        <h3>江西省</h3>
-        <h3>山东省</h3>
-        <h3>河南省</h3>
-        <h3>湖北省</h3>
-        <h3>湖南省</h3>
-        <h3>广东省</h3>
-        <h3>广西壮族自治区</h3>
-        <h3>海南省</h3>
-        <h3>重庆</h3>
-        <h3>四川省</h3>
-        <h3>贵州省</h3>
-        <h3>云南省</h3>
-        <h3>西藏自治区</h3>
-        <h3>陕西省</h3>
-        <h3>甘肃省</h3>
-        <h3>青海省</h3>
-        <h3>宁夏回族自治区</h3>
-        <h3>新疆维吾尔自治区</h3>
-        <h3>台湾省</h3>
-        <h3>香港特别行政区</h3>
-        <h3>澳门特别行政区</h3>
-      </div>
-      <div class="child-layout">
-        <h3>北京</h3>
-        <h3>天津</h3>
-        <h3>河北省</h3>
-        <h3>山西省</h3>
-        <h3>内蒙古自治区</h3>
-        <h3>辽宁省</h3>
-        <h3>吉林省</h3>
-        <h3>黑龙江省</h3>
-        <h3>上海</h3>
-        <h3>江苏省</h3>
-        <h3>浙江省</h3>
-        <h3>安徽省</h3>
-        <h3>福建省</h3>
-        <h3>江西省</h3>
-        <h3>山东省</h3>
-        <h3>河南省</h3>
-        <h3>湖北省</h3>
-        <h3>湖南省</h3>
-        <h3>广东省</h3>
-        <h3>广西壮族自治区</h3>
-        <h3>海南省</h3>
-        <h3>重庆</h3>
-        <h3>四川省</h3>
-        <h3>贵州省</h3>
-        <h3>云南省</h3>
-        <h3>西藏自治区</h3>
-        <h3>陕西省</h3>
-        <h3>甘肃省</h3>
-        <h3>青海省</h3>
-        <h3>宁夏回族自治区</h3>
-        <h3>新疆维吾尔自治区</h3>
-        <h3>台湾省</h3>
-        <h3>香港特别行政区</h3>
-        <h3>澳门特别行政区</h3>
+    <div class="cont_input_t">
+      <div class="cont_input_t_l">姓名:</div>
+      <div class="cont_input_t_r">
+        <input type="text" [(ngModel)]="alterName">
       </div>
     </div>
+    <div class="cont_input_t">
+      <div class="cont_input_t_l"></div>
+      <div class="cont_input_t_r">
+        <nz-radio-group [(ngModel)]="alterSex">
+          <label nz-radio nzValue='1'>先生</label>
+          <label nz-radio nzValue='0'>女士</label>
+        </nz-radio-group>
+      </div>
+    </div>
+    <div class="cont_input_t">
+      <div class="cont_input_t_l">手机:</div>
+      <div class="cont_input_t_r">
+        <input type="text" [(ngModel)]="alterPhone">
+      </div>
+    </div>
+    <div style="width: 100%;height: 34px;line-height: 34px;padding: 0 10px;color: #333333">
+      收货地址
+    </div>
+    <div class="cont_input_t">
+      <div class="cont_input_b_l">详细地址:</div>
+      <div class="cont_input_b_r">
+        <input type="text" [(ngModel)]="alterSite">
+      </div>
+    </div>
+    <div class="cont_input_b">
+      设置为默认地址
+      <span style="position: absolute;right: 10px;"><nz-switch [(ngModel)]="alterSwitch"></nz-switch></span>
+    </div>
+    <div style="width: 100%;text-align: center;color: red;margin-top: 8px;" *ngIf="alterShow">*请输入完整信息</div>
   </div>
 </div>
+

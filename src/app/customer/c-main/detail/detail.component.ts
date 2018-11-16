@@ -56,11 +56,9 @@ export class DetailComponent implements OnInit {
     this.name = urlParse(window.location.href)['name'];
     this.pic = urlParse(window.location.href)['pic'];
     this.showGoods();
+    this.curId = 1;
     this.isVisible = false;
     // this.countDown(325);
-    this.curId = 1;
-
-
   }
 
   countDown(maxtime, fn) {
@@ -383,6 +381,17 @@ export class DetailComponent implements OnInit {
           console.log(error);
         }
       );
+    }
+  }
+  turnToPage(val) {
+    if (val === 1) {
+      this.router.navigate(['cMain/firstPage']);
+    }
+    if (val === 2) {
+      this.router.navigate(['cMain/allGoods']);
+    }
+    if (val === 3) {
+      this.router.navigate(['cMain/shopCar']);
     }
   }
 }

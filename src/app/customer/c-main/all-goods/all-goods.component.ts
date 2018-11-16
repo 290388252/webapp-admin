@@ -14,33 +14,41 @@ export class AllGoodsComponent implements OnInit {
   public couponList = [];
   public imgUrl = this.appProperties.shopImgUrl;
   public token;
-  public unUsed;
+  public value;
   constructor(@Inject('showAllGoods') private allGoodsService, private appProperties: AppProperties,
               private appService: AppService, private router: Router) { }
 
   ngOnInit() {
+    this.value = urlParse(window.location.href)['value'];
     this.token = getToken();
-    this.list = this.allGoodsService.showAllGoods(this.token, {type: 3});
-    console.log(this.list);
+    if (this.value === '' || this.value === undefined || this.value === null) {
+      this.list = this.allGoodsService.showAllGoods(this.token, {price: 1, type: 3});
+    } else if (this.value === '1') {
+      this.list = this.allGoodsService.showAllGoods(this.token, {type: 3, itemType: 11});
+    } else if (this.value === '2') {
+      this.list = this.allGoodsService.showAllGoods(this.token, {type: 3, itemType: 24});
+    } else if (this.value === '3') {
+      this.coupon();
+    } else if (this.value === '4') {
+      /*this.list = this.allGoodsService.showAllGoods(this.token, {price: 1, type: 3});*/
+    }
+    console.log(this.value + ' ' + this.list);
   }
-  sort(flag) {
+  /*sort(flag) {
     if (flag === 1) {
-      this.list = this.allGoodsService.showAllGoods(this.token, {type: 3});
+      this.list = this.allGoodsService.showAllGoods(this.token, {type: 3, itemType: 11});
       this.unUsed = false;
     } else if (flag === 2) {
-      this.list = this.allGoodsService.showAllGoods(this.token, {type: 3});
+      this.list = this.allGoodsService.showAllGoods(this.token, {type: 3, itemType: 24});
       this.unUsed = false;
     } else if (flag === 3) {
-      this.list = this.allGoodsService.showAllGoods(this.token, {newProduct: 1, type: 3});
-      this.unUsed = false;
-    } else if (flag === 4) {
-      this.list = this.allGoodsService.showAllGoods(this.token, {price: 1, type: 3});
-      this.unUsed = false;
-    } else if (flag === 5) {
       this.unUsed = true;
       this.coupon();
+    } else if (flag === 4) {
+      /!*this.list = this.allGoodsService.showAllGoods(this.token, {price: 1, type: 3});*!/
+      this.unUsed = false;
     }
-  }
+  }*/
   addCar(item) {
     this.appService.getAliData(this.appProperties.shoppingAddUrl, {
       itemId: item.id,
@@ -96,5 +104,23 @@ export class AllGoodsComponent implements OnInit {
         name: name,
         type: 2
       }});
+  }
+  turnToBind(item, useWhere) {
+    let isShow;
+    if (item === 1) {
+      // 特殊商品
+      if (useWhere === 1) {
+        //  机器商品
+        isShow = false;
+        return isShow;
+      } else {
+        isShow = true;
+        return isShow;
+      }
+    } else if (item === 0) {
+      // 全品类
+      isShow = false;
+      return isShow;
+    }
   }
 }

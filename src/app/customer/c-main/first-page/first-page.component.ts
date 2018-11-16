@@ -3,6 +3,7 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
+import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
   selector: 'app-user-detail',
@@ -121,5 +122,11 @@ export class FirstPageComponent implements OnInit {
   // 会员
   vipBuy() {
     this.router.navigate(['cMain/vipCar']);
+  }
+  turnToPage(val) {
+    this.router.navigate(['cMain/allGoods'], {
+      queryParams: {
+        value: val,
+      }});
   }
 }

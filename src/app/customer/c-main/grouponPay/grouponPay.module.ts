@@ -6,7 +6,7 @@ import {GrouponPayComponent} from './grouponPay.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,

@@ -7,6 +7,7 @@ import {getToken, urlParse} from '../../../utils/util';
 // import * as $ from 'jquery'
 
 declare var BMap: any;
+declare var BMapLib: any;
 
 @Component({
   selector: 'app-machine-detail',
@@ -183,14 +184,20 @@ export class MapComponent implements OnInit {
                 + '<span id="vmVersion" style="display: none">' + vmVersion + '</span>'
                 + '<span id="vmDistance" style="position: absolute;top: 0;right: 36px;">' + Math.round(vmDistance) + 'm</span>'
                 + '<input onclick="javascript:{window.location.href = \'http://webapp.youshuidaojia.com/cMain/mapDetails?vmCode=\' + document.getElementById(\'vmCode\').innerHTML + \'&version=\' +document.getElementById(\'vmVersion\').innerHTML}" type="button" id="abc11" value="详情 >" style="background:none;border:none;width: 50px;margin-top: 1px;margin-left: 200px;color: #3e85ff;">'
+                + '<span style="position: absolute;top: 0;right: 0;"><img src="../../../../assets/icon/userIcon.png" style="width: 15px;height: 15px"></span>'
                 + '</div>';
               const opts = {
                 width: 250,     // 信息窗口宽度
                 height: 100,     // 信息窗口高度
                 title: '优水到家', // 信息窗口标题
                 enableMessage: true // 设置允许信息窗发送短息
-
               };
+              const infoBox = new BMapLib.InfoBox(map, '百度地图api', {
+                boxStyle: { width: '200px'},
+                closeIconMargin: '10px 2px 0 0',
+                enableAutoPan: true,
+                alignBottom: false
+                });
               marker.disableDragging(); // marker可拖拽
               map.addOverlay(marker);               // 将标注添加到地图中
               addClickHandler(content, marker, opts, map);

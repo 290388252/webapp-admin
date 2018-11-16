@@ -1,145 +1,70 @@
 <div class="user-container">
   <ul class="menu-top" nz-menu [nzMode]="'horizontal'">
-    <!--<li (click)="choose(5)" class="menu-li" nz-menu-item [nzSelected]="true">可领取</li>-->
-    <li (click)="choose(2)" class="menu-li" nz-menu-item [nzSelected]="true">未使用</li>
-    <li (click)="choose(3)" class="menu-li" nz-menu-item>已使用</li>
-    <li (click)="choose(1)" class="menu-li" nz-menu-item>已过期</li>
+    <li (click)="choose(1)" class="menu-li" nz-menu-item [nzSelected]="true">未使用</li>
+    <li (click)="choose(2)" class="menu-li" nz-menu-item>已使用</li>
+    <li (click)="choose(3)" class="menu-li" nz-menu-item>已过期</li>
   </ul>
   <div *ngIf="empty" class="none">
     <img style="width: 35%;margin-bottom: 5px" src="../../../../../assets/icon/wrong.png" alt="">
     <h4>空空如也~</h4>
   </div>
-  <!--可领取-->
-  <!--<div *ngIf="couponGet" class="layout">-->
-    <!--<div class="card" [hidden]="!couponGetList" *ngFor="let item of couponGetList">-->
-      <!--&lt;!&ndash;<div style="float: left;margin-top: 20px" *ngIf="(item.type === 1)">&ndash;&gt;-->
-      <!--&lt;!&ndash;<h2 style="color: white">￥{{item.deductionMoney}}</h2>&ndash;&gt;-->
-      <!--&lt;!&ndash;<span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-      <!--&lt;!&ndash;满减&ndash;&gt;-->
-      <!--<div style="float: left;margin-top: 20px" *ngIf="(item.type === 1)">-->
-        <!--<h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>-->
-        <!--<span style="font-size: 12px;margin-left: 10px">满{{item.money}}减{{item.deductionMoney}}</span>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;固定&ndash;&gt;-->
-      <!--<div style="float: left;margin-top: 20px" *ngIf="(item.type === 2)">-->
-        <!--<h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>-->
-        <!--<span style="font-size: 12px;margin-left: 10px">立减券</span>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;折扣&ndash;&gt;-->
-      <!--<div style="float: left;margin-top: 20px" *ngIf="(item.type === 3)">-->
-        <!--<h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>-->
-        <!--<span style="font-size: 12px;margin-left: 10px">折扣券</span>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;固定折扣&ndash;&gt;-->
-      <!--<div style="float: left;margin-top: 20px;position: relative;" *ngIf="(item.type === 4)">-->
-        <!--<h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>-->
-        <!--<span style="font-size: 12px;position: absolute;top: 24px;width: 90px;left: 58px;">最大优惠{{item.maximumDiscount}}元</span>-->
-        <!--<span style="font-size: 12px">固定折扣券</span>-->
-      <!--</div>-->
-      <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
-        <!--<span style="float: left">{{item.useWhereLabel}}</span>-->
-        <!--<br>-->
-        <!--<span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>-->
-        <!--<br>-->
-        <!--<span *ngIf="turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">仅限购买特殊商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余{{item.sendMax}}张</span>-->
-        <!--<span *ngIf="!turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">全品类商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余{{item.sendMax}}张</span>-->
-        <!--&lt;!&ndash;<span style="margin-left: 140px;">共有{{item.quantity}}张</span>&ndash;&gt;-->
-      <!--</div>-->
-      <!--<br>-->
-      <!--<div class="line"></div>-->
-      <!--<span [hidden]="status !== 2" *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard(2)">立即领取</span>-->
-    <!--</div>-->
-    <!--<div class="footer">-->
-      <!--已经到底~-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--已过期-->
-  <div *ngIf="unUsed" class="layout">
-    <div class="card-unuses" *ngFor="let item of couponList">
-      <!--满减-->
-      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 1)">
-        <h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>
-        <span style="font-size: 12px;margin-left: 10px">满{{item.money}}减{{item.deductionMoney}}</span>
-      </div>
-      <!--立减券-->
-      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 2)">
-        <h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>
-        <span style="font-size: 12px;margin-left: 10px">立减券</span>
-      </div>
-      <!--折扣-->
-      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 3)">
-        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
-        <span style="font-size: 12px;margin-left: 10px">折扣券</span>
-      </div>
-      <!--固定折扣-->
-      <div style="float: left;margin-top: 20px;position: relative;" *ngIf="(item.type === 4)">
-        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
-        <span style="font-size: 12px;position: absolute;top: 24px;width: 90px;left: 58px;">最大优惠{{item.maximumDiscount}}元</span>
-        <span style="font-size: 12px;">固定折扣券</span>
-      </div>
-      <!--<div style="float: left;margin-top: 20px">-->
-      <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
-      <!--<span style="font-size: 12px;margin-left: 10px;">{{text(item)}}</span>-->
-      <!--</div>-->
-      <div style="float: left;margin-left:5px;margin-top: 5px">
-        <span style="float: left">{{item.useWhereLabel}}</span>
-        <br>
-        <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
-        <br>
-        <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>
-      </div>
-      <br>
-      <div class="line"></div>
-      <span (click)="pickCard(item)" class="use">过期了</span>
-    </div>
-
-    <div class="footer">
-      已经到底~
-    </div>
-  </div>
   <!--未使用-->
-  <div *ngIf="unEffective" class="layout">
-    <div class="card" [hidden]="!couponEffectiveList" *ngFor="let item of couponEffectiveList">
-      <!--<div style="float: left;margin-top: 20px" *ngIf="(item.type === 1)">-->
-      <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
-      <!--<span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>-->
-      <!--</div>-->
+  <div *ngIf="effective" class="layout">
+    <div class="couponOut" [hidden]="!effectiveList" *ngFor="let item of effectiveList">
       <!--满减-->
-      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 1)">
-        <h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>
-        <span style="font-size: 12px;margin-left: 10px">满{{item.money}}减{{item.deductionMoney}}</span>
+      <div class="couponImg couponUrlA" *ngIf="item.type === 1">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;"><span style="font-size: 12px;">￥</span>{{item.deductionMoney}}</span>
+          <span style="display: block;font-size: 12px;">满{{item.money}}减{{item.deductionMoney}}</span>
+        </div>
       </div>
-      <!--固定-->
-      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 2)">
-        <h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>
-        <span style="font-size: 12px;margin-left: 10px">立减券</span>
+      <!--固定立减-->
+      <div class="couponImg couponUrlB" *ngIf="item.type === 2">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;"><span style="font-size: 12px;">￥</span>{{item.deductionMoney}}</span>
+          <span style="display: block;font-size: 12px;">立减券</span>
+        </div>
       </div>
       <!--折扣-->
-      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 3)">
-        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
-        <span style="font-size: 12px;margin-left: 10px">折扣券</span>
+      <div class="couponImg couponUrlC" *ngIf="item.type === 3">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;">{{item.deductionMoney}}<span style="font-size: 12px;">折</span></span>
+          <span style="display: block;font-size: 12px;">折扣券</span>
+        </div>
       </div>
       <!--固定折扣-->
-      <div style="float: left;margin-top: 20px;position: relative;" *ngIf="(item.type === 4)">
-        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
-        <span style="font-size: 12px;position: absolute;top: 24px;width: 90px;left: 58px;">最大优惠{{item.maximumDiscount}}元</span>
-        <span style="font-size: 12px">固定折扣券</span>
+      <div class="couponImg couponUrlD" *ngIf="item.type === 4">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;">{{item.deductionMoney}}<span style="font-size: 12px;">折</span></span>
+          <span style="display: block;font-size: 12px;">固定折扣券</span>
+          <!--最大优惠多少钱-->
+        </div>
       </div>
-      <div style="float: left;margin-left:5px;margin-top: 5px">
-        <span style="float: left">{{item.useWhereLabel}}</span>
-        <br>
-        <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}至{{toDate(item.endTime)}}使用</span>
-        <br>
-        <span *ngIf="turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">仅限购买特殊商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余{{item.quantity}}张</span>
-        <span *ngIf="!turnToBind(item.bindProduct)" style="float: left;margin-top: 15px;font-size: 12px;display: block">全品类商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余{{item.quantity}}张</span>
-        <!--<span style="margin-left: 140px;">共有{{item.quantity}}张</span>-->
+      <!---->
+      <div class="coupon_cont">
+        <div class="coupon_name">
+          <!--机器-->
+          <img src="../../../../../assets/icon/couponMa.png" class="coupon_nameImg" *ngIf="item.useWhere === 1 && item.type === 1">
+          <img src="../../../../../assets/icon/couponMb.png" class="coupon_nameImg" *ngIf="item.useWhere === 1 && item.type === 2">
+          <img src="../../../../../assets/icon/couponMc.png" class="coupon_nameImg" *ngIf="item.useWhere === 1 && item.type === 3">
+          <img src="../../../../../assets/icon/couponMd.png" class="coupon_nameImg" *ngIf="item.useWhere === 1 && item.type === 4">
+          <!--商城-->
+          <img src="../../../../../assets/icon/couponSa.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 1">
+          <img src="../../../../../assets/icon/couponSb.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 2">
+          <img src="../../../../../assets/icon/couponSc.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 3">
+          <img src="../../../../../assets/icon/couponSd.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 4">
+          {{item.useWhereLabel}}
+          <span style="position: absolute;right: 0;top: 0;color: #333333">&times;{{item.quantity}}</span>
+        </div>
+        <span class="coupon_time">{{toDate(item.startTime)}}-{{toDate(item.endTime)}}</span>
+        <span style="display: block">
+          <span *ngIf="item.type === 4">最大优惠{{item.maximumDiscount}}元,</span>
+          <span *ngIf="turnToBind(item.bindProduct)">仅限特殊商品使用</span>
+          <span *ngIf="!turnToBind(item.bindProduct)">全品类商品使用</span>
+        </span>
+        <img class="coupon_useImg" src="../../../../../assets/icon/useIcon.png"  *ngIf="turnToBind(item.bindProduct,item.useWhere)" (click)="useSpecialCard(item.id)">
+        <img class="coupon_useImg" src="../../../../../assets/icon/useIcon.png"  *ngIf="!turnToBind(item.bindProduct,item.useWhere)" (click)="useCard(1)">
       </div>
-      <br>
-      <div class="line"></div>
-      <span [hidden]="status === 2" *ngIf="turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useSpecialCard(item.id)">立即使用</span>
-      <span [hidden]="status === 2" *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard(1)">立即使用</span>
-      <span [hidden]="status !== 2" *ngIf="!turnToBind(item.bindProduct,item.useWhere)" class="use" (click)="useCard(2)">立即领取</span>
     </div>
     <div class="footer">
       已经到底~
@@ -172,84 +97,114 @@
         </div>
       </div>
     </ng-template>
-
-    <!--<ng-template #modalFooter>-->
-    <!--<span>Modal Footer: </span>-->
-    <!--<button nz-button nzType="default" (click)="handleCancel()">Custom Callback</button>-->
-    <!--<button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">Custom Submit</button>-->
-    <!--</ng-template>-->
   </nz-modal>
-  <!--已使用-->
-  <div *ngIf="effective" class="layout">
-    <div class="card" *ngFor="let item of couponUnEffectiveList">
+  <!--已过期-->
+  <div *ngIf="overDue" class="layout">
+    <div class="couponOut" [hidden]="!overDueList" *ngFor="let item of overDueList">
       <!--满减-->
-      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 1)">
-        <h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>
-        <span style="font-size: 12px;margin-left: 10px">满{{item.money}}减{{item.deductionMoney}}</span>
+      <div class="couponImg couponUrlNone" *ngIf="item.type === 1">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;"><span style="font-size: 12px;">￥</span>{{item.deductionMoney}}</span>
+          <span style="display: block;font-size: 12px;">满{{item.money}}减{{item.deductionMoney}}</span>
+        </div>
       </div>
-      <!--固定-->
-      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 2)">
-        <h2 style="color: white"><span style="font-size: 14px;">￥</span>{{item.deductionMoney}}</h2>
-        <span style="font-size: 12px;margin-left: 10px">立减券</span>
+      <!--固定立减-->
+      <div class="couponImg couponUrlNone" *ngIf="item.type === 2">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;"><span style="font-size: 12px;">￥</span>{{item.deductionMoney}}</span>
+          <span style="display: block;font-size: 12px;">立减券</span>
+        </div>
       </div>
       <!--折扣-->
-      <div style="float: left;margin-top: 20px" *ngIf="(item.type === 3)">
-        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
-        <span style="font-size: 12px;margin-left: 10px">折扣券</span>
+      <div class="couponImg couponUrlNone" *ngIf="item.type === 3">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;">{{item.deductionMoney}}<span style="font-size: 12px;">折</span></span>
+          <span style="display: block;font-size: 12px;">折扣券</span>
+        </div>
       </div>
       <!--固定折扣-->
-      <div style="float: left;margin-top: 20px;position: relative;" *ngIf="(item.type === 4)">
-        <h2 style="color: white">{{item.deductionMoney}}<span style="font-size: 12px;margin-left: 2px;">折</span></h2>
-        <span style="font-size: 12px;position: absolute;top: 24px;width: 90px;left: 58px;">最大优惠{{item.maximumDiscount}}元</span>
-        <span style="font-size: 12px;">固定折扣券</span>
+      <div class="couponImg couponUrlNone" *ngIf="item.type === 4">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;">{{item.deductionMoney}}<span style="font-size: 12px;">折</span></span>
+          <span style="display: block;font-size: 12px;">固定折扣券</span>
+          <!--最大优惠多少钱-->
+        </div>
       </div>
-      <!--<div style="float: left;margin-top: 20px">-->
-      <!--<h2 style="color: white">￥{{item.deductionMoney}}</h2>-->
-      <!--<span style="font-size: 12px;margin-left: 10px">{{text(item)}}</span>-->
-      <!--</div>-->
-      <div style="float: left;margin-left:5px;margin-top: 5px">
-        <span style="float: left">{{item.useWhereLabel}}</span>
-        <br>
-        <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
-        <br>
-        <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已使用{{item.useQuantity}}张</span>
+      <!---->
+      <div class="coupon_cont">
+        <div class="coupon_name">
+          <!--机器-->
+          <img src="../../../../../assets/icon/overDueVm.png" class="coupon_nameImg" *ngIf="item.useWhere === 1">
+          <!--商城-->
+          <img src="../../../../../assets/icon/overDueS.png" class="coupon_nameImg" *ngIf="item.useWhere === 2">
+          {{item.useWhereLabel}}
+          <img class="coupon_usedImg" src="../../../../../assets/icon/pastDue.png">
+        </div>
+        <span class="coupon_time">{{toDate(item.startTime)}}-{{toDate(item.endTime)}}</span>
+        <span style="display: block">
+          <span *ngIf="item.type === 4">最大优惠{{item.maximumDiscount}}元,</span>
+          <span *ngIf="turnToBind(item.bindProduct)">仅限特殊商品使用</span>
+          <span *ngIf="!turnToBind(item.bindProduct)">全品类商品使用</span>
+        </span>
+        <span style="position: absolute;right: 6px;top: 50%;margin-top: -9px;color: #333333">&times;{{item.quantity}}</span>
       </div>
-      <br>
-      <div class="line"></div>
-      <span class="use">用过了~</span>
     </div>
-    <!--<div class="card-unuse">-->
-    <!--<div style="float: left;margin-top: 20px">-->
-    <!--<h2 style="color: white">￥10</h2>-->
-    <!--<span style="font-size: 12px;margin-left: 10px">满10元使用</span>-->
-    <!--</div>-->
-    <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
-    <!--<span style="float: left">10元套餐抵扣券</span>-->
-    <!--<br>-->
-    <!--<span style="float: left;font-size: 12px">限2018.06.15-2018.06.25 使用</span>-->
-    <!--<br>-->
-    <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
-    <!--</div>-->
-    <!--<br>-->
-    <!--<div class="line"></div>-->
-    <!--<span class="use">已经使用过了~</span>-->
-    <!--</div>-->
-    <!--<div class="card-unuse">-->
-    <!--<div style="float: left;margin-top: 20px">-->
-    <!--<h2 style="color: white">￥10</h2>-->
-    <!--<span style="font-size: 12px;margin-left: 10px">满10元使用</span>-->
-    <!--</div>-->
-    <!--<div style="float: left;margin-left:5px;margin-top: 5px">-->
-    <!--<span style="float: left">10元套餐抵扣券</span>-->
-    <!--<br>-->
-    <!--<span style="float: left;font-size: 12px">限2018.06.15-2018.06.25 使用</span>-->
-    <!--<br>-->
-    <!--<span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>-->
-    <!--</div>-->
-    <!--<br>-->
-    <!--<div class="line"></div>-->
-    <!--<span class="use">已经使用过了~</span>-->
-    <!--</div>-->
+    <div class="footer">
+      已经到底~
+    </div>
+  </div>
+  <!--已使用-->
+  <div *ngIf="used" class="layout">
+    <div class="couponOut" [hidden]="!usedList" *ngFor="let item of usedList">
+      <!--满减-->
+      <div class="couponImg couponUrlNone" *ngIf="item.type === 1">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;"><span style="font-size: 12px;">￥</span>{{item.deductionMoney}}</span>
+          <span style="display: block;font-size: 12px;">满{{item.money}}减{{item.deductionMoney}}</span>
+        </div>
+      </div>
+      <!--固定立减-->
+      <div class="couponImg couponUrlNone" *ngIf="item.type === 2">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;"><span style="font-size: 12px;">￥</span>{{item.deductionMoney}}</span>
+          <span style="display: block;font-size: 12px;">立减券</span>
+        </div>
+      </div>
+      <!--折扣-->
+      <div class="couponImg couponUrlNone" *ngIf="item.type === 3">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;">{{item.deductionMoney}}<span style="font-size: 12px;">折</span></span>
+          <span style="display: block;font-size: 12px;">折扣券</span>
+        </div>
+      </div>
+      <!--固定折扣-->
+      <div class="couponImg couponUrlNone" *ngIf="item.type === 4">
+        <div class="couponImg_in">
+          <span style="font-size: 18px;">{{item.deductionMoney}}<span style="font-size: 12px;">折</span></span>
+          <span style="display: block;font-size: 12px;">固定折扣券</span>
+          <!--最大优惠多少钱-->
+        </div>
+      </div>
+      <!---->
+      <div class="coupon_cont">
+        <div class="coupon_name">
+          <!--机器-->
+          <img src="../../../../../assets/icon/overDueVm.png" class="coupon_nameImg" *ngIf="item.useWhere === 1">
+          <!--商城-->
+          <img src="../../../../../assets/icon/overDueS.png" class="coupon_nameImg" *ngIf="item.useWhere === 2">
+          {{item.useWhereLabel}}
+          <img class="coupon_usedImg" src="../../../../../assets/icon/usedIcon.png">
+        </div>
+        <span class="coupon_time">{{toDate(item.startTime)}}-{{toDate(item.endTime)}}</span>
+        <span style="display: block">
+          <span *ngIf="item.type === 4">最大优惠{{item.maximumDiscount}}元,</span>
+          <span *ngIf="turnToBind(item.bindProduct)">仅限特殊商品使用</span>
+          <span *ngIf="!turnToBind(item.bindProduct)">全品类商品使用</span>
+        </span>
+        <span style="position: absolute;right: 6px;top: 50%;margin-top: -9px;color: #333333">&times;{{item.useQuantity}}</span>
+
+      </div>
+    </div>
     <div class="footer">
       已经到底~
     </div>

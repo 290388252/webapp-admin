@@ -1,272 +1,115 @@
 <div class="user-container">
   <ul class="menu-top" nz-menu [nzMode]="'horizontal'">
-    <li (click)="sort(1)" class="menu-li" nz-menu-item [nzSelected]="true">全部</li>
-    <li (click)="sort(2)" class="menu-li" nz-menu-item>已支付</li>
-    <li (click)="sort(3)" class="menu-li" nz-menu-item>未支付</li>
+    <li (click)="sort(0)" class="menu-li" nz-menu-item [nzSelected]="true">全部</li>
+    <li (click)="sort(1)" class="menu-li" nz-menu-item>已支付</li>
+    <li (click)="sort(2)" class="menu-li" nz-menu-item>未支付</li>
   </ul>
+  <div class="typeRadio">
+    <nz-radio-group [(ngModel)]="orderType" (ngModelChange)="changeRadio()">
+      <label nz-radio nzValue='1'>商城订单</label>
+      <label nz-radio nzValue='2'>机器订单</label>
+    </nz-radio-group>
+  </div>
   <div [hidden]="all" class="order-layout">
-    <!--<div class="items" *ngFor="let item of list">-->
-      <!--&lt;!&ndash;<img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">&ndash;&gt;-->
-      <!--<div style="float: left;margin-top: 20px;margin-left: 20px">-->
-        <!--<h4 class="span-text">{{item.id}}</h4>-->
-        <!--<h4 class="span-text" style="color: red">￥500</h4>-->
-      <!--</div>-->
-      <!--<h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>-->
-    <!--</div>-->
-    <div class="weui-form-preview" *ngFor="let item of list">
-      <div class="weui-form-preview__hd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">付款金额</label>
-          <em class="weui-form-preview__value">¥{{item.price}}</em>
+    <div class="order" *ngFor="let item of allList">
+      <div class="orderNum">
+        <span style="margin-left: 10px;font-size: 12px;">订单号：{{item.payCode}}</span>
+      </div>
+      <div class="orderGoods" *ngFor="let items of item.list" [hidden]="!item.list">
+        <div class="orderImg">
+          <img style="width: 80px;height: 80px;" [src]="imgUrl+items.pic" *ngIf="orderType === '1'">
+          <img style="width: 80px;height: 80px;" [src]="vmImgUrl+items.pic" *ngIf="orderType === '2'">
+        </div>
+        <div class="orderCont">
+          <div class="order_GoodsName">
+            {{items.itemName}}
+            <span class="order_GoodsPrice">¥{{items.price}}</span>
+          </div>
+          <div class="order_GoodsNum">数量:{{items.num}}</div>
         </div>
       </div>
-      <div class="weui-form-preview__bd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">订单号:</label>
-          <span class="weui-form-preview__value">{{item.id}}</span>
+      <div class="orderDetails">
+        <div class="orderDetails_l">
+          <div class="orderDetails_l_in">下单时间</div>
+          <div class="orderDetails_l_in">订单状态</div>
+          <div class="orderDetails_l_in">实付款</div>
         </div>
-        <!--<div class="weui-form-preview__item">-->
-          <!--<label class="weui-form-preview__label">下单时间:</label>-->
-          <!--<span class="weui-form-preview__value">{{item.createTime}}</span>-->
-        <!--</div>-->
-        <!--<div class="weui-form-preview__item">-->
-          <!--<label class="weui-form-preview__label">商品名称:</label>-->
-          <!--<span class="weui-form-preview__value">{{item.itemName}}</span>-->
-        <!--</div>-->
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">数量：</label>
-          <span class="weui-form-preview__value">1</span>
-        </div>
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">状态：</label>
-          <span class="weui-form-preview__value">{{toText(item.state)}}</span>
-        </div>
-        <!--<div class="weui-form-preview__item">-->
-          <!--<a (click)="detail(item.ptCode)" href="javascript:;" class="weui-btn weui-btn_primary">详情</a>-->
-        <!--</div>-->
-      </div>
-      <div class="weui-form-preview__ft" [hidden]="item.state !== 10002">
-        <div></div>
-        <a class="weui-btn weui-btn_primary" href="javascript:" (click)="pay(item)">支付</a>
-        <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
-      </div>
-      <div style="margin-top: 10px;width: 100%;height: 10px; background: #f5f5f5"></div>
-    </div>
-    <div class="weui-form-preview" *ngFor="let item of listTwo">
-      <div class="weui-form-preview__hd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">付款金额</label>
-          <em class="weui-form-preview__value">¥{{item.price}}</em>
+        <div class="orderDetails_r">
+          <div class="orderDetails_r_in">{{item.time}}</div>
+          <div class="orderDetails_r_in">{{item.stateName}}</div>
+          <div class="orderDetails_r_in">¥{{item.nowprice}}</div>
         </div>
       </div>
-      <div class="weui-form-preview__bd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">订单号:</label>
-          <span class="weui-form-preview__value">{{item.payCode}}</span>
-        </div>
-        <!--<div class="weui-form-preview__item">-->
-          <!--<label class="weui-form-preview__label">下单时间:</label>-->
-          <!--<span class="weui-form-preview__value">{{item.createTime}}</span>-->
-        <!--</div>-->
-        <!--<div class="weui-form-preview__item">-->
-          <!--<label class="weui-form-preview__label">商品名称:</label>-->
-          <!--<span class="weui-form-preview__value">{{item.itemName}}</span>-->
-        <!--</div>-->
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">数量：</label>
-          <span class="weui-form-preview__value">{{item.num}}</span>
-        </div>
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">状态：</label>
-          <span class="weui-form-preview__value">{{item.stateName}}</span>
-        </div>
-        <!--<div class="weui-form-preview__item">-->
-          <!--<a (click)="detail(item.ptCode)" href="javascript:;" class="weui-btn weui-btn_primary">详情</a>-->
-        <!--</div>-->
+      <div class="unPay" *ngIf="item.stateName === '未支付'">
+        <img src="../../../../../assets/icon/payIcon.png" class="unPay_img" (click)="pay(item)">
       </div>
-      <div class="weui-form-preview__ft" [hidden]="item.state === 10001">
-        <div></div>
-        <a class="weui-btn weui-btn_primary" href="javascript:" (click)="payM(item)">支付</a>
-        <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
-      </div>
-      <div style="margin-top: 10px;width: 100%;height: 10px; background: #f5f5f5"></div>
-    </div>
-<!--footer-->
-    <div class="item">
     </div>
   </div>
   <div [hidden]="noOrder" class="order-layout">
-    <div class="weui-form-preview" *ngFor="let item of noPayList">
-      <div class="weui-form-preview__hd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">付款金额</label>
-          <em class="weui-form-preview__value">¥{{item.price}}</em>
+    <div class="order" *ngFor="let item of prepaidList">
+      <div class="orderNum">
+        <span style="margin-left: 10px;font-size: 12px;">订单号：{{item.payCode}}</span>
+      </div>
+      <div class="orderGoods" *ngFor="let items of item.list" [hidden]="!item.list">
+        <div class="orderImg">
+          <img style="width: 80px;height: 80px;" [src]="imgUrl+items.pic" *ngIf="orderType === '1'">
+          <img style="width: 80px;height: 80px;" [src]="vmImgUrl+items.pic" *ngIf="orderType === '2'">
+        </div>
+        <div class="orderCont">
+          <div class="order_GoodsName">
+            {{items.itemName}}
+            <span class="order_GoodsPrice">¥{{items.price}}</span>
+          </div>
+          <div class="order_GoodsNum">数量:{{items.num}}</div>
         </div>
       </div>
-      <div class="weui-form-preview__bd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">订单号:</label>
-          <span class="weui-form-preview__value">{{item.id}}</span>
+      <div class="orderDetails">
+        <div class="orderDetails_l">
+          <div class="orderDetails_l_in">下单时间</div>
+          <div class="orderDetails_l_in">订单状态</div>
+          <div class="orderDetails_l_in">实付款</div>
         </div>
-        <!--<div class="weui-form-preview__item">-->
-        <!--<label class="weui-form-preview__label">下单时间:</label>-->
-        <!--<span class="weui-form-preview__value">{{item.createTime}}</span>-->
-        <!--</div>-->
-        <!--<div class="weui-form-preview__item">-->
-        <!--<label class="weui-form-preview__label">商品名称:</label>-->
-        <!--<span class="weui-form-preview__value">{{item.itemName}}</span>-->
-        <!--</div>-->
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">数量：</label>
-          <span class="weui-form-preview__value">1</span>
-        </div>
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">状态：</label>
-          <span class="weui-form-preview__value">{{toText(item.state)}}</span>
-        </div>
-        <!--<div class="weui-form-preview__item">-->
-        <!--<a (click)="detail(item.ptCode)" href="javascript:;" class="weui-btn weui-btn_primary">详情</a>-->
-        <!--</div>-->
-      </div>
-      <div class="weui-form-preview__ft">
-        <div></div>
-        <!--<a class="weui-btn weui-btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
-        <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
-      </div>
-      <div style="margin-top: 10px;width: 100%;height: 10px; background: #f5f5f5"></div>
-    </div>
-    <div class="weui-form-preview" *ngFor="let item of noPayListTwo">
-      <div class="weui-form-preview__hd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">付款金额</label>
-          <em class="weui-form-preview__value">¥{{item.price}}</em>
+        <div class="orderDetails_r">
+          <div class="orderDetails_r_in">{{item.time}}</div>
+          <div class="orderDetails_r_in">{{item.stateName}}</div>
+          <div class="orderDetails_r_in">¥{{item.nowprice}}</div>
         </div>
       </div>
-      <div class="weui-form-preview__bd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">订单号:</label>
-          <span class="weui-form-preview__value">{{item.payCode}}</span>
-        </div>
-        <!--<div class="weui-form-preview__item">-->
-        <!--<label class="weui-form-preview__label">下单时间:</label>-->
-        <!--<span class="weui-form-preview__value">{{item.createTime}}</span>-->
-        <!--</div>-->
-        <!--<div class="weui-form-preview__item">-->
-        <!--<label class="weui-form-preview__label">商品名称:</label>-->
-        <!--<span class="weui-form-preview__value">{{item.itemName}}</span>-->
-        <!--</div>-->
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">数量：</label>
-          <span class="weui-form-preview__value">{{item.num}}</span>
-        </div>
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">状态：</label>
-          <span class="weui-form-preview__value">{{(item.stateName)}}</span>
-        </div>
-        <!--<div class="weui-form-preview__item">-->
-        <!--<a (click)="detail(item.ptCode)" href="javascript:;" class="weui-btn weui-btn_primary">详情</a>-->
-        <!--</div>-->
-      </div>
-      <div class="weui-form-preview__ft">
-        <div></div>
-        <!--<a class="weui-btn weui-btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
-        <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
-      </div>
-      <div style="margin-top: 10px;width: 100%;height: 10px; background: #f5f5f5"></div>
-    </div>
-    <!--<div class="items">-->
-      <!--<img src="{{imgUrl+'20180703_093259.jpg'}}" class="img">-->
-      <!--<div style="float: left;margin-top: 20px;margin-left: 20px">-->
-        <!--<h4 class="span-text">123</h4>-->
-        <!--<h4 class="span-text" style="color: red">￥500</h4>-->
-      <!--</div>-->
-      <!--<h4 style="float: right;margin-top: 40px;margin-right: 20px">x1</h4>-->
-    <!--</div>-->
-    <!--footer-->
-    <div class="item">
     </div>
   </div>
   <div [hidden]="order" class="order-layout">
-    <div class="weui-form-preview" *ngFor="let item of payList">
-      <div class="weui-form-preview__hd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">付款金额</label>
-          <em class="weui-form-preview__value">¥{{item.price}}</em>
+    <div class="order" *ngFor="let item of unPayList">
+      <div class="orderNum">
+        <span style="margin-left: 10px;font-size: 12px;">订单号：{{item.payCode}}</span>
+      </div>
+      <div class="orderGoods" *ngFor="let items of item.list" [hidden]="!item.list">
+        <div class="orderImg">
+          <img style="width: 80px;height: 80px;" [src]="imgUrl+items.pic" *ngIf="orderType === '1'">
+          <img style="width: 80px;height: 80px;" [src]="vmImgUrl+items.pic" *ngIf="orderType === '2'">
+        </div>
+        <div class="orderCont">
+          <div class="order_GoodsName">
+            {{items.itemName}}
+            <span class="order_GoodsPrice">¥{{items.price}}</span>
+          </div>
+          <div class="order_GoodsNum">数量:{{items.num}}</div>
         </div>
       </div>
-      <div class="weui-form-preview__bd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">订单号:</label>
-          <span class="weui-form-preview__value">{{item.id}}</span>
+      <div class="orderDetails">
+        <div class="orderDetails_l">
+          <div class="orderDetails_l_in">下单时间</div>
+          <div class="orderDetails_l_in">订单状态</div>
+          <div class="orderDetails_l_in">实付款</div>
         </div>
-        <!--<div class="weui-form-preview__item">-->
-        <!--<label class="weui-form-preview__label">下单时间:</label>-->
-        <!--<span class="weui-form-preview__value">{{item.createTime}}</span>-->
-        <!--</div>-->
-        <!--<div class="weui-form-preview__item">-->
-        <!--<label class="weui-form-preview__label">商品名称:</label>-->
-        <!--<span class="weui-form-preview__value">{{item.itemName}}</span>-->
-        <!--</div>-->
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">数量：</label>
-          <span class="weui-form-preview__value">1</span>
-        </div>
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">状态：</label>
-          <span class="weui-form-preview__value">{{toText(item.state)}}</span>
-        </div>
-        <!--<div class="weui-form-preview__item">-->
-        <!--<a (click)="detail(item.ptCode)" href="javascript:;" class="weui-btn weui-btn_primary">详情</a>-->
-        <!--</div>-->
-      </div>
-      <div class="weui-form-preview__ft">
-        <div></div>
-        <a class="weui-btn weui-btn_primary" href="javascript:" (click)="pay(item)">支付</a>
-        <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
-      </div>
-      <div style="margin-top: 10px;width: 100%;height: 10px; background: #f5f5f5"></div>
-    </div>
-    <div class="weui-form-preview" *ngFor="let item of payListTwo">
-      <div class="weui-form-preview__hd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">付款金额</label>
-          <em class="weui-form-preview__value">¥{{item.price}}</em>
+        <div class="orderDetails_r">
+          <div class="orderDetails_r_in">{{item.time}}</div>
+          <div class="orderDetails_r_in">{{item.stateName}}</div>
+          <div class="orderDetails_r_in">¥{{item.nowprice}}</div>
         </div>
       </div>
-      <div class="weui-form-preview__bd">
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">订单号:</label>
-          <span class="weui-form-preview__value">{{item.payCode}}</span>
-        </div>
-        <!--<div class="weui-form-preview__item">-->
-        <!--<label class="weui-form-preview__label">下单时间:</label>-->
-        <!--<span class="weui-form-preview__value">{{item.createTime}}</span>-->
-        <!--</div>-->
-        <!--<div class="weui-form-preview__item">-->
-        <!--<label class="weui-form-preview__label">商品名称:</label>-->
-        <!--<span class="weui-form-preview__value">{{item.itemName}}</span>-->
-        <!--</div>-->
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">数量：</label>
-          <span class="weui-form-preview__value">{{item.num}}</span>
-        </div>
-        <div class="weui-form-preview__item">
-          <label class="weui-form-preview__label">状态：</label>
-          <span class="weui-form-preview__value">{{(item.stateName)}}</span>
-        </div>
-        <!--<div class="weui-form-preview__item">-->
-        <!--<a (click)="detail(item.ptCode)" href="javascript:;" class="weui-btn weui-btn_primary">详情</a>-->
-        <!--</div>-->
+      <div class="unPay" *ngIf="item.stateName === '未支付'">
+        <img src="../../../../../assets/icon/payIcon.png" class="unPay_img">
       </div>
-      <div class="weui-form-preview__ft">
-        <div></div>
-        <a class="weui-btn weui-btn_primary" href="javascript:" (click)="payM(item)">支付</a>
-        <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" (click)="pay(item)">支付</a>-->
-      </div>
-      <div style="margin-top: 10px;width: 100%;height: 10px; background: #f5f5f5"></div>
-    </div>
-    <!--footer-->
-    <div class="item">
     </div>
   </div>
 </div>

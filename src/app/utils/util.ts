@@ -25,7 +25,9 @@ export let getAdminToken = () => {
       token = arr[1];
     }
   }
-  // return 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1Mjk2Mzk1NjN9.jHWmVAYZQT384S_232zXKq6i9i5v7_cnLJuyGfffRT_XZ7JXd1WgxaLG1Ug3MWwxxzMezCT9tHQwd2ndmbZ_CQ';
+ /* token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzc1LDEsb0trWnkwNXY1UWVaTG' +
+    'FCVlhJb3FnZ0k1QmFtTSIsImV4cCI6MTU0MTQ0MTc1Nn0.npZcjPg1FhT9ay-7aYDRhTKghEzB_5LOCTwpHFgn02VJfsHh' +
+    '9NgwafDyGAfW0uk1tDpmSvjpZGpvHMNJdLwJ6g';*/
   return token;
 };
 // 解析token
@@ -39,6 +41,8 @@ export let getToken = () => {
         token = arr[1];
       }
     }
-  // return 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMzA0LDEiLCJleHAiOjE1Mjk2Mzk1NjN9.jHWmVAYZQT384S_232zXKq6i9i5v7_cnLJuyGfffRT_XZ7JXd1WgxaLG1Ug3MWwxxzMezCT9tHQwd2ndmbZ_CQ';
+    /*token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiMTc0OTAsMCxvS2taeTA2e' +
+      'Hh0TElWSVJKOGVJcEJZaVVXaHZzIiwiZXhwIjoxNTQyMzcyMjAwfQ.UHODOUy-uh9FGgehNAR3TaSBRusNIjIrU5PbB31I8Ibc3XiG3A' +
+      'buUvc8TKOxRaBmqQVAb-BAilicPrBS_XbRNw';*/
   return token;
 };
