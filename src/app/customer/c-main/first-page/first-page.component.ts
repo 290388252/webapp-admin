@@ -3,7 +3,6 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
-import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
   selector: 'app-user-detail',
@@ -58,7 +57,7 @@ export class FirstPageComponent implements OnInit {
   }
   getBannerHeight() {
     const banner = document.getElementById('banner');
-    this.height = (banner.offsetWidth) / 16 * 9 + 'px';
+    this.height = (banner.offsetWidth) / 16 * 8 + 'px';
   }
   showGoods(token) {
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {type: 2}, token).subscribe(
@@ -119,12 +118,8 @@ export class FirstPageComponent implements OnInit {
         type: 1
       }});
   }
-  // 会员
-  vipBuy() {
-    this.router.navigate(['cMain/vipCar']);
-  }
   turnToPage(val) {
-    this.router.navigate(['cMain/allGoods'], {
+    this.router.navigate(['cMain/recommend'], {
       queryParams: {
         value: val,
       }});

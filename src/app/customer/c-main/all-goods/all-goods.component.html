@@ -1,5 +1,5 @@
 <div class="user-container">
-  <div class="firstList" *ngIf="value === '1' || value === '2' || value === undefined || value === null">
+  <div class="firstList">
     <div class="listTitle">
       <span class="title_img">为您推荐</span>
     </div>
@@ -23,12 +23,6 @@
             </div>
             <div class="clear-fix"></div>
           </div>
-          <!--团购商品-->
-          <!--<div *ngIf="item.isConglomerateCommodity === 1">
-            <span class="gutter-row-span">￥{{item.salesPrice}}</span>
-            <div class="gutter-row-icon" (click)="goTo(item.id, item.name, item.pic)">
-              <img style="width: 44px;height: 20px" src="../../../../assets/icon/groupIcon.png" alt=""></div>
-          </div>-->
         </div>
         <div class="clear-fix"></div>
       </li>
@@ -37,130 +31,4 @@
     <!--footer-->
     <div style="width: 100%;height: 50px"></div>
   </div>
-  <div *ngIf="value === '3'" class="layout">
-    <!--<div (click)="pickCard(item)" class="card-unuses" *ngFor="let item of couponList">
-      <div style="float: left;margin-top: 20px">
-        <h2 style="color: white">￥{{item.deductionMoney}}</h2>
-        <span style="font-size: 12px;margin-left: 10px;">{{text(item)}}</span>
-      </div>
-      <div style="float: left;margin-left:5px;margin-top: 5px">
-        <span style="float: left">{{item.useWhereLabel}}</span>
-        <br>
-        <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
-        <br>
-        <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>
-      </div>
-      <br>
-      <div class="line"></div>
-      <span class="use">立即领取</span>
-    </div>-->
-    <div class="couponOut" [hidden]="!couponList" *ngFor="let item of couponList">
-      <!--满减-->
-      <div class="couponImg couponUrlA" *ngIf="item.type === 1">
-        <div class="couponImg_in">
-          <span style="font-size: 18px;"><span style="font-size: 12px;">￥</span>{{item.deductionMoney}}</span>
-          <span style="display: block;font-size: 12px;">满{{item.money}}减{{item.deductionMoney}}</span>
-        </div>
-      </div>
-      <!--固定立减-->
-      <div class="couponImg couponUrlB" *ngIf="item.type === 2">
-        <div class="couponImg_in">
-          <span style="font-size: 18px;"><span style="font-size: 12px;">￥</span>{{item.deductionMoney}}</span>
-          <span style="display: block;font-size: 12px;">立减券</span>
-        </div>
-      </div>
-      <!--折扣-->
-      <div class="couponImg couponUrlC" *ngIf="item.type === 3">
-        <div class="couponImg_in">
-          <span style="font-size: 18px;">{{item.deductionMoney}}<span style="font-size: 12px;">折</span></span>
-          <span style="display: block;font-size: 12px;">折扣券</span>
-        </div>
-      </div>
-      <!--固定折扣-->
-      <div class="couponImg couponUrlD" *ngIf="item.type === 4">
-        <div class="couponImg_in">
-          <span style="font-size: 18px;">{{item.deductionMoney}}<span style="font-size: 12px;">折</span></span>
-          <span style="display: block;font-size: 12px;">固定折扣券</span>
-          <!--最大优惠多少钱-->
-        </div>
-      </div>
-      <!---->
-      <div class="coupon_cont">
-        <div class="coupon_name">
-          <!--机器
-          <img src="../../../../../assets/icon/couponMa.png" class="coupon_nameImg" *ngIf="item.useWhere === 1 && item.type === 1">
-          <img src="../../../../../assets/icon/couponMb.png" class="coupon_nameImg" *ngIf="item.useWhere === 1 && item.type === 2">
-          <img src="../../../../../assets/icon/couponMc.png" class="coupon_nameImg" *ngIf="item.useWhere === 1 && item.type === 3">
-          <img src="../../../../../assets/icon/couponMd.png" class="coupon_nameImg" *ngIf="item.useWhere === 1 && item.type === 4">-->
-          <!--商城-->
-          <img src="../../../../assets/icon/couponSa.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 1">
-          <img src="../../../../assets/icon/couponSb.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 2">
-          <img src="../../../../assets/icon/couponSc.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 3">
-          <img src="../../../../assets/icon/couponSd.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 4">
-          {{item.useWhereLabel}}
-          <!--<span style="position: absolute;right: 0;top: 0;color: #333333">&times;{{item.quantity}}</span>-->
-        </div>
-        <span class="coupon_time">{{toDate(item.startTime)}}-{{toDate(item.endTime)}}</span>
-        <span style="display: block">
-          <span *ngIf="item.type === 4">最大优惠{{item.maximumDiscount}}元,</span>
-          <span *ngIf="turnToBind(item.bindProduct)">仅限特殊商品使用</span>
-          <span *ngIf="!turnToBind(item.bindProduct)">全品类商品使用</span>
-        </span>
-        <button class="btn-style" (click)="pickCard(item)" nz-button>立即领取</button>
-        <!--<img class="coupon_useImg" src="../../../../assets/icon/useIcon.png"  *ngIf="turnToBind(item.bindProduct,item.useWhere)" (click)="useSpecialCard(item.id)">
-        <img class="coupon_useImg" src="../../../../assets/icon/useIcon.png"  *ngIf="!turnToBind(item.bindProduct,item.useWhere)" (click)="useCard(1)">-->
-      </div>
-    </div>
-    <div class="footer">
-      已经到底~
-    </div>
-  </div>
-  <div *ngIf="value === '4'" style="margin-top: 40px;">
-    <div class="footer">
-      敬请期待~
-    </div>
-  </div>
-  <!--<ul class="menu-top" nz-menu [nzMode]="'horizontal'">
-    <li (click)="sort(1)" class="menu-li" nz-menu-item [nzSelected]="true">综合</li>
-    &lt;!&ndash;<li (click)="sort(2)" class="menu-li" nz-menu-item>销量</li>&ndash;&gt;
-    <li (click)="sort(3)" class="menu-li" nz-menu-item>新品</li>
-    <li (click)="sort(4)" class="menu-li" nz-menu-item>价格</li>
-    <li (click)="sort(5)" class="menu-li" nz-menu-item>优惠券</li>
-  </ul>
-  <div class="gutter-example" *ngIf="!unUsed">
-    <div nz-row nzGutter="16">
-
-      <div  nz-col style="margin-bottom: 10px;" class="gutter-row" nzSpan="12" *ngFor="let item of list">
-        <div (click)="goTo(item.id, item.name)" class="gutter-box">
-          <img class="box-img" [src]="imgUrl+item.pic" alt="">
-        </div>
-        <p class="gutter-row-text">{{item.name || '无名字'}}</p>
-        <span class="gutter-row-span">￥{{item.salesPrice}}</span>
-        <span class="gutter-row-icon"><img (click)="addCar(item)" width="20px" height="20px" src="../../../../assets/icon/addCar.png" alt=""></span>
-      </div>
-    </div>
-    <div style="width: 100%;height: 50px"></div>
-  </div>
-  <div *ngIf="unUsed" class="layout">
-    <div (click)="pickCard(item)" class="card-unuses" *ngFor="let item of couponList">
-      <div style="float: left;margin-top: 20px">
-        <h2 style="color: white">￥{{item.deductionMoney}}</h2>
-        <span style="font-size: 12px;margin-left: 10px;">{{text(item)}}</span>
-      </div>
-      <div style="float: left;margin-left:5px;margin-top: 5px">
-        <span style="float: left">{{item.useWhereLabel}}</span>
-        <br>
-        <span style="float: left;font-size: 12px">限{{toDate(item.startTime)}}-{{toDate(item.endTime)}}使用</span>
-        <br>
-        <span style="float: left;margin-top: 15px;font-size: 12px">仅限购买特殊商品使用</span>
-      </div>
-      <br>
-      <div class="line"></div>
-      <span class="use">立即领取</span>
-    </div>
-
-    <div class="footer">
-      已经到底~
-    </div>
-  </div>-->
 </div>

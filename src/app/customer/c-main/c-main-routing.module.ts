@@ -32,7 +32,8 @@ const routes: Routes = [
       {path: 'mapList', loadChildren: './mapList/mapList.module#MapListModule' },
       {path: 'payFinish', loadChildren: './payFinish/payFinish.module#PayFinishModule' },
       {path: 'promotions', loadChildren: './promotions/promotions.module#PromotionsModule' },
-      {path: 'waterCoupon', loadChildren: './user-center/waterCoupon/waterCoupon.module#WaterCouponModule'}
+      {path: 'waterCoupon', loadChildren: './user-center/waterCoupon/waterCoupon.module#WaterCouponModule'},
+      {path: 'recommend', loadChildren: './recommend/recommend.module#RecommendModule'}
     ]
   }
 ];

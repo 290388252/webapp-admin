@@ -121,6 +121,7 @@ export class AddAddressComponent implements OnInit {
             this.router.navigate(['cMain/newAddress']);
           }
         } else {
+          this.disable = false;
           console.log(data.message);
         }
       },

@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { ElModule } from 'element-angular';
-import { AllGoodsRoutingModule } from './all-goods-routing.module';
-import {AllGoodsComponent} from './all-goods.component';
+import { RecommendRoutingModule } from './recommend-routing.module';
+import {RecommendComponent} from './recommend.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
-import {AllGoodsService} from './all-goods-service';
+import {RecommendService} from './recommend-service';
+
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
     // ElModule,
-    AllGoodsRoutingModule
+    RecommendRoutingModule
   ],
-  providers: [AppService, AppProperties, {provide: 'showAllGoods', useClass: AllGoodsService}],
-  declarations: [AllGoodsComponent]
+  providers: [AppService, AppProperties, {provide: 'showRecommend', useClass: RecommendService}],
+  declarations: [RecommendComponent]
 })
-export class AllGoodsModule { }
+export class RecommendModule { }

@@ -361,7 +361,7 @@ export class DetailComponent implements OnInit {
 
   }
 
-  orderTo() {
+  orderTo(val) {
     if (getToken() === null || getToken() === undefined) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1';
     } else {
@@ -373,7 +373,7 @@ export class DetailComponent implements OnInit {
         data => {
           console.log(data);
           alert(data.message);
-          if (data.status === 1) {
+          if (data.status === 1 && val === 1) {
             this.router.navigate(['cMain/shopCar']);
           }
         },
@@ -388,7 +388,10 @@ export class DetailComponent implements OnInit {
       this.router.navigate(['cMain/firstPage']);
     }
     if (val === 2) {
-      this.router.navigate(['cMain/allGoods']);
+      this.router.navigate(['cMain/allGoods'], {
+        queryParams: {
+          value: 0,
+        }});
     }
     if (val === 3) {
       this.router.navigate(['cMain/shopCar']);

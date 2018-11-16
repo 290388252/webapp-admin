@@ -16,11 +16,11 @@ export class CMainComponent implements OnInit {
     const url = window.location.href;
     if (url.indexOf('firstPage') > -1) {
       this.curId = 1;
-    } else if (url.indexOf('machineDetail') > -1) {
+    } else if (url.indexOf('allGoods') > -1) {
       this.curId = 2;
-    } else if (url.indexOf('salesRecord') > -1) {
+    } else if (url.indexOf('shopCar') > -1) {
       this.curId = 3;
-    } else if (url.indexOf('replenishmentDetail') > -1) {
+    } else if (url.indexOf('userCenter') > -1) {
       this.curId = 4;
     } else {
       console.log('url');

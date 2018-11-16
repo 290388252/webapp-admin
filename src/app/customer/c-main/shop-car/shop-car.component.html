@@ -14,8 +14,8 @@
         <input type="checkbox" name="checkSingle[]" class="my_checkbox singleCheck" [checked]="item.checked" (click)="checkSingle(item)">
       </div>
       <img src="{{imgUrl+item.pic}}" class="img">
-      <div style="float: left">
-        <h4 class="span-text" style="width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{item.itemName}}</h4>
+      <div style="display: inline-block;">
+        <h4 class="span-text" style="width: 80px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{item.itemName}}</h4>
         <h4 class="span-text" style="color: red">&yen;{{toFixed(item.price * item.num)}}</h4>
       </div>
       <div style="float: right;margin-top: 12%;margin-right: 5%;">
@@ -31,7 +31,7 @@
     <div style="width: 100%;">
       <div style="display: inline-block;width: 48%;padding: 10px 10px;text-align: center;" *ngFor="let item of list">
         <img [src]="imgUrl+item.pic" style="width: 100%;height: 140%;display: block;">
-        <p style="text-align: left">{{item.name || '无名字'}}}</p>
+        <div style="display: inline-block;text-align: left;width: 100%;height: 25px;line-height:25px;-webkit-line-clamp: 1;text-overflow:ellipsis;overflow: hidden;">{{item.name || '无名字'}}</div>
         <div style="text-align: left;color: #F6151C;" *ngIf="item.isConglomerateCommodity === 0">
           <div style="display: inline-block;width: 48%;text-align: left;">&yen;{{item.salesPrice}}</div>
           <div style="display: inline-block;width: 48%;text-align: right">
@@ -50,18 +50,17 @@
       <!--<div nz-col class="gutter-row" style="margin-bottom: 10px;" nzSpan="12" *ngFor="let item of list">-->
         <!--<div class="gutter-box">-->
           <!--<img [src]="imgUrl+item.pic" style="width: 100%;display: block; height: 140%;">-->
-        <!--</div>-->
-        <!--<p class="gutter-row-text">{{item.name || '无名字'}}</p>-->
-        <!--<div *ngIf="item.isConglomerateCommodity === 0">-->
-          <!--<span class="gutter-row-span">&yen;{{item.salesPrice}}</span>-->
-          <!--<span class="gutter-row-icon"><img (click)="addCar(item)" style="width: 20px;height: 20px;padding: 2px 3px;border-radius: 50%;background-color: #3E85FF" src="../../../../assets/icon/my_car.png" alt=""></span>-->
-        <!--</div>-->
-        <!--<div *ngIf="item.isConglomerateCommodity === 1">-->
-          <!--<span class="goodsPrice">&yen;{{item.salesPrice}}</span>-->
-          <!--<span class="gutter-row-icon" (click)="goTo(item.id, item.name, item.pic)"><img (click)="addCar(item)" width="44px" height="20px" src="../../../../assets/icon/groupIcon.png" alt=""></span>-->
+          <!--<p class="gutter-row-text" style="overflow: hidden">{{item.name || '无名字'}}</p>-->
+          <!--<div *ngIf="item.isConglomerateCommodity === 0">-->
+            <!--<span class="gutter-row-span">&yen;{{item.salesPrice}}</span>-->
+            <!--<span class="gutter-row-icon"><img (click)="addCar(item)" style="width: 20px;height: 20px;padding: 2px 3px;border-radius: 50%;background-color: #3E85FF" src="../../../../assets/icon/my_car.png" alt=""></span>-->
+          <!--</div>-->
+          <!--<div *ngIf="item.isConglomerateCommodity === 1">-->
+            <!--<span class="goodsPrice">&yen;{{item.salesPrice}}</span>-->
+            <!--<span class="gutter-row-icon" (click)="goTo(item.id, item.name, item.pic)"><img (click)="addCar(item)" width="44px" height="20px" src="../../../../assets/icon/groupIcon.png" alt=""></span>-->
+          <!--</div>-->
         <!--</div>-->
       <!--</div>-->
-      <!--&lt;!&ndash;<div style="width: 100%;height: 105px"></div>&ndash;&gt;-->
     <!--</div>-->
     <div class="confirm" [hidden]="empty">
       <!--<span style="float: left;margin-left: 20px;margin-top: 20px">已选({{data.length}})</span>-->
