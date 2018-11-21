@@ -7,7 +7,7 @@ import {getToken, urlParse} from '../../../utils/util';
 // import * as $ from 'jquery'
 
 declare var BMap: any;
-declare var BMapLib: any;
+// declare var BMapLib: any;
 
 @Component({
   selector: 'app-machine-detail',
@@ -192,12 +192,12 @@ export class MapComponent implements OnInit {
                 title: '优水到家', // 信息窗口标题
                 enableMessage: true // 设置允许信息窗发送短息
               };
-              const infoBox = new BMapLib.InfoBox(map, '百度地图api', {
-                boxStyle: { width: '200px'},
-                closeIconMargin: '10px 2px 0 0',
-                enableAutoPan: true,
-                alignBottom: false
-                });
+              // const infoBox = new BMapLib.InfoBox(map, '百度地图api', {
+              //   boxStyle: { width: '200px'},
+              //   closeIconMargin: '10px 2px 0 0',
+              //   enableAutoPan: true,
+              //   alignBottom: false
+              //   });
               marker.disableDragging(); // marker可拖拽
               map.addOverlay(marker);               // 将标注添加到地图中
               addClickHandler(content, marker, opts, map);

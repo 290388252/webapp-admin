@@ -39,6 +39,9 @@ export class ShopCarComponent implements OnInit {
   changeNum (item, index) {
     if (index === -1) {
       item.num--;
+      if (item.num < 1) {
+        item.num = 1;
+      }
       this.update(item);
     } else {
       item.num++;

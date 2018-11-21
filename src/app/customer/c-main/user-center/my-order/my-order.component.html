@@ -108,7 +108,7 @@
         </div>
       </div>
       <div class="unPay" *ngIf="item.stateName === '未支付'">
-        <img src="../../../../../assets/icon/payIcon.png" class="unPay_img">
+        <img src="../../../../../assets/icon/payIcon.png" class="unPay_img" (click)="pay(item)">
       </div>
     </div>
   </div>

@@ -22,6 +22,7 @@ export class AddAddressComponent implements OnInit {
   public addShow;
   public shopCar;
   public disable;
+  public idList;
 // alter
   public alterName;
   public alterSex;
@@ -40,6 +41,7 @@ export class AddAddressComponent implements OnInit {
     this.isAdd = urlParse(window.location.href)['isAdd'];
     this.alterId = urlParse(window.location.href)['id'];
     this.shopCar = urlParse(window.location.href)['shopCar'];
+    this.idList = urlParse(window.location.href)['idList'];
     this.alterName = urlParse(window.location.href)['alterName'];
     this.alterSex = urlParse(window.location.href)['alterSex'];
     this.alterPhone = urlParse(window.location.href)['alterPhone'];
@@ -85,7 +87,6 @@ export class AddAddressComponent implements OnInit {
   }
 
   addAddress() {
-    console.log('123');
     this.disable = true;
     if (this.addName === undefined || this.addName === null || this.addName === ''
       || this.addPhone === undefined || this.addPhone === null || this.addPhone === ''
@@ -111,18 +112,19 @@ export class AddAddressComponent implements OnInit {
       sex: this.addSex
     }, this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.disable = false;
-          console.log(this.shopCar === '1');
           if (this.shopCar === '1') {
-            this.router.navigate(['cMain/pay']);
+            this.router.navigate(['cMain/pay'], {
+              queryParams: {
+                ids: this.idList
+              }
+            });
           } else {
             this.router.navigate(['cMain/newAddress']);
           }
         } else {
           this.disable = false;
-          console.log(data.message);
         }
       },
       error => {

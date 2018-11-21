@@ -32,8 +32,11 @@ export class PayComponent implements OnInit {
   public radioValue = '2';
   public locationId;
   public ids: string;
+  public type: string;
   public reduceMoney = 0;
   public totalMoney = 0;
+  public noneAddress;
+  public showAddress;
 
   constructor(private appService: AppService, private appProperties: AppProperties,
               private router: Router, private routeInfo: ActivatedRoute) {
@@ -43,35 +46,53 @@ export class PayComponent implements OnInit {
     this.routeInfo.queryParams.subscribe(
       params => {
         this.ids = params.ids;
+        this.type = params.type;
       }
     );
     this.token = getToken();
-    this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
+    this.appService.postAliData(this.appProperties.shopAddressShow, {'ids': this.ids}, this.token).subscribe(
       data => {
-        console.log(data);
-        if (data.status === 0) {
-          alert('请先填写地址');
-          this.router.navigate(['cMain/addAddress'], {
-            queryParams: {
-              isAdd: 1,
-              shopCar: 1
+        if (data.status === '0') {
+          this.showAddress = true;
+          this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
+            data1 => {
+              if (data1.returnObject === null) {
+                this.noneAddress = true;
+              } else {
+                this.noneAddress = false;
+                this.name = data1.returnObject[0]['name'];
+                this.receiver = data1.returnObject[0]['receiver'];
+                this.phone = data1.returnObject[0]['phone'];
+                this.locationId = data1.returnObject[0]['id'];
+              }
+            },
+            error => {
+              console.log(error);
             }
-          });
-        } else {
-          this.name = data.returnObject[0]['name'];
-          this.receiver = data.returnObject[0]['receiver'];
-          this.phone = data.returnObject[0]['phone'];
-          this.locationId = data.returnObject[0]['id'];
-          this.showShopCarPrice();
-          // this.couponSum();
+          );
+        } else if (data.status === '1') {
+          this.showAddress = false;
         }
+        this.showShopCarPrice();
       },
       error => {
         console.log(error);
       }
     );
-    // this.radioValue = '1';
+
   }
+
+  //
+  // goTo() {
+  //   this.router.navigate(['cMain/newAddress'], {
+  //     queryParams: {
+  //       isAdd: 1,
+  //       shopCar: 1,
+  //       id: this.ids
+  //     }
+  //   });
+  // }
+
   // print(val) {
   //   this.radioValue = val;
   //   console.log(this.radioValue);
@@ -99,16 +120,19 @@ export class PayComponent implements OnInit {
     );
   }*/
   selectCoupon(): void {
-    if (this.couponLength !== 0) {
+    if (this.couponLength !== 0
+    ) {
       this.isCoupon = true;
     }
   }
+
   choiceCoupon(item) {
     this.reduceMoney = 0;
     console.log(item);
     this.couponId = item.id;
     this.reduceMoney = item.deductionMoney;
   }
+
   CouponCancel(): void {
     console.log('Button ok clicked!');
     this.isCoupon = false;
@@ -119,6 +143,7 @@ export class PayComponent implements OnInit {
     this.totalMoney = this.totalPrice - this.reduceMoney;
     this.isCoupon = false;
   }
+
   button(flag) {
     if (flag === 1) {
       this.pay();
@@ -138,8 +163,18 @@ export class PayComponent implements OnInit {
     }, this.token).subscribe(
       data2 => {
         console.log(data2);
-        alert(data2.message);
-        if (data2.returnObject.orderState !== 10001) {
+        // if (data2.returnObject.state !== 10001) {
+        if (data2.status === 0) {
+          alert(data2.message);
+          this.router.navigate(['cMain/addAddress'], {
+            queryParams: {
+              isAdd: 1,
+              shopCar: 1,
+              idList: this.ids
+            }
+          });
+          return;
+        } else if (data2.returnObject.orderState !== 10001) {
           this.orderId = data2.returnObject.orderId;
           this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
             orderId: this.orderId,
@@ -218,7 +253,6 @@ export class PayComponent implements OnInit {
           if (res.errMsg === 'chooseWXPay:ok') {
             // window.location.href = 'http://webapp.youshuidaojia.com/cMain/userCenter';
             // this.router.navigate(['cMain/shopCar']);
-            console.log('支付成功');
             this.router.navigate(['cMain/payFinish']);
           } else {
             alert('支付失败');
@@ -236,9 +270,10 @@ export class PayComponent implements OnInit {
   }
 
   showShopCarPrice() {
-    console.log('+++');
-    console.log(this.ids);
-    this.appService.postAliData(this.appProperties.shoppingCarUrl, {ids: this.ids}, this.token).subscribe(
+    this.appService.postAliData(this.appProperties.shoppingCarUrl, {
+      ids: this.ids,
+      type: this.type
+    }, this.token).subscribe(
       data => {
         console.log(data);
         this.totalPrice = 0;
@@ -251,10 +286,6 @@ export class PayComponent implements OnInit {
           this.idList.push(item.itemId);
           this.shopCartId.push(item.id);
         });
-        console.log(this.data);
-        console.log(this.totalPrice);
-        console.log(this.idList);
-        console.log(this.shopCartId.join(','));
         this.appService.getAliData(this.appProperties.shopCouponListUrl, {state: 5}, this.token).subscribe(
           data2 => {
             console.log(data2);
@@ -266,8 +297,6 @@ export class PayComponent implements OnInit {
               if (this.couponList !== null) {
                 this.couponLength = this.couponList.length;
               }
-              console.log('length');
-              console.log(this.couponLength);
             }
           },
           error2 => {
@@ -280,6 +309,7 @@ export class PayComponent implements OnInit {
       }
     );
   }
+
   toFixed(num) {
     return Math.round(num * 100) / 100;
   }

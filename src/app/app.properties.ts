@@ -52,6 +52,7 @@ export class AppProperties {
   public shopUnifiedStoreOrderUrl: string;
   public orderUnifiedOrderUrl: string;
   public shopAddressSelectUrl: string;
+  public shopAddressShow: string;
   public mapDetailsAUrl: string;
   public mapDetailsBUrl: string;
   public shopAddressUpdateUrl: string;
@@ -65,6 +66,7 @@ export class AppProperties {
   public shopPrepaidBuyUrl: string;
   public payFinishShowUrl: string;
   public payFinishGetCouponUrl: string;
+  public detailCartAndBuyUrl: string;
 
   public shopCarSaveUrl: string;
   public backSelectUrl: string;
@@ -110,6 +112,7 @@ export class AppProperties {
     // this.shopStoreUpdateUrl = this.appUrl + '/order/storeOrderUpdate';
     this.shopUnifiedStoreOrderUrl = this.appUrl + '/order/storeOrderPay';
     this.shopAddressSelectUrl = this.appUrl + '/address/select';
+    this.shopAddressShow  = this.appUrl + '/order/checkIfneedAddress';
     this.mapDetailsAUrl = this.appUrl + '/vendingMachinesWay/listAll';
     this.mapDetailsBUrl = this.appUrl + '/vendingMachinesWay/listAll2';
     this.shopAddressUpdateUrl = this.appUrl + '/address/update';
@@ -141,5 +144,6 @@ export class AppProperties {
     this.backSelectUrl = this.appUrl + '/shoppingCar/backSelect';
     this.shopCarDelUrl = this.appUrl + '/shoppingCar/del';
     this.shopCouponListUrl = this.appUrl + '/frontCoupon/myList';
+    this.detailCartAndBuyUrl = this.appUrl + '/shoppingCar/addAndBuy';
   }
 }

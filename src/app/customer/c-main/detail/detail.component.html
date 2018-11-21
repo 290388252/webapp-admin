@@ -203,17 +203,17 @@
       <li style="width: 29%" class="cartOrBuy" (click)="orderTo(0)" *ngIf="goodsObj['isConglomerateCommodity'] === 0">
         <span class="text-style">加入购物车</span>
       </li>
-      <li style="width: 29%" class="groupOrBuy" (click)="orderTo(1)" *ngIf="goodsObj['isConglomerateCommodity'] === 0">
+      <li style="width: 29%" class="groupOrBuy" (click)="btnCartAndBuy()" *ngIf="goodsObj['isConglomerateCommodity'] === 0">
         <span class="text-style">立即购买</span>
       </li>
       <li style="width: 29%" class="cartOrBuy" (click)="orderTo(1)" *ngIf="goodsObj['isConglomerateCommodity'] === 1">
-        <div style="margin: 10px;">
+        <div style="margin-top: 5px;">
           <span class="text-style1">￥{{goodsObj['salesPrice']}}</span>
           <span class="text-style1">正价购买</span>
         </div>
       </li>
       <li style="width: 29%" class="groupOrBuy" (click)="showQuantity(null)" *ngIf="goodsObj['isConglomerateCommodity'] === 1">
-        <div style="margin: 10px;">
+        <div style="margin-top: 5px;">
           <span class="text-style1">￥{{goodsObj['groupPurchasePrice']}}</span>
           <span class="text-style1">发起拼团</span>
         </div>
