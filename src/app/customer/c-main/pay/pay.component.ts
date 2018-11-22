@@ -52,7 +52,7 @@ export class PayComponent implements OnInit {
     this.token = getToken();
     this.appService.postAliData(this.appProperties.shopAddressShow, {'ids': this.ids}, this.token).subscribe(
       data => {
-        if (data.status === '0') {
+        if (data.status === 0) {
           this.showAddress = true;
           this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
             data1 => {
@@ -70,7 +70,7 @@ export class PayComponent implements OnInit {
               console.log(error);
             }
           );
-        } else if (data.status === '1') {
+        } else if (data.status === 1) {
           this.showAddress = false;
         }
         this.showShopCarPrice();
@@ -83,15 +83,15 @@ export class PayComponent implements OnInit {
   }
 
   //
-  // goTo() {
-  //   this.router.navigate(['cMain/newAddress'], {
-  //     queryParams: {
-  //       isAdd: 1,
-  //       shopCar: 1,
-  //       id: this.ids
-  //     }
-  //   });
-  // }
+  goTo() {
+    this.router.navigate(['cMain/addAddress'], {
+      queryParams: {
+        isAdd: 1,
+        shopCar: 1,
+        idList: this.ids
+      }
+    });
+  }
 
   // print(val) {
   //   this.radioValue = val;

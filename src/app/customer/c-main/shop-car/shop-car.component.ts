@@ -40,11 +40,13 @@ export class ShopCarComponent implements OnInit {
     if (index === -1) {
       item.num--;
       if (item.num < 1) {
+        alert('最少购买一件哦！');
         item.num = 1;
       }
       this.update(item);
     } else {
       item.num++;
+      console.log(item.num);
       this.update(item);
     }
     this.calTotalMoney();

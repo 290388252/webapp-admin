@@ -15,6 +15,11 @@ export class NewAddressComponent implements OnInit {
   private token;
   public list = [];
   public delItem;
+  public type;
+  public ids;
+  public groupId;
+  public pay;
+  public quantity;
 
   constructor(private appProperties: AppProperties,
               private appService: AppService,
@@ -22,6 +27,11 @@ export class NewAddressComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.type = urlParse(window.location.href)['type'];
+    this.ids = urlParse(window.location.href)['id'];
+    this.groupId = urlParse(window.location.href)['groupId'];
+    this.pay = urlParse(window.location.href)['pay'];
+    this.quantity = urlParse(window.location.href)['quantity'];
     this.token = getToken();
     this.getInit();
   }
@@ -142,10 +152,29 @@ export class NewAddressComponent implements OnInit {
   }
 
   goTo() {
-    // if (flag === 'userCenter') {
-    this.router.navigate(['cMain/userCenter']);
-    // } else if (flag === 'prepaidPay') {
-    //   this.router.navigate(['cMain/prepaidPay']);
-    // }
+    if (getToken() === null || getToken() === undefined) {
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
+        'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&' +
+        'state=/cMain/firstPage?vm=1';
+    } else {
+      if (this.type === '1') {
+        this.router.navigate(['cMain/userCenter']);
+      } else if (this.type === '2') {
+        this.router.navigate(['cMain/pay'], {
+          queryParams: {
+            ids: this.ids,
+            type: this.pay
+          }
+        });
+      } else if (this.type === '3') {
+        this.router.navigate(['cMain/grouponPay'], {
+          queryParams: {
+            id: this.ids,
+            groupId: this.groupId,
+            quantity: this.quantity
+          }
+        });
+      }
+    }
   }
 }

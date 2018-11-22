@@ -2,7 +2,7 @@
   <div class="top" *ngIf="showAddress">
     <img style="width: 20px;height: 25px;margin: 20px 10px 0 10px;float: left" src="../../../../assets/icon/dw5.png" alt="">
     <div style="margin-top: 15px;float: left;font-weight: bold;font-size: 14px;">
-      <span style="width: 100%;height: 44px;display: block;line-height: 44px;" *ngIf="noneAddress">请填写收货地址</span>
+      <span style="width: 100%;height: 44px;display: block;line-height: 44px;" *ngIf="noneAddress" (click)="goTo()">请填写收货地址</span>
       <span>{{receiver}}</span><span style="padding-left: 20px;">{{phone}}</span>
       <br>
       <span>{{name}}</span>
@@ -34,7 +34,7 @@
     </div>
   </div>
   <nz-modal [(nzVisible)]="isCoupon" nzTitle="请选择优惠券" nzOkText="确定" nzCancelText="取消"  (nzOnCancel)="CouponCancel()" (nzOnOk)="CouponOk()" style="color: #6c757d">
-    <div *ngFor="let item of couponList" style="width: 270px;height: 66px;border-radius: 5px;border: 1px solid #CCCCCC;margin-bottom: 4px;display: flex">
+    <div *ngFor="let item of couponList" style="width: 270px;height: 70px;border-radius: 5px;border: 1px solid #CCCCCC;margin-bottom: 4px;display: flex">
       <!--<div style="flex-direction: column">-->
         <!--<div style="width: 260px;margin: 2px 0;margin-left: 14px;height: 24px;">-->
           <!--<h3 style="line-height: 24px;">{{item.name}}</h3>-->
@@ -45,7 +45,7 @@
       <!--</div>-->
       <!--立减券-->
       <div style="flex-direction: row;width: 100px;" *ngIf="item.type ===2">
-        <div class="bgImg1" style="width: 70px;height: 64px;padding-top:10px;font-size: 12px;text-align: center;color: #fff;">
+        <div class="bgImg1" style="width: 70px;height: 68px;padding-top:10px;font-size: 12px;text-align: center;color: #fff;">
           <span style="display: block;">￥{{item.deductionMoney}}</span>
           <span>立减券</span>
         </div>
@@ -58,7 +58,7 @@
       </div>
       <!--满减-->
       <div style="flex-direction: row;width: 100px;" *ngIf="item.type === 1">
-        <div class="bgImg1" style="width: 70px;height: 64px;padding-top:10px;font-size: 12px;text-align: center;color: #fff;">
+        <div class="bgImg1" style="width: 70px;height: 68px;padding-top:10px;font-size: 12px;text-align: center;color: #fff;">
           <span style="display: block;">￥{{item.deductionMoney}}</span>
           <span>满{{item.money}}减{{item.deductionMoney}}</span>
         </div>
@@ -70,7 +70,7 @@
         <span style="display:block;" *ngIf="item.bindProduct !== 0">仅限特殊商品使用</span>
       </div>
       <div style="flex-direction: row">
-        <div style="width: 54px;height: 100%;text-align: center;line-height: 64px;">
+        <div style="width: 54px;height: 100%;text-align: center;line-height: 68px;">
           <input type="radio" (click)="choiceCoupon(item)" name="coupon" value="option1" aria-label="..." style="width: 18px;height: 18px;">
         </div>
       </div>
