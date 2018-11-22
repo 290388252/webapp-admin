@@ -44,11 +44,8 @@ export class GrouponPayComponent implements OnInit {
 
   ngOnInit() {
     this.quantity = urlParse(window.location.href)['quantity'];
-    this.money = urlParse(window.location.href)['money'];
     this.goodsId = urlParse(window.location.href)['id'];
-    this.goodsName = urlParse(window.location.href)['name'];
-    this.grouponId = urlParse(window.location.href)['grouponId'];
-    this.pic = urlParse(window.location.href)['pic'];
+    this.grouponId = urlParse(window.location.href)['groupId'];
     // this.vipTypeId = urlParse(window.location.href)['vipTypeId'];
     // this.vipValidity = urlParse(window.location.href)['vipValidity'];
     // this.getTime();
@@ -56,14 +53,22 @@ export class GrouponPayComponent implements OnInit {
     this.consignee = undefined;
     this.iphone = undefined;
     this.address = undefined;
-    this.totalMoney = this.quantity * this.money;
     this.isVisible = false;
     this.isShow = false;
     this.noneAddress = true;
     this.getLocation();
+    this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {id: this.goodsId}, '').subscribe(
+      data => {
+        this.money = data.returnObject['groupPurchasePrice'];
+        this.pic =  data.returnObject['pic'].split(',')[0];
+        this.goodsName =  data.returnObject['name'];
+        this.totalMoney = this.quantity * this.money;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
-
-
   getLocation() {
     this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
       data => {
@@ -85,7 +90,16 @@ export class GrouponPayComponent implements OnInit {
       }
     );
   }
-
+  toAddress() {
+    this.router.navigate(['cMain/newAddress'], {
+      queryParams: {
+        type: 3,
+        id: this.goodsId,
+        groupId: this.grouponId,
+        quantity: this.quantity
+      }
+    });
+  }
   showModal(): void {
     this.isVisible = true;
     this.newAddress = true;

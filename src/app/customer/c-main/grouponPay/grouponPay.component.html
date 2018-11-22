@@ -7,7 +7,15 @@
     </div>
     <div>
       <!--地址-->
-      <div style="background-color:white;margin-right: 20px;position: relative;width: 100%;padding-right: 26px;">
+      <div class="top">
+        <img style="width: 25px;height: 30px;margin: 20px 10px 0px;float: left" src="../../../../assets/icon/dw5.png" alt="">
+        <div style="margin-top: 15px;float: left;font-weight: bold;font-size: 14px;">
+          <span>收货人：{{consignee}}</span><span style="padding-left: 20px;">{{iphone}}</span>
+          <br>
+          <span>配送地址：<span style="font-size: 12px;">{{address}}</span></span>
+        </div>
+        <img (click)="toAddress()" style="width: 30px;height: 30px;float: right;margin-top: 20px" src="../../../../assets/icon/right.png" alt="">
+      </div><!--<div style="background-color:white;margin-right: 20px;position: relative;width: 100%;padding-right: 26px;">
         <div style="height:78px;background-color:white;margin-right: 20px;position: relative;width: 100%;margin-top: 2px;padding-right: 26px;padding-top: 8px;color: #949494" >
           <span style="width: 20px;height: 20px;display: inline-block;position: absolute;font-size: 18px;top: 20px;left: 10px;"><i class="anticon anticon-environment-o"></i></span>
           <div style="margin-right: 20px;height: 64px;padding-left: 40px;position: relative;" *ngIf="!noneAddress">
@@ -22,8 +30,8 @@
             <button nz-button nzType="primary" (click)="showModal()">请输入配送地址</button>
           </div>
         </div>
-      </div>
-      <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent"
+      </div>-->
+     <!-- <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent"
                 [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
         <ng-template #modalTitle>
           请填写配送地址
@@ -33,14 +41,14 @@
           <input nz-input placeholder="联系方式" [(ngModel)]="inIphone" style="margin-bottom: 10px;">
           <input nz-input placeholder="详细地址" [(ngModel)]="inAddress">
           <p style="color: red" *ngIf="isShow">*请输入完整信息</p>
-          <!--<nz-switch [(ngModel)]="switchValue"></nz-switch>-->
+          &lt;!&ndash;<nz-switch [(ngModel)]="switchValue"></nz-switch>&ndash;&gt;
         </ng-template>
         <ng-template #modalFooter>
           <button nz-button nzType="default" (click)="handleCancel()">取消</button>
           <button nz-button nzType="primary" *ngIf="newAddress" (click)="handleOk()">保存</button>
           <button nz-button nzType="primary" *ngIf="!newAddress" (click)="handleAlter()">修改</button>
         </ng-template>
-      </nz-modal>
+      </nz-modal>-->
       <!--<nz-modal [(nzVisible)]="isVisibleA" [nzTitle]="modalTitleA" [nzContent]="modalContentA"-->
                 <!--[nzFooter]="modalFooterA" (nzOnCancel)="handleCancelA()">-->
         <!--<ng-template #modalTitleA>-->
