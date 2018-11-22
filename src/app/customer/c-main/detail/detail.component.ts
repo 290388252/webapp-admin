@@ -85,7 +85,7 @@ export class DetailComponent implements OnInit {
         } else {
           endSeconds = seconds;
         }
-        const msg = '距离结束还有' + endHour + '时' + endMinutes + '分' + endSeconds + '秒';
+        const msg = endHour + ':' + endMinutes + ':' + endSeconds;
         fn(msg);
         // if (maxtime == 5 * 60) alert('注意，还有5分钟!');
         --maxtime;
@@ -342,7 +342,7 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  grouponGo(quantity, id, name, money, grouponId, pic) {
+  grouponGo(quantity, id, grouponId) {
     if (quantity === null || quantity === undefined || quantity === '') {
       this.quantityFalse = true;
       return;
@@ -352,10 +352,7 @@ export class DetailComponent implements OnInit {
       queryParams: {
         quantity: quantity,
         id: id,
-        name: name,
-        money: money,
-        grouponId: grouponId,
-        pic: pic
+        groupId: grouponId,
       }
     });
 

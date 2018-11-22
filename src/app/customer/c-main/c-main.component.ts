@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {getToken} from '../../utils/util';
-import {Router} from '@angular/router';
+import {getToken, urlParse} from '../../utils/util';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-c-main',
@@ -9,11 +9,20 @@ import {Router} from '@angular/router';
 })
 export class CMainComponent implements OnInit {
   public curId: number;
+  public footerHidden = false;
   constructor(private router: Router) { }
 
   ngOnInit() {
-    console.log(window.location.href);
     const url = window.location.href;
+    url.indexOf('detail') !== -1 ? this.footerHidden = true : this.footerHidden = false;
+    this.router.events
+      .filter((event) => event instanceof NavigationEnd)
+      .subscribe((event: NavigationEnd) => {
+        const refUrl = window.location.href;
+        console.log(refUrl);
+        console.log(refUrl.indexOf('detail'));
+        refUrl.indexOf('detail') !== -1 ? this.footerHidden = true : this.footerHidden = false;
+      });
     if (url.indexOf('firstPage') > -1) {
       this.curId = 1;
     } else if (url.indexOf('allGoods') > -1) {
