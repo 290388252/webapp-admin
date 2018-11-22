@@ -26,7 +26,6 @@ export class FirstPageComponent implements OnInit {
   constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties,
                private appService: AppService, private router: Router) {
   }
-
   ngOnInit() {
     if (urlParse(window.location.search)['token'] !== undefined
       && urlParse(window.location.search)['token'] !== '') {
@@ -36,7 +35,7 @@ export class FirstPageComponent implements OnInit {
     }
     this.showGoods(getToken());
     this.list = this.firstPageService.showGoods(getToken(), 1);
-    this.getBannerHeight();
+    //this.getBannerHeight();
     this.judgeVip = false;
     this.getVip();
   }
@@ -55,10 +54,10 @@ export class FirstPageComponent implements OnInit {
       }
     );
   }
-  getBannerHeight() {
+  /*getBannerHeight() {
     const banner = document.getElementById('banner');
     this.height = (banner.offsetWidth) / 16 * 8 + 'px';
-  }
+  }*/
   showGoods(token) {
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {type: 2}, token).subscribe(
       data => {
