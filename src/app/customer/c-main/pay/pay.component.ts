@@ -3,6 +3,7 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {ActivatedRoute, Router} from '@angular/router';
+import {NzModalService} from 'ng-zorro-antd';
 
 declare var wx: any;
 declare var WeixinJSBridge: any;
@@ -39,7 +40,7 @@ export class PayComponent implements OnInit {
   public showAddress;
 
   constructor(private appService: AppService, private appProperties: AppProperties,
-              private router: Router, private routeInfo: ActivatedRoute) {
+              private router: Router, private routeInfo: ActivatedRoute, private modalService: NzModalService) {
   }
 
   ngOnInit() {
@@ -153,6 +154,15 @@ export class PayComponent implements OnInit {
     }
   }
 
+  showConfirm(): void {
+    this.modalService.info({
+      nzContent: '<b>您取消了支付</b>',
+      nzCancelText: '忍痛放弃',
+      nzOkText: '继续支付',
+      nzOnOk: () => this.pay()
+    });
+  }
+
   pay() {
     this.appService.postAliData(this.appProperties.shopStoreOrderAddUrl, {
       product: this.shopCartId.join(','),
@@ -259,7 +269,13 @@ export class PayComponent implements OnInit {
           }
         },
         cancel: (res) => {
-          alert('您取消了支付');
+          // alert('您取消了支付');
+          this.modalService.info({
+            nzContent: '<b>您取消了支付</b>',
+            nzCancelText: '忍痛放弃',
+            nzOkText: '继续支付',
+            nzOnOk: () => this.pay()
+          });
           // 支付取消
         },
         error: (res) => {

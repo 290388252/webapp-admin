@@ -3,6 +3,7 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
+import {NzModalService} from 'ng-zorro-antd';
 
 declare var wx: any;
 declare var WeixinJSBridge: any;
@@ -20,7 +21,8 @@ export class PrepaidPayComponent implements OnInit {
   public orderId;
   public isMessage;
 
-  constructor(private appProperties: AppProperties, private appService: AppService, private router: Router) {
+  constructor(private appProperties: AppProperties, private appService: AppService, private router: Router,
+              private modalService: NzModalService) {
   }
 
   ngOnInit() {
@@ -55,7 +57,7 @@ export class PrepaidPayComponent implements OnInit {
     }
 
   }
-  
+
   prepaidPay() {
     if (this.prepaidMoney <= 0.00 || this.prepaidMoney === undefined || this.prepaidMoney === null || this.prepaidMoney === '') {
       this.prepaidMoney = undefined;
@@ -153,7 +155,12 @@ export class PrepaidPayComponent implements OnInit {
           }
         },
         cancel: (res) => {
-          alert('您取消了支付');
+          this.modalService.info({
+            nzContent: '<b>您取消了支付</b>',
+            nzCancelText: '忍痛放弃',
+            nzOkText: '继续支付',
+            nzOnOk: () => this.prepaidPay()
+          });
           // 支付取消
         },
         error: (res) => {
@@ -165,7 +172,7 @@ export class PrepaidPayComponent implements OnInit {
 
   moneyChange(event: any) {
     console.log(event <= 0.00);
-    if(event <= 0.00) {
+    if (event <= 0.00) {
       this.isPost = true;
     } else {
       this.isPost = false;

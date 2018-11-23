@@ -3,7 +3,8 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
-import {isCombinedNodeFlagSet} from "tslint";
+import {NzModalService} from 'ng-zorro-antd';
+import {isCombinedNodeFlagSet} from 'tslint';
 
 declare var wx: any;
 declare var WeixinJSBridge: any;
@@ -39,7 +40,8 @@ export class GrouponPayComponent implements OnInit {
   public noneAddress;
   public newAddress;
 
-  constructor(private appProperties: AppProperties, private appService: AppService, private router: Router) {
+  constructor(private appProperties: AppProperties, private appService: AppService, private router: Router,
+              private modalService: NzModalService) {
   }
 
   ngOnInit() {
@@ -60,8 +62,8 @@ export class GrouponPayComponent implements OnInit {
     this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {id: this.goodsId}, '').subscribe(
       data => {
         this.money = data.returnObject['groupPurchasePrice'];
-        this.pic =  data.returnObject['pic'].split(',')[0];
-        this.goodsName =  data.returnObject['name'];
+        this.pic = data.returnObject['pic'].split(',')[0];
+        this.goodsName = data.returnObject['name'];
         this.totalMoney = this.quantity * this.money;
       },
       error => {
@@ -69,6 +71,7 @@ export class GrouponPayComponent implements OnInit {
       }
     );
   }
+
   getLocation() {
     this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
       data => {
@@ -82,7 +85,6 @@ export class GrouponPayComponent implements OnInit {
           this.iphone = data.returnObject[0]['phone'];
           this.locationId = data.returnObject[0]['id'];
           this.noneAddress = false;
-          //this.couponSum();
         }
       },
       error => {
@@ -90,6 +92,7 @@ export class GrouponPayComponent implements OnInit {
       }
     );
   }
+
   toAddress() {
     this.router.navigate(['cMain/newAddress'], {
       queryParams: {
@@ -100,6 +103,7 @@ export class GrouponPayComponent implements OnInit {
       }
     });
   }
+
   showModal(): void {
     this.isVisible = true;
     this.newAddress = true;
@@ -191,12 +195,6 @@ export class GrouponPayComponent implements OnInit {
   }
 
   grouponBuy() {
-    console.log(this.goodsId);
-    console.log(this.goodsName);
-    console.log(this.quantity);
-    console.log(this.totalMoney);
-    console.log(this.grouponId);
-    console.log(this.locationId);
     if (this.noneAddress === true) {
       alert('请输入地址');
       return;
@@ -304,7 +302,12 @@ export class GrouponPayComponent implements OnInit {
           }
         },
         cancel: (res) => {
-          alert('您取消了支付');
+          this.modalService.info({
+            nzContent: '<b>您取消了支付</b>',
+            nzCancelText: '忍痛放弃',
+            nzOkText: '继续支付',
+            nzOnOk: () => this.grouponBuy()
+          });
           // 支付取消
         },
         error: (res) => {

@@ -1,14 +1,9 @@
-
 .user-container {
-  /*position: absolute;
-  padding-bottom: 10%;*/
+  margin-bottom: 50px;
   height: 100%;
   width: 100%;
   background: #efefef;
-  margin: 0px;
   padding: 0px;
-  /*background: url("../../../../assets/main/bs-bg.jpg");*/
-  /*background-size: 150% 100%;*/
 }
 .left{
   float: left;

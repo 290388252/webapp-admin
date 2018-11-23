@@ -1,9 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, OnDestroy} from '@angular/core';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
-import {toNumber} from 'ng-zorro-antd/src/core/util/convert';
 
 declare var WeixinJSBridge: any;
 declare var wx: any;
@@ -13,7 +12,7 @@ declare var wx: any;
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
   // array = [
   //   '../../../../assets/main/raw_1529043263.png',
   //   '../../../../assets/main/raw_1529043326.png',
@@ -46,11 +45,19 @@ export class DetailComponent implements OnInit {
   public isVisibleA;
   public quantityFalse;
   public listShow;
+  public timerList = [];
 
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router) {
   }
 
-
+  ngOnDestroy() {
+    if (this.timerList.length !== 0 ) {
+      this.timerList.forEach(timer => {
+        clearInterval(timer);
+        console.log('取消计时器');
+      });
+    }
+  }
   ngOnInit() {
     this.id = urlParse(window.location.href)['id'];
     this.name = urlParse(window.location.href)['name'];
@@ -60,9 +67,8 @@ export class DetailComponent implements OnInit {
     this.isVisible = false;
     // this.countDown(325);
   }
-
   countDown(maxtime, fn) {
-    const timer = setInterval(function () {
+     const timer = setInterval(function () {
       if (maxtime >= 0) {
         const hours = Math.floor(maxtime / (60 * 60));
         const minutes = Math.floor(maxtime / 60) - (hours * 60);
@@ -94,6 +100,7 @@ export class DetailComponent implements OnInit {
         fn('已结束!');
       }
     }, 1000);
+    this.timerList.push(timer);
   }
 
   showGoods() {
@@ -122,36 +129,26 @@ export class DetailComponent implements OnInit {
       data => {
         console.log(data);
         this.grouponList = data.returnObject;
+        this.grouponTotal = data.returnObject.length;
         // this.countDown(this.grouponList[0].endTime);
         console.log(this.grouponList.length > 0);
         if (this.grouponList.length > 0) {
-          const endTime = (new Date(this.grouponList[0].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
-          this.countDown(endTime, function (msg) {
-            document.getElementById('timer1').innerHTML = msg;
-          });
-        }
-        // for (let i = 0; i < this.grouponList.length; i++) {
-        //   const obj = this.grouponList[i];
-        //   this.arr.push(obj.id);
-        // }
-        if (data.returnObject.length === 0) {
-          this.grouponTotal = 0;
-          this.listShow = false;
-        } else {
-          this.grouponNumber = data.returnObject[0].totalStaff;
-          this.grouponTotal = data.returnObject.length;
-          this.listShow = true;
+          for (let i = 0; i < this.grouponList.length; i++) {
+            const endTime = (new Date(this.grouponList[i].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
+            this.countDown(endTime, function (msg) {
+              document.getElementById('timer' + i).innerHTML = msg;
+            });
+          }
         }
       },
       error => {
         console.log(error);
       }
     );
-
   }
 
   verifyTime(time) {
-    console.log(time);
+    //console.log(time);
     const value = (new Date(time.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
     if (value > 0) {
       return false;
@@ -160,7 +157,7 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  showModal(list): void {
+  /*showModal(list): void {
     this.isVisible = true;
     console.log(list);
     if (list.length > 0) {
@@ -172,9 +169,8 @@ export class DetailComponent implements OnInit {
           document.getElementById(('a' + list[i].id)).innerHTML = msg;
         });
       }
-
     }
-  }
+  }*/
 
   handleCancel(): void {
     this.isVisible = false;
@@ -182,7 +178,9 @@ export class DetailComponent implements OnInit {
 
   showQuantity(grouponId): void {
     if (getToken() === null || getToken() === undefined) {
-      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://ym//://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1';
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
+        'redirect_uri=http://ym//://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&' +
+        'scope=snsapi_userinfo&state=/cMain/firstPage?vm=1';
     } else {
       if (grouponId !== null) {
         this.appService.postFormData(this.appProperties.shoppingNewJudgeUrl, {'id': grouponId}, getToken()).subscribe(

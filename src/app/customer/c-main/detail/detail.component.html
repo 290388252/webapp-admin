@@ -49,9 +49,9 @@
     </div>-->
   </div>
   <div class="goods-spellGroup" *ngIf="goodsObj['isConglomerateCommodity'] === 1 && grouponTotal !== 0">
-    <span style="width: 100%; height: 40px; line-height: 40px; color: #000; padding: 0px 15px; display: block;">{{grouponTotal}}人正在拼团，可直接参与</span>
+    <span style="width: 100%; height: 40px; line-height: 40px; color: #000; padding: 0px 15px; display: block;">{{grouponTotal}}个单正在拼团，可直接参与</span>
     <ul class="spellGroup-list" style="width: 100%; border-top: #efefef 1px solid;">
-      <li style="width: 100%; padding: 10px 15px; border-bottom: #efefef 1px solid;" *ngFor="let item of grouponList">
+      <li style="width: 100%; padding: 10px 15px; border-bottom: #efefef 1px solid;" *ngFor="let item of grouponList; let i = index">
         <div class="left" style="width: 50%; height: 40px; line-height: 40px;">
           <img src="../../../../assets/icon/userIcon.png" style="width: 40px; height: 40px; border-radius: 50%;" />
           <span style="margin-left: 10px; color: #000;">{{turnPhone(item.phone)}}</span>
@@ -60,8 +60,8 @@
           <button nz-button nzType="primary" class="btn-style" [disabled]="verifyTime(item.endTime)">去拼团</button>
         </div>
         <div class="right" style="height: 40px;">
-          <span style="color: #000;" class="groupon_l_T">还差<span style="color: red">{{grouponNumber - item.participationNUm - 1}}</span>人拼团</span>
-          <span class="groupon_l_T">剩余<span id="timer1"></span></span>
+          <span style="color: #000;" class="groupon_l_T">还差<span style="color: red">{{this.grouponNumber - item.participationNUm - 1}}</span>人成团</span>
+          <span class="groupon_l_T">剩余<span [id]="'timer' + i"></span></span>
         </div>
         <div class="clear-fix"></div>
       </li>
@@ -185,7 +185,7 @@
     </div>
   </div>
   <!--footer-->
-  <div style="width: 100%;height: 100px"></div>
+  <!--<div style="width: 100%;height: 100px"></div>-->
   <!--非团购-->
   <div class="finish">
     <ul style="width: 100%;">
@@ -201,12 +201,14 @@
         <img src="../../../../assets/icon/detailIcon/detail-cart.png">
         <span>购物车</span>
       </li>
+      <!--非团购-->
       <li style="width: 29%" class="cartOrBuy" (click)="orderTo(0)" *ngIf="goodsObj['isConglomerateCommodity'] === 0">
         <span class="text-style">加入购物车</span>
       </li>
       <li style="width: 29%" class="groupOrBuy" (click)="btnCartAndBuy()" *ngIf="goodsObj['isConglomerateCommodity'] === 0">
         <span class="text-style">立即购买</span>
       </li>
+      <!--团购-->
       <li style="width: 29%" class="cartOrBuy" (click)="orderTo(1)" *ngIf="goodsObj['isConglomerateCommodity'] === 1">
         <div style="margin-top: 5px;">
           <span class="text-style1">￥{{goodsObj['salesPrice']}}</span>
@@ -222,7 +224,6 @@
       <div class="clear-fix"></div>
     </ul>
   </div>
-  <!--团购-->
   <!--<div class="finishA" *ngIf="goodsObj['isConglomerateCommodity'] === 1">
     <div style="flex: 1;height: 100%;background: #f7f7f7;line-height: 40px;">
       <span (click)="share('点击右上角分享', 2000)"><i class="anticon anticon-export" style="margin-right: 2px;"></i>分享</span>
