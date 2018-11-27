@@ -33,6 +33,7 @@ const routes: Routes = [
       {path: 'payFinish', loadChildren: './payFinish/payFinish.module#PayFinishModule' },
       {path: 'promotions', loadChildren: './promotions/promotions.module#PromotionsModule' },
       {path: 'waterCoupon', loadChildren: './user-center/waterCoupon/waterCoupon.module#WaterCouponModule'},
+      { path: 'getCoupon', loadChildren: './coupon/coupon.module#CouponModule' },
       {path: 'recommend', loadChildren: './recommend/recommend.module#RecommendModule'}
     ]
   }

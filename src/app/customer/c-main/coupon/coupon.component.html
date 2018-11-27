@@ -1,0 +1,11 @@
+<div class="coupon-container">
+  <img (click)="getCoupon()" src="../../../../assets/icon/getCouponBtn.png" alt="" width="150"
+       style="position: absolute;
+       top: 60%;
+       left: 28%;">
+  <img [hidden]="success" src="../../../../assets/icon/getCouponSucces.png" alt="" class="get-success">
+  <img [hidden]="success" (click)="close()" src="../../../../assets/icon/close.png" alt="" style="position: absolute;
+    right: 10px;
+    top: 20%;
+    width: 40px;">
+</div>

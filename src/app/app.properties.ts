@@ -48,6 +48,7 @@ export class AppProperties {
   public grouponAddUrl;
   public grouponBuyUrl;
   public wechatShareInfoUrl;
+  public couponAddAsianCustomer: string;
   // public shopStoreUpdateUrl: string;
   public shopUnifiedStoreOrderUrl: string;
   public orderUnifiedOrderUrl: string;
@@ -137,6 +138,7 @@ export class AppProperties {
     this.grouponAddUrl = this.appUrl + '/order/storeOrderSpellGroupAdd';
     this.grouponBuyUrl = this.appUrl + '/order/storeOrderSpellGroupPay';
     this.wechatShareInfoUrl = this.appUrl + '/wechat/shareInfo';
+    this.couponAddAsianCustomer = this.appUrl + '/coupon/addAsianCustomer';
 
     this.payFinishShowUrl = this.appUrl + '/order/storeOrderFininshPay';
     this.payFinishGetCouponUrl = this.appUrl + '/coupon/get';

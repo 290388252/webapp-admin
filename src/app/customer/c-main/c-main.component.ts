@@ -15,6 +15,7 @@ export class CMainComponent implements OnInit {
   ngOnInit() {
     const url = window.location.href;
     url.indexOf('detail') !== -1 ? this.footerHidden = true : this.footerHidden = false;
+    url.indexOf('getCoupon') !== -1 ? this.footerHidden = true : this.footerHidden = false;
     this.router.events
       .filter((event) => event instanceof NavigationEnd)
       .subscribe((event: NavigationEnd) => {
