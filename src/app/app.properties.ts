@@ -73,11 +73,15 @@ export class AppProperties {
   public backSelectUrl: string;
   public shopCarDelUrl: string;
   public shopCouponListUrl: string;
+  public applyRefundUrl: string;
+  public getOrderItemListUrl: string;
+  public IfApplayRefundUrl: string;
 
 
   constructor() {
     this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
-    // this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
+    // this.appUrl = 'http://192.168.0.114:6662/ys_admin';
+    // this.appUrl = 'http://192.168.0.113:8769/ys_admin'; // localtest
     this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
 
     this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
@@ -147,5 +151,8 @@ export class AppProperties {
     this.shopCarDelUrl = this.appUrl + '/shoppingCar/del';
     this.shopCouponListUrl = this.appUrl + '/frontCoupon/myList';
     this.detailCartAndBuyUrl = this.appUrl + '/shoppingCar/addAndBuy';
+    this.applyRefundUrl = this.appUrl + '/refundApplication/do';
+    this.getOrderItemListUrl = this.appUrl + '/payRecord/getPayRecordItemList';
+    this.IfApplayRefundUrl = this.appUrl + '/refundApplication/get';
   }
 }

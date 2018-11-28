@@ -27,7 +27,7 @@ export class MyOrderComponent implements OnInit {
   public noOrder: boolean;
   public order: boolean;
 
-  constructor(private appService: AppService, private appProperties: AppProperties) {
+  constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) {
   }
 
   ngOnInit() {
@@ -88,7 +88,36 @@ export class MyOrderComponent implements OnInit {
       }
     );
   }
-
+  applyRefund(item) {
+    this.appService.postFormData(this.appProperties.IfApplayRefundUrl, {
+      payCode: item.payCode,
+      },
+      getToken()).subscribe(
+      data => {
+        console.log(data);
+        if (data.status === 0) {
+          let type;
+          if (this.orderType === '1') {
+            type = 2;
+          } else if (this.orderType === '2') {
+            type = 1;
+          }
+          this.router.navigate(['cMain/applyRefund'], {
+            queryParams: {
+              nowPrice: item.nowprice,
+              payCode: item.payCode,
+              orderType: type,
+            }
+          });
+        } else {
+          alert(data.returnObject[0].stateName);
+        }
+      },
+      error2 => {
+        console.log(error2);
+      }
+    );
+  }
   pay(item) {
     // 商城
     if (item.type === 1) {

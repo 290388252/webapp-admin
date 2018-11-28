@@ -35,7 +35,7 @@ export class FirstPageComponent implements OnInit {
     }
     this.showGoods(getToken());
     this.list = this.firstPageService.showGoods(getToken(), 1);
-    //this.getBannerHeight();
+    // this.getBannerHeight();
     this.judgeVip = false;
     this.getVip();
   }

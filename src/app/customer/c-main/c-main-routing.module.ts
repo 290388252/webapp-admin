@@ -34,7 +34,8 @@ const routes: Routes = [
       {path: 'promotions', loadChildren: './promotions/promotions.module#PromotionsModule' },
       {path: 'waterCoupon', loadChildren: './user-center/waterCoupon/waterCoupon.module#WaterCouponModule'},
       { path: 'getCoupon', loadChildren: './coupon/coupon.module#CouponModule' },
-      {path: 'recommend', loadChildren: './recommend/recommend.module#RecommendModule'}
+      {path: 'recommend', loadChildren: './recommend/recommend.module#RecommendModule'},
+      {path: 'applyRefund', loadChildren: './applyRefund/applyRefund.module#ApplyRefundModule'}
     ]
   }
 ];

@@ -179,8 +179,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   showQuantity(grouponId): void {
     if (getToken() === null || getToken() === undefined) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
-        'redirect_uri=http://ym//://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&' +
-        'scope=snsapi_userinfo&state=/cMain/firstPage?vm=1';
+        'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&' +
+        'scope=snsapi_userinfo&state=/cMain/firstPage?vm=1&type=1';
     } else {
       if (grouponId !== null) {
         this.appService.postFormData(this.appProperties.shoppingNewJudgeUrl, {'id': grouponId}, getToken()).subscribe(
@@ -240,7 +240,7 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   goTo() {
     if (getToken() === null || getToken() === undefined) {
-      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1';
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1&type=1';
     } else {
       if (urlParse(window.location.href)['type'] === '1') {
         this.router.navigate(['cMain/firstPage']);
@@ -360,7 +360,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     if (getToken() === null || getToken() === undefined) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
         'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&' +
-        'state=/cMain/firstPage?vm=1';
+        'state=/cMain/firstPage?vm=1&type=1';
     } else {
       this.appService.postAliData(this.appProperties.detailCartAndBuyUrl, {
         itemId: this.id,
@@ -383,7 +383,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     if (getToken() === null || getToken() === undefined) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
         'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&' +
-        'state=/cMain/firstPage?vm=1';
+        'state=/cMain/firstPage?vm=1&type=1';
     } else {
       this.appService.getAliData(this.appProperties.shoppingAddUrl, {
         itemId: this.id,

@@ -43,6 +43,9 @@
       <div class="unPay" *ngIf="item.stateName === '未支付'">
         <img src="../../../../../assets/icon/payIcon.png" class="unPay_img" (click)="pay(item)">
       </div>
+      <div class="unPay" *ngIf="item.stateName === '已支付'">
+        <div class="apply_btn unPay_img" (click)="applyRefund(item)">申请退款</div>
+      </div>
     </div>
   </div>
   <div [hidden]="noOrder" class="order-layout">
@@ -60,7 +63,9 @@
             {{items.itemName}}
             <span class="order_GoodsPrice">¥{{items.price}}</span>
           </div>
-          <div class="order_GoodsNum">数量:{{items.num}}</div>
+          <div class="order_GoodsNum">
+            数量:{{items.num}}
+          </div>
         </div>
       </div>
       <div class="orderDetails">
@@ -74,6 +79,9 @@
           <div class="orderDetails_r_in">{{item.stateName}}</div>
           <div class="orderDetails_r_in">¥{{item.nowprice}}</div>
         </div>
+      </div>
+      <div class="unPay" *ngIf="item.stateName === '已支付'">
+        <div class="apply_btn unPay_img" (click)="applyRefund(item)">申请退款</div>
       </div>
     </div>
   </div>

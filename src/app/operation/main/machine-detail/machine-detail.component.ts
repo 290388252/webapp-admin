@@ -121,22 +121,20 @@ export class MachineDetailComponent implements OnInit {
     const startDate = `${yesterday.getFullYear()}-${yesterdayMonth}-${yesterdayDate}`;
     const endDate = `${tomorrow.getFullYear()}-${tomorrowMonth}-${tomorrowDate}`;
     this.isVisibleSails = true;
-    this.appService.postAliData(this.appProperties.aliMachineQueryTradeDetailUrl,
+    this.appService.getAliData(this.appProperties.aliMachineQueryTradeDetailUrl,
       {
         vmCode: vmCode,
-        startDate: startDate,
-        endDate: endDate
+        day: 3
+        // startDate: startDate,
+        // endDate: endDate
       } , getAdminToken()).subscribe(
       data => {
         console.log(data);
-        if (data.status === 1) {
-          this.tradeDetailList = data.returnObject;
+          this.tradeDetailList = data;
           this.tradeDetailListLoading = false;
-        } else {
-          alert('查询失败无数据');
-          this.isVisibleSails = false;
-          this.tradeDetailListLoading = true;
-        }
+          // alert('查询失败无数据');
+          // this.isVisibleSails = false;
+          // this.tradeDetailListLoading = true;
       },
       error => {
         console.log(error);
