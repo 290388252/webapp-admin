@@ -53,8 +53,8 @@
           <img src="../../../../../assets/icon/couponSb.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 2">
           <img src="../../../../../assets/icon/couponSc.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 3">
           <img src="../../../../../assets/icon/couponSd.png" class="coupon_nameImg" *ngIf="item.useWhere === 2 && item.type === 4">
-          {{item.useWhereLabel}}
-          <span style="position: absolute;right: 0;top: 0;color: #333333">&times;{{item.quantity}}</span>
+          {{item.name}}
+          <span style="position: absolute;right: -16px;top: 13px;color: #333333">&times;{{item.quantity}}</span>
         </div>
         <span class="coupon_time">{{toDate(item.startTime)}}-{{toDate(item.endTime)}}</span>
         <span style="display: block">
@@ -137,7 +137,7 @@
           <img src="../../../../../assets/icon/overDueVm.png" class="coupon_nameImg" *ngIf="item.useWhere === 1">
           <!--商城-->
           <img src="../../../../../assets/icon/overDueS.png" class="coupon_nameImg" *ngIf="item.useWhere === 2">
-          {{item.useWhereLabel}}
+          {{item.name}}
           <img class="coupon_usedImg" src="../../../../../assets/icon/pastDue.png">
         </div>
         <span class="coupon_time">{{toDate(item.startTime)}}-{{toDate(item.endTime)}}</span>
@@ -192,7 +192,7 @@
           <img src="../../../../../assets/icon/overDueVm.png" class="coupon_nameImg" *ngIf="item.useWhere === 1">
           <!--商城-->
           <img src="../../../../../assets/icon/overDueS.png" class="coupon_nameImg" *ngIf="item.useWhere === 2">
-          {{item.useWhereLabel}}
+          {{item.name}}
           <img class="coupon_usedImg" src="../../../../../assets/icon/usedIcon.png">
         </div>
         <span class="coupon_time">{{toDate(item.startTime)}}-{{toDate(item.endTime)}}</span>
