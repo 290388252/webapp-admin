@@ -1,0 +1,44 @@
+<div class="user-container">
+  <div class="header">
+    <h3>申请退款</h3>
+    <img (click)="goTo()" class="arrow-style" src="../../../../assets/icon/customerIcon/icon-arrow.png" />
+  </div>
+  <div class="order">
+    <div class="order-layout" *ngFor="let item of orderItemList">
+      <div class="left order-img">
+        <img style="width: 80px;height: 80px; display: block" [src]="imgUrl+item.pic" *ngIf="orderType === '2'">
+        <img style="width: 80px;height: 80px; display: block" [src]="vmImgUrl+item.pic" *ngIf="orderType === '1'">
+      </div>
+      <div class="left order-detail">
+        <span class="span-style name-style" style="">
+          {{item.itemName}}
+        </span>
+        <span style="font-size: 12px;">产品数量：{{item.num}}</span>
+      </div>
+    </div>
+  </div>
+  <!--<div class="refund-select">
+    <span class="left span-style">退款原因</span>
+    <span class="right" style="margin-right: 20px">请选择</span>
+    <img class="clear-fix" style="width: 10px; height: 16px; display: inline-block" src="../../../../assets/icon/customerIcon/icon-arrow.png" />
+  </div>-->
+  <div class="refund-select">
+    <div class="left">
+      <span class="span-style">退款金额：<span style="color: #3E85FF; font-size: 16px;">￥
+        <input type="text" [(ngModel)]="refundPrice" style="border: none;">
+      </span></span>
+    </div>
+    <div class="right">
+      <span style="font-size: 12px;">最多￥{{totalPrice}}</span>
+    </div>
+    <div class="clear-fix"></div>
+  </div>
+  <div class="refund-info">
+    <span class="span-style">退款原因：</span>
+    <textarea name="more" class="text-style" [(ngModel)]="refundReason" placeholder="请您详细的填写退款说明，10-170个字，以便客服为您尽快处理"></textarea>
+  </div>
+  <div style="height: 120px;"></div>
+  <div class="footer">
+    <button nz-button class="but-style" (click)="applySubmit()">提交</button>
+  </div>
+</div>
