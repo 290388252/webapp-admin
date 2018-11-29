@@ -28,7 +28,7 @@ export class CouponComponent implements OnInit {
     } else {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
         'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&' +
-        'scope=snsapi_userinfo&state=/cMain/getCoupon?vm=1&type=3';
+        'scope=snsapi_userinfo&state=/cMain/getCoupon?vm=1-3';
     }
   }
   // 获取订单列表

@@ -35,6 +35,8 @@ export class CLoginService {
                   break;
                 case '3': this.getFrom(data, 'cMain/getCoupon');
                   break;
+                default: this.getFrom(data, 'cMain/firstPage');
+                  break;
               }
               if (urlParse(window.location.search)['card'] === 1 || urlParse(window.location.search)['card'] === '1') {
                 this.router.navigate(['cMain/coupon'], {
