@@ -31,13 +31,14 @@ export class GrouponPayComponent implements OnInit {
   public inConsignee;
   public inIphone;
   public inAddress;
+  public noneAddress;
+  public needAddress;
   //
   public orderId;
   public token;
   public isVisible;
   public isVisibleA;
   public isShow;
-  public noneAddress;
   public newAddress;
 
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router,
@@ -57,7 +58,6 @@ export class GrouponPayComponent implements OnInit {
     this.address = undefined;
     this.isVisible = false;
     this.isShow = false;
-    this.noneAddress = true;
     this.getLocation();
     this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {id: this.goodsId}, '').subscribe(
       data => {
@@ -73,17 +73,32 @@ export class GrouponPayComponent implements OnInit {
   }
 
   getLocation() {
-    this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
-      data => {
-        console.log('123');
-        console.log(data);
-        if (data.status === 0) {
-          this.noneAddress = true;
+
+    this.appService.postAliData(this.appProperties.grouponJudgeAddressUrl, {'ids': this.goodsId}, this.token).subscribe(
+      data1 => {
+        console.log('data1');
+        console.log(data1);
+        if (data1.status === 0) {
+          this.needAddress = true;
+          this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
+            data => {
+              console.log('data');
+              console.log(data);
+              if (data.status === 0) {
+                this.noneAddress = true;
+              } else {
+                this.noneAddress = false;
+                this.address = data.returnObject[0]['name'];
+                this.consignee = data.returnObject[0]['receiver'];
+                this.iphone = data.returnObject[0]['phone'];
+                this.locationId = data.returnObject[0]['id'];
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
         } else {
-          this.address = data.returnObject[0]['name'];
-          this.consignee = data.returnObject[0]['receiver'];
-          this.iphone = data.returnObject[0]['phone'];
-          this.locationId = data.returnObject[0]['id'];
           this.noneAddress = false;
         }
       },
@@ -94,12 +109,21 @@ export class GrouponPayComponent implements OnInit {
   }
 
   toAddress() {
-    this.router.navigate(['cMain/newAddress'], {
+    // this.router.navigate(['cMain/newAddress'], {
+    //   queryParams: {
+    //     type: 3,
+    //     id: this.goodsId,
+    //     groupId: this.grouponId,
+    //     quantity: this.quantity
+    //   }
+    // });
+    this.router.navigate(['cMain/addAddress'], {
       queryParams: {
-        type: 3,
-        id: this.goodsId,
-        groupId: this.grouponId,
-        quantity: this.quantity
+        isAdd: 1,
+        shopCar: 2,
+        quantity: this.quantity,
+        goodsId: this.goodsId,
+        grouponId: this.grouponId
       }
     });
   }
@@ -196,7 +220,16 @@ export class GrouponPayComponent implements OnInit {
 
   grouponBuy() {
     if (this.noneAddress === true) {
-      alert('请输入地址');
+      alert('请填写收货地址!');
+      this.router.navigate(['cMain/addAddress'], {
+        queryParams: {
+          isAdd: 1,
+          shopCar: 2,
+          quantity: this.quantity,
+          goodsId: this.goodsId,
+          grouponId: this.grouponId
+        }
+      });
       return;
     }
     this.appService.postAliData(this.appProperties.grouponAddUrl, {
@@ -211,7 +244,10 @@ export class GrouponPayComponent implements OnInit {
     }, this.token).subscribe(
       data2 => {
         console.log(data2);
-        if (data2.status !== 0) {
+        if (data2.status === 2) {
+          alert(data2.message);
+          return;
+        } else if (data2.status !== 0) {
           alert(data2.message);
           if (data2.returnObject.orderState !== 10001) {
             this.orderId = data2.returnObject.orderId;

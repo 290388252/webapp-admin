@@ -23,6 +23,9 @@ export class AddAddressComponent implements OnInit {
   public shopCar;
   public disable;
   public idList;
+  public grouponGoodsId;
+  public grouponQuantity;
+  public grouponId;
 // alter
   public alterName;
   public alterSex;
@@ -42,6 +45,10 @@ export class AddAddressComponent implements OnInit {
     this.alterId = urlParse(window.location.href)['id'];
     this.shopCar = urlParse(window.location.href)['shopCar'];
     this.idList = urlParse(window.location.href)['idList'];
+    // groupon
+    this.grouponGoodsId = urlParse(window.location.href)['goodsId'];
+    this.grouponQuantity = urlParse(window.location.href)['quantity'];
+    this.grouponId = urlParse(window.location.href)['grouponId'];
     this.alterName = urlParse(window.location.href)['alterName'];
     this.alterSex = urlParse(window.location.href)['alterSex'];
     this.alterPhone = urlParse(window.location.href)['alterPhone'];
@@ -118,6 +125,14 @@ export class AddAddressComponent implements OnInit {
             this.router.navigate(['cMain/pay'], {
               queryParams: {
                 ids: this.idList
+              }
+            });
+          } else if (this.shopCar === '2') {
+            this.router.navigate(['cMain/grouponPay'], {
+              queryParams: {
+                id: this.grouponGoodsId,
+                quantity: this.grouponQuantity,
+                groupId: this.grouponId
               }
             });
           } else {

@@ -60,7 +60,7 @@ export class CLoginService {
     if (username === undefined || username === null) {
       alert('请输入手机号码');
     } else {
-      if (/^1[34578]\d{9}$/.test(username.toString())) {
+      if (/^1[0123456789]\d{9}$/.test(username.toString())) {
         this.appService.postData(this.appProperties.smsSendUrl, {phone: username}).subscribe(
           data => {
             console.log(data);

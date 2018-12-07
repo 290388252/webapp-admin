@@ -6,6 +6,8 @@ import {CMainComponent} from './c-main.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 // import { ElModule } from 'element-angular';
 // import { WeUiModule } from 'ngx-weui';
+import {AppService} from '../../app-service';
+import {AppProperties} from '../../app.properties';
 @NgModule({
   imports: [
     CommonModule,
@@ -14,6 +16,7 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
     // ElModule.forRoot(),
     // WeUiModule.forRoot(),
   ],
+  providers: [AppService, AppProperties],
   declarations: [CMainComponent]
 })
 export class CMainModule { }

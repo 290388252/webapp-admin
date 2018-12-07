@@ -2,7 +2,7 @@
   height: 100%;
   width: 100%;
   background: rgba(82,94,113,.05);
-  margin-bottom: 60px;
+  margin-bottom: 200px;
   /*background: url("../../../../assets/main/bs-bg.jpg");*/
   /*background-size: 150% 100%;*/
 }
@@ -27,7 +27,7 @@
   color: white;
   position: absolute;
   top: 45px;
-  left: 80px;
+  left: 90px;
 }
 .left{
   float: left;

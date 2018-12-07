@@ -13,6 +13,8 @@ export class UserCenterComponent implements OnInit {
   public token;
   public userMoney;
   public userIntegral;
+  public userName;
+  public userImg;
 
   constructor(private appProperties: AppProperties,
               private appService: AppService,
@@ -20,8 +22,18 @@ export class UserCenterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.token = getToken();
+    // this.getInfo();
+    if (urlParse(window.location.search)['token'] === undefined) {
+      this.token = getToken();
+    } else {
+      this.token = urlParse(window.location.search)['token'];
+    }
     this.getDate();
+  }
+
+  getInfo() {
+    const strUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/wechat/getUserInfo&response_type=code&scope=snsapi_userinfo&state=/cMain/userCenter-1-76';
+    window.location.href = strUrl;
   }
 
   getDate() {
@@ -29,8 +41,16 @@ export class UserCenterComponent implements OnInit {
       data => {
         console.log(123);
         if (data.status === 1) {
+          if (data.returnObject.nickName === undefined || data.returnObject.nickName === ''
+            || data.returnObject.nickName === null) {
+            this.getInfo();
+          }
           this.userMoney = data.returnObject.userBalance;
           this.userIntegral = data.returnObject.integral;
+          this.userName = data.returnObject.nickname;
+          this.userImg = data.returnObject.headimgurl;
+        } else if (data.status === -99) {
+          alert(data.message);
         }
       },
       error => {
@@ -68,6 +88,8 @@ export class UserCenterComponent implements OnInit {
       });
     } else if (flag === 8) {
       this.router.navigate(['cMain/cardMap']);
+    } else if (flag === 9) {
+      this.router.navigate(['cMain/myDeclaration']);
     }
   }
 }

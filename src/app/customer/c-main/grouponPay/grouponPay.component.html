@@ -7,12 +7,16 @@
     </div>
     <div>
       <!--地址-->
-      <div class="top">
+      <div class="top" *ngIf="needAddress">
         <img style="width: 25px;height: 30px;margin: 20px 10px 0px;float: left" src="../../../../assets/icon/dw5.png" alt="">
-        <div style="margin-top: 15px;float: left;font-weight: bold;font-size: 14px;">
+        <div style="margin-top: 15px;float: left;font-weight: bold;font-size: 14px;" *ngIf="!noneAddress">
           <span>收货人：{{consignee}}</span><span style="padding-left: 20px;">{{iphone}}</span>
           <br>
           <span>配送地址：<span style="font-size: 12px;">{{address}}</span></span>
+        </div>
+        <div style="float: left;font-weight: bold;font-size: 14px;line-height: 70px;" *ngIf="noneAddress"
+             (click)="toAddress()">
+          请填写地址
         </div>
         <img (click)="toAddress()" style="width: 30px;height: 30px;float: right;margin-top: 20px" src="../../../../assets/icon/right.png" alt="">
       </div><!--<div style="background-color:white;margin-right: 20px;position: relative;width: 100%;padding-right: 26px;">

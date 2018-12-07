@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { ElModule } from 'element-angular';
-import { PrepaidRoutingModule } from './prepaid-routing.module';
-import {PrepaidComponent} from './prepaid.component';
+import { ScanRoutingModule } from './scan-routing.module';
+import {ScanComponent} from './scan.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
-import {FormsModule} from '@angular/forms';
-import {FileUploadModule} from 'ng2-file-upload';
+import { FormsModule } from '@angular/forms';
+// import {WeUiModule} from 'ngx-weui';
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
-    // ElModule,
-    FileUploadModule,
     FormsModule,
-    PrepaidRoutingModule
+    // ElModule,
+    // WeUiModule.forRoot(),
+    ScanRoutingModule
   ],
   providers: [AppService, AppProperties],
-  declarations: [PrepaidComponent]
+  declarations: [ScanComponent]
 })
-export class PrepaidModule { }
+export class ScanModule { }

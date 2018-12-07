@@ -35,7 +35,8 @@ const routes: Routes = [
       {path: 'waterCoupon', loadChildren: './user-center/waterCoupon/waterCoupon.module#WaterCouponModule'},
       { path: 'getCoupon', loadChildren: './coupon/coupon.module#CouponModule' },
       {path: 'recommend', loadChildren: './recommend/recommend.module#RecommendModule'},
-      {path: 'applyRefund', loadChildren: './applyRefund/applyRefund.module#ApplyRefundModule'}
+      {path: 'applyRefund', loadChildren: './applyRefund/applyRefund.module#ApplyRefundModule'},
+      {path: 'protocol', loadChildren: './protocol/protocol.module#ProtocolModule'}
     ]
   }
 ];

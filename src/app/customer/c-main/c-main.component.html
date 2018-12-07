@@ -2,11 +2,13 @@
   <router-outlet></router-outlet>
   <div class="footer" [hidden]="footerHidden">
     <div nz-row>
-      <div (click)="selected(1)"  [ngClass]="(curId === 1) ?'active':''" class="footer-btn" nz-col nzSpan="6"><img class="icon-img-last" [ngClass]="(curId === 1) ?'icon-active':''" src="../../../assets/icon/main.png" alt=""><br/>首页信息</div>
-      <div (click)="selected(2)" [routerLink]="['allGoods']" [routerLinkActive]="['router-link-active']" [ngClass]="(curId === 2) ?'active':''" class="footer-btn" nz-col nzSpan="6"><img class="icon-img-second" [ngClass]="(curId === 2) ?'icon-active':''" src="../../../assets/icon/all.png" alt=""><br/>推荐</div>
-      <!--<div (click)="selected(5)" [routerLink]="['search']" [routerLinkActive]="['router-link-active']" [ngClass]="(curId === 5) ?'active':''" class="footer-btn" nz-col nzSpan="4"><img class="icon-img" [ngClass]="(curId === 5) ?'icon-active':''" src="../../../assets/icon/search-bt.png" alt=""><br/>搜索</div>-->
-      <div (click)="selected(3)" [routerLink]="['shopCar']" [routerLinkActive]="['router-link-active']" [ngClass]="(curId === 3) ?'active':''" class="footer-btn" nz-col nzSpan="6"><img class="icon-img" [ngClass]="(curId === 3) ?'icon-active':''" src="../../../assets/icon/shopcar.png" alt=""><br/>购物车</div>
-      <div (click)="selected(4)" [routerLink]="['userCenter']" [routerLinkActive]="['router-link-active']" [ngClass]="(curId === 4) ?'active':''" class="footer-btn" nz-col nzSpan="6"><img class="icon-img" [ngClass]="(curId === 4) ?'icon-active':''" src="../../../assets/icon/personal.png" alt=""><br/>个人中心</div>
+      <div (click)="selected(1)"  [ngClass]="(curId === 1) ?'active':''" class="footer-btn" nz-col nzSpan="5"><img class="icon-img-last" [ngClass]="(curId === 1) ?'icon-active':''" src="../../../assets/icon/main.png" alt=""><br/>首页信息</div>
+      <div (click)="selected(2)" [routerLink]="['allGoods']" [routerLinkActive]="['router-link-active']" [ngClass]="(curId === 2) ?'active':''" class="footer-btn" nz-col nzSpan="5"><img class="icon-img-second" [ngClass]="(curId === 2) ?'icon-active':''" src="../../../assets/icon/all.png" alt=""><br/>推荐</div>
+      <!--<div (click)="selected(5)" [routerLink]="['search']" [routerLinkActive]="['router-link-active']" [ngClass]="(curId === 5) ?'active':''" class="footer-btn" nz-col nzSpan="4"><img class="icon-img" [ngClass]="(curId === 5) ?'icon-active':''" src="../../../assets/icon/scan.png" alt=""><br/>扫一扫</div>-->
+      <div (click)="selected(5)" [ngClass]="(curId === 5) ?'active':''" class="footer-btn" nz-col nzSpan="4"><img class="icon-img" [ngClass]="(curId === 5) ?'icon-active':''" src="../../../assets/icon/scan.png" alt=""><br/>扫一扫</div>
+
+      <div (click)="selected(3)" [routerLink]="['shopCar']" [routerLinkActive]="['router-link-active']" [ngClass]="(curId === 3) ?'active':''" class="footer-btn" nz-col nzSpan="5"><img class="icon-img" [ngClass]="(curId === 3) ?'icon-active':''" src="../../../assets/icon/shopcar.png" alt=""><br/>购物车</div>
+      <div (click)="selected(4)" [routerLink]="['userCenter']" [routerLinkActive]="['router-link-active']" [ngClass]="(curId === 4) ?'active':''" class="footer-btn" nz-col nzSpan="5"><img class="icon-img" [ngClass]="(curId === 4) ?'icon-active':''" src="../../../assets/icon/personal.png" alt=""><br/>个人中心</div>
     </div>
   </div>
 </div>

@@ -1,0 +1,30 @@
+<div class="content">
+  <h3 style="background: white;padding: 8px; margin: 0px; font-size: 1rem">我的故障申报</h3>
+  <div class="three-btn">
+    <button (click)="selectBtn(2)" [ngClass]="cursor === 2 ? 'declaration-button' : 'nonecolor-button'">全部</button>
+    <button (click)="selectBtn(0)" [ngClass]="cursor === 0 ? 'declaration-button' : 'nonecolor-button'">未回复</button>
+    <button (click)="selectBtn(1)" [ngClass]="cursor === 1 ? 'declaration-button' : 'nonecolor-button'">已回复</button>
+  </div>
+  <div class="item" *ngFor="let item of declarationList; let i = index;">
+    <span class="nick-name">昵称：{{item.nickName}}</span><span style="float: right">{{item.createTimes}}</span>
+    <p>
+      <span class="item-type">问题类型：{{item.typeLabel}}</span>
+      <span class="item-ok" [hidden]="item.state === 0">{{item.stateLabel}}</span>
+      <span class="item-no" [hidden]="item.state === 1">{{item.stateLabel}}</span>
+    </p>
+    <p *ngIf="item.picName !== null">
+      <span>问题图片：</span>
+      <img [src]="imgUrl + item.picName" style="width: 120px; height: 90px; margin: 5px; display: inline-block;">
+    </p>
+    <p class="item-content">问题内容：{{item.content}}</p>
+    <div class="reply">
+      <div *ngFor="let itemSon of item.listReply" style="margin-bottom: 5px">
+        <span style="color: #3399ff">{{turnText(itemSon.src)}}</span><span>{{itemSon.content}} {{itemSon.createTime}}</span>
+      </div>
+      <div style="margin-bottom: 30px">
+        <textarea style="width: 100%;height: 50px; padding: 5px;" [(ngModel)]="item.contentText"></textarea>
+        <button style="float: right" class="declaration-button" (click)="ask(i)">继续提问</button>
+      </div>
+    </div>
+  </div>
+</div>

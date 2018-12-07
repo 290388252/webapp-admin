@@ -53,6 +53,7 @@ export class AppProperties {
   public shopUnifiedStoreOrderUrl: string;
   public orderUnifiedOrderUrl: string;
   public shopAddressSelectUrl: string;
+  public grouponJudgeAddressUrl: string;
   public shopAddressShow: string;
   public mapDetailsAUrl: string;
   public mapDetailsBUrl: string;
@@ -76,12 +77,17 @@ export class AppProperties {
   public applyRefundUrl: string;
   public getOrderItemListUrl: string;
   public IfApplayRefundUrl: string;
-
+  /*故障申报*/
+  public complainImgUrl: string;
+  public tblCustomerMyDeclaration: string;
+  public tblCustomerComplainReplyIsReplyUrl: string;
+  public tblCustomerComplainReplyAddUrl: string;
 
   constructor() {
-    this.appUrl = 'http://119.23.233.123:6662/ys_admin'; // localtest
     // this.appUrl = 'http://192.168.0.114:6662/ys_admin';
     // this.appUrl = 'http://192.168.0.113:8769/ys_admin'; // localtest
+    // this.appUrl = 'http://192.168.0.106:6662/ys_admin'; // localtest
+    this.appUrl = 'http://119.23.233.123:6662/ys_admin/';
     this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
 
     this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
@@ -117,7 +123,8 @@ export class AppProperties {
     // this.shopStoreUpdateUrl = this.appUrl + '/order/storeOrderUpdate';
     this.shopUnifiedStoreOrderUrl = this.appUrl + '/order/storeOrderPay';
     this.shopAddressSelectUrl = this.appUrl + '/address/select';
-    this.shopAddressShow  = this.appUrl + '/order/checkIfneedAddress';
+    this.grouponJudgeAddressUrl = this.appUrl + '/order/checkGroupIfneedAddress';
+    this.shopAddressShow = this.appUrl + '/order/checkIfneedAddress';
     this.mapDetailsAUrl = this.appUrl + '/vendingMachinesWay/listAll';
     this.mapDetailsBUrl = this.appUrl + '/vendingMachinesWay/listAll2';
     this.shopAddressUpdateUrl = this.appUrl + '/address/update';
@@ -136,12 +143,13 @@ export class AppProperties {
     this.judgeVipUrl = this.appUrl + '/member/judgeMember';
     this.shopVipBuyUrl = this.appUrl + '/memberOrder/payMemebr';
     this.shopVipAddUrl = this.appUrl + '/memberOrder/add';
-    this.shopUserMoneyUrl = this.appUrl + '/member/findBean';
+    this.shopUserMoneyUrl = this.appUrl + '/tblCustomerWx/getBean';
+    // this.shopUserMoneyUrl = this.appUrl + '/member/findBean';
     this.shopPrepaidAddUrl = this.appUrl + '/memberOrder/add';
     this.shopPrepaidBuyUrl = this.appUrl + '/memberOrder/payBalance';
     this.grouponAddUrl = this.appUrl + '/order/storeOrderSpellGroupAdd';
     this.grouponBuyUrl = this.appUrl + '/order/storeOrderSpellGroupPay';
-    this.wechatShareInfoUrl = this.appUrl + '/wechat/shareInfo';
+    this.wechatShareInfoUrl = this.smsUrl + '/wechat/shareInfo';
     this.couponAddAsianCustomer = this.appUrl + '/coupon/addAsianCustomer';
 
     this.payFinishShowUrl = this.appUrl + '/order/storeOrderFininshPay';
@@ -154,5 +162,10 @@ export class AppProperties {
     this.applyRefundUrl = this.appUrl + '/refundApplication/do';
     this.getOrderItemListUrl = this.appUrl + '/payRecord/getPayRecordItemList';
     this.IfApplayRefundUrl = this.appUrl + '/refundApplication/get';
+    /*我的故障申报*/
+    this.complainImgUrl = this.appUrl + '/complainImg/';
+    this.tblCustomerMyDeclaration  = this.appUrl + '/tblCustomerComplain/myDeclaration';
+    this.tblCustomerComplainReplyIsReplyUrl  = this.appUrl + '/complainReply/isReply';
+    this.tblCustomerComplainReplyAddUrl  = this.appUrl + '/complainReply/add';
   }
 }

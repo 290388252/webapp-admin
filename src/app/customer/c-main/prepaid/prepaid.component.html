@@ -1,23 +1,81 @@
 <div class="user-container">
-  <div class="container">
-    <div style="width: 100%;background: #417ece;height: 200px;color: #fefef6;padding: 12px;">
-      <div style="width: 100%;text-align: center;letter-spacing: 10px;font-size: 18px;position: relative;">
-        <span style="position: absolute;left:0" (click)="goTo('userCenter')"><i class="anticon anticon-left"></i></span>
-        余额
+  <div class="guide">
+    <span (click)="goTo('userCenter')" class="guideIcon"><i class="anticon anticon-left"></i></span>
+    上善若水
+  </div>
+  <div class="guideBanner">
+    <img src="../../../../assets/icon/prepaidBanner.png">
+  </div>
+  <div class="balance">
+    账户余额:&nbsp;&nbsp;{{userBalance}}元
+  </div>
+  <div class="prepaid">
+    <span class="prepaid_title">充值金额</span>
+    <div class="friend">
+      <button type="button" (click)="prepaidFriend()">{{judgeButton}}
+      </button>
+    </div>
+    <div class="prepaidPhone" *ngIf="judgeFriend">
+      <img src="../../../../assets/icon/phoneIcon.png" class="prepaidPhone_icon">
+      <input type="number" nz-input id="input_phpone" [(ngModel)]="prepaidPhone" name="prepaidPhone"
+             class="prepaidPhone_input">
+      <span class="correct" *ngIf="correct">*请输入正确的手机号</span>
+    </div>
+
+    <div class="prepaid_cont">
+      <div class="prepaid_contIn" style="margin-right: 20px;" [ngClass]="{'focus_money':isFocusA === true}"
+           (click)="focusMoney('isFocusA')">
+        <span class="prepaid_span" style="margin-top: 18px;">充200</span>
+        <span class="prepaid_span">送25</span>
       </div>
-      <div style="width: 100%;margin-top: 20px;">
-        <p style="color: #F8F8F8">余额账户</p>
-        <span style="font-size: 40px;">{{userMoney}}元</span>
-        <!--<p>目前积分：{{userIntegral}}分</p>-->
+      <div class="prepaid_contIn" [ngClass]="{'focus_money':isFocusB === true}" (click)="focusMoney('isFocusB')">
+        <span class="prepaid_span" style="margin-top: 18px;">充100</span>
+        <span class="prepaid_span">送10</span>
       </div>
     </div>
-    <div style="width: 100%;position: relative;height: 50px;background: #ffffff;overflow: hidden;" (click)="goTo('prepaidPay')">
-      <div style="height: 50px;margin-right: 50px;line-height: 50px;padding-left: 12px;letter-spacing: 10px;font-size: 16px;color: #333333">充值</div>
-      <div style="width: 50px;height: 50px;position: absolute;right: 12px;top: 0;line-height: 50px;text-align: right;">
-        <i class="anticon anticon-right"></i>
-      </div>
+    <div class="prepaidOther">
+      <!--oninput="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : '';"-->
+      <!--if(value.length>7)value=value.slice(0,7);-->
+      <!--^[1-9]\d{0,3}（?：｜\.\d{0,2}）$-->
+      <!--if(value.indexOf('.')){if(value.length>7)value=value.slice(0,7)}else{if(value.length>4)value=value.slice(0,4)}-->
+      <span class="prepaidOther_title">其他金额:<span style="color: red">￥</span></span>
+      <input type="number" nz-input id="input_money" (keyup)="keyupMoney()" [(ngModel)]="prepaidMoney" name="prepaidMoney"
+             class="prepaidOther_input" (click)="focusMoney('isFocusC')"
+             oninput="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : '';">
+      <span class="errorNum" *ngIf="errorNum">*请输入大于0的金额</span>
+
     </div>
   </div>
+  <div class="prepaidFooter">
+    <div class="prepaidButton">
+      <button type="button" [disabled]="errorSumit" (click)="prepaidComfirm()">立即充值
+      </button>
+
+    </div>
+    <span class="prepaidText">点击立即充值，即表示您已经同意
+      <span style="color: #00ACFF" (click)="goTo('protocol')">《充值活动协议》</span>
+    </span>
+  </div>
+
+  <!--<div class="container">-->
+  <!--<div style="width: 100%;background: #417ece;height: 200px;color: #fefef6;padding: 12px;">-->
+  <!--<div style="width: 100%;text-align: center;letter-spacing: 10px;font-size: 18px;position: relative;">-->
+  <!--<span style="position: absolute;left:0" (click)="goTo('userCenter')"><i class="anticon anticon-left"></i></span>-->
+  <!--余额-->
+  <!--</div>-->
+  <!--<div style="width: 100%;margin-top: 20px;">-->
+  <!--<p style="color: #F8F8F8">余额账户</p>-->
+  <!--<span style="font-size: 40px;">{{userMoney}}元</span>-->
+  <!--&lt;!&ndash;<p>目前积分：{{userIntegral}}分</p>&ndash;&gt;-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div style="width: 100%;position: relative;height: 50px;background: #ffffff;overflow: hidden;" (click)="goTo('prepaidPay')">-->
+  <!--<div style="height: 50px;margin-right: 50px;line-height: 50px;padding-left: 12px;letter-spacing: 10px;font-size: 16px;color: #333333">充值</div>-->
+  <!--<div style="width: 50px;height: 50px;position: absolute;right: 12px;top: 0;line-height: 50px;text-align: right;">-->
+  <!--<i class="anticon anticon-right"></i>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
 </div>
 
 

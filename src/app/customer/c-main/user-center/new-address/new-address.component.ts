@@ -34,6 +34,8 @@ export class NewAddressComponent implements OnInit {
     this.quantity = urlParse(window.location.href)['quantity'];
     this.token = getToken();
     this.getInit();
+    const test = 'http://localhost:4202/cMain/newAddress?type=1&id=2';
+    this.getParamsWithUrl(test);
   }
 
   getInit() {
@@ -60,6 +62,22 @@ export class NewAddressComponent implements OnInit {
     );
   }
 
+  getParamsWithUrl(url) {
+    const args = url.split('?');
+    if (args[0] === url) {
+      return '';
+    }
+    const arr = args[1].split('&');
+    console.log('arr');
+    console.log(arr);
+    let obj = {};
+    for (let i = 0; i < arr.length; i++) {
+      let arg = arr[i].split('=');
+      obj[arg[0]] = arg[1];
+    }
+    console.log(obj);
+    return obj;
+  }
   setDefault(item) {
     // shopAddressUpdateUrl
     const one = document.getElementsByName('default');

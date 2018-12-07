@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { ElModule } from 'element-angular';
-import { PrepaidRoutingModule } from './prepaid-routing.module';
-import {PrepaidComponent} from './prepaid.component';
+import { ProtocolRoutingModule } from './protocol-routing.module';
+import {ProtocolComponent} from './protocol.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
@@ -15,9 +15,9 @@ import {FileUploadModule} from 'ng2-file-upload';
     // ElModule,
     FileUploadModule,
     FormsModule,
-    PrepaidRoutingModule
+    ProtocolRoutingModule
   ],
   providers: [AppService, AppProperties],
-  declarations: [PrepaidComponent]
+  declarations: [ProtocolComponent]
 })
-export class PrepaidModule { }
+export class ProtocolModule { }
