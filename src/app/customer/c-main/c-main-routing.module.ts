@@ -36,7 +36,8 @@ const routes: Routes = [
       { path: 'getCoupon', loadChildren: './coupon/coupon.module#CouponModule' },
       {path: 'recommend', loadChildren: './recommend/recommend.module#RecommendModule'},
       {path: 'applyRefund', loadChildren: './applyRefund/applyRefund.module#ApplyRefundModule'},
-      {path: 'protocol', loadChildren: './protocol/protocol.module#ProtocolModule'}
+      {path: 'protocol', loadChildren: './protocol/protocol.module#ProtocolModule'},
+      {path: 'myDeclaration', loadChildren: './user-center/myDeclaration/myDeclaration.module#MyDeclarationModule'},
     ]
   }
 ];

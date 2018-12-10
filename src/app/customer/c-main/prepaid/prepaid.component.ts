@@ -43,13 +43,24 @@ export class PrepaidComponent implements OnInit {
     this.getDate();
     this.prepaidMoney = undefined;
     this.judgeFriend = false;
-    this.judgeButton = '帮好友充值';
+    this.judgeButton = '点击帮好友充值';
     this.isFocusA = true;
     this.isFocusB = false;
     this.errorSumit = false;
     this.correct = false;
     this.endMoney = 200;
+
   }
+
+  //
+  // isArray(arg) {
+  //   if (typeof arg === 'object') {
+  //     return;
+  //     Object.prototype.toString.call(arg)
+  //     === '[object Array]';
+  //   }
+  //   return false;
+  // }
 
   getDate() {
     this.appService.postAliData(this.appProperties.shopUserMoneyUrl, {}, this.token).subscribe(
@@ -95,13 +106,13 @@ export class PrepaidComponent implements OnInit {
       this.isFocusA = true;
       this.isFocusB = false;
       this.errorSumit = false;
-      this.endMoney = 200;
+      // this.endMoney = 200;
       this.prepaidMoney = undefined;
     } else if (val === 'isFocusB') {
       this.isFocusA = false;
       this.isFocusB = true;
       this.errorSumit = false;
-      this.endMoney = 100;
+      // this.endMoney = 100;
       this.prepaidMoney = undefined;
     } else if (val === 'isFocusC') {
       this.isFocusA = false;
@@ -121,12 +132,17 @@ export class PrepaidComponent implements OnInit {
   prepaidFriend() {
     this.judgeFriend = !this.judgeFriend;
     if (this.judgeFriend === true) {
-      this.judgeButton = '本账号充值';
+      this.judgeButton = '点击本账号充值';
       this.prepaidPhone = undefined;
+      this.prepaidMoney = undefined;
+      this.isFocusA = true;
+      this.isFocusB = false;
     } else if (this.judgeFriend === false) {
-      this.judgeButton = '帮好友充值';
+      this.judgeButton = '点击帮好友充值';
       this.correct = false;
-
+      this.prepaidMoney = undefined;
+      this.isFocusA = true;
+      this.isFocusB = false;
     }
   }
 
@@ -155,19 +171,19 @@ export class PrepaidComponent implements OnInit {
         this.errorNum = false;
       }
     }
-    // if (this.isFocusA === true && this.isFocusB === false) {
-    //   this.endMoney = 200;
-    // } else if (this.isFocusA === false && this.isFocusB === true) {
-    //   this.endMoney = 100;
-    // } else {
-    //   this.endMoney = this.prepaidMoney;
-    //   if (Number(this.prepaidMoney) < 0) {
-    //     this.errorNum = true;
-    //     return;
-    //   } else {
-    //     this.errorNum = false;
-    //   }
-    // }
+    if (this.isFocusA === true && this.isFocusB === false) {
+      this.endMoney = 200;
+    } else if (this.isFocusA === false && this.isFocusB === true) {
+      this.endMoney = 100;
+    } else {
+      this.endMoney = this.prepaidMoney;
+      if (Number(this.prepaidMoney) < 0) {
+        this.errorNum = true;
+        return;
+      } else {
+        this.errorNum = false;
+      }
+    }
     this.modalService.info({
       nzContent: '<b>您确定为' + user + '充值吗?</b>',
       nzCancelText: '忍痛放弃',
@@ -177,6 +193,8 @@ export class PrepaidComponent implements OnInit {
   }
 
   prepaidPay() {
+    console.log(this.endPhone);
+    console.log(this.endMoney);
     this.appService.postAliData(this.appProperties.shopPrepaidAddUrl, {
       price: this.endMoney,
       friendPhone: this.endPhone

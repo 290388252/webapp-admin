@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AppService} from '../../../../app-service';
 import {AppProperties} from '../../../../app.properties';
 import {getToken, urlParse} from '../../../../utils/util';
@@ -9,17 +9,23 @@ import {Router} from '@angular/router';
   templateUrl: './myDeclaration.component.html',
   styleUrls: ['./myDeclaration.component.css']
 })
-export class MyDeclarationComponent implements OnInit {
+export class MyDeclarationComponent implements OnInit, OnDestroy {
   public token;
   public cursor = 2;
   public declarationList = [];
   public imgUrl = this.appProperties.complainImgUrl;
+  public timer;
+  public detailList = [];
+  public complainIdsList = [];
 
   constructor(private appProperties: AppProperties,
               private appService: AppService,
               private router: Router) {
   }
-
+  ngOnDestroy() {
+    clearInterval(this.timer);
+    console.log('注销故障申报时停止定时刷新！');
+  }
   ngOnInit() {
     this.token = getToken();
     this.getData(this.cursor);
@@ -31,13 +37,26 @@ export class MyDeclarationComponent implements OnInit {
     } else {
       val = state;
     }
+    clearInterval(this.timer);
     this.appService.postAliData(this.appProperties.tblCustomerMyDeclaration, {state: val}, this.token).subscribe(
       data => {
-        console.log(data);
         this.declarationList = data.returnObject;
         this.declarationList.forEach(item => {
+          this.complainIdsList.push(item.id);
+          this.detailList.push(item.listReply);
           item.contentText = '';
         });
+        console.log(this.detailList);
+        this.timer = setInterval(() => {
+          this.appService.postFormData(this.appProperties.tblCustomerComplainReplyDetails, {complainIds: this.complainIdsList}, this.token).subscribe(
+            data1 => {
+              this.detailList = data1.returnObject;
+              console.log(this.detailList);
+            },
+            error1 => {
+              console.log(error1);
+            });
+        }, 360000);
       },
       error => {
         console.log(error);

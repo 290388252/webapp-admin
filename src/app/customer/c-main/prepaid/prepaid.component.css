@@ -5,6 +5,7 @@
   width: 100%;
   background: #ffffff;
   font-family: Microsoft Yahei;
+  margin-bottom: 50px;
 }
 .guide {
   width: 100%;
@@ -101,7 +102,7 @@
   width: 100%;
   height:24px;
   border: none;
-  background: #00ACFF;
+  background: #f76126;
   font-size: 14px;
   text-align: center;
   line-height:22px;
@@ -152,9 +153,6 @@
   border: 1px solid #999999;
 }
 .prepaidFooter {
-  position: fixed;
-  bottom: 68px;
-  z-index: 1000;
   width: 100%;
 }
 .prepaidButton {
@@ -172,7 +170,7 @@
   text-align: center;
   line-height: 44px;
   color: #ffffff;
-  background: #00ACFF;
+  background: #f76126;
   border-radius: 4px;
 }
 .prepaidText {

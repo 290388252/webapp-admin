@@ -55,6 +55,8 @@
         </div>
         <div class="list_goods" style="width: 60%; height: 100%; float: left; position: relative">
           <div class="list_goods_name" (click)="goTo(item.id, item.name, item.pic)">
+            <img src="../../../../assets/icon/12icon.png" style="width: 40px;height: 16px;display: inline-block; margin-right: 5px;
+            position: relative; top: -2px;">
             <img *ngIf="item.isConglomerateCommodity === 1" style="width: 20px; height: 20px; display: inline-block; margin-right: 5px;
             position: relative; top: -2px;" src="../../../../assets/icon/firstIcon/icon-group.png" alt="" />{{item.name || '无名字'}}
           </div>

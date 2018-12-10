@@ -18,7 +18,7 @@
     </p>
     <p class="item-content">问题内容：{{item.content}}</p>
     <div class="reply">
-      <div *ngFor="let itemSon of item.listReply" style="margin-bottom: 5px">
+      <div *ngFor="let itemSon of detailList[i]" style="margin-bottom: 5px">
         <span style="color: #3399ff">{{turnText(itemSon.src)}}</span><span>{{itemSon.content}} {{itemSon.createTime}}</span>
       </div>
       <div style="margin-bottom: 30px">

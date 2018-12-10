@@ -23,8 +23,10 @@ export class UserCenterComponent implements OnInit {
 
   ngOnInit() {
     // this.getInfo();
-    if (urlParse(window.location.search)['token'] === undefined) {
+    if (urlParse(window.location.search)['token'] === undefined || urlParse(window.location.search)['token'] === ''
+    || urlParse(window.location.search)['token'] === null) {
       this.token = getToken();
+      // this.token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiNzA5MCwwLG9La1p5MDR5WUs4MXhUanprc04xb0pMemllTjAiLCJleHAiOjE1NDQyMjUzMzd9.gagOxXr-CdXaMBqwVS438FEy7JZJibZVRi8LDeH-hpvOyQj4JQzFPnRkf2W1SLfSr2F1ZrzaoqDd88yGjZMzlA';
     } else {
       this.token = urlParse(window.location.search)['token'];
     }
@@ -41,8 +43,8 @@ export class UserCenterComponent implements OnInit {
       data => {
         console.log(123);
         if (data.status === 1) {
-          if (data.returnObject.nickName === undefined || data.returnObject.nickName === ''
-            || data.returnObject.nickName === null) {
+          if (data.returnObject.nickname === undefined || data.returnObject.nickname === ''
+            || data.returnObject.nickname === null) {
             this.getInfo();
           }
           this.userMoney = data.returnObject.userBalance;

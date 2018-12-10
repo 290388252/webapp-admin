@@ -20,6 +20,7 @@ export class PromotionsComponent implements OnInit {
   public couponList;
   img;
   abc;
+
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router) {
   }
 
@@ -54,11 +55,19 @@ export class PromotionsComponent implements OnInit {
   }
 
   goTo(id) {
-    console.log(id);
-    this.router.navigate(['cMain/detail'], {
-      queryParams: {
-        id: id
+    if (id === '1') {
+      if (getToken() === null || getToken() === undefined) {
+        window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
+      } else {
+        this.router.navigate(['cMain/firstPage']);
       }
-    });
+    } else {
+      this.router.navigate(['cMain/detail'], {
+        queryParams: {
+          id: id
+        }
+      });
+    }
+
   }
 }

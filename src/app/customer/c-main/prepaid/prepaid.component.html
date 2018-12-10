@@ -35,13 +35,16 @@
     </div>
     <div class="prepaidOther">
       <!--oninput="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : '';"-->
-      <!--if(value.length>7)value=value.slice(0,7);-->
+
       <!--^[1-9]\d{0,3}（?：｜\.\d{0,2}）$-->
       <!--if(value.indexOf('.')){if(value.length>7)value=value.slice(0,7)}else{if(value.length>4)value=value.slice(0,4)}-->
       <span class="prepaidOther_title">其他金额:<span style="color: red">￥</span></span>
-      <input type="number" nz-input id="input_money" (keyup)="keyupMoney()" [(ngModel)]="prepaidMoney" name="prepaidMoney"
+      <input type="tel" nz-input id="input_money" (keyup)="keyupMoney()" [(ngModel)]="prepaidMoney"
+             name="prepaidMoney"
              class="prepaidOther_input" (click)="focusMoney('isFocusC')"
-             oninput="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : '';">
+             oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')};
+              if(value.length>4)value=value.slice(0,4);"
+             onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')};">
       <span class="errorNum" *ngIf="errorNum">*请输入大于0的金额</span>
 
     </div>

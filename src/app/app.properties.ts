@@ -82,6 +82,7 @@ export class AppProperties {
   public tblCustomerMyDeclaration: string;
   public tblCustomerComplainReplyIsReplyUrl: string;
   public tblCustomerComplainReplyAddUrl: string;
+  public tblCustomerComplainReplyDetails: string;
 
   constructor() {
     // this.appUrl = 'http://192.168.0.114:6662/ys_admin';
@@ -167,5 +168,6 @@ export class AppProperties {
     this.tblCustomerMyDeclaration  = this.appUrl + '/tblCustomerComplain/myDeclaration';
     this.tblCustomerComplainReplyIsReplyUrl  = this.appUrl + '/complainReply/isReply';
     this.tblCustomerComplainReplyAddUrl  = this.appUrl + '/complainReply/add';
+    this.tblCustomerComplainReplyDetails = this.appUrl + '/complainReply/replyDetails';
   }
 }
