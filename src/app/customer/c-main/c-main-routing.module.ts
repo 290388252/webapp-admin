@@ -38,6 +38,7 @@ const routes: Routes = [
       {path: 'applyRefund', loadChildren: './applyRefund/applyRefund.module#ApplyRefundModule'},
       {path: 'protocol', loadChildren: './protocol/protocol.module#ProtocolModule'},
       {path: 'myDeclaration', loadChildren: './user-center/myDeclaration/myDeclaration.module#MyDeclarationModule'},
+      {path: 'scan', loadChildren: './scan/scan.module#ScanModule'},
     ]
   }
 ];

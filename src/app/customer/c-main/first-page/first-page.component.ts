@@ -118,9 +118,13 @@ export class FirstPageComponent implements OnInit {
       }});
   }
   turnToPage(val) {
-    this.router.navigate(['cMain/recommend'], {
-      queryParams: {
-        value: val,
-      }});
+    if (val === 4) {
+       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/wechat/getCustomerToken&response_type=code&scope=snsapi_userinfo&state=:9800/main';
+    } else {
+      this.router.navigate(['cMain/recommend'], {
+        queryParams: {
+          value: val,
+        }});
+    }
   }
 }

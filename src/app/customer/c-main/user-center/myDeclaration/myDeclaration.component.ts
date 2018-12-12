@@ -38,17 +38,24 @@ export class MyDeclarationComponent implements OnInit, OnDestroy {
       val = state;
     }
     clearInterval(this.timer);
-    this.appService.postAliData(this.appProperties.tblCustomerMyDeclaration, {state: val}, this.token).subscribe(
+    this.appService.postAliData(this.appProperties.tblCustomerMyDeclaration, {
+      state: val
+    }, this.token).subscribe(
       data => {
         this.declarationList = data.returnObject;
+        this.detailList = [];
+        this.complainIdsList = [];
         this.declarationList.forEach(item => {
           this.complainIdsList.push(item.id);
           this.detailList.push(item.listReply);
           item.contentText = '';
         });
         console.log(this.detailList);
+        console.log(this.complainIdsList);
         this.timer = setInterval(() => {
-          this.appService.postFormData(this.appProperties.tblCustomerComplainReplyDetails, {complainIds: this.complainIdsList}, this.token).subscribe(
+          this.appService.postFormData(this.appProperties.tblCustomerComplainReplyDetails, {
+            complainIds: this.complainIdsList
+          }, this.token).subscribe(
             data1 => {
               this.detailList = data1.returnObject;
               console.log(this.detailList);
@@ -69,7 +76,9 @@ export class MyDeclarationComponent implements OnInit, OnDestroy {
   ask(num) {
     /*console.log(list);*/
     if (this.declarationList[num].contentText !== '') {
-      this.appService.postFormData(this.appProperties.tblCustomerComplainReplyIsReplyUrl, {complainId: this.declarationList[num].id}, this.token).subscribe(
+      this.appService.postFormData(this.appProperties.tblCustomerComplainReplyIsReplyUrl, {
+        complainId: this.declarationList[num].id
+      }, this.token).subscribe(
         data => {
           console.log(data);
           if (data.status === 1) {

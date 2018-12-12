@@ -13,6 +13,8 @@ export class AddAddressComponent implements OnInit {
   public token: string;
   public isAdd;
   public alterId;
+  public type;
+  public pay;
   // add
   public addName;
   public addSex;
@@ -41,10 +43,12 @@ export class AddAddressComponent implements OnInit {
 
   ngOnInit() {
     this.token = getToken();
+    this.type = urlParse(window.location.href)['type'];
     this.isAdd = urlParse(window.location.href)['isAdd'];
     this.alterId = urlParse(window.location.href)['id'];
     this.shopCar = urlParse(window.location.href)['shopCar'];
     this.idList = urlParse(window.location.href)['idList'];
+    this.pay = urlParse(window.location.href)['pay'];
     // groupon
     this.grouponGoodsId = urlParse(window.location.href)['goodsId'];
     this.grouponQuantity = urlParse(window.location.href)['quantity'];
@@ -121,10 +125,10 @@ export class AddAddressComponent implements OnInit {
       data => {
         if (data.status === 1) {
           this.disable = false;
-          if (this.shopCar === '1') {
-            this.router.navigate(['cMain/pay'], {
+          if (this.type === '1') {
+            this.router.navigate(['cMain/newAddress'], {
               queryParams: {
-                ids: this.idList
+                type: 1
               }
             });
           } else if (this.shopCar === '2') {
@@ -135,8 +139,14 @@ export class AddAddressComponent implements OnInit {
                 groupId: this.grouponId
               }
             });
-          } else {
-            this.router.navigate(['cMain/newAddress']);
+          } else if (this.type === '4') {
+            this.router.navigate(['cMain/newAddress'], {
+              queryParams: {
+                type: 4,
+                idList: this.idList,
+                pay: this.pay
+              }
+            });
           }
         } else {
           this.disable = false;
@@ -175,7 +185,21 @@ export class AddAddressComponent implements OnInit {
       data => {
         if (data.status === 1) {
           alert('修改成功!');
-          this.router.navigate(['cMain/newAddress']);
+          if (this.type === '1') {
+            this.router.navigate(['cMain/newAddress'], {
+              queryParams: {
+                type: 1
+              }
+            });
+          } else if (this.type === '4') {
+            this.router.navigate(['cMain/newAddress'], {
+              queryParams: {
+                type: 4,
+                idList: this.idList,
+                pay: this.pay
+              }
+            });
+          }
         } else {
           alert(data.message);
         }

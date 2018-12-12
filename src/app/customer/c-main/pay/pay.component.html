@@ -1,8 +1,8 @@
  <div class="user-container">
-  <div class="top" *ngIf="showAddress">
+  <div class="top" *ngIf="showAddress" (click)="goTo()">
     <img style="width: 20px;height: 25px;margin: 20px 10px 0 10px;float: left" src="../../../../assets/icon/dw5.png" alt="">
     <div style="margin-top: 15px;float: left;font-weight: bold;font-size: 14px;">
-      <span style="width: 100%;height: 44px;display: block;line-height: 44px;" *ngIf="noneAddress" (click)="goTo()">请填写收货地址</span>
+      <span style="width: 100%;height: 44px;display: block;line-height: 44px;" *ngIf="noneAddress" >请填写收货地址</span>
       <span>{{receiver}}</span><span style="padding-left: 20px;">{{phone}}</span>
       <br>
       <span>{{name}}</span>

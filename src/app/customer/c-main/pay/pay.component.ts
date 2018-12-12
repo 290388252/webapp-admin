@@ -50,6 +50,7 @@ export class PayComponent implements OnInit {
         this.type = params.type;
       }
     );
+
     this.token = getToken();
     this.appService.postAliData(this.appProperties.shopAddressShow, {'ids': this.ids}, this.token).subscribe(
       data => {
@@ -57,7 +58,7 @@ export class PayComponent implements OnInit {
           this.showAddress = true;
           this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
             data1 => {
-              if (data1.returnObject === null) {
+              if (data1.returnObject === null || data1.returnObject === [] || data1.returnObject === undefined) {
                 this.noneAddress = true;
               } else {
                 this.noneAddress = false;
@@ -85,13 +86,15 @@ export class PayComponent implements OnInit {
 
   //
   goTo() {
-    this.router.navigate(['cMain/addAddress'], {
+    this.router.navigate(['cMain/newAddress'], {
       queryParams: {
+        type: 4,
+        idList: this.ids,
         isAdd: 1,
-        shopCar: 1,
-        idList: this.ids
+        pay: this.type
       }
     });
+
   }
 
   // print(val) {
@@ -286,6 +289,7 @@ export class PayComponent implements OnInit {
   }
 
   showShopCarPrice() {
+    console.log(this.type);
     this.appService.postAliData(this.appProperties.shoppingCarUrl, {
       ids: this.ids,
       type: this.type

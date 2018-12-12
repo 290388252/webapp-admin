@@ -20,6 +20,9 @@ export class NewAddressComponent implements OnInit {
   public groupId;
   public pay;
   public quantity;
+  public payList;
+  public payShopCar;
+  public payType;
 
   constructor(private appProperties: AppProperties,
               private appService: AppService,
@@ -28,10 +31,13 @@ export class NewAddressComponent implements OnInit {
 
   ngOnInit() {
     this.type = urlParse(window.location.href)['type'];
+    console.log(this.type);
     this.ids = urlParse(window.location.href)['id'];
     this.groupId = urlParse(window.location.href)['groupId'];
     this.pay = urlParse(window.location.href)['pay'];
     this.quantity = urlParse(window.location.href)['quantity'];
+    this.payShopCar = urlParse(window.location.href)['shopCar'];
+    this.payList = urlParse(window.location.href)['idList'];
     this.token = getToken();
     this.getInit();
     const test = 'http://localhost:4202/cMain/newAddress?type=1&id=2';
@@ -78,6 +84,7 @@ export class NewAddressComponent implements OnInit {
     console.log(obj);
     return obj;
   }
+
   setDefault(item) {
     // shopAddressUpdateUrl
     const one = document.getElementsByName('default');
@@ -114,26 +121,61 @@ export class NewAddressComponent implements OnInit {
 
   // 新增地址
   addAddress() {
-    this.router.navigate(['cMain/addAddress'], {
-      queryParams: {
-        isAdd: 1
-      }
-    });
+    if (this.type === '4') {
+      // 支付
+      this.router.navigate(['cMain/addAddress'], {
+        queryParams: {
+          isAdd: 1,
+          idList: this.payList,
+          type: 4,
+          pay: this.pay
+        }
+      });
+    } else if (this.type === '1') {
+      // 个人中心
+      this.router.navigate(['cMain/addAddress'], {
+        queryParams: {
+          isAdd: 1,
+          type: 1,
+          idList: this.payList
+        }
+      });
+    }
+
   }
 
   // 编辑地址
   alterAddress(item) {
-    this.router.navigate(['cMain/addAddress'], {
-      queryParams: {
-        isAdd: 0,
-        id: item.id,
-        alterName: item.receiver,
-        alterSex: item.sex.toString(),
-        alterPhone: item.phone,
-        alterSite: item.name,
-        alterSwitch: item.defaultFlag,
-      }
-    });
+    if (this.type === '1') {
+      this.router.navigate(['cMain/addAddress'], {
+        queryParams: {
+          isAdd: 0,
+          id: item.id,
+          alterName: item.receiver,
+          alterSex: item.sex.toString(),
+          alterPhone: item.phone,
+          alterSite: item.name,
+          alterSwitch: item.defaultFlag,
+          type: 1
+        }
+      });
+    } else if (this.type === '4') {
+      this.router.navigate(['cMain/addAddress'], {
+        queryParams: {
+          isAdd: 0,
+          id: item.id,
+          alterName: item.receiver,
+          alterSex: item.sex.toString(),
+          alterPhone: item.phone,
+          alterSite: item.name,
+          alterSwitch: item.defaultFlag,
+          type: 4,
+          idList: this.payList,
+          pay: this.pay
+        }
+      });
+    }
+
   }
 
   // 删除
@@ -176,11 +218,15 @@ export class NewAddressComponent implements OnInit {
         'state=/cMain/firstPage?vm=1-1';
     } else {
       if (this.type === '1') {
-        this.router.navigate(['cMain/userCenter']);
-      } else if (this.type === '2') {
+        this.router.navigate(['cMain/userCenter'], {
+          queryParams: {
+            type: 1
+          }
+        });
+      } else if (this.type === '4') {
         this.router.navigate(['cMain/pay'], {
           queryParams: {
-            ids: this.ids,
+            ids: this.payList,
             type: this.pay
           }
         });

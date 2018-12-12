@@ -30,7 +30,7 @@ export class ScanComponent implements OnInit {
       data => {
         console.log(data);
         wx.config({
-          debug: true,
+          debug: false,
           appId: data.data.appId,
           timestamp: data.data.timestamp,
           nonceStr: data.data.nonceStr,
