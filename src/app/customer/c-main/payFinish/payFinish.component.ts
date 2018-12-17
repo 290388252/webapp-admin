@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {Router} from '@angular/router';
@@ -19,6 +19,7 @@ export class PayFinishComponent implements OnInit {
   public follow;
   public price;
   public sumDeductionMoney;
+  public payType;
 
   public type;
   public startTime;
@@ -30,21 +31,31 @@ export class PayFinishComponent implements OnInit {
   public bindProduct;
   public maximumDiscount;
 
-  constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) { }
+  constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) {
+    this.token = getToken();
+    this.wechatVisible = false;
+    // alert(this.token);
+    this.getDataList();
+  }
 
   ngOnInit() {
+    this.wechatVisible = false;
+    this.getDataList();
+  }
 
+  getInit() {
     this.wechatVisible = false;
     this.token = getToken();
     // this.token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiNTM1LDEiLCJleHAiOjE1NDE1ODUwNjl9.DHrOVcgeBz6-w0lXl4nTwCuRFf32bBuT2XM2dQSnOuy7-8XSiW3VSm6PoLrK2lcfmaoKrQJ1laj6M_RvUfdBUg';
     this.getDataList();
   }
 
-  getDataList () {
+  getDataList() {
     this.appService.getData(this.appProperties.payFinishShowUrl, {
       token: this.token
     }).subscribe(
       data => {
+        this.payType = data.payType;
         this.couponId = data.couponId;
         this.couponName = data.couponName;
         this.follow = data.follow;
@@ -56,14 +67,15 @@ export class PayFinishComponent implements OnInit {
       }
     );
   }
+
   // 返回首页
   exit() {
     // 返回购物车页面
-    this.router.navigate(['cMain/shopCar']);
+    this.router.navigate(['cMain/firstPage']);
   }
 
   // 查看提水券
-  showWaterPaper () {
+  showWaterPaper() {
     // 跳转到我的提水券页面
     this.router.navigate(['cMain/waterCoupon'], {
       queryParams: {
@@ -71,8 +83,9 @@ export class PayFinishComponent implements OnInit {
       }
     });
   }
+
   // 查看优惠券
-  openDrawer () {
+  openDrawer() {
 
     const model = document.getElementById('myModel');
     const closed = document.getElementById('closed');
@@ -84,7 +97,6 @@ export class PayFinishComponent implements OnInit {
         document.body.style.overflow = 'auto';
       }
     });
-
     if (this.couponId) {
       this.appService.getData(this.appProperties.payFinishGetCouponUrl, {
         id: this.couponId,
@@ -114,7 +126,7 @@ export class PayFinishComponent implements OnInit {
     model.style.display = 'none';
   }
 
-  openShowModel () {
+  openShowModel() {
     this.wechatVisible = true;
   }
 

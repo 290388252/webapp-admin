@@ -89,9 +89,12 @@ export class PrepaidComponent implements OnInit {
   //   }
   // }
   keyupMoney() {
-    if (this.prepaidMoney !== undefined && this.prepaidMoney !== null) {
-
+    if (this.prepaidMoney !== undefined && this.prepaidMoney !== null && this.prepaidMoney !== '') {
+      this.errorNum = false;
       this.errorSumit = false;
+    } else {
+      this.errorNum = true;
+      this.errorSumit = true;
     }
   }
 
@@ -106,12 +109,14 @@ export class PrepaidComponent implements OnInit {
       this.isFocusA = true;
       this.isFocusB = false;
       this.errorSumit = false;
+      this.errorNum = false;
       // this.endMoney = 200;
       this.prepaidMoney = undefined;
     } else if (val === 'isFocusB') {
       this.isFocusA = false;
       this.isFocusB = true;
       this.errorSumit = false;
+      this.errorNum = false;
       // this.endMoney = 100;
       this.prepaidMoney = undefined;
     } else if (val === 'isFocusC') {
@@ -195,46 +200,50 @@ export class PrepaidComponent implements OnInit {
   prepaidPay() {
     console.log(this.endPhone);
     console.log(this.endMoney);
-    this.appService.postAliData(this.appProperties.shopPrepaidAddUrl, {
-      price: this.endMoney,
-      friendPhone: this.endPhone
-    }, this.token).subscribe(
-      data2 => {
-        console.log(data2);
-        alert(data2.message);
-        if (data2.status === -99) {
-          return;
-        }
-        if (data2.returnObject.orderState !== 10001) {
-          this.orderId = data2.returnObject.id;
-          this.appService.getAliData(this.appProperties.shopPrepaidBuyUrl, {
-            orderId: this.orderId,
-            url: 'http://webapp.youshuidaojia.com/cMain/prepaidPay'
-          }, this.token).subscribe(
-            data4 => {
-              if (data4.status === 2) {
-                window.location.href = data4.returnObject;
-              } else {
-                if (typeof(WeixinJSBridge) === 'undefined') {
-                  this.onBridgeUndefindeReady(data4);
+    if (this.endMoney !== undefined && this.endMoney !== null && this.endMoney !== '') {
+      this.appService.postAliData(this.appProperties.shopPrepaidAddUrl, {
+        price: this.endMoney,
+        friendPhone: this.endPhone
+      }, this.token).subscribe(
+        data2 => {
+          console.log(data2);
+          alert(data2.message);
+          if (data2.status === -99) {
+            return;
+          }
+          if (data2.returnObject.orderState !== 10001) {
+            this.orderId = data2.returnObject.id;
+            this.appService.getAliData(this.appProperties.shopPrepaidBuyUrl, {
+              orderId: this.orderId,
+              url: 'http://webapp.youshuidaojia.com/cMain/prepaidPay'
+            }, this.token).subscribe(
+              data4 => {
+                if (data4.status === 2) {
+                  window.location.href = data4.returnObject;
                 } else {
-                  this.onBridgeReady(data4);
+                  if (typeof(WeixinJSBridge) === 'undefined') {
+                    this.onBridgeUndefindeReady(data4);
+                  } else {
+                    this.onBridgeReady(data4);
+                  }
                 }
+              },
+              error => {
+                console.log(error);
               }
-            },
-            error => {
-              console.log(error);
-            }
-          );
-        } else {
-          alert('支付完成！');
-          this.router.navigate(['cMain/userCenter']);
+            );
+          } else {
+            alert('支付完成！');
+            this.router.navigate(['cMain/userCenter']);
+          }
+        },
+        error2 => {
+          console.log(error2);
         }
-      },
-      error2 => {
-        console.log(error2);
-      }
-    );
+      );
+    } else {
+      alert('充值金额不能为空！');
+    }
   }
 
   onBridgeUndefindeReady(data) {

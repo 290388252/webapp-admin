@@ -2,7 +2,7 @@
   height: 100%;
   width: 100%;
   background: rgba(82,94,113,.05);
-  margin-bottom: 200px;
+  margin-bottom: 60px;
   /*background: url("../../../../assets/main/bs-bg.jpg");*/
   /*background-size: 150% 100%;*/
 }
@@ -101,6 +101,16 @@
 .icon-list8{
   background: url("../../../../assets/icon/customerIcon/icon-list8.png") no-repeat;
   background-size: 25px 25px;
+  padding-left: 40px !important;
+}
+.icon-list9{
+   background: url("../../../../assets/icon/customerIcon/icon-water.png") no-repeat;
+   background-size: 25px 25px;
+   padding-left: 40px !important;
+ }
+.icon-list10{
+  background: url("../../../../assets/icon/customerIcon/icon-warn.png") no-repeat 0px 2px;
+  background-size: 25px 21px;
   padding-left: 40px !important;
 }
 .icon-arrow{

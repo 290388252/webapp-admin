@@ -23,9 +23,11 @@ export class FirstPageComponent implements OnInit {
   public imgList = [];
   public currentPic = 0;
   public judgeVip;
-  constructor( @Inject('firstPage') private firstPageService, private appProperties: AppProperties,
-               private appService: AppService, private router: Router) {
+
+  constructor(@Inject('firstPage') private firstPageService, private appProperties: AppProperties,
+              private appService: AppService, private router: Router) {
   }
+
   ngOnInit() {
     if (urlParse(window.location.search)['token'] !== undefined
       && urlParse(window.location.search)['token'] !== '') {
@@ -39,6 +41,7 @@ export class FirstPageComponent implements OnInit {
     this.judgeVip = false;
     this.getVip();
   }
+
   getVip() {
     this.appService.postAliData(this.appProperties.judgeVipUrl, {}, getToken()).subscribe(
       data => {
@@ -54,6 +57,7 @@ export class FirstPageComponent implements OnInit {
       }
     );
   }
+
   /*getBannerHeight() {
     const banner = document.getElementById('banner');
     this.height = (banner.offsetWidth) / 16 * 8 + 'px';
@@ -78,9 +82,11 @@ export class FirstPageComponent implements OnInit {
       }
     );
   }
+
   changebanner(num) {
     this.currentPic = num;
   }
+
   addFirstCar(item) {
     console.log(this.list);
     console.log({
@@ -107,24 +113,30 @@ export class FirstPageComponent implements OnInit {
       }
     );
   }
-  goTo(id, name, pic) {
+
+  goTo(id, pic) {
+    // const endName = '"' + name + '"';
+    // console.log(endName);
     this.router.navigate(['cMain/detail'], {
       queryParams: {
         id: id,
-        name: name,
+        // name: endName,
         pic: pic,
         // isConglomerateCommodity: isConglomerateCommodity,
         type: 1
-      }});
+      }
+    });
   }
+
   turnToPage(val) {
     if (val === 4) {
-       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/wechat/getCustomerToken&response_type=code&scope=snsapi_userinfo&state=:9800/main';
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/wechat/getCustomerToken&response_type=code&scope=snsapi_userinfo&state=:9800/main';
     } else {
       this.router.navigate(['cMain/recommend'], {
         queryParams: {
           value: val,
-        }});
+        }
+      });
     }
   }
 }

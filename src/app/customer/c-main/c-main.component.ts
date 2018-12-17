@@ -27,16 +27,12 @@ export class CMainComponent implements OnInit {
     } else {
       this.footerHidden = false;
     }
-    /*url.indexOf('detail') !== -1 ? this.footerHidden = true : this.footerHidden = false;
-    url.indexOf('getCoupon') !== -1 ? this.footerHidden = true : this.footerHidden = false;*/
-    this.router.events
-      .filter((event) => event instanceof NavigationEnd)
-      .subscribe((event: NavigationEnd) => {
+    this.router.events.subscribe((event: NavigationEnd) => {
+      if (event instanceof NavigationEnd) {
         const refUrl = window.location.href;
-        console.log(refUrl);
-        console.log(refUrl.indexOf('detail'));
         refUrl.indexOf('detail') !== -1 ? this.footerHidden = true : this.footerHidden = false;
-      });
+      }
+    });
     if (url.indexOf('firstPage') > -1) {
       this.curId = 1;
     } else if (url.indexOf('allGoods') > -1) {

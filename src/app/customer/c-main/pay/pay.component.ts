@@ -51,7 +51,16 @@ export class PayComponent implements OnInit {
       }
     );
 
-    this.token = getToken();
+    if (getToken() === null || getToken() === undefined) {
+      // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
+      //   'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&' +
+      //   'scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
+
+    } else {
+      this.token = getToken();
+    }
+
     this.appService.postAliData(this.appProperties.shopAddressShow, {'ids': this.ids}, this.token).subscribe(
       data => {
         if (data.status === 0) {
@@ -179,11 +188,12 @@ export class PayComponent implements OnInit {
         // if (data2.returnObject.state !== 10001) {
         if (data2.status === 0) {
           alert(data2.message);
-          this.router.navigate(['cMain/addAddress'], {
+          this.router.navigate(['cMain/newAddress'], {
             queryParams: {
+              type: 4,
+              idList: this.ids,
               isAdd: 1,
-              shopCar: 1,
-              idList: this.ids
+              pay: this.type
             }
           });
           return;
@@ -212,7 +222,9 @@ export class PayComponent implements OnInit {
         } else {
           // alert('支付完成！');
           // this.router.navigate(['cMain/shopCar']);
-          this.router.navigate(['cMain/payFinish']);
+          this.token = getToken();
+          // this.router.navigate(['cMain/payFinish']);
+          window.location.href = 'http://webapp.youshuidaojia.com/cMain/payFinish?' + 'token=' + this.token;
         }
       },
       error2 => {
@@ -266,7 +278,9 @@ export class PayComponent implements OnInit {
           if (res.errMsg === 'chooseWXPay:ok') {
             // window.location.href = 'http://webapp.youshuidaojia.com/cMain/userCenter';
             // this.router.navigate(['cMain/shopCar']);
-            this.router.navigate(['cMain/payFinish']);
+            this.token = getToken();
+            // this.router.navigate(['cMain/payFinish']);
+            window.location.href = 'http://webapp.youshuidaojia.com/cMain/payFinish?' + 'token=' + this.token;
           } else {
             alert('支付失败');
           }

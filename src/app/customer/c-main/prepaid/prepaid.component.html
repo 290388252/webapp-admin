@@ -40,7 +40,7 @@
       <!--if(value.indexOf('.')){if(value.length>7)value=value.slice(0,7)}else{if(value.length>4)value=value.slice(0,4)}-->
       <span class="prepaidOther_title">其他金额:<span style="color: red">￥</span></span>
       <input type="tel" nz-input id="input_money" (keyup)="keyupMoney()" [(ngModel)]="prepaidMoney"
-             name="prepaidMoney"
+             name="prepaidMoney" (blur)="keyupMoney()"
              class="prepaidOther_input" (click)="focusMoney('isFocusC')"
              oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')};
               if(value.length>4)value=value.slice(0,4);"

@@ -2,7 +2,8 @@
   <div style="margin-top: 10px;height: 30px;">
     <img src="../../../../assets/icon/my_success.png" style="width: 24px;height: 24px;">&nbsp;&nbsp;
     <span style="font-size: 18px;color: #333333;font-weight: bolder;">购买成功</span></div>
-  <div style="color: #333333; font-size: 14px;margin-top: 14px;font-weight: bold;">实付金额：￥{{price}}&nbsp;&nbsp;&nbsp;&nbsp;<span *ngIf="sumDeductionMoney" style="color: #F6151C; font-size: 12px; font-weight: bold; ">优惠金额：￥{{sumDeductionMoney}}</span></div>
+  <div style="color: #333333; font-size: 14px;margin-top: 14px;font-weight: bold;" *ngIf="payType === '1'">余额支付：￥{{price}}&nbsp;&nbsp;&nbsp;&nbsp;<span *ngIf="sumDeductionMoney" style="color: #F6151C; font-size: 12px; font-weight: bold; ">优惠金额：￥{{sumDeductionMoney}}</span></div>
+  <div style="color: #333333; font-size: 14px;margin-top: 14px;font-weight: bold;" *ngIf="payType !== '1'">实付金额：￥{{price}}&nbsp;&nbsp;&nbsp;&nbsp;<span *ngIf="sumDeductionMoney" style="color: #F6151C; font-size: 12px; font-weight: bold; ">优惠金额：￥{{sumDeductionMoney}}</span></div>
   <div style="margin: 10px 0;">
     <button nz-button nzType="default" (click)="exit()">返回首页</button>
     <button nz-button nzType="dash" style="background-color: #eee;" (click)="showWaterPaper()">查看提水券</button>
