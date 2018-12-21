@@ -33,6 +33,7 @@ export class GrouponPayComponent implements OnInit {
   public inAddress;
   public noneAddress;
   public needAddress;
+  public select;
   //
   public orderId;
   public token;
@@ -49,6 +50,7 @@ export class GrouponPayComponent implements OnInit {
     this.quantity = urlParse(window.location.href)['quantity'];
     this.goodsId = urlParse(window.location.href)['id'];
     this.grouponId = urlParse(window.location.href)['groupId'];
+    this.select = urlParse(window.location.href)['select'];
     // this.vipTypeId = urlParse(window.location.href)['vipTypeId'];
     // this.vipValidity = urlParse(window.location.href)['vipValidity'];
     // this.getTime();
@@ -73,31 +75,49 @@ export class GrouponPayComponent implements OnInit {
   }
 
   getLocation() {
-
     this.appService.postAliData(this.appProperties.grouponJudgeAddressUrl, {'ids': this.goodsId}, this.token).subscribe(
       data1 => {
         console.log('data1');
         console.log(data1);
         if (data1.status === 0) {
           this.needAddress = true;
-          this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
-            data => {
-              console.log('data');
-              console.log(data);
-              if (data.status === 0) {
-                this.noneAddress = true;
-              } else {
-                this.noneAddress = false;
-                this.address = data.returnObject[0]['name'];
-                this.consignee = data.returnObject[0]['receiver'];
-                this.iphone = data.returnObject[0]['phone'];
-                this.locationId = data.returnObject[0]['id'];
+          if (this.select === '1') {
+            this.locationId = urlParse(window.location.href)['locationId'];
+            this.appService.postAliData(this.appProperties.shopAddressCheckUrl + '?id=' + this.locationId, {}, this.token).subscribe(
+              data2 => {
+                if (data2.status === 1) {
+                  this.noneAddress = false;
+                  // 收货人
+                  this.address = data2.returnObject.receiver;
+                  // 地址
+                  this.consignee = data2.returnObject.name;
+                  this.iphone = data2.returnObject.phone;
+                }
+              },
+              error => {
+                console.log(error);
               }
-            },
-            error => {
-              console.log(error);
-            }
-          );
+            );
+          } else {
+            this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
+              data => {
+                console.log('data');
+                console.log(data);
+                if (data.status === 0) {
+                  this.noneAddress = true;
+                } else {
+                  this.noneAddress = false;
+                  this.address = data.returnObject[0]['name'];
+                  this.consignee = data.returnObject[0]['receiver'];
+                  this.iphone = data.returnObject[0]['phone'];
+                  this.locationId = data.returnObject[0]['id'];
+                }
+              },
+              error => {
+                console.log(error);
+              }
+            );
+          }
         } else {
           this.noneAddress = false;
         }
@@ -108,24 +128,29 @@ export class GrouponPayComponent implements OnInit {
     );
   }
 
-  toAddress() {
-    // this.router.navigate(['cMain/newAddress'], {
-    //   queryParams: {
-    //     type: 3,
-    //     id: this.goodsId,
-    //     groupId: this.grouponId,
-    //     quantity: this.quantity
-    //   }
-    // });
-    this.router.navigate(['cMain/addAddress'], {
-      queryParams: {
-        isAdd: 1,
-        shopCar: 2,
-        quantity: this.quantity,
-        goodsId: this.goodsId,
-        grouponId: this.grouponId
-      }
-    });
+  toAddress(val) {
+    if (val === '1') {
+      this.router.navigate(['cMain/addAddress'], {
+        queryParams: {
+          isAdd: 1,
+          type: 3,
+          quantity: this.quantity,
+          goodsId: this.goodsId,
+          grouponId: this.grouponId
+        }
+      });
+    } else {
+      this.router.navigate(['cMain/newAddress'], {
+        queryParams: {
+          type: 3,
+          select: 1,
+          quantity: this.quantity,
+          goodsId: this.goodsId,
+          grouponId: this.grouponId
+        }
+      });
+    }
+
   }
 
   showModal(): void {

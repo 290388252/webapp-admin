@@ -386,7 +386,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       }, getToken()).subscribe(
         data => {
           if (data.status === 1) {
-            this.router.navigate(['cMain/pay'], {queryParams: {ids: data.returnObject.id, type: 1}});
+            this.router.navigate(['cMain/pay'], {queryParams: {ids: data.returnObject.id, payType: 1}});
           }
         },
         error => {

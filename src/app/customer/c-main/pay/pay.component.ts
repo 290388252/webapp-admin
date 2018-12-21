@@ -33,54 +33,70 @@ export class PayComponent implements OnInit {
   public radioValue = '2';
   public locationId;
   public ids: string;
-  public type: string;
+  public payType: string;
   public reduceMoney = 0;
   public totalMoney = 0;
   public noneAddress;
   public showAddress;
+  public select;
 
   constructor(private appService: AppService, private appProperties: AppProperties,
               private router: Router, private routeInfo: ActivatedRoute, private modalService: NzModalService) {
   }
-
+  // 个人中心增删查改 ！
+  // 支付 新增 选择
   ngOnInit() {
     this.routeInfo.queryParams.subscribe(
       params => {
         this.ids = params.ids;
-        this.type = params.type;
+        this.payType = params.payType;
       }
     );
-
+    this.select = urlParse(window.location.href)['select'];
     if (getToken() === null || getToken() === undefined) {
-      // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
-      //   'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&' +
-      //   'scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
-
     } else {
       this.token = getToken();
     }
-
     this.appService.postAliData(this.appProperties.shopAddressShow, {'ids': this.ids}, this.token).subscribe(
       data => {
         if (data.status === 0) {
           this.showAddress = true;
-          this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
-            data1 => {
-              if (data1.returnObject === null || data1.returnObject === [] || data1.returnObject === undefined) {
-                this.noneAddress = true;
-              } else {
-                this.noneAddress = false;
-                this.name = data1.returnObject[0]['name'];
-                this.receiver = data1.returnObject[0]['receiver'];
-                this.phone = data1.returnObject[0]['phone'];
-                this.locationId = data1.returnObject[0]['id'];
+          if (this.select === '1') {
+            this.locationId = urlParse(window.location.href)['locationId'];
+            this.appService.postAliData(this.appProperties.shopAddressCheckUrl + '?id=' + this.locationId, {}, this.token).subscribe(
+              data1 => {
+                if (data1.status === 1) {
+                  this.noneAddress = false;
+                  // 收货人
+                  this.name = data1.returnObject.receiver;
+                  // 地址
+                  this.receiver = data1.returnObject.name;
+                  this.phone = data1.returnObject.phone;
+                }
+              },
+              error => {
+                console.log(error);
               }
-            },
-            error => {
-              console.log(error);
-            }
-          );
+            );
+          } else {
+            this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
+              data1 => {
+                if (data1.returnObject === null || data1.returnObject === [] || data1.returnObject === undefined) {
+                  this.noneAddress = true;
+                } else {
+                  this.noneAddress = false;
+                  this.name = data1.returnObject[0]['name'];
+                  this.receiver = data1.returnObject[0]['receiver'];
+                  this.phone = data1.returnObject[0]['phone'];
+                  this.locationId = data1.returnObject[0]['id'];
+                }
+              },
+              error => {
+                console.log(error);
+              }
+            );
+          }
         } else if (data.status === 1) {
           this.showAddress = false;
         }
@@ -90,48 +106,35 @@ export class PayComponent implements OnInit {
         console.log(error);
       }
     );
-
   }
 
   //
-  goTo() {
-    this.router.navigate(['cMain/newAddress'], {
-      queryParams: {
-        type: 4,
-        idList: this.ids,
-        isAdd: 1,
-        pay: this.type
-      }
-    });
+  goTo(val) {
+    if (val === '1') {
+      // 新增地址
+      this.router.navigate(['cMain/addAddress'], {
+        queryParams: {
+          type: 2,
+          isAdd: 1,
+          ids: this.ids,
+          payType: this.payType
+        }
+      });
+    } else if (val === '2') {
+      // 选择地址
+      this.router.navigate(['cMain/newAddress'], {
+        queryParams: {
+          type: 2,
+          select: 1,
+          ids: this.ids,
+          payType: this.payType
+        }
+      });
+    }
+
 
   }
 
-  // print(val) {
-  //   this.radioValue = val;
-  //   console.log(this.radioValue);
-  // }
-  /*couponSum() {
-    console.log(this.idList);
-    this.appService.postAliData(this.appProperties.shopAddCouponUrl, this.idList, this.token).subscribe(
-      data => {
-        console.log(data);
-        if (data.status === 0) {
-          this.couponLength = 0;
-        } else if (data.status === 1) {
-          this.couponList = data.returnObject;
-          this.couponId = undefined;
-          if (this.couponList !== null) {
-            this.couponLength = this.couponList.length;
-          }
-          console.log('length');
-          console.log(this.couponLength);
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }*/
   selectCoupon(): void {
     if (this.couponLength !== 0
     ) {
@@ -188,12 +191,13 @@ export class PayComponent implements OnInit {
         // if (data2.returnObject.state !== 10001) {
         if (data2.status === 0) {
           alert(data2.message);
-          this.router.navigate(['cMain/newAddress'], {
+          // 新增地址
+          this.router.navigate(['cMain/addAddress'], {
             queryParams: {
-              type: 4,
-              idList: this.ids,
+              type: 2,
               isAdd: 1,
-              pay: this.type
+              ids: this.ids,
+              payType: this.payType
             }
           });
           return;
@@ -303,10 +307,10 @@ export class PayComponent implements OnInit {
   }
 
   showShopCarPrice() {
-    console.log(this.type);
+    console.log(this.payType);
     this.appService.postAliData(this.appProperties.shoppingCarUrl, {
       ids: this.ids,
-      type: this.type
+      type: this.payType
     }, this.token).subscribe(
       data => {
         console.log(data);

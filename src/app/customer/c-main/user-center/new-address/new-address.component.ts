@@ -17,11 +17,12 @@ export class NewAddressComponent implements OnInit {
   public delItem;
   public type;
   public ids;
+  public select;
   public groupId;
   public pay;
   public quantity;
   public payList;
-  public payShopCar;
+  public goodsId;
   public payType;
 
   constructor(private appProperties: AppProperties,
@@ -31,13 +32,16 @@ export class NewAddressComponent implements OnInit {
 
   ngOnInit() {
     this.type = urlParse(window.location.href)['type'];
-    console.log(this.type);
-    this.ids = urlParse(window.location.href)['id'];
+    // 支付
+    this.ids = urlParse(window.location.href)['ids'];
+    this.select = urlParse(window.location.href)['select'];
+    this.payType = urlParse(window.location.href)['payType'];
     this.groupId = urlParse(window.location.href)['groupId'];
-    this.pay = urlParse(window.location.href)['pay'];
+    // this.pay = urlParse(window.location.href)['pay'];
+    this.goodsId = urlParse(window.location.href)['goodsId'];
     this.quantity = urlParse(window.location.href)['quantity'];
-    this.payShopCar = urlParse(window.location.href)['shopCar'];
-    this.payList = urlParse(window.location.href)['idList'];
+    // this.payShopCar = urlParse(window.location.href)['shopCar'];
+    // this.payList = urlParse(window.location.href)['idList'];
     this.token = getToken();
     this.getInit();
     const test = 'http://localhost:4202/cMain/newAddress?type=1&id=2';
@@ -50,16 +54,19 @@ export class NewAddressComponent implements OnInit {
         data.returnObject === null ? this.emptyAddress = true : this.emptyAddress = false;
         if (!this.emptyAddress) {
           this.list = data.returnObject;
-          let one;
-          setTimeout(() => {
-            one = document.getElementsByName('default');
-            for (let i = 0; i < this.list.length; i++) {
-              if (this.list[i].defaultFlag === 1) {
-                one[i]['checked'] = true;
-                return;
+          if (this.type === '1') {
+            let one;
+            setTimeout(() => {
+              one = document.getElementsByName('default');
+              for (let i = 0; i < this.list.length; i++) {
+                if (this.list[i].defaultFlag === 1) {
+                  one[i]['checked'] = true;
+                  return;
+                }
               }
-            }
-          });
+            });
+          }
+
         }
       },
       error => {
@@ -121,28 +128,90 @@ export class NewAddressComponent implements OnInit {
 
   // 新增地址
   addAddress() {
-    if (this.type === '4') {
-      // 支付
-      this.router.navigate(['cMain/addAddress'], {
-        queryParams: {
-          isAdd: 1,
-          idList: this.payList,
-          type: 4,
-          pay: this.pay
-        }
-      });
-    } else if (this.type === '1') {
+    if (this.type === '1') {
       // 个人中心
       this.router.navigate(['cMain/addAddress'], {
         queryParams: {
           isAdd: 1,
-          type: 1,
-          idList: this.payList
+          type: 1
+        }
+      });
+    } else if (this.type === '2') {
+      // 支付新增
+      if (this.select === '1') {
+        this.router.navigate(['cMain/addAddress'], {
+          queryParams: {
+            isAdd: 1,
+            type: 2,
+            // 选择新增
+            select: 1,
+            ids: this.ids,
+            payType: this.payType
+          }
+        });
+      }
+      // else {
+      //   this.router.navigate(['cMain/addAddress'], {
+      //     queryParams: {
+      //       isAdd: 1,
+      //       type: 2,
+      //       ids: this.ids,
+      //       payType: this.payType
+      //     }
+      //   });
+      // }
+    } else if (this.type === '3') {
+      // 支付新增
+      if (this.select === '1') {
+        this.router.navigate(['cMain/addAddress'], {
+          queryParams: {
+            isAdd: 1,
+            type: 3,
+            // 选择新增
+            select: 1,
+            id: this.goodsId,
+            quantity: this.quantity,
+            groupId: this.groupId
+          }
+        });
+      }
+      // else {
+      //   this.router.navigate(['cMain/addAddress'], {
+      //     queryParams: {
+      //       isAdd: 1,
+      //       type: 2,
+      //       ids: this.ids,
+      //       payType: this.payType
+      //     }
+      //   });
+      // }
+    }
+  }
+
+  selectAddress(val) {
+    if (this.type === '2') {
+      this.router.navigate(['cMain/pay'], {
+        queryParams: {
+          type: 2,
+          select: 1,
+          ids: this.ids,
+          payType: this.payType,
+          locationId: val
+        }
+      });
+    } else if (this.type === '3') {
+      this.router.navigate(['cMain/grouponPay'], {
+        queryParams: {
+          select: 1,
+          id: this.goodsId,
+          quantity: this.quantity,
+          groupId: this.groupId,
+          locationId: val
         }
       });
     }
-
   }
+
 
   // 编辑地址
   alterAddress(item) {
@@ -150,28 +219,31 @@ export class NewAddressComponent implements OnInit {
       this.router.navigate(['cMain/addAddress'], {
         queryParams: {
           isAdd: 0,
-          id: item.id,
-          alterName: item.receiver,
-          alterSex: item.sex.toString(),
-          alterPhone: item.phone,
-          alterSite: item.name,
-          alterSwitch: item.defaultFlag,
+          locationId: item.id,
           type: 1
         }
       });
-    } else if (this.type === '4') {
+    } else if (this.type === '2') {
+      event.stopPropagation();
       this.router.navigate(['cMain/addAddress'], {
         queryParams: {
           isAdd: 0,
-          id: item.id,
-          alterName: item.receiver,
-          alterSex: item.sex.toString(),
-          alterPhone: item.phone,
-          alterSite: item.name,
-          alterSwitch: item.defaultFlag,
-          type: 4,
-          idList: this.payList,
-          pay: this.pay
+          locationId: item.id,
+          type: 2,
+          ids: this.ids,
+          payType: this.payType
+        }
+      });
+    } else if (this.type === '3') {
+      event.stopPropagation();
+      this.router.navigate(['cMain/addAddress'], {
+        queryParams: {
+          type: 3,
+          isAdd: 0,
+          id: this.goodsId,
+          quantity: this.quantity,
+          groupId: this.groupId,
+          locationId: item.id
         }
       });
     }
@@ -223,11 +295,11 @@ export class NewAddressComponent implements OnInit {
             type: 1
           }
         });
-      } else if (this.type === '4') {
+      } else if (this.type === '2') {
         this.router.navigate(['cMain/pay'], {
           queryParams: {
-            ids: this.payList,
-            type: this.pay
+            ids: this.ids,
+            payType: this.payType
           }
         });
       } else if (this.type === '3') {

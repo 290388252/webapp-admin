@@ -14,7 +14,9 @@ export class AddAddressComponent implements OnInit {
   public isAdd;
   public alterId;
   public type;
-  public pay;
+  public payType;
+  public ids;
+  public select;
   // add
   public addName;
   public addSex;
@@ -24,10 +26,10 @@ export class AddAddressComponent implements OnInit {
   public addShow;
   public shopCar;
   public disable;
-  public idList;
-  public grouponGoodsId;
-  public grouponQuantity;
-  public grouponId;
+  public goodsId;
+  public quantity;
+  public groupId;
+
 // alter
   public alterName;
   public alterSex;
@@ -43,27 +45,80 @@ export class AddAddressComponent implements OnInit {
 
   ngOnInit() {
     this.token = getToken();
+    // 1：个人中心 2：支付 3：团购
     this.type = urlParse(window.location.href)['type'];
+    // isAdd 1：新增 0：编辑
     this.isAdd = urlParse(window.location.href)['isAdd'];
-    this.alterId = urlParse(window.location.href)['id'];
-    this.shopCar = urlParse(window.location.href)['shopCar'];
-    this.idList = urlParse(window.location.href)['idList'];
-    this.pay = urlParse(window.location.href)['pay'];
+    this.select = urlParse(window.location.href)['select'];
+    // pay
+    this.ids = urlParse(window.location.href)['ids'];
+    this.payType = urlParse(window.location.href)['payType'];
+    //
+    this.alterId = urlParse(window.location.href)['locationId'];
+    // this.shopCar = urlParse(window.location.href)['shopCar'];
+    // this.idList = urlParse(window.location.href)['idList'];
+    // this.pay = urlParse(window.location.href)['pay'];
     // groupon
-    this.grouponGoodsId = urlParse(window.location.href)['goodsId'];
-    this.grouponQuantity = urlParse(window.location.href)['quantity'];
-    this.grouponId = urlParse(window.location.href)['grouponId'];
-    this.alterName = urlParse(window.location.href)['alterName'];
-    this.alterSex = urlParse(window.location.href)['alterSex'];
-    this.alterPhone = urlParse(window.location.href)['alterPhone'];
-    this.alterSite = urlParse(window.location.href)['alterSite'];
-    this.alterSwitch = urlParse(window.location.href)['alterSwitch'];
+    this.goodsId = urlParse(window.location.href)['id'];
+    this.quantity = urlParse(window.location.href)['quantity'];
+    this.groupId = urlParse(window.location.href)['groupId'];
+    //
+    // this.alterName = urlParse(window.location.href)['alterName'];
+    // this.alterSex = urlParse(window.location.href)['alterSex'];
+    // this.alterPhone = urlParse(window.location.href)['alterPhone'];
+    // this.alterSite = urlParse(window.location.href)['alterSite'];
+    // this.alterSwitch = urlParse(window.location.href)['alterSwitch'];
     this.getInit();
   }
 
   goTo() {
     // if (flag === 'userCenter') {
-    this.router.navigate(['cMain/newAddress']);
+    if (this.type === '1') {
+      this.router.navigate(['cMain/newAddress'], {
+        queryParams: {
+          type: 1
+        }
+      });
+    } else if (this.type === '2') {
+      if (this.select === '1' || this.isAdd === '0') {
+        this.router.navigate(['cMain/newAddress'], {
+          queryParams: {
+            type: 2,
+            select: 1,
+            ids: this.ids,
+            payType: this.payType
+          }
+        });
+      } else {
+        this.router.navigate(['cMain/pay'], {
+          queryParams: {
+            ids: this.ids,
+            payType: this.payType
+          }
+        });
+      }
+    } else if (this.type === '3') {
+      if (this.select === '1' || this.isAdd === '0') {
+        this.router.navigate(['cMain/newAddress'], {
+          queryParams: {
+            type: 3,
+            select: 1,
+            id: this.goodsId,
+            quantity: this.quantity,
+            groupId: this.groupId
+          }
+        });
+      } else {
+        this.router.navigate(['cMain/grouponPay'], {
+          queryParams: {
+            id: this.goodsId,
+            quantity: this.quantity,
+            groupId: this.groupId
+          }
+        });
+      }
+    }
+
     // } else if (flag === 'prepaidPay') {
     //   this.router.navigate(['cMain/prepaidPay']);
     // }
@@ -78,23 +133,22 @@ export class AddAddressComponent implements OnInit {
       this.addSwitch = false;
       this.addShow = false;
       this.disable = false;
+    } else if (this.isAdd === '0') {
+      this.appService.postAliData(this.appProperties.shopAddressCheckUrl + '?id=' + this.alterId, {}, this.token).subscribe(
+        data => {
+          if (data.status === 1) {
+            this.alterName = data.returnObject.receiver;
+            this.alterSex = data.returnObject.sex.toString();
+            this.alterPhone = data.returnObject.phone;
+            this.alterSite = data.returnObject.name;
+            this.alterSwitch = data.returnObject.defaultFlag;
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
-    // else if (this.isAdd === '0') {
-    //   this.appService.postAliData(this.appProperties.shopAddressCheckUrl + '?id=' + this.alterId, {}, this.token).subscribe(
-    //     data => {
-    //       if (data.status === 1) {
-    //         this.alterName = data.returnObject.receiver;
-    //         this.alterSex = data.returnObject.sex.toString();
-    //         this.alterPhone = data.returnObject.phone;
-    //         this.alterSite = data.returnObject.name;
-    //         this.alterSwitch = data.returnObject.defaultFlag;
-    //       }
-    //     },
-    //     error => {
-    //       console.log(error);
-    //     }
-    //   );
-    // }
   }
 
   addAddress() {
@@ -126,27 +180,53 @@ export class AddAddressComponent implements OnInit {
         if (data.status === 1) {
           this.disable = false;
           if (this.type === '1') {
+            // 个人中心
             this.router.navigate(['cMain/newAddress'], {
               queryParams: {
                 type: 1
               }
             });
-          } else if (this.shopCar === '2') {
-            this.router.navigate(['cMain/grouponPay'], {
-              queryParams: {
-                id: this.grouponGoodsId,
-                quantity: this.grouponQuantity,
-                groupId: this.grouponId
-              }
-            });
-          } else if (this.type === '4') {
-            this.router.navigate(['cMain/newAddress'], {
-              queryParams: {
-                type: 4,
-                idList: this.idList,
-                pay: this.pay
-              }
-            });
+          } else if (this.type === '2') {
+            // 支付
+            if (this.select === '1') {
+              this.router.navigate(['cMain/newAddress'], {
+                queryParams: {
+                  select: 1,
+                  type: 2,
+                  ids: this.ids,
+                  payType: this.payType
+                }
+              });
+            } else {
+              this.router.navigate(['cMain/pay'], {
+                queryParams: {
+                  ids: this.ids,
+                  payType: this.payType
+                }
+              });
+            }
+          } else if (this.type === '3') {
+            if (this.select === '1') {
+              this.router.navigate(['cMain/newAddress'], {
+                queryParams: {
+                  type: 3,
+                  select: 1,
+                  goodsId: this.goodsId,
+                  quantity: this.quantity,
+                  groupId: this.groupId
+                }
+              });
+            } else {
+              this.router.navigate(['cMain/grouponPay'], {
+                queryParams: {
+                  select: 1,
+                  id: this.goodsId,
+                  quantity: this.quantity,
+                  groupId: this.groupId
+                }
+              });
+            }
+
           }
         } else {
           this.disable = false;
@@ -168,11 +248,13 @@ export class AddAddressComponent implements OnInit {
       this.alterShow = false;
     }
     let alterSwitch;
-    if (this.alterSwitch === false) {
-      alterSwitch = 0;
-    } else {
+    if (this.alterSwitch === true) {
       alterSwitch = 1;
+    } else {
+      alterSwitch = 0;
     }
+    console.log(this.alterSwitch);
+    console.log(alterSwitch);
     this.appService.postAliData(this.appProperties.shopAddressUpdateUrl, {
       receiver: this.alterName,
       name: this.alterSite,
@@ -186,20 +268,41 @@ export class AddAddressComponent implements OnInit {
         if (data.status === 1) {
           alert('修改成功!');
           if (this.type === '1') {
+            // 个人中心
             this.router.navigate(['cMain/newAddress'], {
               queryParams: {
                 type: 1
               }
             });
-          } else if (this.type === '4') {
+          } else if (this.type === '2') {
             this.router.navigate(['cMain/newAddress'], {
               queryParams: {
-                type: 4,
-                idList: this.idList,
-                pay: this.pay
+                type: 2,
+                ids: this.ids,
+                select: 1,
+                payType: this.payType
+              }
+            });
+          } else if (this.type === '3') {
+            this.router.navigate(['cMain/newAddress'], {
+              queryParams: {
+                type: 3,
+                select: 1,
+                goodsId: this.goodsId,
+                quantity: this.quantity,
+                groupId: this.groupId
               }
             });
           }
+          // else if (this.type === '2') {
+          //   this.router.navigate(['cMain/newAddress'], {
+          //     queryParams: {
+          //       type: 4,
+          //       idList: this.idList,
+          //       pay: this.pay
+          //     }
+          //   });
+          // }
         } else {
           alert(data.message);
         }

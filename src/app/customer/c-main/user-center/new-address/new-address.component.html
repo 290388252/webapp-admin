@@ -6,7 +6,21 @@
   </div>
   <div class="cont" *ngIf="!emptyAddress">
     <div class="contAll" *ngFor="let item of list;" [hidden]="!list">
-      <div class="contIn">
+      <div class="contIn" *ngIf="select === '1'" (click)="selectAddress(item.id)">
+        <div class="contIn_t">
+          <span class="contIn_t_name">{{item.receiver}}</span>
+          <span class="contTn_t_phone">{{item.phone}}</span>
+        </div>
+        <div style="font-size: 13px;">{{item.name}}</div>
+        <!--<i class="anticon anticon-check contIn_Img" style="font-weight: bold;color: #3399ff" *ngIf="item.defaultFlag === 1"></i>-->
+        <!--<img class="contIn_Img" src="../../../../../assets/icon/addressC.png" *ngIf="item.defaultFlag === 1">-->
+        <div style="width: 46px;height: 100%;position: absolute;right: 0;top: 0;z-index: 999;font-size: 12px;line-height: 53px;"
+        (click)="alterAddress(item)">
+          <i class="anticon anticon-form contSet_d_img" style="right: 32px;"></i>
+          <span style="margin-left: 16px;">编辑</span>
+        </div>
+      </div>
+      <div class="contIn" *ngIf="select !== '1'">
         <div class="contIn_t">
           <span class="contIn_t_name">{{item.receiver}}</span>
           <span class="contTn_t_phone">{{item.phone}}</span>
@@ -15,7 +29,7 @@
         <i class="anticon anticon-check contIn_Img" style="font-weight: bold;color: #3399ff" *ngIf="item.defaultFlag === 1"></i>
         <!--<img class="contIn_Img" src="../../../../../assets/icon/addressC.png" *ngIf="item.defaultFlag === 1">-->
       </div>
-      <div class="contSet">
+      <div class="contSet" *ngIf="select !== '1'">
         <input type="checkbox" name="default" class="contSet_radio" [id]="('a' + item.id)" (click)="setDefault(item)">
         <!--<img src="../../../../../assets/icon/addressA.png" class="contSet_imgA" *ngIf="item.defaultFlag === 1">-->
         <div class="contSet_imgA" *ngIf="item.defaultFlag === 1">已设置为默认</div>

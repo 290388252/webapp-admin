@@ -12,7 +12,6 @@ const routes: Routes = [
       {path: 'detail', loadChildren: './detail/detail.module#DetailModule'},
       {path: 'allGoods', loadChildren: './all-goods/all-goods.module#AllGoodsModule'},
       {path: 'shopCar', loadChildren: './shop-car/shop-car.module#ShopCarModule'},
-      // {path: 'search', loadChildren: './search/search.module#SearchModule'},
       {path: 'pay', loadChildren: './pay/pay.module#PayModule'},
       {path: 'userCenter', loadChildren: './user-center/user-center.module#UserCenterModule'},
       {path: 'newAddress', loadChildren: './user-center/new-address/new-address.module#NewAddressModule'},
