@@ -38,6 +38,9 @@ const routes: Routes = [
       {path: 'protocol', loadChildren: './protocol/protocol.module#ProtocolModule'},
       {path: 'myDeclaration', loadChildren: './user-center/myDeclaration/myDeclaration.module#MyDeclarationModule'},
       {path: 'scan', loadChildren: './scan/scan.module#ScanModule'},
+      {path: 'bargain', loadChildren: './user-center/bargain/bargain.module#BargainModule'},
+      {path: 'bargainList', loadChildren: './user-center/bargainList/bargainList.module#BargainListModule'},
+      {path: 'bargainDetails', loadChildren: './user-center/bargainDetails/bargainDetails.module#BargainDetailsModule'},
     ]
   }
 ];

@@ -92,6 +92,14 @@ export class UserCenterComponent implements OnInit {
       this.router.navigate(['cMain/cardMap']);
     } else if (flag === 9) {
       this.router.navigate(['cMain/myDeclaration']);
+    } else if (flag === 10) {
+      window.location.href = 'http://localhost:9527/cMain/bargainList';
+      // window.location.href = 'http://sms.youshuidaojia.com/shareGzh?token=' + this.token;
+      // this.router.navigate(['cMain/bargainList'], {
+      //   queryParams: {
+      //     vmCode: urlParse(window.location.search)['vmCode'],
+      //   }
+      // });
     }
   }
 }
