@@ -83,12 +83,22 @@ export class AppProperties {
   public tblCustomerComplainReplyIsReplyUrl: string;
   public tblCustomerComplainReplyAddUrl: string;
   public tblCustomerComplainReplyDetails: string;
+  /*砍价*/
+  public bargainSponsorBargainListUrl: string;
+  public bargainSponsoBargainDetailsUrl: string;
+  public bargainSponsorAddUrl: string;
+  public bargainJudgeJoinedUrl: string;
+  public bargainShopAddUrl: string;
+  public bargainDetailsUrl: string;
+  public bargainCancelUrl: string;
+  public bargainGetBargainInfoUrl: string;
+  public bargainDoUrl: string;
+
 
   constructor() {
-    // this.appUrl = 'http://192.168.0.114:6662/ys_admin';
-    // this.appUrl = 'http://192.168.0.113:8769/ys_admin'; // localtest
-    // this.appUrl = 'http://192.168.0.106:6662/ys_admin'; // localtest
     this.appUrl = 'http://119.23.233.123:6662/ys_admin/';
+    // this.appUrl = 'http://192.168.0.113:8769/ys_admin'; // localtest
+    // this.appUrl = 'http://192.168.0.114:6662/ys_admin'; // localtest
     this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
 
     this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
@@ -169,5 +179,16 @@ export class AppProperties {
     this.tblCustomerComplainReplyIsReplyUrl  = this.appUrl + '/complainReply/isReply';
     this.tblCustomerComplainReplyAddUrl  = this.appUrl + '/complainReply/add';
     this.tblCustomerComplainReplyDetails = this.appUrl + '/complainReply/replyDetails';
+
+    // 砍价
+    this.bargainSponsorBargainListUrl = this.appUrl + '/bargainSponsor/bargainList';
+    this.bargainSponsoBargainDetailsUrl = this.appUrl + '/bargainSponsor/bargainDetails';
+    this.bargainSponsorAddUrl = this.appUrl + '/bargainSponsor/add';
+    this.bargainJudgeJoinedUrl = this.appUrl + '/bargainSponsor/isCanBargain';
+    this.bargainShopAddUrl = this.appUrl + '/bargainSponsor/add';
+    this.bargainDetailsUrl = this.appUrl + '/bargain/bargainOrder/';
+    this.bargainCancelUrl = this.appUrl + '/order/cancel/';
+    this.bargainDoUrl = this.appUrl + '/bargain/do/';
+    this.bargainGetBargainInfoUrl = this.appUrl + '/bargain/getBargainInfo/';
   }
 }

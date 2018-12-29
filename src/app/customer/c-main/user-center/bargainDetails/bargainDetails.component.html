@@ -5,81 +5,47 @@
   </div>
   <div class="bargain-list">
     <div class="bargain-item">
-      <img src="../../../../assets/main/banner1.png" alt="" width="85px" height="85px">
+      <img [src]="pic" alt="" width="85px" height="85px">
       <article style="margin-left: 5px">
-        <p>【冬季暖心电器】热水机</p>
-        <p style="margin-top: 15px"> 21:41:46后结束</p>
-        <p style="margin-top: 20px"> 砍价后￥0<span style="color: red">&nbsp;&nbsp;&nbsp;24525万人已免费拿</span></p>
+        <p>{{name}}</p>
+        <p style="margin-top: 15px"> <span id="timer"></span></p>
+        <p style="margin-top: 20px"> 砍价后￥{{lowestPrice}}<span style="color: red">&nbsp;&nbsp;&nbsp;{{purchaseNumber}}个人已免费拿</span></p>
       </article>
     </div>
     <div style="background: white">
       <div style="text-align: center">
-        <p style="margin-top: 20px"> 已砍<span style="color: red">1</span>元，还差<span style="color: red">20</span>元</p>
-        <p style="color: red">再邀请18人帮砍价，可以0元购</p>
+        <p style="margin-top: 20px"> 已砍<span style="color: red">{{price}}</span>元，还差<span style="color: red">{{surplusPrice}}</span>元</p>
+        <p style="color: red">再邀请{{allNumber}}人帮砍价，可以{{lowestPrice}}元购</p>
       </div>
       <button class="bargain-details-button" (click)="to()">喊朋友砍一刀</button>
     </div>
   </div>
   <div class="friend">
     <p style="text-align: center;border-bottom: 1px solid #a6a5a5">砍价帮</p>
-    <div class="bargain-item">
-       <img style="border-radius: 50%;" src="../../../../assets/main/banner1.png" alt="" width="45px" height="45px">
+    <div class="bargain-item" *ngFor="let item of list;">
+       <img style="border-radius: 50%;" [src]=item.headimgurl alt="" width="45px" height="45px">
        <article style="margin-left: 5px">
-         <p>小霸王</p>
+         <p>{{item.nickName}}</p>
          <p style="margin-top: 15px"> 拔刀相助，在所不辞</p>
        </article>
-       <p class="cut">砍掉10元</p>
+       <p class="cut">已砍<span style="color: red">{{item.cutPrice}}</span>元</p>
      </div>
-    <div class="bargain-item">
-      <img style="border-radius: 50%;" src="../../../../assets/main/banner1.png" alt="" width="45px" height="45px">
-      <article style="margin-left: 5px">
-        <p>小霸王</p>
-        <p style="margin-top: 15px"> 拔刀相助，在所不辞</p>
-      </article>
-      <p class="cut">砍掉10元</p>
-    </div>
-    <div class="bargain-item">
-      <img style="border-radius: 50%;" src="../../../../assets/main/banner1.png" alt="" width="45px" height="45px">
-      <article style="margin-left: 5px">
-        <p>小霸王</p>
-        <p style="margin-top: 15px"> 拔刀相助，在所不辞</p>
-      </article>
-      <p class="cut">砍掉10元</p>
-    </div>
-    <div class="bargain-item">
-      <img style="border-radius: 50%;" src="../../../../assets/main/banner1.png" alt="" width="45px" height="45px">
-      <article style="margin-left: 5px">
-        <p>小霸王</p>
-        <p style="margin-top: 15px"> 拔刀相助，在所不辞</p>
-      </article>
-      <p class="cut">砍掉10元</p>
-    </div>
-    <div class="bargain-item">
-      <img style="border-radius: 50%;" src="../../../../assets/main/banner1.png" alt="" width="45px" height="45px">
-      <article style="margin-left: 5px">
-        <p>小霸王</p>
-        <p style="margin-top: 15px"> 拔刀相助，在所不辞</p>
-      </article>
-      <p class="cut">砍掉10元</p>
-    </div>
-    <div class="bargain-item">
-      <img style="border-radius: 50%;" src="../../../../assets/main/banner1.png" alt="" width="45px" height="45px">
-      <article style="margin-left: 5px">
-        <p>小霸王</p>
-        <p style="margin-top: 15px"> 拔刀相助，在所不辞</p>
-      </article>
-      <p class="cut">砍掉10元</p>
-    </div>
-    <div class="bargain-item">
-      <img style="border-radius: 50%;" src="../../../../assets/main/banner1.png" alt="" width="45px" height="45px">
-      <article style="margin-left: 5px">
-        <p>小霸王</p>
-        <p style="margin-top: 15px"> 拔刀相助，在所不辞</p>
-      </article>
-      <p class="cut">砍掉10元</p>
-    </div>
     <div class="footer">
       已经到底~
+    </div>
+  </div>
+  <nz-modal [nzVisible]="isVisibleCouponOne" [nzContent]="modalContentCouponOne" [nzFooter]="null" [nzClosable]="false">
+    <ng-template #modalContentCouponOne>
+      <img src="../../../../../assets/icon/bargainShare.png" alt="" style="width:94%;position: absolute;right: 0;top: -100px;opacity: 1">
+      <img (click)="closeCoupon()" src="../../../../../assets/icon/shareOk.png" style="width: 60px; position: absolute;left: 50%;margin-left: -30px;top: 190px;">
+    </ng-template>
+  </nz-modal>
+  <div class="modalTwoOut" *ngIf="isVisibleCouponTwo">
+    <div class="modalTwoIn">
+      <img src="../../../../../assets/icon/bargainPic.png" style="width: 100%;height: auto">
+      <img src="../../../../../assets/icon/bargainShareIcon.png" style="width: 100%;margin-top: -78px;" (click)="shareFriends()">
+      <div style="width: 100%;text-align: center;top: 33%;color:#FFFFFF;font-size: 14px;font-weight: bold;position: absolute;">
+        您已成功砍掉<span style="color: yellow;margin: 0 2px;font-size: 16px;">{{bargainMoney}}</span>元</div>
     </div>
   </div>
 </div>

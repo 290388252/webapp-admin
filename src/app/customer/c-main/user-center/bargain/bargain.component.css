@@ -24,55 +24,108 @@
 .banner {
   margin-top: 34px;
 }
-.bargain-list{
-  position: absolute;
+.address{
+  width: 100%;
+  height: 80px;
   background: white;
-  top: 40%;
+  border-bottom: 1px solid rgba(82,94,113,.05);
+}
+.goods {
+  width: 100%;
+  /*padding: 10px;*/
+  position: relative;
+  height:107px;
+  border-bottom: 1px solid rgba(82,94,113,.05);
+  background: #FFFFFF;
+  color: #999999;
+  font-size: 12px;
+}
+.orderMsg {
   width: 100%;
   padding: 10px;
-  z-index: 10;
-  margin-bottom: 100px;
+  color: #999999;
+  font-size: 12px;
+  background: #FFFFFF;
 }
-.bargain-item {
-  padding: 5px;
-  display: -webkit-box;
-  margin-top: 5px;
-  border-bottom: 1px solid #c3c3c3
-}
-.bargain-details-button{
-  margin-top: 5px;
-  border: 1px solid #c3c3c3;
-  border-radius: 5px;
-  background-color: white;
-  width: 33%;
-  height: 25px;
-  color: black;
-}
-.bargain-pay-button{
-  margin-top: 5px;
-  border: none;
-  border-radius: 5px;
-  background-color: #3399ff;
-  width: 30%;
-  height: 25px;
-  color: white;
-  float: right;
-}
-.friend{
-  position: absolute;
-  top: 250px;
-  width: 96%;
-  margin-left: 2%;
-  padding: 10px;
-  background: #efefef;
-}
-.cut{
-  margin-top: 32px;
-  margin-left: 20%;
-}
-.footer {
+.orderBtm {
   width: 100%;
-  height: 74px;
-  text-align: center;
-  color: grey;
+  background: #fff;
+  text-align: right;
+  padding: 2px 10px;
 }
+.btnTel {
+  background: #3E85FF;
+  border: 1px solid #3E85FF;
+  border-radius: 5px;
+  color: #FFFFFF;
+  margin-right: 10px;
+}
+.btnCancel {
+  background: #fff;
+  border: 0;
+  border: 1px solid #999999;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.btnPay {
+  background: #3E85FF;
+  border: 1px solid #3E85FF;
+  border-radius: 2px;
+  color: #FFFFFF;
+  border-radius: 5px;
+}
+/**/
+
+/**/
+/*.bargain-list{*/
+  /*position: absolute;*/
+  /*background: white;*/
+  /*top: 40%;*/
+  /*width: 100%;*/
+  /*padding: 10px;*/
+  /*z-index: 10;*/
+  /*margin-bottom: 100px;*/
+/*}*/
+/*.bargain-item {*/
+  /*padding: 5px;*/
+  /*display: -webkit-box;*/
+  /*margin-top: 5px;*/
+  /*border-bottom: 1px solid #c3c3c3*/
+/*}*/
+/*.bargain-details-button{*/
+  /*margin-top: 5px;*/
+  /*border: 1px solid #c3c3c3;*/
+  /*border-radius: 5px;*/
+  /*background-color: white;*/
+  /*width: 33%;*/
+  /*height: 25px;*/
+  /*color: black;*/
+/*}*/
+/*.bargain-pay-button{*/
+  /*margin-top: 5px;*/
+  /*border: none;*/
+  /*border-radius: 5px;*/
+  /*background-color: #3399ff;*/
+  /*width: 30%;*/
+  /*height: 25px;*/
+  /*color: white;*/
+  /*float: right;*/
+/*}*/
+/*.friend{*/
+  /*position: absolute;*/
+  /*top: 250px;*/
+  /*width: 96%;*/
+  /*margin-left: 2%;*/
+  /*padding: 10px;*/
+  /*background: #efefef;*/
+/*}*/
+/*.cut{*/
+  /*margin-top: 32px;*/
+  /*margin-left: 20%;*/
+/*}*/
+/*.footer {*/
+  /*width: 100%;*/
+  /*height: 74px;*/
+  /*text-align: center;*/
+  /*color: grey;*/
+/*}*/

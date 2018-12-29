@@ -93,7 +93,7 @@ export class UserCenterComponent implements OnInit {
     } else if (flag === 9) {
       this.router.navigate(['cMain/myDeclaration']);
     } else if (flag === 10) {
-      window.location.href = 'http://localhost:9527/cMain/bargainList';
+      window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargainList';
       // window.location.href = 'http://sms.youshuidaojia.com/shareGzh?token=' + this.token;
       // this.router.navigate(['cMain/bargainList'], {
       //   queryParams: {

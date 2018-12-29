@@ -1,0 +1,56 @@
+<div id="user-container">
+  <div class="guide">
+    <span (click)="goTo()" class="guideIcon"><i class="anticon anticon-left"></i></span>
+    砍价免费拿
+  </div>
+  <div class="bargain-list">
+    <div class="bargain-item">
+      <img [src]="pic" alt="" width="85px" height="85px">
+      <article style="width: 50%;margin-left: 5px;word-wrap: break-word;word-break: break-all;overflow: hidden;">
+        <p>{{itemName || '无'}}</p>
+        <p id="timer" style="margin-top: 15px;font-size: 11px;color: red"></p>
+        <p style="margin-top: 20px;font-size: 11px"> 最低价￥<span style="color: red">{{lowestPrice || '无'}}</span><span style="color: red">&nbsp;&nbsp;&nbsp;{{buyNum || '0'}}人已免费拿</span></p>
+      </article>
+    </div>
+    <div style="background: white">
+      <div style="text-align: center">
+        <p style="margin-top: 20px;font-size: 11px"> 已砍<span style="color: red">{{salesPrice-currPrice}}</span>元，还差<span style="color: red">{{currPrice-lowestPrice}}</span>元</p>
+      </div>
+      <button class="bargain-details-button" (click)="to()">帮朋友砍一刀</button>
+    </div>
+  </div>
+  <div class="friend">
+    <div class="bargain-item">
+      <img [src]="pic" alt="" width="85px" height="85px">
+      <article style="width: 50%;margin-top: 10px;margin-left: 5px;word-wrap: break-word;word-break: break-all;overflow: hidden;">
+        <p style="font-size: 11px">{{itemName  || '无'}}</p>
+        <p style="margin-top: 15px;font-size: 11px"> 价值{{salesPrice  || '0'}}</p>
+        <span style="margin-top: 20px;font-size: 11px"><span style="color: red">{{buyNum || '0'}}</span>人已免费拿。</span>
+        <button *ngIf="lowestPrice === 0" class="bargain-button" (click)="toCreate(itemId)">点击免费拿</button>
+        <button *ngIf="lowestPrice !== 0" class="bargain-button" (click)="toCreate(itemId)">点击砍价</button>
+      </article>
+    </div>
+    <div class="footer">
+      已经到底~
+    </div>
+  </div>
+  <div class="modalTwoOut" *ngIf="bargainModal">
+    <div class="modalTwoIn">
+      <div style="width: 100%;text-align: center;top: 33%;color:#4e555b;font-size: 14px;font-weight: bold;position: absolute;background: white;height: 200px;border-radius: 10px">
+        <img src="../../../../../assets/icon/12banner.png" alt="" width="55px" height="55px" style="border-radius: 50%;position: absolute;right: 40%;top: -25px;border: 2px solid #ffffff;">
+        <span style="
+          position: absolute;
+          color: #c3c3c3;
+          right: 10px;
+          top: 5px;" (click)="closeModal()">X</span>
+        <p style="margin-top: 20%">谢谢你帮我砍掉<span style="color: red;margin: 0 2px;font-size: 16px;">{{bargainMoney}}</span>元</p>
+        <p>你也可以砍价免费拿，快去挑选心仪的商品吧</p>
+        <div (click)="closeModal()" style="padding: 10px;margin: 10px;width: 90%;height: 40px;background: #c3c3c3">
+          返回
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

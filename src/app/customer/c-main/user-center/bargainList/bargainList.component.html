@@ -11,74 +11,39 @@
     width: 100%;">正在进行中...</p>
   </div>
   <div class="bargain-list">
-  <div class="bargain-item">
-    <img src="../../../../../assets/main/1.png" alt="" width="85px" height="85px">
-    <article style="margin-left: 5px">
-      <p>【冬季暖心电器】热水机</p>
-      <p style="margin-top: 15px"> 已砍20元</p>
-      <p style="margin-top: 20px"> 21:41:46后结束</p>
-    </article>
-    <button class="bargain-button" (click)="to()">继续砍价</button>
-  </div>
-    <div class="bargain-item">
-      <img src="../../../../../assets/main/1.png" alt="" width="85px" height="85px">
-      <article style="margin-left: 5px">
-        <p>【冬季暖心电器】热水机</p>
-        <p style="margin-top: 15px"> 已砍20元</p>
-        <p style="margin-top: 20px"> 21:41:46后结束</p>
+    <div class="bargain-item" *ngFor="let item of bargainGoodsFindCustomerList;let i = index">
+      <img [src]="imgUrl + item.pic" alt="" width="85px" height="85px">
+      <article style="width: 50%;margin-left: 5px;word-wrap: break-word;word-break: break-all;overflow: hidden;">
+        <p>{{item.name}}</p>
+        <p style="margin-top: 15px"> 已砍{{item.price - item.surplusPrice}}元</p>
+        <span style="margin-top: 20px;color: red" *ngIf="item.stateLabel === '砍价中'"><span [id]="'timer' + i"></span></span>
+        <span style="margin-top: 20px;color: red" *ngIf="item.stateLabel === '砍价成功'">砍价成功!</span>
+        <span style="margin-top: 20px;color: red" *ngIf="item.stateLabel === '砍价失败'">砍价失败!</span>
       </article>
-      <button class="bargain-button" (click)="to()">继续砍价</button>
+      <button class="bargain-button" (click)="to(item.id)"
+              *ngIf="item.stateLabel === '砍价中'">继续砍价</button>
+      <button class="bargain-button" (click)="details(item.orderId)"
+              *ngIf="item.stateLabel === '砍价成功'">查看详情</button>
     </div>
-    <div class="bargain-item">
-      <img src="../../../../../assets/main/1.png" alt="" width="85px" height="85px">
-      <article style="margin-left: 5px">
-        <p>【冬季暖心电器】热水机</p>
-        <p style="margin-top: 15px"> 已砍20元</p>
-        <p style="margin-top: 20px"> 21:41:46后结束</p>
+    <p *ngIf="bargainGoodsList.length > 0" style="
+    border-bottom: 2px solid #a6a5a5;
+    border-top: 2px solid #a6a5a5;background: white;
+    width: 100%;">其他活动商品</p>
+    <div class="bargain-item" *ngFor="let item of bargainGoodsList">
+      <img [src]="imgUrl + item.pic" alt="" width="85px" height="85px" (click)="goodsDetails(item.goodsId)">
+      <article style="width: 50%;margin-left: 5px;word-wrap: break-word;word-break: break-all;overflow: hidden;">
+        <p>{{item.name}}</p>
+        <p style="margin-top: 15px"> 商品价格{{item.price}}元</p>
+        <span style="margin-top: 20px;color: red"> 购买人数{{item.purchaseNumber}}</span>
       </article>
-      <button class="bargain-button" (click)="to()">继续砍价</button>
-    </div>
-    <div class="bargain-item">
-      <img src="../../../../../assets/main/1.png" alt="" width="85px" height="85px">
-      <article style="margin-left: 5px">
-        <p>【冬季暖心电器】热水机</p>
-        <p style="margin-top: 15px"> 已砍20元</p>
-        <p style="margin-top: 20px"> 21:41:46后结束</p>
-      </article>
-      <button class="bargain-button" (click)="to()">继续砍价</button>
-    </div>
-    <div class="bargain-item">
-      <img src="../../../../../assets/main/1.png" alt="" width="85px" height="85px">
-      <article style="margin-left: 5px">
-        <p>【冬季暖心电器】热水机</p>
-        <p style="margin-top: 15px"> 已砍20元</p>
-        <p style="margin-top: 20px"> 21:41:46后结束</p>
-      </article>
-      <button class="bargain-button" (click)="to()">继续砍价</button>
-    </div>
-    <div class="bargain-item">
-      <img src="../../../../../assets/main/1.png" alt="" width="85px" height="85px">
-      <article style="margin-left: 5px">
-        <p>【冬季暖心电器】热水机</p>
-        <p style="margin-top: 15px"> 已砍20元</p>
-        <p style="margin-top: 20px"> 21:41:46后结束</p>
-      </article>
-      <button class="bargain-button" (click)="to()">继续砍价</button>
-    </div>
-    <div class="bargain-item">
-      <img src="../../../../../assets/main/1.png" alt="" width="85px" height="85px">
-      <article style="margin-left: 5px">
-        <p>【冬季暖心电器】热水机</p>
-        <p style="margin-top: 15px"> 已砍20元</p>
-        <p style="margin-top: 20px"> 21:41:46后结束</p>
-      </article>
-      <button class="bargain-button" (click)="to()">继续砍价</button>
+      <button class="bargain-button" (click)="toCreate(item.id)">点击免费拿</button>
     </div>
 
     <div class="footer">
       已经到底~
     </div>
   </div>
+
 </div>
 
 

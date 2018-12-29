@@ -17,6 +17,7 @@ export class AddAddressComponent implements OnInit {
   public payType;
   public ids;
   public select;
+  public activityId;
   // add
   public addName;
   public addSex;
@@ -50,6 +51,7 @@ export class AddAddressComponent implements OnInit {
     // isAdd 1：新增 0：编辑
     this.isAdd = urlParse(window.location.href)['isAdd'];
     this.select = urlParse(window.location.href)['select'];
+    this.activityId = urlParse(window.location.href)['activityId'];
     // pay
     this.ids = urlParse(window.location.href)['ids'];
     this.payType = urlParse(window.location.href)['payType'];
@@ -227,6 +229,15 @@ export class AddAddressComponent implements OnInit {
               });
             }
 
+          } else if (this.type === '4') {
+            this.router.navigate(['cMain/newAddress'], {
+              queryParams: {
+                type: 4,
+                select: 1,
+                activityId: this.activityId
+              }
+            });
+
           }
         } else {
           this.disable = false;
@@ -293,6 +304,15 @@ export class AddAddressComponent implements OnInit {
                 groupId: this.groupId
               }
             });
+          } else if (this.type === '4') {
+            this.router.navigate(['cMain/newAddress'], {
+              queryParams: {
+                type: 4,
+                select: 1,
+                activityId: this.activityId
+              }
+            });
+
           }
           // else if (this.type === '2') {
           //   this.router.navigate(['cMain/newAddress'], {

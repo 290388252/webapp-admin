@@ -24,6 +24,15 @@ export class NewAddressComponent implements OnInit {
   public payList;
   public goodsId;
   public payType;
+  public isVisibleCouponOne = false;
+  public isVisibleCouponTwo = false;
+  public isVisibleCouponThree = false;
+  public showName;
+  public showPhone;
+  public showAddress;
+  public addressId;
+  public activityId;
+  public bargainMoney;
 
   constructor(private appProperties: AppProperties,
               private appService: AppService,
@@ -40,6 +49,7 @@ export class NewAddressComponent implements OnInit {
     // this.pay = urlParse(window.location.href)['pay'];
     this.goodsId = urlParse(window.location.href)['goodsId'];
     this.quantity = urlParse(window.location.href)['quantity'];
+    this.activityId = urlParse(window.location.href)['activityId'];
     // this.payShopCar = urlParse(window.location.href)['shopCar'];
     // this.payList = urlParse(window.location.href)['idList'];
     this.token = getToken();
@@ -150,16 +160,6 @@ export class NewAddressComponent implements OnInit {
           }
         });
       }
-      // else {
-      //   this.router.navigate(['cMain/addAddress'], {
-      //     queryParams: {
-      //       isAdd: 1,
-      //       type: 2,
-      //       ids: this.ids,
-      //       payType: this.payType
-      //     }
-      //   });
-      // }
     } else if (this.type === '3') {
       // 支付新增
       if (this.select === '1') {
@@ -185,10 +185,21 @@ export class NewAddressComponent implements OnInit {
       //     }
       //   });
       // }
+    } else if (this.type === '4') {
+      console.log('123');
+      this.router.navigate(['cMain/addAddress'], {
+        queryParams: {
+          isAdd: 1,
+          type: 4,
+          // 选择新增
+          select: 1,
+          activityId: this.activityId
+        }
+      });
     }
   }
 
-  selectAddress(val) {
+  selectAddress(item) {
     if (this.type === '2') {
       this.router.navigate(['cMain/pay'], {
         queryParams: {
@@ -196,7 +207,7 @@ export class NewAddressComponent implements OnInit {
           select: 1,
           ids: this.ids,
           payType: this.payType,
-          locationId: val
+          locationId: item.id
         }
       });
     } else if (this.type === '3') {
@@ -206,9 +217,18 @@ export class NewAddressComponent implements OnInit {
           id: this.goodsId,
           quantity: this.quantity,
           groupId: this.groupId,
-          locationId: val
+          locationId: item.id
         }
       });
+    } else if (this.type === '4') {
+      this.isVisibleCouponOne = true;
+      document.getElementsByClassName('ant-modal-footer')[1]['style'].cssText = 'text-align: center;';
+      document.getElementsByClassName('ant-modal-close-x')[1]['style'].cssText = 'display: none;';
+      document.getElementsByClassName('ant-modal-body')[1]['style'].cssText = 'padding: 4px 24px;';
+      this.showName = item.receiver;
+      this.showPhone = item.phone;
+      this.showAddress = item.name;
+      this.addressId = item.id;
     }
   }
 
@@ -243,6 +263,17 @@ export class NewAddressComponent implements OnInit {
           id: this.goodsId,
           quantity: this.quantity,
           groupId: this.groupId,
+          locationId: item.id
+        }
+      });
+    } else if (this.type === '4') {
+      event.stopPropagation();
+      this.router.navigate(['cMain/addAddress'], {
+        queryParams: {
+          type: 4,
+          isAdd: 0,
+          select: 1,
+          activityId: this.activityId,
           locationId: item.id
         }
       });
@@ -310,7 +341,53 @@ export class NewAddressComponent implements OnInit {
             quantity: this.quantity
           }
         });
+      } else if (this.type === '4') {
+        this.router.navigate(['cMain/bargainList']);
       }
     }
+  }
+
+  closeCoupon(val) {
+    if (val === 0) {
+      this.isVisibleCouponOne = false;
+    } else if (val === 1) {
+      this.appService.postAliData(this.appProperties.bargainShopAddUrl, {
+        goodsBargainId: this.activityId,
+        addressId: this.addressId
+      }, this.token).subscribe(
+        data => {
+          if (data.status === 1) {
+            // this.isVisibleCouponOne = false;
+            // this.isVisibleCouponTwo = true;
+            this.bargainMoney = data.returnObject.privce;
+            const id = data.returnObject.customerBargainId;
+            window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargainDetails?id=' + id + '&addressId=' + this.addressId + '&bargainMoney=' + this.bargainMoney + '&bargainShow=1&token=' + this.token;
+            // this.router.navigate(['cMain/bargainDetails'], {
+            //   queryParams: {
+            //     id: id,
+            //     addressId: this.addressId,
+            //     bargainMoney: this.bargainMoney,
+            //     bargainShow: 1
+            //   }
+            // });
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else if (val === 2) {
+      event.stopPropagation();
+      this.isVisibleCouponTwo = false;
+      this.isVisibleCouponThree = true;
+      document.getElementsByClassName('ant-modal-body')[2]['style'].cssText = 'padding: 0;';
+    } else if (val === 3) {
+      this.isVisibleCouponThree = false;
+    }
+  }
+
+  closeModel() {
+    this.isVisibleCouponTwo = false;
+    event.stopPropagation();
   }
 }

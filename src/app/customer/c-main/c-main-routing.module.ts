@@ -41,6 +41,7 @@ const routes: Routes = [
       {path: 'bargain', loadChildren: './user-center/bargain/bargain.module#BargainModule'},
       {path: 'bargainList', loadChildren: './user-center/bargainList/bargainList.module#BargainListModule'},
       {path: 'bargainDetails', loadChildren: './user-center/bargainDetails/bargainDetails.module#BargainDetailsModule'},
+      {path: 'bargainDetailsShare', loadChildren: './user-center/bargainDetailsShare/bargainDetailsShare.module#BargainDetailsShareModule'},
     ]
   }
 ];

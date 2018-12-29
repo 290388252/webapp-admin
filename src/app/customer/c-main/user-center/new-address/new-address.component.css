@@ -144,3 +144,21 @@
 .ant-modal-footer {
   text-align: center;
 }
+
+.modalTwoOut {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modalTwoIn {
+  width: 78%;
+  z-index: 999999;
+  position: relative;
+}

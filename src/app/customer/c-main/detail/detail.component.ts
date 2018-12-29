@@ -46,6 +46,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   public quantityFalse;
   public listShow;
   public timerList = [];
+  public activityId;
 
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router) {
   }
@@ -113,6 +114,7 @@ export class DetailComponent implements OnInit, OnDestroy {
         console.log('123');
         console.log(this.imgList);
         this.goodsObj = data.returnObject;
+        this.activityId = data.returnObject.goodsBargainId;
         this.name = data.returnObject.name;
         this.typeId = data.returnObject.typeId;
         const a = document.getElementById('desk');
@@ -136,6 +138,7 @@ export class DetailComponent implements OnInit, OnDestroy {
         console.log(this.grouponList.length > 0);
         if (this.grouponList.length > 0) {
           for (let i = 0; i < this.grouponList.length; i++) {
+            console.log(new Date(this.grouponList[i].endTime.replace(/-/g, '/')).getTime());
             const endTime = (new Date(this.grouponList[i].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
             this.countDown(endTime, function (msg) {
               document.getElementById('timer' + i).innerHTML = msg;
@@ -395,7 +398,28 @@ export class DetailComponent implements OnInit, OnDestroy {
       );
     }
   }
-
+  create(activityId) {
+    this.appService.postFormData(this.appProperties.bargainJudgeJoinedUrl, {id: activityId}, getToken()).subscribe(
+      data => {
+        console.log(data);
+        if (data.status === 1) {
+          this.router.navigate(['cMain/newAddress'], {
+            queryParams: {
+              type: 4,
+              activityId: activityId,
+              select: 1
+            }
+          });
+        } else {
+          alert(data.message);
+          return;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
   orderTo(val) {
     if (getToken() === null || getToken() === undefined || getToken() === '') {
       // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +

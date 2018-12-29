@@ -109,10 +109,17 @@ export class AppService {
   }
 
   postAliData(url: string, options: any, tokens?: any | null): Observable<any> {
-    const myHttpHead = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'token': tokens
-    });
+    let myHttpHead;
+    if (tokens === 'null') {
+       myHttpHead = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+    } else {
+       myHttpHead = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': tokens
+      });
+    }
     return this.http.post(url, options, {headers: myHttpHead});
   }
 
