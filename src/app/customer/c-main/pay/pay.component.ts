@@ -43,6 +43,7 @@ export class PayComponent implements OnInit {
   constructor(private appService: AppService, private appProperties: AppProperties,
               private router: Router, private routeInfo: ActivatedRoute, private modalService: NzModalService) {
   }
+
   // 个人中心增删查改 ！
   // 支付 新增 选择
   ngOnInit() {
@@ -200,6 +201,9 @@ export class PayComponent implements OnInit {
               payType: this.payType
             }
           });
+          return;
+        } else if (data2.status === 2) {
+          alert(data2.message);
           return;
         } else if (data2.returnObject.orderState !== 10001) {
           this.orderId = data2.returnObject.orderId;

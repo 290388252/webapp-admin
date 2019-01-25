@@ -34,6 +34,8 @@ export class GrouponPayComponent implements OnInit {
   public noneAddress;
   public needAddress;
   public select;
+  public addressList;
+  public showAddress;
   //
   public orderId;
   public token;
@@ -41,6 +43,8 @@ export class GrouponPayComponent implements OnInit {
   public isVisibleA;
   public isShow;
   public newAddress;
+  public spellgroupId;
+  public invite;
 
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router,
               private modalService: NzModalService) {
@@ -51,8 +55,8 @@ export class GrouponPayComponent implements OnInit {
     this.goodsId = urlParse(window.location.href)['id'];
     this.grouponId = urlParse(window.location.href)['groupId'];
     this.select = urlParse(window.location.href)['select'];
-    // this.vipTypeId = urlParse(window.location.href)['vipTypeId'];
-    // this.vipValidity = urlParse(window.location.href)['vipValidity'];
+    this.spellgroupId = urlParse(window.location.href)['spellgroupId'];
+    this.invite = urlParse(window.location.href)['invite'];
     // this.getTime();
     this.token = getToken();
     this.consignee = undefined;
@@ -61,7 +65,10 @@ export class GrouponPayComponent implements OnInit {
     this.isVisible = false;
     this.isShow = false;
     this.getLocation();
-    this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {id: this.goodsId}, '').subscribe(
+    this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {
+      'id': this.goodsId,
+      'spellgroupId': this.spellgroupId
+    }, '').subscribe(
       data => {
         this.money = data.returnObject['groupPurchasePrice'];
         this.pic = data.returnObject['pic'].split(',')[0];
@@ -72,13 +79,15 @@ export class GrouponPayComponent implements OnInit {
         console.log(error);
       }
     );
+    this.showAddress = false;
   }
 
   getLocation() {
-    this.appService.postAliData(this.appProperties.grouponJudgeAddressUrl, {'ids': this.goodsId}, this.token).subscribe(
+    this.appService.postAliData(this.appProperties.grouponJudgeAddressUrl, {
+      'ids': this.goodsId,
+      'spellgroupId': this.spellgroupId
+    }, this.token).subscribe(
       data1 => {
-        console.log('data1');
-        console.log(data1);
         if (data1.status === 0) {
           this.needAddress = true;
           if (this.select === '1') {
@@ -101,8 +110,6 @@ export class GrouponPayComponent implements OnInit {
           } else {
             this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
               data => {
-                console.log('data');
-                console.log(data);
                 if (data.status === 0) {
                   this.noneAddress = true;
                 } else {
@@ -118,14 +125,19 @@ export class GrouponPayComponent implements OnInit {
               }
             );
           }
-        } else {
-          this.noneAddress = false;
+        } else if (data1.status === 1) {
+          this.needAddress = false;
+          this.addressList = data1.returnObject;
         }
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  showAdd() {
+    this.showAddress = !this.showAddress;
   }
 
   toAddress(val) {
@@ -174,7 +186,6 @@ export class GrouponPayComponent implements OnInit {
       phone: this.inIphone
     }, this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.isShow = false;
           this.isVisible = false;
@@ -217,7 +228,6 @@ export class GrouponPayComponent implements OnInit {
       id: this.locationId
     }, this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.isShow = false;
           this.isVisible = false;
@@ -257,18 +267,24 @@ export class GrouponPayComponent implements OnInit {
       });
       return;
     }
+    let addressType;
+    if (this.needAddress === true) {
+      addressType = 2;
+    } else {
+      addressType = 1;
+    }
     this.appService.postAliData(this.appProperties.grouponAddUrl, {
       product: this.goodsId,
       itemName: this.goodsName,
       quantity: this.quantity,
       price: this.totalMoney,
       customerGroupId: this.grouponId,
-      distributionModel: 2,
+      distributionModel: addressType,
       payType: 1,
-      addressId: this.locationId
+      addressId: this.locationId,
+      spellGroupId: this.spellgroupId
     }, this.token).subscribe(
       data2 => {
-        console.log(data2);
         if (data2.status === 2) {
           alert(data2.message);
           return;
@@ -276,13 +292,11 @@ export class GrouponPayComponent implements OnInit {
           alert(data2.message);
           if (data2.returnObject.orderState !== 10001) {
             this.orderId = data2.returnObject.orderId;
-            console.log(this.orderId);
             this.appService.getAliData(this.appProperties.grouponBuyUrl, {
               orderId: this.orderId,
               url: 'http://webapp.youshuidaojia.com/cMain/grouponPay'
             }, this.token).subscribe(
               data4 => {
-                console.log(data4);
                 if (data4.status === 2) {
                   window.location.href = data4.returnObject;
                 } else {
@@ -355,7 +369,11 @@ export class GrouponPayComponent implements OnInit {
         paySign: data.payInfo.sign, // 支付签名
         success: (res) => {
           if (res.errMsg === 'chooseWXPay:ok') {
-            window.location.href = 'http://webapp.youshuidaojia.com/cMain/firstPage';
+            if (this.invite === 1) {
+              window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponPayInFinish?token=' + this.token + '&orderId=' + this.orderId;
+            } else {
+              window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponPayFinish?token=' + this.token + '&orderId=' + this.orderId;
+            }
             // this.router.navigate(['cMain/shopCar']);
             console.log('支付成功');
           } else {

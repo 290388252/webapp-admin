@@ -25,6 +25,7 @@ export class CouponComponent implements OnInit {
   public imgUrl = this.appProperties.shopImgUrl;
   specialModal = false;
   private token;
+  public footerA;
 
   constructor(private appProperties: AppProperties,
               private appService: AppService,
@@ -95,6 +96,17 @@ export class CouponComponent implements OnInit {
         } else if (state === 2) {
           if (this.status === 1) {
             this.effectiveList = data.returnObject;
+            setTimeout(() => {
+              const scrollHeight = window.screen.availHeight;
+              let contLen = window.getComputedStyle(document.getElementById('showLen')).height;
+              contLen = contLen.replace('px', '');
+              console.log(scrollHeight);
+              console.log(contLen);
+              if ((Number(contLen) + 107) > scrollHeight) {
+                console.log('111');
+                this.footerA = false;
+              }
+            }, 0);
           }
         } else if (state === 3) {
           if (this.status === 1) {

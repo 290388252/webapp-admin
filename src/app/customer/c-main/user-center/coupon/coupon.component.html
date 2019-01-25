@@ -9,7 +9,7 @@
     <h4>空空如也~</h4>
   </div>
   <!--未使用-->
-  <div *ngIf="effective" class="layout">
+  <div *ngIf="effective" class="layoutA" id="showLen">
     <div class="couponOut" [hidden]="!effectiveList" *ngFor="let item of effectiveList">
       <!--满减-->
       <div class="couponImg couponUrlA" *ngIf="item.type === 1">
@@ -62,11 +62,11 @@
           <span *ngIf="turnToBind(item.bindProduct)">仅限特殊商品使用</span>
           <span *ngIf="!turnToBind(item.bindProduct)">全品类商品使用</span>
         </span>
-        <img class="coupon_useImg" src="../../../../../assets/icon/useIcon.png"  *ngIf="turnToBind(item.bindProduct,item.useWhere)" (click)="useSpecialCard(item.id)">
-        <img class="coupon_useImg" src="../../../../../assets/icon/useIcon.png"  *ngIf="!turnToBind(item.bindProduct,item.useWhere)" (click)="useCard(1)">
+        <!--<img class="coupon_useImg" src="../../../../../assets/icon/useIcon.png"  *ngIf="turnToBind(item.bindProduct,item.useWhere)" (click)="useSpecialCard(item.id)">-->
+        <!--<img class="coupon_useImg" src="../../../../../assets/icon/useIcon.png"  *ngIf="!turnToBind(item.bindProduct,item.useWhere)" (click)="useCard(1)">-->
       </div>
     </div>
-    <div class="footer">
+    <div class="footerA" id="aaa" [class]="footerA === false ? 'footerB' : 'footerA'">
       领完优惠券后,继续购水,请点击扫一扫~
     </div>
   </div>

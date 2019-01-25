@@ -43,7 +43,7 @@ export class BargainComponent implements OnInit {
 
   ngOnInit() {
     // this.userBalance = urlParse(window.location.href)['userBalance'];
-    this.token = getToken();
+    this.token = urlParse(window.location.href)['token'];
     this.orderId = urlParse(window.location.href)['orderId'];
     if (this.orderId !== undefined) {
       this.getInit();

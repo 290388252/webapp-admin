@@ -31,6 +31,8 @@ export class PrepaidComponent implements OnInit {
   //
   public isFocusA;
   public isFocusB;
+  public isFocusD;
+  public isFocusE
   public correct;
 
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router,
@@ -99,29 +101,43 @@ export class PrepaidComponent implements OnInit {
   }
 
   focusMoney(val) {
-    // console.log(this.prepaidMoney);
-    // if (event !== null) {
-    //   if (event !== undefined) {
-    //     this.errorSumit = false;
-    //   }
-    // }
     if (val === 'isFocusA') {
       this.isFocusA = true;
       this.isFocusB = false;
+      this.isFocusD = false;
+      this.isFocusE = false;
       this.errorSumit = false;
       this.errorNum = false;
-      // this.endMoney = 200;
       this.prepaidMoney = undefined;
     } else if (val === 'isFocusB') {
       this.isFocusA = false;
       this.isFocusB = true;
+      this.isFocusD = false;
+      this.isFocusE = false;
       this.errorSumit = false;
       this.errorNum = false;
-      // this.endMoney = 100;
+      this.prepaidMoney = undefined;
+    } else if (val === 'isFocusD') {
+      this.isFocusA = false;
+      this.isFocusB = false;
+      this.isFocusD = true;
+      this.isFocusE = false;
+      this.errorSumit = false;
+      this.errorNum = false;
+      this.prepaidMoney = undefined;
+    } else if (val === 'isFocusE') {
+      this.isFocusA = false;
+      this.isFocusB = false;
+      this.isFocusD = false;
+      this.isFocusE = true;
+      this.errorSumit = false;
+      this.errorNum = false;
       this.prepaidMoney = undefined;
     } else if (val === 'isFocusC') {
       this.isFocusA = false;
       this.isFocusB = false;
+      this.isFocusD = false;
+      this.isFocusE = false;
       this.errorSumit = true;
     }
   }
@@ -142,12 +158,16 @@ export class PrepaidComponent implements OnInit {
       this.prepaidMoney = undefined;
       this.isFocusA = true;
       this.isFocusB = false;
+      this.isFocusD = false;
+      this.isFocusE = false;
     } else if (this.judgeFriend === false) {
       this.judgeButton = '点击帮好友充值';
       this.correct = false;
       this.prepaidMoney = undefined;
       this.isFocusA = true;
       this.isFocusB = false;
+      this.isFocusD = false;
+      this.isFocusE = false;
     }
   }
 
@@ -167,7 +187,7 @@ export class PrepaidComponent implements OnInit {
       }
       user = '好友';
     }
-    if (this.isFocusA === false && this.isFocusB === false) {
+    if (this.isFocusA === false && this.isFocusB === false && this.isFocusD === false && this.isFocusE === false) {
       this.endMoney = this.prepaidMoney;
       if (Number(this.prepaidMoney) < 0) {
         this.errorNum = true;
@@ -176,10 +196,14 @@ export class PrepaidComponent implements OnInit {
         this.errorNum = false;
       }
     }
-    if (this.isFocusA === true && this.isFocusB === false) {
+    if (this.isFocusA === true && this.isFocusB === false && this.isFocusD === false && this.isFocusE === false) {
       this.endMoney = 200;
-    } else if (this.isFocusA === false && this.isFocusB === true) {
+    } else if (this.isFocusA === false && this.isFocusB === true && this.isFocusD === false && this.isFocusE === false) {
       this.endMoney = 100;
+    } else if (this.isFocusA === false && this.isFocusB === false && this.isFocusD === true && this.isFocusE === false) {
+      this.endMoney = 50;
+    } else if (this.isFocusA === false && this.isFocusB === false && this.isFocusD === false && this.isFocusE === true) {
+      this.endMoney = 20;
     } else {
       this.endMoney = this.prepaidMoney;
       if (Number(this.prepaidMoney) < 0) {

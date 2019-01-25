@@ -1,0 +1,152 @@
+.user-container {
+  position: absolute;
+  padding-bottom: 10%;
+  height: 100%;
+  width: 100%;
+  background: #f3f3f3;
+  /*background: url("../../../../assets/main/bs-bg.jpg");*/
+  /*background-size: 150% 100%;*/
+}
+
+.container {
+  width: 100%;
+}
+
+.menu-top {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #ffffff;
+  /*display: flex;*/
+}
+
+.menu-li {
+  /*flex: 1;*/
+  width: 16.66%;
+  text-align: center;
+  padding: 0;
+  font-size: 13px;
+}
+
+.order-layout {
+  background: #f3f3f3;
+  padding: 42px 10px 60px 10px;;
+  z-index: 1;
+}
+
+.typeRadio {
+  height: 30px;
+  width: 100%;
+  background: #ffffff;
+  margin-top: 49px;
+  border-bottom: 1px solid #e5e5e5;
+  padding-left: 20px;
+  line-height: 30px;
+}
+
+.order {
+  width: 100%;
+  /*border-bottom: 1px solid #c1c1c1;*/
+  /*border-top: 1px solid #c1c1c1;*/
+  background: #ffffff;
+  margin-top: 14px;
+  border-radius:8px;
+}
+
+.orderNum {
+  width: 100%;
+  height: 37px;
+  border-bottom: 1px solid #e5e5e5;
+  line-height: 36px;
+}
+
+.orderGoods {
+  width: 100%;
+  height: 101px;
+  border-bottom: 1px solid #e5e5e5;
+  position: relative;
+  font-size: 12px;
+}
+
+.orderImg {
+  width: 80px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  height: 80px;
+}
+
+.orderCont {
+  margin-left: 100px;
+  height: 100%;
+  padding: 10px 0;
+  position: relative;
+}
+
+.order_GoodsName {
+  color: #333333;
+  width: 100%;
+  position: relative;
+  padding-right: 42px;
+}
+
+.order_GoodsPrice {
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*right: 10px;*/
+}
+
+.order_GoodsNum {
+  color: #999999;
+  margin-top: 10px;
+  position: absolute;
+  bottom: 10px;
+}
+
+.orderDetails {
+  width: 100%;
+  height: 30px;
+  position: relative;
+  font-size: 12px;
+  padding-right: 10px;
+  line-height: 30px;
+  text-align: right;
+}
+
+.detail_bottom {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  padding-right: 10px;
+  text-align: right;
+}
+.cancelBt {
+  width: 70px;
+  height: 28px;
+  line-height: 26px;
+  border: none;
+  background: #FFFFFF;
+  border: 1px solid #dedede;
+  color: #000000;
+  border-radius: 7px;
+}
+.inviteBt {
+  width: 100px;
+  height: 28px;
+  line-height: 28px;
+  border: none;
+  background: red;
+  color: #FFFFFF;
+  border-radius: 7px;
+}
+.payBt {
+  width: 70px;
+  height: 28px;
+  line-height: 28px;
+  border: none;
+  background: #f76126;
+  color: #FFFFFF;
+  border-radius: 7px;
+
+}

@@ -1,21 +1,24 @@
-.user-container{
+.user-container {
   /*height: 100%;*/
   width: 100%;
-  background: rgba(82,94,113,.05);
+  background: rgba(82, 94, 113, .05);
   padding-bottom: 60px;
   /*background: url("../../../../assets/main/bs-bg.jpg");*/
   /*background-size: 150% 100%;*/
 }
+
 .container {
   width: 100%;
   padding-bottom: 104px;
 }
-.header{
+
+.header {
   width: 100%;
   height: 120px;
   background: #1890ff;
 }
-.header-img{
+
+.header-img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -23,36 +26,95 @@
   top: 28px;
   left: 18px;
 }
-.header-span{
+
+.header-span {
   color: white;
   position: absolute;
   top: 45px;
   left: 90px;
 }
-.left{
+.grouponOrder {
+  display: flex;
+  height: 46px;
+  line-height: 46px;
+  background: #FFFFFF;
+  margin-bottom: 2px;
+}
+.grouponOrder_l {
+  flex: 1;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 15px;
+}
+.grouponOrder_r {
+  flex: 1;
+  text-align: right;
+  margin-right: 15px;
+}
+.titleList {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  background: #fff;
+  margin-bottom: 4px;
+}
+
+.titleList_in {
+  flex: 1;
+  height: 100%;
+  text-align: center;
+}
+
+.title_top {
+  width: 100%;
+  text-align: center;
+  margin-top: 7px;
+}
+
+.title_topImg {
+  height: 26px;
+  height: 26px;
+  margin-top: 7px;
+  vertical-align: top
+}
+
+.title_bottom {
+  height: 20px;
+  font-size: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.left {
   float: left;
 }
-.right{
+
+.right {
   float: right;
 }
-.clear-fix{
+
+.clear-fix {
   clear: both;
 }
-.customer-list{
+
+.customer-list {
   width: 100%;
   margin-bottom: 10px;
   background: #FFFFFF;
   border-top: #efefef 1px solid;
 }
-.customer-list li{
+
+.customer-list li {
   width: 100%;
-  padding:0px 15px;
+  padding: 0px 15px;
   height: auto;
   /*height: 40px;
   line-height: 40px;*/
   border-bottom: #efefef 1px solid;
 }
-.customer-list li span{
+
+.customer-list li span {
   font-size: 16px;
   font-weight: 500;
   height: 25px;
@@ -60,74 +122,88 @@
   margin: 10px 0px;
   display: inline-block;
 }
-.customer-list li span i{
+
+.customer-list li span i {
   font-size: 24px;
 }
-.icon-list1{
+
+.icon-list1 {
   background: url("../../../../assets/icon/customerIcon/icon-list1.png") no-repeat;
   background-size: 25px 25px;
   padding-left: 40px !important;
 }
-.icon-list2{
+
+.icon-list2 {
   background: url("../../../../assets/icon/customerIcon/icon-list2.png") no-repeat;
   background-size: 25px 25px;
   padding-left: 40px !important;
 }
-.icon-list3{
+
+.icon-list3 {
   background: url("../../../../assets/icon/customerIcon/icon-list3.png") no-repeat 3px 0px;
   background-size: 19px 25px;
   padding-left: 40px !important;
 }
-.icon-list4{
+
+.icon-list4 {
   background: url("../../../../assets/icon/customerIcon/icon-list4.png") no-repeat;
   background-size: 18px 25px;
   padding-left: 40px !important;
 }
-.icon-list5{
+
+.icon-list5 {
   background: url("../../../../assets/icon/customerIcon/icon-list5.png") no-repeat 0px 3px;
   background-size: 25px 19px;
   padding-left: 40px !important;
 }
-.icon-list6{
+
+.icon-list6 {
   background: url("../../../../assets/icon/customerIcon/icon-list6.png") no-repeat;
   background-size: 25px 25px;
   padding-left: 40px !important;
 }
-.icon-list7{
+
+.icon-list7 {
   background: url("../../../../assets/icon/customerIcon/icon-list7.png") no-repeat 3px 0px;
   background-size: 19px 25px;
   padding-left: 40px !important;
 }
-.icon-list8{
+
+.icon-list8 {
   background: url("../../../../assets/icon/customerIcon/icon-list8.png") no-repeat;
   background-size: 25px 25px;
   padding-left: 40px !important;
 }
-.icon-list9{
-   background: url("../../../../assets/icon/customerIcon/icon-water.png") no-repeat;
-   background-size: 25px 25px;
-   padding-left: 40px !important;
- }
-.icon-list10{
+
+.icon-list9 {
+  background: url("../../../../assets/icon/customerIcon/icon-water.png") no-repeat;
+  background-size: 25px 25px;
+  padding-left: 40px !important;
+}
+
+.icon-list10 {
   background: url("../../../../assets/icon/customerIcon/icon-warn.png") no-repeat 0px 2px;
   background-size: 25px 21px;
   padding-left: 40px !important;
 }
-.icon-arrow{
-  transform:rotate(180deg);
-  -moz-transform:rotate(180deg);
-  -webkit-transform:rotate(180deg);
-  filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+
+.icon-arrow {
+  transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
   background: url("../../../../assets/icon/customerIcon/icon-arrow.png") no-repeat;
   background-size: 10px 15px;
   width: 18px;
   height: 15px;
   display: inline-block;
 }
-.am-list{
+
+.am-list {
   padding-top: 0;
   padding-bottom: 10px;
 }
+
 .header-money {
   color: white;
   position: absolute;

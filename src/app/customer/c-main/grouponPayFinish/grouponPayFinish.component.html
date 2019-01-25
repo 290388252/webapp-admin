@@ -1,0 +1,48 @@
+<div class="user-container">
+  <div class="container" style="padding-bottom: 104px;">
+    <!--<div class="title">-->
+      <!--优水到家-->
+      <!--<span style="position: absolute;left: 20px;" (click)="goTo()"><i-->
+        <!--class="anticon anticon-left"></i></span>-->
+    <!--</div>-->
+    <div class="countDown" id="timer"></div>
+    <div class="top">
+      <p style="font-size: 16px;font-weight: bold;">还差<span>{{num}}</span>人，赶紧邀请好友来拼单吧</p>
+      <button class="invite" (click)="invite()">邀请好友来拼单</button>
+      <button class="first" (click)="goTo(1)">返回首页</button>
+    </div>
+    <div class="header">
+      <span class="headerIn" *ngFor="let item of headerList">
+        <span class="headerInMain" *ngIf="item.isSpellTheMain === 1"><img
+          src="../../../../assets/icon/grouponMallIcon.png" style="width: 100%;height: 100%;"></span>
+        <img [src]="item.headimgurl" class="headerIcon">
+      </span>
+      <span *ngIf="num > 1 ">...</span>
+      <div class="noneIcon">?</div>
+    </div>
+    <div class="detail" (click)="goTo(2)">
+      <div class="detail_left">订单详情</div>
+      <div class="detail_right">{{goodsName}}<span style="margin-left: 10px;"><i
+        class="anticon anticon-right"></i></span></div>
+    </div>
+    <div class="detail">
+      <div class="detail_left">拼团规则</div>
+      <div class="rule_right">好友拼单 人满发货 人不满退款</div>
+    </div>
+    <div class="rule">
+      <p>1.拼团成功后，我们将会以提水券或者提货券的形式发到你的账号下，你可以开箱取货，自动使用该券。</p>
+      <p>2.拼团失败，金额原路返回到你的账上，并且扣除你的使用券。</p>
+    </div>
+    <nz-modal [nzVisible]="isVisibleCouponOne" [nzContent]="modalContentCouponOne" [nzFooter]="null"
+              [nzClosable]="false">
+      <ng-template #modalContentCouponOne>
+        <img src="../../../../assets/icon/grouponShare.png" alt=""
+             style="width:94%;position: absolute;right: 0;top: -100px;opacity: 1">
+        <img (click)="closeCoupon()" src="../../../../../assets/icon/shareOk.png"
+             style="width: 60px; position: absolute;left: 50%;margin-left: -30px;top: 190px;">
+      </ng-template>
+    </nz-modal>
+  </div>
+</div>
+
+

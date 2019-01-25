@@ -24,7 +24,7 @@ export class UserCenterComponent implements OnInit {
   ngOnInit() {
     // this.getInfo();
     if (urlParse(window.location.search)['token'] === undefined || urlParse(window.location.search)['token'] === ''
-    || urlParse(window.location.search)['token'] === null) {
+      || urlParse(window.location.search)['token'] === null) {
       this.token = getToken();
       // this.token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiNzA5MCwwLG9La1p5MDR5WUs4MXhUanprc04xb0pMemllTjAiLCJleHAiOjE1NDQyMjUzMzd9.gagOxXr-CdXaMBqwVS438FEy7JZJibZVRi8LDeH-hpvOyQj4JQzFPnRkf2W1SLfSr2F1ZrzaoqDd88yGjZMzlA';
     } else {
@@ -42,7 +42,9 @@ export class UserCenterComponent implements OnInit {
     this.appService.postAliData(this.appProperties.shopUserMoneyUrl, {}, this.token).subscribe(
       data => {
         console.log(123);
-        if (data.status === 1) {
+        if (data.status === -99) {
+          alert(data.message);
+        } else {
           if (data.returnObject.nickname === undefined || data.returnObject.nickname === ''
             || data.returnObject.nickname === null) {
             this.getInfo();
@@ -51,8 +53,6 @@ export class UserCenterComponent implements OnInit {
           this.userIntegral = data.returnObject.integral;
           this.userName = data.returnObject.nickname;
           this.userImg = data.returnObject.headimgurl;
-        } else if (data.status === -99) {
-          alert(data.message);
         }
       },
       error => {
@@ -63,7 +63,20 @@ export class UserCenterComponent implements OnInit {
 
   detail(flag) {
     if (flag === 1) {
-      this.router.navigate(['cMain/prepaid']);
+      this.appService.postAliData(this.appProperties.shopUserMoneyUrl, {}, this.token).subscribe(
+        data => {
+          console.log(123);
+          if (data.status === -66) {
+            alert(data.message);
+            return;
+          } else {
+            this.router.navigate(['cMain/prepaid']);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
     } else if (flag === 2) {
       this.router.navigate(['cMain/myOrder']);
     } else if (flag === 3) {
@@ -100,6 +113,16 @@ export class UserCenterComponent implements OnInit {
       //     vmCode: urlParse(window.location.search)['vmCode'],
       //   }
       // });
+    } else if (flag === 11) {
+      this.router.navigate(['cMain/grouponOrder']);
     }
+  }
+
+  goDetail(val) {
+    this.router.navigate(['cMain/grouponOrder'], {
+      queryParams: {
+        val: val
+      }
+    });
   }
 }

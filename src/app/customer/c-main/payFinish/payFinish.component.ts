@@ -10,8 +10,9 @@ import {getToken, urlParse} from '../../../utils/util';
   styleUrls: ['./payFinish.component.css']
 })
 export class PayFinishComponent implements OnInit {
-
+  public imgUrl = this.appProperties.shopImgUrl;
   public payShowList;
+  public grouponList;
   public wechatVisible: boolean;
   public token;
   public couponId;
@@ -66,6 +67,17 @@ export class PayFinishComponent implements OnInit {
         console.log(error);
       }
     );
+    this.appService.postAliData(this.appProperties.payFinishGrouponUrl, {
+      type: 4
+    }, this.token).subscribe(
+      data => {
+        this.grouponList = data.returnObject;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
   }
 
   // 返回首页
@@ -121,7 +133,6 @@ export class PayFinishComponent implements OnInit {
   }
 
   sureModel() {
-    console.log('ok');
     const model = document.getElementById('myModel');
     model.style.display = 'none';
   }
@@ -134,4 +145,14 @@ export class PayFinishComponent implements OnInit {
     this.wechatVisible = false;
   }
 
+  goTo(id, pic, spellgroupId) {
+    this.router.navigate(['cMain/detail'], {
+      queryParams: {
+        id: id,
+        spellgroupId: spellgroupId,
+        pic: pic,
+        type: 1
+      }
+    });
+  }
 }

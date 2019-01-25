@@ -39,7 +39,7 @@ export class FirstPageComponent implements OnInit {
     this.list = this.firstPageService.showGoods(getToken(), 1);
     // this.getBannerHeight();
     this.judgeVip = false;
-    this.getVip();
+    // this.getVip();
   }
 
   getVip() {
@@ -114,13 +114,14 @@ export class FirstPageComponent implements OnInit {
     );
   }
 
-  goTo(id, pic) {
+  goTo(id, pic, spellgroupId) {
     // const endName = '"' + name + '"';
     // console.log(endName);
     this.router.navigate(['cMain/detail'], {
       queryParams: {
         id: id,
         // name: endName,
+        spellgroupId: spellgroupId,
         pic: pic,
         // isConglomerateCommodity: isConglomerateCommodity,
         type: 1

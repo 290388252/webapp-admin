@@ -1,0 +1,175 @@
+<div class="user-container">
+  <div class="container" style="padding-bottom: 104px;">
+    <div>
+      <!--待付款-->
+      <img src="../../../../../assets/icon/obligationBanner.png" style="width: 100%;height: auto;"
+           *ngIf="shoppingBeanList['state'] === 10002">
+      <!--待分享-->
+      <img src="../../../../../assets/icon/shareBanner.png" style="width: 100%;height: auto;"
+           *ngIf="shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 1">
+      <!--待收货-->
+      <img src="../../../../../assets/icon/pickBanner.png" style="width: 100%;height: auto;"
+           *ngIf="shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 2">
+      <!--已完成-->
+      <img src="../../../../../assets/icon/completedBanner.png" style="width: 100%;height: auto;"
+           *ngIf="shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 4">
+      <!--已关闭-->
+      <img src="../../../../../assets/icon/closedBanner.png" style="width: 100%;height: auto;"
+           *ngIf="shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 3">
+    </div>
+    <!--<div class="address">-->
+    <!--<img src="../../../../../assets/icon/addressIconRed.png" class="addressIcon">-->
+    <!--<div class="addressIn">-->
+    <!--<span>哈哈哈</span><span style="margin-left: 10px;">13131313131</span>-->
+    <!--</div>-->
+    <!--<div class="addressIn">广州市黄埔区萝岗开发区加速器</div>-->
+    <!--</div>-->
+    <div class="addressPick">
+      <div class="addressPick_t" *ngIf="addressList"><img src="../../../../../assets/icon/addressIconRed.png"
+                                                          class="addressPickIcon">
+        {{addressList[0]['name']}}
+      </div>
+      <div class="addressCheck" (click)="showAdd()">查看更多
+        <img src="../../../../../assets/icon/openIcon.png" style="width: 12px;height: 12px;margin-top: -2px;">
+      </div>
+      <!--<div *ngIf="showAddress">-->
+      <!--<div class="addressPick_t" *ngFor="let item of addressList;let i = index"><img-->
+      <!--src="../../../../../assets/icon/addressIconRed.png" class="addressPickIcon">-->
+      <!--{{item}}-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div *ngIf="showAddress" class="addressCheck" (click)="showAdd()">收起-->
+      <!--<img src="../../../../../assets/icon/closeIcon.png" style="width: 12px;height: 12px;margin-top: -2px;">-->
+      <!--</div>-->
+    </div>
+    <div class="header" *ngIf="shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 1">
+      <div class="header_top">
+        <img src="../../../../../assets/icon/grouponUserIcon.png" class="headerUserIcon">
+        <span
+          style="margin-left: 2px;">待分享，还差{{headerLength}}人</span>
+      </div>
+      <div class="header_bottom">
+        <span class="headerIn" *ngFor="let item of headerList">
+          <span class="headerInMain" *ngIf="item.isSpellTheMain === 1">
+            <img src="../../../../assets/icon/grouponMallIcon.png" style="width: 100%;height: 100%;">
+          </span>
+          <img [src]="item.headimgurl" class="headerIcon">
+        </span>
+        <span *ngIf="headerLength > 1 ">...</span>
+        <div class="noneIcon">?</div>
+        <!--<img *ngFor="let item of customerList" [src]="item.headimgurl" class="headerIcon" >-->
+        <!--<span-->
+        <!--*ngIf="(shoppingBeanList['minimumGroupSize']-shoppingBeanList['customerSpellGroupList'].length) > 1 ">...</span>-->
+        <!--<div class="noneIcon">?</div>-->
+        <!--<button class="header_bottom_bt" (click)="invite()">邀请好友</button>-->
+      </div>
+
+    </div>
+    <div class="detail">
+      <div class="detail_left">
+        <img [src]="imgUrl+shoppingBeanList['pic']" style="width: 100%;height: 100%;">
+      </div>
+      <div class="detail_right">
+        <div class="detail_right_title">
+          <img src="../../../../../assets/icon/firstIcon/icon-group.png"
+               style="width: 22px;height: 22px;vertical-align: top">
+          {{shoppingBeanList['itemName']}}
+        </div>
+        <div class="detail_right_bottom">
+          <span style="color: red;">￥{{shoppingBeanList['price']}}元</span>
+          <span style="position: absolute;right: 20px;top: 0;">x{{shoppingBeanList['num']}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="money">
+      实付：{{shoppingBeanList['newPrice']}}元
+    </div>
+    <div style="margin-top: 4px;padding-left: 10px;background: #ffffff;font-size: 12px;" *ngIf="shoppingBeanList['state'] === 10001 && (shoppingBeanList['spellgroupState'] === 2
+      || shoppingBeanList['spellgroupState'] === 3 || shoppingBeanList['spellgroupState'] === 4)">
+      恭喜拼团成功，您已经获得以下商品的提货券，提货去吧！
+    </div>
+    <div *ngIf="shoppingBeanList['state'] === 10001 && (shoppingBeanList['spellgroupState'] === 2
+      || shoppingBeanList['spellgroupState'] === 3 || shoppingBeanList['spellgroupState'] === 4)">
+      <div class="getGoods" *ngFor="let item of carryWaterList">
+        <div class="getGoods_left">
+          <img [src]="imgUrl+shoppingBeanList['pic']" style="width: 100%;height: 100%;">
+        </div>
+        <div class="getGoods_right">
+          <div>{{item.carryName}}</div>
+          <div>有效期：{{item.startTime}}-{{item.endTime}}</div>
+          <div>数量：{{item.quantity}}</div>
+          <div style="color: red">已使用：{{item.useQuantity}}</div>
+          <div style="width: 100%;text-align: center;text-decoration:underline;color: #999999"
+               (click)="showFour(item.carryName,item.remark)">使用说明
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!--<div class="contact">-->
+    <!--<div class="contact_left">联系卖家</div>-->
+    <!--<div class="contact_right">拨打电话</div>-->
+    <!--</div>-->
+    <div class="orderNum">
+      <div class="orderNum_in">订单编号：{{shoppingBeanList['payCode']}}</div>
+      <div class="orderNum_in">支付方式：微信</div>
+    </div>
+    <div class="successState"></div>
+    <!--待支付-->
+    <div class="operation" *ngIf="shoppingBeanList['state'] === 10002">
+      <button class="cancelBt" (click)="orderOff()">取消订单</button>
+      <button class="payBt" (click)="pay()">支付</button>
+    </div>
+    <!--待分享-->
+    <div class="operation" *ngIf="shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 1">
+      <!--<button class="cancelBt" (click)="orderOff()">取消订单</button>-->
+      <button class="inviteBt" (click)="invite()">邀请好友拼单</button>
+    </div>
+    <div class="operation"
+         *ngIf="shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 2 && shoppingBeanList['allowRefund'] === 1">
+      <button class="refundBt" (click)="refund()">申请退款</button>
+    </div>
+  </div>
+  <nz-modal [nzVisible]="isVisibleCouponOne" [nzContent]="modalContentCouponOne" [nzFooter]="null" [nzClosable]="false">
+    <ng-template #modalContentCouponOne>
+      <img src="../../../../assets/icon/grouponShare.png" alt=""
+           style="width:94%;position: absolute;right: 0;top: -100px;opacity: 1">
+      <img (click)="closeCoupon()" src="../../../../../assets/icon/shareOk.png"
+           style="width: 60px; position: absolute;left: 50%;margin-left: -30px;top: 190px;">
+    </ng-template>
+  </nz-modal>
+  <nz-modal [(nzVisible)]="isVisibleCouponTwo" [nzTitle]="null" [nzContent]="modalContentTwo"
+            [nzFooter]="modalFooterTwo" (nzOnCancel)="false">
+    <ng-template #modalContentTwo>
+      <div style="width: 100%;text-align: center;font-size: 14px;color: #666666">确定取消您的订单?</div>
+    </ng-template>
+    <ng-template #modalFooterTwo>
+      <button nz-button nzType="default" (click)="cancalOrder()">取消</button>
+      <button nz-button nzType="primary" (click)="submitOrder()">确认</button>
+    </ng-template>
+  </nz-modal>
+  <nz-modal [(nzVisible)]="showAddress" [nzTitle]="modalTitleThree" [nzContent]="modalContentThree" [nzFooter]="null"
+            (nzOnCancel)="showAdd()">
+    <ng-template #modalTitleThree>
+      拼团成功后，可以到以下地址领取！
+    </ng-template>
+    <ng-template #modalContentThree>
+      <div class="addressPick_t" *ngFor="let item of addressList"><img
+        src="../../../../../assets/icon/addressIconRed.png" class="addressPickIcon">
+        {{item.name}}
+      </div>
+    </ng-template>
+  </nz-modal>
+  <nz-modal [(nzVisible)]="isVisibleCouponFour" [nzTitle]="modalTitleFour" [nzContent]="modalContentFour"
+             [nzFooter]="null"
+            (nzOnCancel)="showExplain()">
+    <ng-template #modalTitleFour>
+      {{carryWaterName}}的使用说明
+    </ng-template>
+    <ng-template #modalContentFour>
+      <div style="width: 100%;color: #999999;font-size: 13px;text-indent:26px">{{carryWaterRemark}}</div>
+    </ng-template>
+  </nz-modal>
+</div>
+
+

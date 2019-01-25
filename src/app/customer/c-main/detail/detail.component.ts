@@ -35,6 +35,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   public endSecond;
   public quantity;
   public typeId;
+  public maxNum = 3;
+  public quantityMaxFalse;
   //
   public grouponList;
   public grouponNumber;
@@ -43,10 +45,14 @@ export class DetailComponent implements OnInit, OnDestroy {
   public arr;
   public isVisible;
   public isVisibleA;
+  public isVisibleB;
   public quantityFalse;
   public listShow;
   public timerList = [];
   public activityId;
+  public spellgroupId;
+  public invite;
+  public shareId;
 
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router) {
   }
@@ -64,9 +70,21 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.id = urlParse(window.location.href)['id'];
     // this.name = urlParse(window.location.href)['name'];
     this.pic = urlParse(window.location.href)['pic'];
+    this.spellgroupId = urlParse(window.location.href)['spellgroupId'];
+    this.invite = urlParse(window.location.href)['invite'];
+    this.shareId = urlParse(window.location.href)['shareId'];
     this.showGoods();
     this.curId = 1;
     this.isVisible = false;
+    this.isVisibleB = false;
+    window.onload = function () {
+      document.getElementsByClassName('ant-modal-close-x')[1]['style'].cssText = 'display: none;';
+    };
+    console.log(this.invite === '1');
+    if (this.invite === '1') {
+      this.showQuantity(this.shareId);
+    }
+
     // this.countDown(325);
   }
 
@@ -94,7 +112,7 @@ export class DetailComponent implements OnInit, OnDestroy {
         } else {
           endSeconds = seconds;
         }
-        const msg = endHour + ':' + endMinutes + ':' + endSeconds;
+        const msg = '剩余' + endHour + ':' + endMinutes + ':' + endSeconds;
         fn(msg);
         // if (maxtime == 5 * 60) alert('注意，还有5分钟!');
         --maxtime;
@@ -107,9 +125,13 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   showGoods() {
-    this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {id: this.id}, '').subscribe(
+    this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {
+      id: this.id,
+      spellgroupId: this.spellgroupId
+    }, '').subscribe(
       data => {
         console.log(data);
+        this.maxNum = data.returnObject.numberLimit;
         this.imgList = data.returnObject.pic.split(',');
         console.log('123');
         console.log(this.imgList);
@@ -129,11 +151,12 @@ export class DetailComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
-    this.appService.postAliData(this.appProperties.shoppingGrouponMemberQuantity, {shoppingGoodsId: this.id}, '').subscribe(
+    this.appService.postAliData(this.appProperties.shoppingGrouponMemberQuantity, {spellgroupId: this.spellgroupId}, '').subscribe(
       data => {
         console.log(data);
         this.grouponList = data.returnObject;
         this.grouponTotal = data.returnObject.length;
+
         // this.countDown(this.grouponList[0].endTime);
         console.log(this.grouponList.length > 0);
         if (this.grouponList.length > 0) {
@@ -190,6 +213,7 @@ export class DetailComponent implements OnInit, OnDestroy {
 
     } else {
       if (grouponId !== null) {
+        // 参与他人拼团
         this.appService.postFormData(this.appProperties.shoppingNewJudgeUrl, {'id': grouponId}, getToken()).subscribe(
           data => {
             // console.log(data);
@@ -201,6 +225,7 @@ export class DetailComponent implements OnInit, OnDestroy {
               this.isVisible = false;
               this.isVisibleA = true;
               this.quantity = 1;
+              this.quantityMaxFalse = false;
               this.quantityFalse = false;
             }
           },
@@ -209,14 +234,31 @@ export class DetailComponent implements OnInit, OnDestroy {
           }
         );
       } else {
-        this.grouponId = grouponId;
-        this.isVisible = false;
-        this.isVisibleA = true;
-        this.quantity = 1;
-        this.quantityFalse = false;
+        this.appService.postFormData(this.appProperties.shoppingGrouponJudegUrl, {'spellGroupId': this.spellgroupId}, getToken()).subscribe(
+          data => {
+            if (data.status === -99) {
+              this.isVisibleB = true;
+              document.getElementById('message').innerHTML = data.message;
+              return;
+            } else if (data.status === 1) {
+              this.grouponId = grouponId;
+              this.isVisible = false;
+              this.isVisibleA = true;
+              this.quantity = 1;
+              this.quantityFalse = false;
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
       }
     }
 
+  }
+
+  cancelB(): void {
+    this.isVisibleB = false;
   }
 
   quantityCancel(): void {
@@ -347,20 +389,54 @@ export class DetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  grouponGo(quantity, id, grouponId) {
+  offNum() {
+    if (this.quantity > 1) {
+      this.quantity = this.quantity - 1;
+    } else {
+      this.quantity = 1;
+      this.quantityFalse = true;
+      setTimeout(() => {
+        this.quantityFalse = false;
+      }, 3000);
+    }
+  }
+
+  addNum() {
+    if (this.quantity === this.maxNum) {
+      this.quantity = this.maxNum;
+      this.quantityMaxFalse = true;
+      setTimeout(() => {
+        this.quantityMaxFalse = false;
+      }, 3000);
+    } else {
+      this.quantity = this.quantity + 1;
+    }
+  }
+
+  grouponGo(quantity, id, grouponId, spellgroupId) {
     if (quantity === null || quantity === undefined || quantity === '') {
       this.quantityFalse = true;
+      setTimeout(() => {
+        this.quantityFalse = false;
+      }, 3000);
       return;
     }
     this.isVisibleA = false;
+    // let invite;
+    // if (this.grouponId === null) {
+    //   invite = 0;
+    // } else {
+    //   invite = 1;
+    // }
     this.router.navigate(['cMain/grouponPay'], {
       queryParams: {
         quantity: quantity,
         id: id,
         groupId: grouponId,
+        spellgroupId: spellgroupId,
+        invite: this.invite
       }
     });
-
   }
 
   btnCartAndBuy() {
@@ -398,6 +474,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       );
     }
   }
+
   create(activityId) {
     this.appService.postFormData(this.appProperties.bargainJudgeJoinedUrl, {id: activityId}, getToken()).subscribe(
       data => {
@@ -420,6 +497,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       }
     );
   }
+
   orderTo(val) {
     if (getToken() === null || getToken() === undefined || getToken() === '') {
       // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
@@ -448,18 +526,22 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   turnToPage(val) {
-    if (val === 1) {
-      this.router.navigate(['cMain/firstPage']);
-    }
-    if (val === 2) {
-      this.router.navigate(['cMain/allGoods'], {
-        queryParams: {
-          value: 0,
-        }
-      });
-    }
-    if (val === 3) {
-      this.router.navigate(['cMain/shopCar']);
+    if (getToken() === null || getToken() === undefined) {
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
+    } else {
+      if (val === 1) {
+        this.router.navigate(['cMain/firstPage']);
+      }
+      if (val === 2) {
+        this.router.navigate(['cMain/allGoods'], {
+          queryParams: {
+            value: 0,
+          }
+        });
+      }
+      if (val === 3) {
+        this.router.navigate(['cMain/shopCar']);
+      }
     }
   }
 }

@@ -1,11 +1,11 @@
 <div class="user-container">
   <div class="container" style="padding-bottom: 104px;">
-    <div
-      style="margin: 0 auto;width: 100%;text-align: center;height: 50px;line-height: 50px;font-size: 18px;font-weight: bold;color: #666666;position: relative;">
-      确认订单
-      <span style="position: absolute;left: 20px;" (click)="goTo(goodsId,goodsName,pic)"><i
-        class="anticon anticon-left"></i></span>
-    </div>
+    <!--<div-->
+      <!--style="margin: 0 auto;width: 100%;text-align: center;height: 50px;line-height: 50px;font-size: 18px;font-weight: bold;color: #666666;position: relative;">-->
+      <!--确认订单-->
+      <!--<span style="position: absolute;left: 20px;" (click)="goTo(goodsId,goodsName,pic)"><i-->
+        <!--class="anticon anticon-left"></i></span>-->
+    <!--</div>-->
     <div>
       <!--地址-->
       <div class="top" *ngIf="needAddress">
@@ -17,65 +17,34 @@
             <br>
             <span>配送地址：<span style="font-size: 12px;">{{address}}</span></span>
           </div>
-          <img style="width: 30px;height: 30px;float: right;margin-top: 20px" src="../../../../assets/icon/right.png" alt="">
+          <img style="width: 30px;height: 30px;float: right;margin-top: 20px" src="../../../../assets/icon/right.png"
+               alt="">
         </div>
         <div *ngIf="noneAddress" style="width: 100%;height: 70px;" (click)="toAddress('1')">
           <div style="float: left;font-weight: bold;font-size: 14px;line-height: 70px;">请填写地址</div>
-          <img style="width: 30px;height: 30px;float: right;margin-top: 20px" src="../../../../assets/icon/right.png" alt="">
+          <img style="width: 30px;height: 30px;float: right;margin-top: 20px" src="../../../../assets/icon/right.png"
+               alt="">
         </div>
-
-
-      </div><!--<div style="background-color:white;margin-right: 20px;position: relative;width: 100%;padding-right: 26px;">
-        <div style="height:78px;background-color:white;margin-right: 20px;position: relative;width: 100%;margin-top: 2px;padding-right: 26px;padding-top: 8px;color: #949494" >
-          <span style="width: 20px;height: 20px;display: inline-block;position: absolute;font-size: 18px;top: 20px;left: 10px;"><i class="anticon anticon-environment-o"></i></span>
-          <div style="margin-right: 20px;height: 64px;padding-left: 40px;position: relative;" *ngIf="!noneAddress">
-            <div style="height: 26px;width: 100%;line-height: 26px;">
-              <div style="float:left;">收货人：{{consignee}}</div>
-              <div style="float: right;">{{iphone}}</div>
-            </div>
-            <div style="height: 40px;width: 112%;">配送地址：<span style="font-size: 12px;">{{address}}</span></div>
-            <span style="position: absolute;right: -52px;top: 18px;font-size: 16px;" (click)="alterAdress()"><i class="anticon anticon-right"></i></span>
-          </div>
-          <div style="margin-right: 20px;height: 64px;padding-left: 70px;text-align: center;line-height: 64px;" *ngIf="noneAddress">
-            <button nz-button nzType="primary" (click)="showModal()">请输入配送地址</button>
-          </div>
+      </div>
+      <div class="addressPick" *ngIf="!needAddress">
+        <div class="addressPick_t" *ngIf="addressList"><img
+          src="../../../../../assets/icon/addressIconRed.png"
+          class="addressPickIcon">
+          {{addressList[0]['name']}}
         </div>
-      </div>-->
-      <!-- <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent"
-                 [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
-         <ng-template #modalTitle>
-           请填写配送地址
-         </ng-template>
-         <ng-template #modalContent>
-           <input nz-input placeholder="收货人" [(ngModel)]="inConsignee" style="margin-bottom: 10px;">
-           <input nz-input placeholder="联系方式" [(ngModel)]="inIphone" style="margin-bottom: 10px;">
-           <input nz-input placeholder="详细地址" [(ngModel)]="inAddress">
-           <p style="color: red" *ngIf="isShow">*请输入完整信息</p>
-           &lt;!&ndash;<nz-switch [(ngModel)]="switchValue"></nz-switch>&ndash;&gt;
-         </ng-template>
-         <ng-template #modalFooter>
-           <button nz-button nzType="default" (click)="handleCancel()">取消</button>
-           <button nz-button nzType="primary" *ngIf="newAddress" (click)="handleOk()">保存</button>
-           <button nz-button nzType="primary" *ngIf="!newAddress" (click)="handleAlter()">修改</button>
-         </ng-template>
-       </nz-modal>-->
-      <!--<nz-modal [(nzVisible)]="isVisibleA" [nzTitle]="modalTitleA" [nzContent]="modalContentA"-->
-      <!--[nzFooter]="modalFooterA" (nzOnCancel)="handleCancelA()">-->
-      <!--<ng-template #modalTitleA>-->
-      <!--请填写配送地址-->
-      <!--</ng-template>-->
-      <!--<ng-template #modalContentA>-->
-      <!--<input nz-input placeholder="收货人" [(ngModel)]="inConsignee" style="margin-bottom: 10px;">-->
-      <!--<input nz-input placeholder="联系方式" [(ngModel)]="inIphone" style="margin-bottom: 10px;">-->
-      <!--<input nz-input placeholder="详细地址" [(ngModel)]="inAddress">-->
-      <!--<p style="color: red" *ngIf="isShow">*请输入完整信息</p>-->
-      <!--&lt;!&ndash;<nz-switch [(ngModel)]="switchValue"></nz-switch>&ndash;&gt;-->
-      <!--</ng-template>-->
-      <!--<ng-template #modalFooterA>-->
-      <!--<button nz-button nzType="default" (click)="handleCancelA()">取消</button>-->
-      <!--<button nz-button nzType="primary" (click)="handleOkA()">保存</button>-->
-      <!--</ng-template>-->
-      <!--</nz-modal>-->
+        <div class="addressCheck" (click)="showAdd()">查看更多
+          <img src="../../../../../assets/icon/openIcon.png" style="width: 12px;height: 12px;margin-top: -2px;">
+        </div>
+        <!--<div *ngIf="showAddress">-->
+        <!--<div class="addressPick_t" *ngFor="let item of addressList;let i = index"><img-->
+        <!--src="../../../../../assets/icon/addressIconRed.png" class="addressPickIcon">-->
+        <!--{{item}}-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div *ngIf="showAddress" class="addressCheck" >收起-->
+        <!--<img src="../../../../../assets/icon/closeIcon.png" style="width: 12px;height: 12px;margin-top: -2px;">-->
+        <!--</div>-->
+      </div>
       <div
         style="height:102px;background-color:white;margin-right: 10px;position: relative;width: 100%;margin-top: 2px;">
         <div style="width: 94px;height: 94px;position: absolute;top: 4px;left: 4px;text-align: center;">
@@ -115,9 +84,8 @@
         </div>
       </div>
       <div style="width: 100%;margin-top: 10px;font-size: 12px;color: #CCCCCC;padding: 10px;">
-        <h4>1.开团后,24小时内成功邀请好友加入拼团,则团员均可享受超值团购价;</h4>
-        <h4>2.若24小时内无人响应,则视为拼团失败,钱款会在1—2个工作日内原路退还;</h4>
-        <h4>3.拼团成功,24小时内给予发货!</h4>
+        <h4>1.拼团成功后，我们将会以提水券或者提货券的形式发到你的账号下。你可以开箱取货，自动使用该券;</h4>
+        <h4>2.拼团失败，金额原路返回到你的账上，并且扣除你的使用券;</h4>
       </div>
     </div>
     <!--<div style="display: flex;flex-direction: column;align-items: center;margin-top: 10px;">-->
@@ -125,7 +93,7 @@
     <!--<button nz-button nzType="primary" style="width: 144px;letter-spacing: 4px" (click)="vipBuy()">立即购买</button>-->
     <!--</div>-->
   </div>
-  <div style="width: 100%;height: 50px;position: absolute;bottom: 59px;background: #ffffff;">
+  <div style="width: 100%;height: 50px;position: fixed;bottom: 59px;background: #ffffff;">
     <div
       style="margin-right:88px; background: #ffffff;height: 50px;line-height: 50px;text-align: right;padding-right: 10px;">
       合计金额<span style="color: red;margin-left: 4px;">¥:{{totalMoney}}</span>
@@ -134,6 +102,18 @@
     line-height: 50px;color: #ffffff;text-align: center;" (click)="grouponBuy()">提交订单
     </div>
   </div>
+  <nz-modal [(nzVisible)]="showAddress" [nzTitle]="modalTitleA" [nzContent]="modalContentA" [nzFooter]="null"
+            (nzOnCancel)="showAdd()">
+    <ng-template #modalTitleA>
+      拼团成功后，可以到以下地址领取！
+    </ng-template>
+    <ng-template #modalContentA>
+      <div class="addressPick_t" *ngFor="let item of addressList"><img
+        src="../../../../../assets/icon/addressIconRed.png" class="addressPickIcon">
+        {{item.name}}
+      </div>
+    </ng-template>
+  </nz-modal>
 </div>
 
 

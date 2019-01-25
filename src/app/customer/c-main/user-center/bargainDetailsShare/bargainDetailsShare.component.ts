@@ -163,12 +163,15 @@ export class BargainDetailsShareComponent implements OnInit, OnDestroy {
             'http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/bargainDetailsShare?vm=1-1';
         } else {
           alert(data.message);
-          return;
+            return;
         }
       },
       error => {
         console.log(error);
       }
     );
+  }
+  toFixed(num) {
+    return Math.round(num * 100) / 100;
   }
 }

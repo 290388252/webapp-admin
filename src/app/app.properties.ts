@@ -28,6 +28,7 @@ export class AppProperties {
   public shoppingGoodsDetailUrl: string;
   public shoppingGrouponMemberQuantity: string;
   public shoppingNewJudgeUrl: string;
+  public shoppingGrouponJudegUrl: string;
   public shoppingCarUrl: string;
   public shoppingAddUrl: string;
   public shoppingUpdateUrl: string;
@@ -47,7 +48,13 @@ export class AppProperties {
   public shopVipAddUrl;
   public grouponAddUrl;
   public grouponBuyUrl;
+  public grouponPayFinishUrl;
+  public grouponInPayFinishUrl;
   public wechatShareInfoUrl;
+  public grouponOrderUrl;
+  public grouponOrderDetailsUrl;
+  public grouponRefundUrl;
+  public grouponPayShareUrl;
   public couponAddAsianCustomer: string;
   // public shopStoreUpdateUrl: string;
   public shopUnifiedStoreOrderUrl: string;
@@ -67,6 +74,7 @@ export class AppProperties {
   public shopPrepaidAddUrl: string;
   public shopPrepaidBuyUrl: string;
   public payFinishShowUrl: string;
+  public payFinishGrouponUrl: string;
   public payFinishGetCouponUrl: string;
   public detailCartAndBuyUrl: string;
 
@@ -97,9 +105,10 @@ export class AppProperties {
 
   constructor() {
     this.appUrl = 'http://119.23.233.123:6662/ys_admin/';
-    // this.appUrl = 'http://192.168.0.113:8769/ys_admin'; // localtest
-    // this.appUrl = 'http://192.168.0.114:6662/ys_admin'; // localtest
+    // this.appUrl = 'http://192.168.0.113:6662/ys_admin'; // localtest
+    // this.smsUrl = 'http://192.168.0.113:6662/ys_sms';
     this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
+
 
     this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
     this.adminGetShopTokenUrl = this.smsUrl + '/admin/getShopToken1';
@@ -123,6 +132,7 @@ export class AppProperties {
     this.shoppingGoodsDetailUrl = this.appUrl + '/shoppingGoods/productDetails';
     this.shoppingGrouponMemberQuantity = this.appUrl + '/tblCustomerSpellGroup/list';
     this.shoppingNewJudgeUrl = this.appUrl + '/tblCustomerSpellGroup/isRepeatedSpellGroup';
+    this.shoppingGrouponJudegUrl = this.appUrl + '/tblCustomerSpellGroup/isStartSpellGroup';
     this.shoppingCarUrl = this.appUrl + '/shoppingCar/appListPage';
     this.shopImgUrl = this.appUrl + '/shoppingGoodsImg/';
     this.filesImgUrl = this.appUrl + '/files/';
@@ -136,8 +146,8 @@ export class AppProperties {
     this.shopAddressSelectUrl = this.appUrl + '/address/select';
     this.grouponJudgeAddressUrl = this.appUrl + '/order/checkGroupIfneedAddress';
     this.shopAddressShow = this.appUrl + '/order/checkIfneedAddress';
-    this.mapDetailsAUrl = this.appUrl + '/vendingMachinesWay/listAll';
-    this.mapDetailsBUrl = this.appUrl + '/vendingMachinesWay/listAll2';
+    this.mapDetailsAUrl = this.appUrl + '/vendingMachinesWay/listAllForMap';
+    this.mapDetailsBUrl = this.appUrl + '/vendingMachinesWay/listAllForMap2';
     this.shopAddressUpdateUrl = this.appUrl + '/address/update';
     this.shopAddressCheckUrl = this.appUrl + '/address/selectById';
     this.shopAddressAddUrl = this.appUrl + '/address/add';
@@ -160,10 +170,19 @@ export class AppProperties {
     this.shopPrepaidBuyUrl = this.appUrl + '/memberOrder/payBalance';
     this.grouponAddUrl = this.appUrl + '/order/storeOrderSpellGroupAdd';
     this.grouponBuyUrl = this.appUrl + '/order/storeOrderSpellGroupPay';
+    //
+    this.grouponPayFinishUrl = this.appUrl + '/spellGroupSharer/payFinishList';
+    this.grouponInPayFinishUrl = this.appUrl + '/spellGroupSharer/payFinishList';
+    this.grouponOrderUrl = this.appUrl + '/order/storeOrderFind';
+    this.grouponOrderDetailsUrl = this.appUrl + '/order/orderParticulars';
+    this.grouponRefundUrl = this.appUrl + '/refund/customerRefund';
+    this.grouponPayShareUrl = this.appUrl + '/spellGroupSharer/list';
+    //
     this.wechatShareInfoUrl = this.smsUrl + '/wechat/shareInfo';
     this.couponAddAsianCustomer = this.appUrl + '/coupon/addAsianCustomer';
 
     this.payFinishShowUrl = this.appUrl + '/order/storeOrderFininshPay';
+    this.payFinishGrouponUrl = this.appUrl + '/shoppingGoods/list';
     this.payFinishGetCouponUrl = this.appUrl + '/coupon/get';
     this.shopCarSaveUrl = this.appUrl + '/shoppingCar/save';
     this.backSelectUrl = this.appUrl + '/shoppingCar/backSelect';

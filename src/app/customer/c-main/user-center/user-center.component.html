@@ -3,6 +3,28 @@
     <img class="header-img" [src]=userImg>
     <span class="header-span">{{userName}}</span>
   </div>
+  <div class="grouponOrder" (click)="detail(11)">
+    <div class="grouponOrder_l"><img src="../../../../assets/icon/grouponOrderIcon.png" style="width: 25px;height: 25px;margin-right: 10px;vertical-align: top;margin-top: 10px;">我的拼团订单</div>
+    <div class="grouponOrder_r">查看更多订单</div>
+  </div>
+  <div class="titleList">
+    <div class="titleList_in" (click)="goDetail(1)">
+        <img src="../../../../assets/icon/columnA.png" class="title_topImg">
+      <div class="title_bottom">待付款</div>
+    </div>
+    <div class="titleList_in" (click)="goDetail(2)">
+      <img src="../../../../assets/icon/columnA.png" class="title_topImg">
+      <div class="title_bottom">待分享</div>
+    </div>
+    <div class="titleList_in" (click)="goDetail(3)">
+      <img src="../../../../assets/icon/columnA.png" class="title_topImg">
+      <div class="title_bottom">待取货</div>
+    </div>
+    <div class="titleList_in" (click)="goDetail(4)">
+      <img src="../../../../assets/icon/columnA.png" class="title_topImg">
+      <div class="title_bottom">已完成</div>
+    </div>
+  </div>
   <ul class="customer-list">
     <li (click)="detail(1)">
       <span class="icon-list1 left">余额</span>
@@ -19,7 +41,7 @@
   </ul>
   <ul class="customer-list">
     <li (click)="detail(4)"><span class="icon-list5">我的优惠券</span></li>
-    <li (click)="detail(5)"><span class="icon-list9">我的提水券</span></li>
+    <li (click)="detail(5)"><span class="icon-list9">我的提货券</span></li>
     <li (click)="detail(6)"><span class="icon-list6">我的购物车</span></li>
     <li (click)="detail(7)"><span class="icon-list7">我的地址</span></li>
   </ul>
