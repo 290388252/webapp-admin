@@ -58,7 +58,12 @@ export class GrouponPayComponent implements OnInit {
     this.spellgroupId = urlParse(window.location.href)['spellgroupId'];
     this.invite = urlParse(window.location.href)['invite'];
     // this.getTime();
-    this.token = getToken();
+    if (getToken() !== null && getToken() !== undefined && getToken() !== '') {
+      this.token = getToken();
+    } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
+      && urlParse(window.location.href)['token'] !== '') {
+      this.token = urlParse(window.location.href)['token'];
+    }
     this.consignee = undefined;
     this.iphone = undefined;
     this.address = undefined;
@@ -277,7 +282,7 @@ export class GrouponPayComponent implements OnInit {
       product: this.goodsId,
       itemName: this.goodsName,
       quantity: this.quantity,
-      price: this.totalMoney,
+      price: this.money,
       customerGroupId: this.grouponId,
       distributionModel: addressType,
       payType: 1,
@@ -369,8 +374,8 @@ export class GrouponPayComponent implements OnInit {
         paySign: data.payInfo.sign, // 支付签名
         success: (res) => {
           if (res.errMsg === 'chooseWXPay:ok') {
-            if (this.invite === 1) {
-              window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponPayInFinish?token=' + this.token + '&orderId=' + this.orderId;
+            if (this.invite === 1 || this.invite === '1') {
+              window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponInPayFinish?token=' + this.token + '&orderId=' + this.orderId;
             } else {
               window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponPayFinish?token=' + this.token + '&orderId=' + this.orderId;
             }

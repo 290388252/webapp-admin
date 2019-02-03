@@ -48,6 +48,7 @@ export class AppProperties {
   public shopVipAddUrl;
   public grouponAddUrl;
   public grouponBuyUrl;
+  public grouponVerifyUrl;
   public grouponPayFinishUrl;
   public grouponInPayFinishUrl;
   public wechatShareInfoUrl;
@@ -56,6 +57,7 @@ export class AppProperties {
   public grouponRefundUrl;
   public grouponPayShareUrl;
   public couponAddAsianCustomer: string;
+  public recommendGoodsUrl: string;
   // public shopStoreUpdateUrl: string;
   public shopUnifiedStoreOrderUrl: string;
   public orderUnifiedOrderUrl: string;
@@ -108,8 +110,6 @@ export class AppProperties {
     // this.appUrl = 'http://192.168.0.113:6662/ys_admin'; // localtest
     // this.smsUrl = 'http://192.168.0.113:6662/ys_sms';
     this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
-
-
     this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
     this.adminGetShopTokenUrl = this.smsUrl + '/admin/getShopToken1';
     this.smsSendUrl = this.smsUrl + '/sms/send';
@@ -170,6 +170,7 @@ export class AppProperties {
     this.shopPrepaidBuyUrl = this.appUrl + '/memberOrder/payBalance';
     this.grouponAddUrl = this.appUrl + '/order/storeOrderSpellGroupAdd';
     this.grouponBuyUrl = this.appUrl + '/order/storeOrderSpellGroupPay';
+    this.grouponVerifyUrl = this.appUrl + '/order/isPaymentAllowed';
     //
     this.grouponPayFinishUrl = this.appUrl + '/spellGroupSharer/payFinishList';
     this.grouponInPayFinishUrl = this.appUrl + '/spellGroupSharer/payFinishList';
@@ -180,6 +181,7 @@ export class AppProperties {
     //
     this.wechatShareInfoUrl = this.smsUrl + '/wechat/shareInfo';
     this.couponAddAsianCustomer = this.appUrl + '/coupon/addAsianCustomer';
+    this.recommendGoodsUrl = this.appUrl + '/shoppingGoods/list';
 
     this.payFinishShowUrl = this.appUrl + '/order/storeOrderFininshPay';
     this.payFinishGrouponUrl = this.appUrl + '/shoppingGoods/list';

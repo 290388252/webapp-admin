@@ -32,7 +32,7 @@ export class PrepaidComponent implements OnInit {
   public isFocusA;
   public isFocusB;
   public isFocusD;
-  public isFocusE
+  public isFocusE;
   public correct;
 
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router,
@@ -41,8 +41,20 @@ export class PrepaidComponent implements OnInit {
 
   ngOnInit() {
     // this.userBalance = urlParse(window.location.href)['userBalance'];
-    this.token = getToken();
-    this.getDate();
+    if (getToken() !== null && getToken() !== undefined && getToken() !== '') {
+      this.token = getToken();
+    } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
+      && urlParse(window.location.href)['token'] !== '') {
+      this.token = urlParse(window.location.href)['token'];
+    }
+    if (this.token === undefined || this.token === null || this.token === '') {
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=' +
+        'http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/prepaid?vm=1-7';
+    } else {
+      this.getDate();
+    }
+    // this.token = getToken();
+    // this.getDate();
     this.prepaidMoney = undefined;
     this.judgeFriend = false;
     this.judgeButton = '点击帮好友充值';
@@ -146,7 +158,8 @@ export class PrepaidComponent implements OnInit {
     if (flag === 'userCenter') {
       this.router.navigate(['cMain/userCenter']);
     } else if (flag === 'protocol') {
-      this.router.navigate(['cMain/protocol']);
+      // this.router.navigate(['cMain/protocol']);
+      window.location.href = 'http://webapp.youshuidaojia.com/cMain/protocol?token=' + this.token;
     }
   }
 

@@ -39,6 +39,10 @@ export class CLoginService {
                   break;
                 case '5': this.getFrom(data, 'cMain/grouponShare');
                   break;
+                case '6': this.getFrom(data, 'cMain/detail');
+                  break;
+                case '7': this.getFrom(data, 'cMain/prepaid');
+                  break;
                 default: this.getFrom(data, 'cMain/firstPage');
                   break;
               }

@@ -31,6 +31,9 @@ export class GrouponOrderComponent implements OnInit {
   public closed: boolean;
   public val;
   public cancelId;
+  public isInitiator;
+  public payOrderId;
+  public choiceId;
   public isVisibleCouponOne;
   public isVisibleCouponTwo;
 
@@ -91,6 +94,7 @@ export class GrouponOrderComponent implements OnInit {
             success: function () {
               // 用户确认分享后执行的回调函数
               console.log('success');
+              that.sort(this.choiceId);
             },
             cancel: function () {
               // 用户取消分享后执行的回调函数
@@ -131,6 +135,7 @@ export class GrouponOrderComponent implements OnInit {
   sort(flag) {
     if (flag.toString() === '0') {
       // 全部
+      this.choiceId = 0;
       this.all = true;
       this.obligation = false;
       this.share = false;
@@ -141,6 +146,7 @@ export class GrouponOrderComponent implements OnInit {
     } else if (flag.toString() === '1') {
       console.log(flag);
       // 待付款
+      this.choiceId = 1;
       this.all = false;
       this.obligation = true;
       this.share = false;
@@ -150,6 +156,7 @@ export class GrouponOrderComponent implements OnInit {
       this.orderList(1);
     } else if (flag.toString() === '2') {
       // 待分享
+      this.choiceId = 2;
       this.all = false;
       this.obligation = false;
       this.share = true;
@@ -159,6 +166,7 @@ export class GrouponOrderComponent implements OnInit {
       this.orderList(2);
     } else if (flag.toString() === '3') {
       // 待取货
+      this.choiceId = 3;
       this.all = false;
       this.obligation = false;
       this.share = false;
@@ -168,6 +176,7 @@ export class GrouponOrderComponent implements OnInit {
       this.orderList(3);
     } else if (flag.toString() === '4') {
       // 已完成
+      this.choiceId = 4;
       this.all = false;
       this.obligation = false;
       this.share = false;
@@ -177,6 +186,7 @@ export class GrouponOrderComponent implements OnInit {
       this.orderList(4);
     } else if (flag.toString() === '5') {
       // 已关闭
+      this.choiceId = 5;
       this.all = false;
       this.obligation = false;
       this.share = false;
@@ -223,7 +233,9 @@ export class GrouponOrderComponent implements OnInit {
       data => {
         if (data.status === 1) {
           alert('取消订单成功!');
-          this.router.navigate(['cMain/grouponOrder']);
+          this.isVisibleCouponOne = false;
+          this.sort(this.choiceId);
+          // this.router.navigate(['cMain/grouponOrder']);
         }
       },
       error => {
@@ -260,15 +272,12 @@ export class GrouponOrderComponent implements OnInit {
   }
 
   invite(item) {
-    console.log(item);
-    console.log(item['list']);
     this.shareId = item.customerGroupId;
     this.shareName = item['list'][0].itemName;
     this.sharePic = item.list[0].pic;
-    this.shareNum = item.residueNum;
+    const headerList = item.customerSpellGroupList;
+    this.shareNum = item.peopleNum - headerList.length;
     this.isVisibleCouponTwo = true;
-    console.log(this.shareId);
-    console.log(this.shareNum);
     document.getElementsByClassName('ant-modal-body')[1]['style'].cssText = 'padding: 0;';
     this.shareFriend(this.shareName, this.shareNum, this.shareId, this.sharePic);
   }
@@ -278,77 +287,94 @@ export class GrouponOrderComponent implements OnInit {
   }
 
   pay(item) {
-    // 商城
-    if (item.type === 1) {
-      this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
-        orderId: item.id,
-        url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
-      }, getToken()).subscribe(
-        data4 => {
-          if (typeof(WeixinJSBridge) === 'undefined') {
-            this.onBridgeUndefindeReady(data4);
-          } else {
-            this.onBridgeReady(data4);
-          }
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    } else if (item.type === 2) {
-      // 机器
-      this.appService.getAliData(this.appProperties.orderUnifiedOrderUrl, {
-        orderId: item.id,
-        url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
-      }, getToken()).subscribe(
-        data4 => {
-          if (typeof(WeixinJSBridge) === 'undefined') {
-            this.onBridgeUndefindeReady(data4);
-          } else {
-            this.onBridgeReady(data4);
-          }
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    } else if (item.type === 3) {
-      // 团购
-      this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
-        orderId: item.id,
-        url: 'http://webapp.youshuidaojia.com/cMain/grouponOrder'
-      }, getToken()).subscribe(
-        data4 => {
-          if (typeof(WeixinJSBridge) === 'undefined') {
-            this.onBridgeUndefindeReady(data4);
-          } else {
-            this.onBridgeReady(data4);
-          }
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  }
-
-  payM(item) {
-    this.appService.postAliData(this.appProperties.orderUnifiedOrderUrl, {
-      orderId: item.orderId,
-      url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
-    }, getToken()).subscribe(
+    this.isInitiator = item.isInitiator;
+    this.payOrderId = item.id;
+    this.appService.postFormData(this.appProperties.grouponVerifyUrl, {
+      orderId: item.id
+    }, this.token).subscribe(
       data4 => {
-        console.log(data4);
-        if (typeof(WeixinJSBridge) === 'undefined') {
-          this.onBridgeUndefindeReady(data4);
+        if (data4.status === 1) {
+          // 商城
+          this.appService.getAliData(this.appProperties.grouponBuyUrl, {
+            orderId: item.id,
+            url: 'http://webapp.youshuidaojia.com/cMain/grouponOrder'
+          }, this.token).subscribe(
+            data2 => {
+              if (data2.status === 2) {
+                window.location.href = data2.returnObject;
+              } else {
+                if (typeof(WeixinJSBridge) === 'undefined') {
+                  this.onBridgeUndefindeReady(data2);
+                } else {
+                  this.onBridgeReady(data2);
+                }
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
         } else {
-          this.onBridgeReady(data4);
+          alert(data4.message);
+          return;
         }
       },
       error => {
         console.log(error);
       }
     );
+
+    // if (item.type === 1) {
+    //   this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
+    //     orderId: item.id,
+    //     url: 'http://webapp.youshuidaojia.com/cMain/grouponOrder'
+    //   }, getToken()).subscribe(
+    //     data4 => {
+    //       if (typeof(WeixinJSBridge) === 'undefined') {
+    //         this.onBridgeUndefindeReady(data4);
+    //       } else {
+    //         this.onBridgeReady(data4);
+    //       }
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   );
+    // } else if (item.type === 2) {
+    //   // 机器
+    //   this.appService.getAliData(this.appProperties.orderUnifiedOrderUrl, {
+    //     orderId: item.id,
+    //     url: 'http://webapp.youshuidaojia.com/cMain/grouponOrder'
+    //   }, getToken()).subscribe(
+    //     data4 => {
+    //       if (typeof(WeixinJSBridge) === 'undefined') {
+    //         this.onBridgeUndefindeReady(data4);
+    //       } else {
+    //         this.onBridgeReady(data4);
+    //       }
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   );
+    // } else if (item.type === 3) {
+    //   // 团购
+    //   this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
+    //     orderId: item.id,
+    //     url: 'http://webapp.youshuidaojia.com/cMain/grouponOrder'
+    //   }, getToken()).subscribe(
+    //     data4 => {
+    //       if (typeof(WeixinJSBridge) === 'undefined') {
+    //         this.onBridgeUndefindeReady(data4);
+    //       } else {
+    //         this.onBridgeReady(data4);
+    //       }
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   );
+    // }
   }
 
   onBridgeUndefindeReady(data) {
@@ -394,7 +420,13 @@ export class GrouponOrderComponent implements OnInit {
         success: (res) => {
           if (res.errMsg === 'chooseWXPay:ok') {
             window.location.href = 'http://webapp.youshuidaojia.com/cMain/myOrder';
-            // this.router.navigate(['cMain/shopCar']);
+            if (this.isInitiator === 0 || this.isInitiator === '0') {
+              window.location.href
+                = 'http://webapp.youshuidaojia.com/cMain/grouponPayFinish?token=' + this.token + '&orderId=' + this.payOrderId;
+            } else {
+              window.location.href
+                = 'http://webapp.youshuidaojia.com/cMain/grouponInPayFinish?token=' + this.token + '&orderId=' + this.payOrderId;
+            }
             console.log('支付成功');
           } else {
             alert('支付失败');

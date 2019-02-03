@@ -90,22 +90,20 @@
   font-size: 14px;
 }
 .friend {
-  width: 90px;
-  height: 24px;
-  border-radius: 4px;
-  overflow: hidden;
+  /*width: 90px;*/
+  /*height: 24px;*/
+  /*border-radius: 4px;*/
+  /*overflow: hidden;*/
   position: absolute;
   top: 12px;
   left: 78px;
 }
 .friend button {
-  width: 100%;
-  height:24px;
+  padding: 4px 6px;
   border: none;
   background: #f76126;
   font-size: 14px;
   text-align: center;
-  line-height:22px;
   color: #ffffff;
   border-radius: 4px;
 }

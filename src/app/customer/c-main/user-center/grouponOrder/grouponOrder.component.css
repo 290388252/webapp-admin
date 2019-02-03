@@ -88,7 +88,10 @@
   color: #333333;
   width: 100%;
   position: relative;
-  padding-right: 42px;
+  font-size: 13px;
+  font-weight: bold;
+  padding-right: 10px;
+  /*padding-right: 42px;*/
 }
 
 .order_GoodsPrice {
@@ -113,7 +116,15 @@
   line-height: 30px;
   text-align: right;
 }
-
+.ordeState {
+  width: 100%;
+  height: 24px;
+  position: relative;
+  font-size: 12px;
+  padding-right: 10px;
+  line-height: 24px;
+  text-align: right;
+}
 .detail_bottom {
   width: 100%;
   height: 40px;

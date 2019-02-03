@@ -11,78 +11,139 @@
   </div>
   <!--未使用-->
   <div *ngIf="unUsed" class="layout">
-    <div class="card" [hidden]="!unUsedList" *ngFor="let item of unUsedList;let i = index;">
-      <div class="coupon_t">
-        <div class="coupon_t_t">
-          <img src="../../../../../assets/icon/couponIcon.png" style="width: 100%;height: auto">
+    <div class="couponOut" [hidden]="!unUsedList" *ngFor="let item of unUsedList;let i = index;">
+      <div style=" width: 100%;height: 90px;position: relative;">
+        <div class="couponImg couponUrlA">
+          提水券
         </div>
-        <div class="coupon_t_b">
-          <div style="color: white">{{item.carryName}}</div>
-          <div class="coupon_t_b_num">剩余:{{item.surplusQuantity}}张</div>
-          <span class="coupon_t_b_span">有效期{{item.startTime}}至{{item.endTime}}</span>
+        <div class="coupon_cont">
+          <div class="coupon_name">
+            <!--机器-->
+            <img src="../../../../../assets/icon/couponMa.png" class="coupon_nameImg">
+            {{item.carryName}}
+            <span
+              style="position: absolute;right: -16px;top: 26px;color: #333333">&times;{{item.surplusQuantity}}</span>
+          </div>
+          <span class="coupon_time">{{item.startTime}}至{{item.endTime}}</span>
         </div>
       </div>
-      <div class="coupon_b">
-        <span (click)="openInstructions(1,i)">使用说明</span>
+      <div class="immediateUse">
+        <span (click)="openInstructions(i)">使用说明</span>
         <span [hidden]="!item.isShow" class="turnIcon"><i class="anticon anticon-up"></i></span>
         <span [hidden]="item.isShow" class="turnIcon"><i class="anticon anticon-down"></i></span>
       </div>
-      <div class="coupon_b_use" [hidden]="item.isShow">
+      <div class="immediateUse_use" [hidden]="item.isShow">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.remark}}
       </div>
     </div>
-    <div class="footer">
-      已经到底~
-    </div>
+    <!---->
+    <!--<div class="card" [hidden]="!unUsedList" *ngFor="let item of unUsedList;let i = index;">-->
+      <!--<div class="coupon_t">-->
+        <!--<div class="coupon_t_t">-->
+          <!--<img src="../../../../../assets/icon/couponIcon.png" style="width: 100%;height: auto">-->
+        <!--</div>-->
+        <!--<div class="coupon_t_b">-->
+          <!--<div style="color: white">{{item.carryName}}</div>-->
+          <!--<div class="coupon_t_b_num">剩余:{{item.surplusQuantity}}张</div>-->
+          <!--<span class="coupon_t_b_span">有效期{{item.startTime}}至{{item.endTime}}</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="coupon_b">-->
+        <!--<span (click)="openInstructions(1,i)">使用说明</span>-->
+        <!--<span [hidden]="!item.isShow" class="turnIcon"><i class="anticon anticon-up"></i></span>-->
+        <!--<span [hidden]="item.isShow" class="turnIcon"><i class="anticon anticon-down"></i></span>-->
+      <!--</div>-->
+      <!--<div class="coupon_b_use" [hidden]="item.isShow">-->
+        <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.remark}}-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="footer">-->
+      <!--已经到底~-->
+    <!--</div>-->
   </div>
   <!--已使用-->
   <div *ngIf="used" class="layout">
-    <div class="card" *ngFor="let item of usedList;let i = index;">
-      <div class="coupon_t">
-        <div class="coupon_t_t">
-          <img src="../../../../../assets/icon/couponIcon.png" style="width: 100%;height: auto">
+    <div class="couponOut" [hidden]="!usedList" *ngFor="let item of usedList">
+      <div style=" width: 100%;height: 90px;position: relative;">
+        <div class="couponImg couponUrlNone">
+          提水券
         </div>
-        <div class="coupon_t_b">
-          <div style="color: white">{{item.carryName}}</div>
-          <div class="coupon_t_b_num">已使用:{{item.useQuantity}}张</div>
-          <span class="coupon_t_b_span">有效期{{item.startTime}}至{{item.endTime}}</span>
+        <div class="coupon_cont">
+          <div class="coupon_name">
+            <!--机器-->
+            <img src="../../../../../assets/icon/overDueVm.png" class="coupon_nameImg">
+            {{item.carryName}}
+            <span style="position: absolute;right: -16px;top: 26px;color: #333333">已使用:{{item.useQuantity}}张</span>
+          </div>
+          <span class="coupon_time">{{item.startTime}}至{{item.endTime}}</span>
         </div>
-      </div>
-      <div class="coupon_b">
-        <span (click)="openInstructions(2,i)">使用说明</span>
-        <span [hidden]="!item.isShow" class="turnIcon"><i class="anticon anticon-up"></i></span>
-        <span [hidden]="item.isShow" class="turnIcon"><i class="anticon anticon-down"></i></span>
-      </div>
-      <div class="coupon_b_use" [hidden]="item.isShow">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.remark}}
       </div>
     </div>
+    <!---->
+    <!--<div class="card" *ngFor="let item of usedList;let i = index;">-->
+      <!--<div class="coupon_t">-->
+        <!--<div class="coupon_t_t">-->
+          <!--<img src="../../../../../assets/icon/couponIcon.png" style="width: 100%;height: auto">-->
+        <!--</div>-->
+        <!--<div class="coupon_t_b">-->
+          <!--<div style="color: white">{{item.carryName}}</div>-->
+          <!--<div class="coupon_t_b_num">已使用:{{item.useQuantity}}张</div>-->
+          <!--<span class="coupon_t_b_span">有效期{{item.startTime}}至{{item.endTime}}</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="coupon_b">-->
+        <!--<span (click)="openInstructions(2,i)">使用说明</span>-->
+        <!--<span [hidden]="!item.isShow" class="turnIcon"><i class="anticon anticon-up"></i></span>-->
+        <!--<span [hidden]="item.isShow" class="turnIcon"><i class="anticon anticon-down"></i></span>-->
+      <!--</div>-->
+      <!--<div class="coupon_b_use" [hidden]="item.isShow">-->
+        <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.remark}}-->
+      <!--</div>-->
+    <!--</div>-->
     <div class="footer">
       已经到底~
     </div>
   </div>
   <!--已过期-->
   <div *ngIf="pastDue" class="layout">
-    <div class="card" *ngFor="let item of pastDueList;let i = index;">
-      <div class="coupon_t">
-        <div class="coupon_t_t">
-          <img src="../../../../../assets/icon/couponIcon.png" style="width: 100%;height: auto">
+    <div class="couponOut" [hidden]="!pastDueList" *ngFor="let item of pastDueList">
+      <div style=" width: 100%;height: 90px;position: relative;">
+        <div class="couponImg couponUrlNone">
+          提水券
         </div>
-        <div class="coupon_t_b">
-          <div style="color: white">{{item.carryName}}</div>
-          <div class="coupon_t_b_num">数量:{{item.surplusQuantity}}张</div>
-          <span class="coupon_t_b_span">有效期{{item.startTime}}至{{item.endTime}}</span>
+        <div class="coupon_cont">
+          <div class="coupon_name">
+            <!--机器-->
+            <img src="../../../../../assets/icon/overDueVm.png" class="coupon_nameImg">
+            {{item.carryName}}
+            <span
+              style="position: absolute;right: -16px;top: 26px;color: #333333">&times;{{item.surplusQuantity}}</span>
+          </div>
+          <span class="coupon_time">{{item.startTime}}至{{item.endTime}}</span>
         </div>
-      </div>
-      <div class="coupon_b">
-        <span (click)="openInstructions(3,i)">使用说明</span>
-        <span [hidden]="!item.isShow" class="turnIcon"><i class="anticon anticon-up"></i></span>
-        <span [hidden]="item.isShow" class="turnIcon"><i class="anticon anticon-down"></i></span>
-      </div>
-      <div class="coupon_b_use" [hidden]="item.isShow">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.remark}}
       </div>
     </div>
+    <!---->
+    <!--<div class="card" *ngFor="let item of pastDueList;let i = index;">-->
+      <!--<div class="coupon_t">-->
+        <!--<div class="coupon_t_t">-->
+          <!--<img src="../../../../../assets/icon/couponIcon.png" style="width: 100%;height: auto">-->
+        <!--</div>-->
+        <!--<div class="coupon_t_b">-->
+          <!--<div style="color: white">{{item.carryName}}</div>-->
+          <!--<div class="coupon_t_b_num">数量:{{item.surplusQuantity}}张</div>-->
+          <!--<span class="coupon_t_b_span">有效期{{item.startTime}}至{{item.endTime}}</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="coupon_b">-->
+        <!--<span (click)="openInstructions(3,i)">使用说明</span>-->
+        <!--<span [hidden]="!item.isShow" class="turnIcon"><i class="anticon anticon-up"></i></span>-->
+        <!--<span [hidden]="item.isShow" class="turnIcon"><i class="anticon anticon-down"></i></span>-->
+      <!--</div>-->
+      <!--<div class="coupon_b_use" [hidden]="item.isShow">-->
+        <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.remark}}-->
+      <!--</div>-->
+    <!--</div>-->
 
     <div class="footer">
       已经到底~

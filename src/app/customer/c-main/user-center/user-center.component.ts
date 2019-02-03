@@ -70,7 +70,8 @@ export class UserCenterComponent implements OnInit {
             alert(data.message);
             return;
           } else {
-            this.router.navigate(['cMain/prepaid']);
+            // this.router.navigate(['cMain/prepaid']);
+            window.location.href = 'http://webapp.youshuidaojia.com/cMain/prepaid?token=' + this.token;
           }
         },
         error => {

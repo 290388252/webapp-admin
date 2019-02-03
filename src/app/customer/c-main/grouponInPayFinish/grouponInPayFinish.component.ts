@@ -46,7 +46,13 @@ export class GrouponInPayFinishComponent implements OnInit, OnDestroy {
     this.orderId = urlParse(window.location.href)['orderId'];
     // this.getTime();
     // this.token = urlParse(window.location.href)['token'];
-    this.token = getToken();
+    // this.token = getToken();
+    if (getToken() !== null && getToken() !== undefined && getToken() !== '') {
+      this.token = getToken();
+    } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
+      && urlParse(window.location.href)['token'] !== '') {
+      this.token = urlParse(window.location.href)['token'];
+    }
     this.getData();
   }
 
@@ -57,6 +63,7 @@ export class GrouponInPayFinishComponent implements OnInit, OnDestroy {
           this.initList = data.returnObject;
           // this.pic = data.returnObject.pic;
           // this.goodsName = this.initList.goodsName;
+          this.num = data.returnObject.minimumGroupSize - data.returnObject.list.length;
           const headerList = data.returnObject.list;
           let headerEndList = [];
           headerList.forEach(item => {

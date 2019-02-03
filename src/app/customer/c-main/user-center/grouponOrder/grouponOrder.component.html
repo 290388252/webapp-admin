@@ -20,17 +20,18 @@
         <div class="orderCont">
           <div class="order_GoodsName">
             {{item.list[0].itemName}}
-            <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           </div>
+          <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           <div class="order_GoodsNum">数量:{{item.list[0].num}}</div>
         </div>
       </div>
       <div class="orderDetails">
         实付款:¥{{item.nowprice}}
       </div>
+      <div class="ordeState">状态:{{item.stateName}}</div>
       <div class="detail_bottom" *ngIf="item.state === 10002">
         <button class="cancelBt" (click)="orderOff(item.id)">取消订单</button>
-        <button class="payBt" (click)="pay(item)">去支付</button>
+        <button class="payBt" (click)="pay(item)">支付</button>
       </div>
       <div class="detail_bottom" *ngIf="item.state === 10001 && item.spellgroupState === 1">
         <button class="inviteBt" (click)="invite(item)">邀请好友拼单</button>
@@ -53,17 +54,18 @@
         <div class="orderCont">
           <div class="order_GoodsName">
             {{item.list[0].itemName}}
-            <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           </div>
+          <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           <div class="order_GoodsNum">数量:{{item.list[0].num}}</div>
         </div>
       </div>
       <div class="orderDetails">
         实付款:¥{{item.nowprice}}
       </div>
+      <div class="ordeState">状态:{{item.stateName}}</div>
       <div class="detail_bottom">
         <button class="cancelBt" (click)="orderOff(item.id)">取消订单</button>
-        <button class="payBt" (click)="pay(item)">去支付</button>
+        <button class="payBt" (click)="pay(item)">支付</button>
       </div>
     </div>
   </div>
@@ -80,16 +82,17 @@
         <div class="orderCont">
           <div class="order_GoodsName">
             {{item.list[0].itemName}}
-            <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           </div>
+          <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           <div class="order_GoodsNum">数量:{{item.list[0].num}}</div>
         </div>
       </div>
       <div class="orderDetails">
         实付款:¥{{item.nowprice}}
       </div>
+      <div class="ordeState">状态:{{item.stateName}}</div>
       <div class="detail_bottom">
-        <button class="cancelBt" (click)="orderOff(item.id)">取消订单</button>
+        <!--<button class="cancelBt" (click)="orderOff(item.id)">取消订单</button>-->
         <button class="inviteBt" (click)="invite(item)">邀请好友拼单</button>
       </div>
     </div>
@@ -107,14 +110,15 @@
         <div class="orderCont">
           <div class="order_GoodsName">
             {{item.list[0].itemName}}
-            <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           </div>
+          <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           <div class="order_GoodsNum">数量:{{item.list[0].num}}</div>
         </div>
       </div>
       <div class="orderDetails">
         实付款:¥{{item.nowprice}}
       </div>
+      <div class="ordeState">状态:{{item.stateName}}</div>
       <div class="detail_bottom" *ngIf="item.allowRefund === 1">
         <button class="cancelBt" (click)="refund(item.id)">申请退款</button>
       </div>
@@ -133,14 +137,15 @@
         <div class="orderCont">
           <div class="order_GoodsName">
             {{item.list[0].itemName}}
-            <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           </div>
+          <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           <div class="order_GoodsNum">数量:{{item.list[0].num}}</div>
         </div>
       </div>
       <div class="orderDetails">
         实付款:¥{{item.nowprice}}
       </div>
+      <div class="ordeState">状态:{{item.stateName}}</div>
     </div>
   </div>
   <div *ngIf="closed" class="order-layout">
@@ -156,14 +161,15 @@
         <div class="orderCont">
           <div class="order_GoodsName">
             {{item.list[0].itemName}}
-            <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           </div>
+          <div class="order_GoodsPrice">¥{{item.list[0].price}}</div>
           <div class="order_GoodsNum">数量:{{item.list[0].num}}</div>
         </div>
       </div>
       <div class="orderDetails">
         实付款:¥{{item.nowprice}}
       </div>
+      <div class="ordeState">状态:{{item.stateName}}</div>
     </div>
   </div>
   <nz-modal [(nzVisible)]="isVisibleCouponOne" [nzTitle]="null" [nzContent]="modalContentOne"

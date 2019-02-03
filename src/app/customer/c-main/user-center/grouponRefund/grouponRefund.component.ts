@@ -71,7 +71,11 @@ export class GrouponRefundComponent implements OnInit {
         data => {
           if (data.status === 5001) {
             alert(data.message);
-            this.router.navigate(['cMain/grouponOrder']);
+            this.router.navigate(['cMain/grouponOrder'],{
+              queryParams: {
+                val: 3
+              }
+            });
           } else {
             alert(data.message);
             return;

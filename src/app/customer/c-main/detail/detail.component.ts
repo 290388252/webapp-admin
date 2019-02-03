@@ -69,7 +69,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.id = urlParse(window.location.href)['id'];
     // this.name = urlParse(window.location.href)['name'];
-    this.pic = urlParse(window.location.href)['pic'];
+    // this.pic = urlParse(window.location.href)['pic'];
     this.spellgroupId = urlParse(window.location.href)['spellgroupId'];
     this.invite = urlParse(window.location.href)['invite'];
     this.shareId = urlParse(window.location.href)['shareId'];
@@ -80,10 +80,22 @@ export class DetailComponent implements OnInit, OnDestroy {
     window.onload = function () {
       document.getElementsByClassName('ant-modal-close-x')[1]['style'].cssText = 'display: none;';
     };
-    console.log(this.invite === '1');
-    if (this.invite === '1') {
-      this.showQuantity(this.shareId);
+    if (getToken() !== null && getToken() !== undefined && getToken() !== '') {
+      this.token = getToken();
+    } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
+      && urlParse(window.location.href)['token'] !== '') {
+      this.token = urlParse(window.location.href)['token'];
+    } else {
+      this.token = null;
     }
+    console.log(this.invite === '1');
+    // invite=1为参与他人拼团
+    if (this.invite === '1' || this.invite === 1) {
+      this.showQuantity(this.shareId);
+    } else {
+      this.invite = 0;
+    }
+    console.log(this.invite);
 
     // this.countDown(325);
   }
@@ -132,6 +144,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       data => {
         console.log(data);
         this.maxNum = data.returnObject.numberLimit;
+        this.pic = data.returnObject.pic;
         this.imgList = data.returnObject.pic.split(',');
         console.log('123');
         console.log(this.imgList);
@@ -205,16 +218,20 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   showQuantity(grouponId): void {
-    if (getToken() === null || getToken() === undefined) {
+    if (grouponId !== null) {
+      this.invite = 1;
+    }
+    console.log(this.invite);
+    if (this.token === null || this.token === undefined || this.token === null) {
       // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
       //   'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&' +
       //   'scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
-      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-6';
 
     } else {
       if (grouponId !== null) {
         // 参与他人拼团
-        this.appService.postFormData(this.appProperties.shoppingNewJudgeUrl, {'id': grouponId}, getToken()).subscribe(
+        this.appService.postFormData(this.appProperties.shoppingNewJudgeUrl, {'id': grouponId}, this.token).subscribe(
           data => {
             // console.log(data);
             if (data.status === -99) {
@@ -234,7 +251,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           }
         );
       } else {
-        this.appService.postFormData(this.appProperties.shoppingGrouponJudegUrl, {'spellGroupId': this.spellgroupId}, getToken()).subscribe(
+        this.appService.postFormData(this.appProperties.shoppingGrouponJudegUrl, {'spellGroupId': this.spellgroupId}, this.token).subscribe(
           data => {
             if (data.status === -99) {
               this.isVisibleB = true;
@@ -434,9 +451,12 @@ export class DetailComponent implements OnInit, OnDestroy {
         id: id,
         groupId: grouponId,
         spellgroupId: spellgroupId,
-        invite: this.invite
+        invite: this.invite,
+        token: this.token
       }
     });
+    // window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponPay?quantity=' + quantity + '&id=' + id + '&groupId=' + grouponId + '&spellgroupId=' + spellgroupId + '&invite=1' + '&token=' + this.token;
+
   }
 
   btnCartAndBuy() {

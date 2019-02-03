@@ -99,29 +99,11 @@ export class WaterCouponComponent implements OnInit {
     );
   }
 
-  openInstructions(num, id) {
-    if (num === 1) {
-      if (this.unUsedList !== null) {
-        for (let i = 0; i <= this.unUsedList.length; i++) {
-          if (id === i) {
-            this.unUsedList[i]['isShow'] = !this.unUsedList[i]['isShow'];
-          }
-        }
-      }
-    } else if (num === 2) {
-      if (this.usedList !== null) {
-        for (let i = 0; i <= this.usedList.length; i++) {
-          if (id === i) {
-            this.usedList[i]['isShow'] = !this.usedList[i]['isShow'];
-          }
-        }
-      }
-    } else if (num === 3) {
-      if (this.pastDueList !== null) {
-        for (let i = 0; i <= this.pastDueList.length; i++) {
-          if (id === i) {
-            this.pastDueList[i]['isShow'] = !this.pastDueList[i]['isShow'];
-          }
+  openInstructions(id) {
+    if (this.unUsedList !== null) {
+      for (let i = 0; i <= this.unUsedList.length; i++) {
+        if (id === i) {
+          this.unUsedList[i]['isShow'] = !this.unUsedList[i]['isShow'];
         }
       }
     }

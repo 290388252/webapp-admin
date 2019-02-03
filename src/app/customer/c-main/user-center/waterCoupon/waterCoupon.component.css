@@ -5,19 +5,25 @@
   padding-bottom: 10%;
   height: 100%;
   width: 100%;
-  background: white;
+  background: #f3f3f3;
   /*background: url("../../../../assets/main/bs-bg.jpg");*/
   /*background-size: 150% 100%;*/
 }
 
+.none {
+  left: 40%;
+  position: absolute;
+  top: 25%;
+}
 .container {
   width: 100%;
 }
 
 .layout {
   position: absolute;
-  top: 60px;
+  top: 48px;
   width: 100%;
+  padding: 10px;
 }
 
 .menu-top {
@@ -32,11 +38,6 @@
   text-align: center;
 }
 
-.none {
-  left: 40%;
-  position: absolute;
-  top: 25%;
-}
 
 .card {
   color: white;
@@ -133,4 +134,140 @@
   height: 12px;
   display: inline-block;
 }
+/**/
+.layout {
+  position: absolute;
+  top: 82px;
+  width: 100%;
+  background: #f3f3f3;
+  padding: 10px;
+}
 
+.menu-top {
+  position: fixed;
+  top: 34px;
+  width: 100%;
+  z-index: 1000;
+}
+
+.menu-li {
+  width: 33%;
+  text-align: center;
+}
+
+/**/
+.couponOut {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.couponUrlA {
+  background-image: url('../../../../../assets/icon/waterCoupon.png');
+}
+
+.couponUrlNone {
+  background-image: url('../../../../../assets/icon/waterCouponUsed.png');
+
+}
+
+.couponImg {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 86px;
+  height: 90px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  line-height: 90px;
+  font-size: 16px;
+  color: white;
+}
+
+.couponImg_in {
+  position: absolute;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  margin-top: -23px;
+}
+
+.coupon_cont {
+  margin-left: 86px;
+  height: 90px;
+  position: relative;
+  padding: 10px 26px 0 10px;
+  font-size: 12px;
+  background: #ffffff;
+}
+
+.coupon_name {
+  position: relative;
+  padding-left: 48px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #333333;
+}
+
+.coupon_nameImg {
+  width: 42px;
+  height: 16px;
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+
+.coupon_time {
+  display: block;
+  margin-top: 32px;
+  height: 18px;
+  line-height: 18px;
+}
+
+.immediateUse {
+  background: white;
+  width: 100%;
+  text-align: center;
+  border-top: 1px dashed #f3f3f3;
+  position: relative;
+}
+
+.turnIcon {
+  position: absolute;
+  top: 1px;
+  font-weight: bold;
+  margin-left: 2px;
+}
+.immediateUse_use {
+  width: 100%;
+  padding: 6px 9px;
+  font-size: 12px;
+  color: #666666;
+  word-wrap: break-word;
+  background: white;
+}
+.coupon_useImg {
+  position: absolute;
+  right: 8px;
+  bottom: 10px;
+  width: 54px;
+  height: 18px;
+}
+
+.coupon_usedImg {
+  position: absolute;
+  right: -8px;
+  top: 20px;
+  width: 44px;
+  height: 24px;
+}
+
+.footer {
+  width: 100%;
+  height: 74px;
+  background-color: #f3f3f3;
+  text-align: center;
+  color: grey;
+}

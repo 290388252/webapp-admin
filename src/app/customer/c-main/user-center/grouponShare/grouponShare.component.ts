@@ -42,15 +42,31 @@ export class GrouponShareComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.customerSpellGroupId = urlParse(window.location.href)['customerSpellGroupId'];
+    console.log(sessionStorage);
+    // this.customerSpellGroupId = urlParse(window.location.href)['customerSpellGroupId'];
     // this.getTime();
-    this.token = getToken();
+    if (sessionStorage.getItem('customerSpellGroupId') === null
+      || sessionStorage.getItem('customerSpellGroupId') === undefined
+      || sessionStorage.getItem('customerSpellGroupId') === '') {
+      sessionStorage.setItem('customerSpellGroupId', urlParse(window.location.href)['customerSpellGroupId']);
+    }
+    console.log(sessionStorage.getItem('customerSpellGroupId'));
+    // this.token = getToken();
+    if (getToken() !== null && getToken() !== undefined && getToken() !== '') {
+      this.token = getToken();
+    } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
+      && urlParse(window.location.href)['token'] !== '') {
+      this.token = urlParse(window.location.href)['token'];
+    } else {
+      this.token = null;
+    }
     this.getData();
   }
 
   getData() {
-    this.appService.postScanData(this.appProperties.grouponPayShareUrl, {'customerSpellGroupId': this.customerSpellGroupId}).subscribe(
+    this.appService.postScanData(this.appProperties.grouponPayShareUrl, {'customerSpellGroupId': sessionStorage.getItem('customerSpellGroupId')}).subscribe(
       data => {
+        console.log(data);
         if (data.status === 1) {
           this.initList = data.returnObject;
           this.headerLength = data.returnObject.minimumGroupSize - data.returnObject.list.length;
@@ -139,19 +155,20 @@ export class GrouponShareComponent implements OnInit, OnDestroy {
   }
 
   invite() {
-    if (this.token === undefined || this.token === '') {
+    if (this.token === undefined || this.token === '' || this.token === null) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=' +
         'http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/grouponShare?vm=1-5';
     } else {
-      this.router.navigate(['cMain/detail'], {
-        queryParams: {
-          id: this.initList['goodsId'],
-          shareId: this.initList['id'],
-          spellgroupId: this.initList['spellGroupId'],
-          invite: 1,
-          type: 1
-        }
-      });
+      window.location.href = 'http://webapp.youshuidaojia.com/cMain/detail?id=' + this.initList['goodsId'] + '&shareId=' + this.initList['id'] + '&spellgroupId=' + this.initList['spellGroupId'] + '&token=' + this.token + '&invite=1&type=1';
+      // this.router.navigate(['cMain/detail'], {
+      //   queryParams: {
+      //     id: this.initList['goodsId'],
+      //     shareId: this.initList['id'],
+      //     spellgroupId: this.initList['spellGroupId'],
+      //     invite: 1,
+      //     type: 1
+      //   }
+      // });
     }
   }
 

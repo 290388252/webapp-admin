@@ -24,7 +24,9 @@ export class ProtocolComponent implements OnInit {
 
   goTo(flag) {
     if (flag === 'prepaid') {
-      this.router.navigate(['cMain/prepaid']);
+      // this.router.navigate(['cMain/prepaid']);
+      window.location.href = 'http://webapp.youshuidaojia.com/cMain/prepaid?token=' + urlParse(window.location.href)['token'];
     }
+
   }
 }

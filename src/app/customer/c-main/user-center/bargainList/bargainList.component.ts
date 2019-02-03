@@ -120,11 +120,6 @@ export class BargainListComponent implements OnInit, OnDestroy {
 
   to(id) {
     window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargainDetails?id=' + id + '&select=1&token=' + this.token;
-    // this.router.navigate(['cMain/bargainDetails'], {
-    //   queryParams: {
-    //     id: id
-    //   }
-    // });
   }
 
   details(id) {

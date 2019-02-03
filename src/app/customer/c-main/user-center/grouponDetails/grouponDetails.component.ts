@@ -25,6 +25,7 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
   public shoppingBeanList = {};
   public carryWaterName;
   public carryWaterRemark;
+  public isInitiator;
   //
   public showAddress;
   public orderId;
@@ -58,13 +59,14 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
     this.getData(this.orderId);
     this.isVisibleCouponOne = false;
     this.showAddress = false;
-    this.share();
+
   }
 
   getData(orderId) {
     this.appService.postFormData(this.appProperties.grouponOrderDetailsUrl, {'orderId': orderId}, this.token).subscribe(
       data => {
         this.addressList = data.addressList;
+        this.isInitiator = data.shoppingBean['isInitiator'];
         this.carryWaterList = data.carryCustomer;
         this.shoppingBeanList = data.shoppingBean;
         this.shareId = data.shoppingBean.customerGroupId;
@@ -172,6 +174,7 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
       data => {
         if (data.status === 1) {
           alert('取消订单成功!');
+          this.isVisibleCouponTwo = false;
           this.router.navigate(['cMain/grouponOrder']);
         }
       },
@@ -188,6 +191,7 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
   invite() {
     this.isVisibleCouponOne = true;
     document.getElementsByClassName('ant-modal-body')[0]['style'].cssText = 'padding: 0;';
+    this.share(this.headerLength, this.shareName, this.shareId, this.sharePic);
   }
 
   closeCoupon() {
@@ -208,7 +212,8 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  share() {
+  share(headerLength, shareName, shareId, sharePic) {
+    const that = this;
     this.appService.postFormData(this.appProperties.wechatShareInfoUrl,
       {url: window.location.href},
       this.token).subscribe(
@@ -228,11 +233,11 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
         });
         wx.ready(function () {
           const shareData = {
-            title: '仅剩' + this.headerLength + '个名额了',
-            desc: '优水到家:' + this.shareName,
+            title: '仅剩' + headerLength + '个名额了',
+            desc: '优水到家:' + shareName,
             // 这里请特别注意是要去除html
-            link: 'http://webapp.youshuidaojia.com/cMain/grouponShare?customerSpellGroupId=' + this.shareId,
-            imgUrl: this.imgUrl + this.sharePic,
+            link: 'http://webapp.youshuidaojia.com/cMain/grouponShare?customerSpellGroupId=' + shareId,
+            imgUrl: that.imgUrl + sharePic,
             // imgUrl: '../../../assets/main/logo.png',
             success: function () {
               // 用户确认分享后执行的回调函数
@@ -284,21 +289,40 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
   //   return endTime;
   // }
   pay() {
-    this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
-      orderId: this.orderId,
-      url: 'http://webapp.youshuidaojia.com/cMain/grouponDetails'
-    }, getToken()).subscribe(
-      data4 => {
-        if (typeof(WeixinJSBridge) === 'undefined') {
-          this.onBridgeUndefindeReady(data4);
+    this.appService.postFormData(this.appProperties.grouponVerifyUrl, {
+      orderId: this.orderId
+    }, this.token).subscribe(
+      data2 => {
+        if (data2.status === 1) {
+          this.appService.getAliData(this.appProperties.grouponBuyUrl, {
+            orderId: this.orderId,
+            url: 'http://webapp.youshuidaojia.com/cMain/grouponDetails'
+          }, this.token).subscribe(
+            data4 => {
+              if (data4.status === 2) {
+                window.location.href = data4.returnObject;
+              } else {
+                if (typeof(WeixinJSBridge) === 'undefined') {
+                  this.onBridgeUndefindeReady(data4);
+                } else {
+                  this.onBridgeReady(data4);
+                }
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
         } else {
-          this.onBridgeReady(data4);
+          alert(data2.message);
+          return;
         }
       },
       error => {
         console.log(error);
       }
     );
+
   }
 
   onBridgeUndefindeReady(data) {
@@ -343,7 +367,11 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
         paySign: data.payInfo.sign, // 支付签名
         success: (res) => {
           if (res.errMsg === 'chooseWXPay:ok') {
-            window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponDetails';
+            if (this.isInitiator === 0 || this.isInitiator === '0') {
+              window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponPayFinish?token=' + this.token + '&orderId=' + this.orderId;
+            } else {
+              window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponInPayFinish?token=' + this.token + '&orderId=' + this.orderId;
+            }
             // this.router.navigate(['cMain/shopCar']);
             console.log('支付成功');
           } else {

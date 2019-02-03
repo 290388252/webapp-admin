@@ -122,7 +122,18 @@
   font-size: 22px;
   font-weight: bold;
 }
-
+.noneIconA {
+  width: 0.5px;
+  height: 36px;
+  border-radius: 18px;
+  border: 1px dashed #FFFFFF;
+  text-align: center;
+  display: inline-block;
+  line-height: 36px;
+  font-size: 22px;
+  font-weight: bold;
+  opacity: 0;
+}
 .detail {
   position: relative;
   width: 100%;

@@ -21,7 +21,12 @@
   background: white;
   border-bottom: 10px solid rgba(82, 94, 113, .05);
 }
-
+.addressTitle{
+  padding: 10px 10px 0 10px;
+  font-size: 14px;
+  background: #FFFFFF;
+  font-weight: bold;
+}
 .checkMore {
   width: 100%;
   text-align: center;
@@ -29,6 +34,7 @@
   height: 20px;
   line-height: 20px;
 }
+
 .turnIcon {
   width: 12px;
   height: 12px;

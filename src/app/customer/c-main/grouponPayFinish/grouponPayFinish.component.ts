@@ -24,6 +24,7 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
   public maxTimer;
   public goodsName;
   public shareId;
+  public sharePic;
   public num;
   public token;
   public isVisibleCouponOne = false;
@@ -47,8 +48,13 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
     this.orderId = urlParse(window.location.href)['orderId'];
     // this.getTime();
     // this.token = urlParse(window.location.href)['token'];
-    this.token = getToken();
-    this.share();
+    // this.token = getToken();
+    if (getToken() !== null && getToken() !== undefined && getToken() !== '') {
+      this.token = getToken();
+    } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
+      && urlParse(window.location.href)['token'] !== '') {
+      this.token = urlParse(window.location.href)['token'];
+    }
     this.getData();
   }
 
@@ -57,6 +63,7 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
       data => {
         if (data.status === 1) {
           this.initList = data.returnObject;
+          this.sharePic = this.initList['pic'];
           this.goodsName = this.initList.goodsName;
           this.shareId = this.initList.id;
           this.maxTimer = this.initList.endTime;
@@ -154,14 +161,19 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
   invite() {
     this.isVisibleCouponOne = true;
     document.getElementsByClassName('ant-modal-body')[0]['style'].cssText = 'padding: 0;';
+    console.log(this.num);
+    console.log(this.goodsName);
+    console.log(this.shareId);
+    console.log(this.sharePic);
+    this.shareFriend(this.num, this.goodsName, this.shareId, this.sharePic);
   }
 
   closeCoupon() {
     this.isVisibleCouponOne = false;
   }
 
-  share() {
-    // {url: `http://webapp.youshuidaojia.com/cMain/bargainDetails?id=${this.bargainId}&addressId=${this.addressId}&bargainMoney=${this.bargainMoney}&bargainShow=1`},
+  shareFriend(num, goodsName, shareId, sharePic) {
+    const that = this;
     this.appService.postFormData(this.appProperties.wechatShareInfoUrl,
       {url: window.location.href},
       this.token).subscribe(
@@ -181,12 +193,11 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
         });
         wx.ready(function () {
           const shareData = {
-            title: '仅剩' + this.num + '个名额了',
-            desc: '优水到家:' + this.initList['goodsName'], // 这里请特别注意是要去除html
-            // http://192.168.0.106:9527/cMain/grouponShare?customerSpellGroupId=24
-            // link: 'http://webapp.youshuidaojia.com/cMain/grouponShare?customerSpellGroupId=' + urlParse(window.location.href)['customerSpellGroupId'],
-            link: 'http://webapp.youshuidaojia.com/cMain/grouponShare?customerSpellGroupId=' + this.shareId,
-            imgUrl: this.imgUrl + this.initList['pic'],
+            title: '仅剩' + num + '个名额了',
+            desc: '优水到家:' + goodsName,
+            // 这里请特别注意是要去除html
+            link: 'http://webapp.youshuidaojia.com/cMain/grouponShare?customerSpellGroupId=' + shareId,
+            imgUrl: that.imgUrl + sharePic,
             // imgUrl: '../../../assets/main/logo.png',
             success: function () {
               // 用户确认分享后执行的回调函数

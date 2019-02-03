@@ -18,7 +18,8 @@
         <img [src]="item.headimgurl" class="headerIcon">
       </span>
       <span *ngIf="num > 1 ">...</span>
-      <div class="noneIcon">?</div>
+      <div class="noneIcon" *ngIf="num > 0">?</div>
+      <div class="noneIconA" *ngIf="num <=0 ">?</div>
     </div>
     <div class="detail" (click)="goTo(2)">
       <div class="detail_left">订单详情</div>

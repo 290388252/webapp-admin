@@ -15,7 +15,7 @@
            *ngIf="shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 4">
       <!--已关闭-->
       <img src="../../../../../assets/icon/closedBanner.png" style="width: 100%;height: auto;"
-           *ngIf="shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 3">
+           *ngIf="shoppingBeanList['state'] === 10006">
     </div>
     <!--<div class="address">-->
     <!--<img src="../../../../../assets/icon/addressIconRed.png" class="addressIcon">-->
@@ -24,6 +24,7 @@
     <!--</div>-->
     <!--<div class="addressIn">广州市黄埔区萝岗开发区加速器</div>-->
     <!--</div>-->
+    <div class="addressTitle">拼团成功后，可以到以下地址领取！</div>
     <div class="addressPick">
       <div class="addressPick_t" *ngIf="addressList"><img src="../../../../../assets/icon/addressIconRed.png"
                                                           class="addressPickIcon">
@@ -42,11 +43,12 @@
       <!--<img src="../../../../../assets/icon/closeIcon.png" style="width: 12px;height: 12px;margin-top: -2px;">-->
       <!--</div>-->
     </div>
-    <div class="header" *ngIf="shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 1">
+    <div class="header">
       <div class="header_top">
         <img src="../../../../../assets/icon/grouponUserIcon.png" class="headerUserIcon">
         <span
-          style="margin-left: 2px;">待分享，还差{{headerLength}}人</span>
+          style="margin-left: 2px;"
+          *ngIf="headerLength>0 &&(shoppingBeanList['state'] === 10001 && shoppingBeanList['spellgroupState'] === 1)">待分享，还差{{headerLength}}人</span>
       </div>
       <div class="header_bottom">
         <span class="headerIn" *ngFor="let item of headerList">
@@ -56,7 +58,8 @@
           <img [src]="item.headimgurl" class="headerIcon">
         </span>
         <span *ngIf="headerLength > 1 ">...</span>
-        <div class="noneIcon">?</div>
+        <span class="noneIcon" *ngIf="headerLength > 0 ">?</span>
+        <span class="noneIconA" *ngIf="headerLength <=0 ">?</span>
         <!--<img *ngFor="let item of customerList" [src]="item.headimgurl" class="headerIcon" >-->
         <!--<span-->
         <!--*ngIf="(shoppingBeanList['minimumGroupSize']-shoppingBeanList['customerSpellGroupList'].length) > 1 ">...</span>-->
@@ -84,28 +87,31 @@
     <div class="money">
       实付：{{shoppingBeanList['newPrice']}}元
     </div>
-    <div style="margin-top: 4px;padding-left: 10px;background: #ffffff;font-size: 12px;" *ngIf="shoppingBeanList['state'] === 10001 && (shoppingBeanList['spellgroupState'] === 2
+    <div style="margin-top: 16px;border: 1px solid #333333;">
+      <div style="padding-left: 10px;background: #ffffff;font-size: 12px;color: red" *ngIf="shoppingBeanList['state'] === 10001 && (shoppingBeanList['spellgroupState'] === 2
       || shoppingBeanList['spellgroupState'] === 3 || shoppingBeanList['spellgroupState'] === 4)">
-      恭喜拼团成功，您已经获得以下商品的提货券，提货去吧！
-    </div>
-    <div *ngIf="shoppingBeanList['state'] === 10001 && (shoppingBeanList['spellgroupState'] === 2
+        恭喜拼团成功，您已经获得以下商品的提货券，提货去吧！
+      </div>
+      <div *ngIf="shoppingBeanList['state'] === 10001 && (shoppingBeanList['spellgroupState'] === 2
       || shoppingBeanList['spellgroupState'] === 3 || shoppingBeanList['spellgroupState'] === 4)">
-      <div class="getGoods" *ngFor="let item of carryWaterList">
-        <div class="getGoods_left">
-          <img [src]="imgUrl+shoppingBeanList['pic']" style="width: 100%;height: 100%;">
-        </div>
-        <div class="getGoods_right">
-          <div>{{item.carryName}}</div>
-          <div>有效期：{{item.startTime}}-{{item.endTime}}</div>
-          <div>数量：{{item.quantity}}</div>
-          <div style="color: red">已使用：{{item.useQuantity}}</div>
-          <div style="width: 100%;text-align: center;text-decoration:underline;color: #999999"
-               (click)="showFour(item.carryName,item.remark)">使用说明
+        <div class="getGoods" *ngFor="let item of carryWaterList">
+          <div class="getGoods_left">
+            <img [src]="imgUrl+shoppingBeanList['pic']" style="width: 100%;height: 100%;">
+          </div>
+          <div class="getGoods_right">
+            <div>{{item.carryName}}</div>
+            <div>有效期：{{item.startTime}}-{{item.endTime}}</div>
+            <div>数量：{{item.quantity}}</div>
+            <div style="color: red">已使用：{{item.useQuantity}}</div>
+            <div style="width: 100%;text-align: center;text-decoration:underline;color: #999999"
+                 (click)="showFour(item.carryName,item.remark)">使用说明
+            </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
+
     <!--<div class="contact">-->
     <!--<div class="contact_left">联系卖家</div>-->
     <!--<div class="contact_right">拨打电话</div>-->
@@ -161,7 +167,7 @@
     </ng-template>
   </nz-modal>
   <nz-modal [(nzVisible)]="isVisibleCouponFour" [nzTitle]="modalTitleFour" [nzContent]="modalContentFour"
-             [nzFooter]="null"
+            [nzFooter]="null"
             (nzOnCancel)="showExplain()">
     <ng-template #modalTitleFour>
       {{carryWaterName}}的使用说明

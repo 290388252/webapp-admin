@@ -31,6 +31,7 @@ export class PayFinishComponent implements OnInit {
   public deductionMoney;
   public bindProduct;
   public maximumDiscount;
+  public memberMoney;
 
   constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) {
     this.token = getToken();
@@ -61,6 +62,7 @@ export class PayFinishComponent implements OnInit {
         this.couponName = data.couponName;
         this.follow = data.follow;
         this.price = data.price;
+        this.memberMoney = data.memberMoney;
         this.sumDeductionMoney = data.sumDeductionMoney;
       },
       error => {
