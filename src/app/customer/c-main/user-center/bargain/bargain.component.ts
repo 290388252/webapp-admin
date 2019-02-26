@@ -42,7 +42,6 @@ export class BargainComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.userBalance = urlParse(window.location.href)['userBalance'];
     this.token = urlParse(window.location.href)['token'];
     this.orderId = urlParse(window.location.href)['orderId'];
     if (this.orderId !== undefined) {
@@ -50,11 +49,14 @@ export class BargainComponent implements OnInit {
     }
     this.disable = false;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取砍价订单详情
+   */
   getInit() {
     this.appService.postAliData(this.appProperties.bargainDetailsUrl + this.orderId, '', this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.initList = data.returnObject.list;
           this.itemName = data.returnObject.itemName;
@@ -75,7 +77,11 @@ export class BargainComponent implements OnInit {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 转换时间格式
+   */
   turnTime(date) {
     const nowDate = new Date(date);
     const nowY = nowDate.getFullYear();
@@ -89,7 +95,11 @@ export class BargainComponent implements OnInit {
     const end = endDate + ' ' + endTime;
     return end;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 返回砍价列表
+   */
   goTo() {
     this.router.navigate(['cMain/bargainList'], {
       queryParams: {
@@ -97,15 +107,22 @@ export class BargainComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭取消订单弹框
+   */
   cancal() {
     this.isVisibleCouponOne = false;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 确认取消订单，关闭弹框
+   */
   submit() {
     this.appService.postAliData(this.appProperties.bargainCancelUrl + this.orderId, '', this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           alert('取消订单成功!');
           this.router.navigate(['cMain/userCenter']);
@@ -116,17 +133,29 @@ export class BargainComponent implements OnInit {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 取消订单
+   */
   toCancel() {
     this.isVisibleCouponOne = true;
     document.getElementsByClassName('ant-modal-close-x')[0]['style'].cssText = 'display: none;';
     document.getElementsByClassName('ant-modal-footer')[0]['style'].cssText = 'text-align: center;';
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 联系优水
+   */
   toTel() {
     window.location.href = 'tel://4008858203';
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 支付订单
+   */
   toPay() {
     this.disable = true;
     this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
@@ -134,7 +163,6 @@ export class BargainComponent implements OnInit {
       url: 'http://webapp.youshuidaojia.com/cMain/bargain'
     }, this.token).subscribe(
       data4 => {
-        console.log(data4);
         if (data4.status === 2) {
           this.disable = false;
           window.location.href = data4.returnObject;
@@ -151,9 +179,12 @@ export class BargainComponent implements OnInit {
         console.log(error);
       }
     );
-
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * wechat支付
+   */
   onBridgeUndefindeReady(data) {
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', () => {
@@ -168,13 +199,19 @@ export class BargainComponent implements OnInit {
       });
     }
   }
-
-  // 调用微信支付接口
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 调用微信支付接口
+   */
   onBridgeReady(data) {
     this.test(data);
   }
-
-  // 调用微信支付接口测试
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 调用微信支付接口测试
+   */
   test(data) {
     wx.config({
       debug: false,

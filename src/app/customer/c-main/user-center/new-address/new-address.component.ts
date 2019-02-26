@@ -46,18 +46,20 @@ export class NewAddressComponent implements OnInit {
     this.select = urlParse(window.location.href)['select'];
     this.payType = urlParse(window.location.href)['payType'];
     this.groupId = urlParse(window.location.href)['groupId'];
-    // this.pay = urlParse(window.location.href)['pay'];
     this.goodsId = urlParse(window.location.href)['goodsId'];
     this.quantity = urlParse(window.location.href)['quantity'];
     this.activityId = urlParse(window.location.href)['activityId'];
-    // this.payShopCar = urlParse(window.location.href)['shopCar'];
-    // this.payList = urlParse(window.location.href)['idList'];
     this.token = getToken();
     this.getInit();
     const test = 'http://localhost:4202/cMain/newAddress?type=1&id=2';
     this.getParamsWithUrl(test);
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取地址list
+   */
   getInit() {
     this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
       data => {
@@ -85,6 +87,11 @@ export class NewAddressComponent implements OnInit {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取地址list
+   */
   getParamsWithUrl(url) {
     const args = url.split('?');
     if (args[0] === url) {
@@ -102,6 +109,11 @@ export class NewAddressComponent implements OnInit {
     return obj;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 设置或取消默认地址
+   */
   setDefault(item) {
     // shopAddressUpdateUrl
     const one = document.getElementsByName('default');
@@ -127,7 +139,6 @@ export class NewAddressComponent implements OnInit {
       data => {
         if (data.status === 1) {
           this.getInit();
-          // this.router.navigate(['cMain/newAddress']);
         }
       },
       error => {
@@ -136,7 +147,11 @@ export class NewAddressComponent implements OnInit {
     );
   }
 
-  // 新增地址
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 新增地址
+   */
   addAddress() {
     if (this.type === '1') {
       // 个人中心
@@ -175,16 +190,6 @@ export class NewAddressComponent implements OnInit {
           }
         });
       }
-      // else {
-      //   this.router.navigate(['cMain/addAddress'], {
-      //     queryParams: {
-      //       isAdd: 1,
-      //       type: 2,
-      //       ids: this.ids,
-      //       payType: this.payType
-      //     }
-      //   });
-      // }
     } else if (this.type === '4') {
       console.log('123');
       this.router.navigate(['cMain/addAddress'], {
@@ -199,6 +204,11 @@ export class NewAddressComponent implements OnInit {
     }
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 选择地址作为收货地址
+   */
   selectAddress(item) {
     if (this.type === '2') {
       this.router.navigate(['cMain/pay'], {
@@ -232,8 +242,11 @@ export class NewAddressComponent implements OnInit {
     }
   }
 
-
-  // 编辑地址
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 选编辑地址
+   */
   alterAddress(item) {
     if (this.type === '1') {
       this.router.navigate(['cMain/addAddress'], {
@@ -281,13 +294,22 @@ export class NewAddressComponent implements OnInit {
 
   }
 
-  // 删除
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 是否确认删除地址弹框
+   */
   delAddress(item) {
     this.delItem = item;
     document.getElementsByClassName('ant-modal-footer')[0]['style'].cssText = 'text-align: center;';
     this.isVisible = true;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 确认删除地址，关闭弹框
+   */
   handleOk(): void {
     this.appService.postAliData(this.appProperties.shopAddressUpdateUrl, {
       receiver: this.delItem.receiver,
@@ -310,10 +332,20 @@ export class NewAddressComponent implements OnInit {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 取消删除地址，关闭弹框
+   */
   handleCancel(): void {
     this.isVisible = false;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 跳转页面
+   */
   goTo() {
     if (getToken() === null || getToken() === undefined) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
@@ -346,7 +378,11 @@ export class NewAddressComponent implements OnInit {
       }
     }
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 确认选择改地址为收货地址弹框
+   */
   closeCoupon(val) {
     if (val === 0) {
       this.isVisibleCouponOne = false;
@@ -357,19 +393,9 @@ export class NewAddressComponent implements OnInit {
       }, this.token).subscribe(
         data => {
           if (data.status === 1) {
-            // this.isVisibleCouponOne = false;
-            // this.isVisibleCouponTwo = true;
             this.bargainMoney = data.returnObject.privce;
             const id = data.returnObject.customerBargainId;
             window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargainDetails?id=' + id + '&addressId=' + this.addressId + '&bargainMoney=' + this.bargainMoney + '&bargainShow=1&token=' + this.token;
-            // this.router.navigate(['cMain/bargainDetails'], {
-            //   queryParams: {
-            //     id: id,
-            //     addressId: this.addressId,
-            //     bargainMoney: this.bargainMoney,
-            //     bargainShow: 1
-            //   }
-            // });
           }
         },
         error => {
@@ -385,7 +411,11 @@ export class NewAddressComponent implements OnInit {
       this.isVisibleCouponThree = false;
     }
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭弹框
+   */
   closeModel() {
     this.isVisibleCouponTwo = false;
     event.stopPropagation();

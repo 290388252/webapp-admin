@@ -67,7 +67,6 @@ export class BargainDetailsComponent implements OnInit, OnDestroy {
     this.appService.postAliData(this.appProperties.bargainSponsoBargainDetailsUrl
       + `?id=${urlParse(window.location.href)['id']}`, '', this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.endTime = data.returnObject.endTime;
           this.goodsId = data.returnObject.goodsId;
@@ -97,7 +96,11 @@ export class BargainDetailsComponent implements OnInit, OnDestroy {
       this.bargainMoney = urlParse(window.location.href)['bargainMoney'];
     }
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 倒计时
+   */
   countDown(maxtime, fn) {
     const timer = setInterval(function () {
       if (maxtime >= 0) {
@@ -133,7 +136,11 @@ export class BargainDetailsComponent implements OnInit, OnDestroy {
     }, 1000);
     this.timerList.push(timer);
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 跳转到砍价列表
+   */
   goTo() {
     this.router.navigate(['cMain/bargainList'], {
       queryParams: {
@@ -141,29 +148,44 @@ export class BargainDetailsComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 邀请朋友砍价
+   */
   to() {
     this.isVisibleCouponOne = true;
     document.getElementsByClassName('ant-modal-body')[0]['style'].cssText = 'padding: 0;';
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭指导分享好友弹框
+   */
   closeCoupon() {
     this.isVisibleCouponOne = false;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 邀请给好友砍价，打开弹框
+   */
   shareFriends() {
     this.isVisibleCouponTwo = false;
     this.isVisibleCouponOne = true;
     document.getElementsByClassName('ant-modal-body')[0]['style'].cssText = 'padding: 0;';
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 邀请好友砍价
+   */
   share() {
     // {url: `http://webapp.youshuidaojia.com/cMain/bargainDetails?id=${this.bargainId}&addressId=${this.addressId}&bargainMoney=${this.bargainMoney}&bargainShow=1`},
     this.appService.postFormData(this.appProperties.wechatShareInfoUrl,
       {url: window.location.href },
       this.token).subscribe(
       data => {
-        console.log(data);
         wx.config({
           debug: false,
           appId: data.data.appId,
@@ -177,9 +199,6 @@ export class BargainDetailsComponent implements OnInit, OnDestroy {
             'onMenuShareWeibo',
           ]
         });
-        // const link = 'http://webapp.youshuidaojia.com/cMain/bargainDetailsShare?customerBargainId=' + this.bargainId;
-        // + '&?token=' + this.token;
-        // console.log(link);
         wx.ready(function () {
           const shareData = {
             title: '优水到家',
@@ -210,8 +229,11 @@ export class BargainDetailsComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-  // 判断是微信登陆还是支付宝登陆
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 判断是微信登陆还是支付宝登陆
+   */
   urlParse(url): object {
     const obj = {};
     const reg = /[?&][^?&]+=[^?&]+/g;

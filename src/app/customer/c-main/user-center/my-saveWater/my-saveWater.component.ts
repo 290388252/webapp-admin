@@ -23,7 +23,6 @@ export class MySaveWaterComponent implements OnInit {
     this.appService.postAliData(this.appProperties.shopCustomerGetStockUrl, '', this.token).subscribe(
       data => {
         this.data = data;
-        console.log(this.data);
         this.data.forEach(item => {
           item.pic = item.pic.split(',')[0];
         });
@@ -34,22 +33,26 @@ export class MySaveWaterComponent implements OnInit {
       }
     );
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 返回首页
+   */
   goto() {
     this.router.navigate(['cMain/firstPage']);
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 添加商品到购物车
+   */
   addFirstCar(item) {
-    console.log({
-      itemId: item.itemId,
-      num: 1,
-      itemName: item.itemName
-    });
     this.appService.postAliData(this.appProperties.shoppingAddUrl, {
       itemId: item.itemId,
       num: 1,
       itemName: item.itemName
     }, getToken()).subscribe(
       data => {
-        console.log(data);
         alert(data.message);
       },
       error => {
@@ -57,6 +60,11 @@ export class MySaveWaterComponent implements OnInit {
       }
     );
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 跳转页面查看消费记录
+   */
   record(item) {
     this.router.navigate(['cMain/waterRecord'], {
       queryParams: {

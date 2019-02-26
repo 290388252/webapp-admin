@@ -31,18 +31,19 @@ export class MapDetailsComponent implements OnInit {
   ngOnInit() {
     this.vmCode = urlParse(window.location.href)['vmCode'];
     this.vmVersion = urlParse(window.location.href)['version'];
-    console.log(this.vmVersion);
     // this.token = getToken();
     this.getVmDetails();
   }
 
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取机器货道详情
+   */
   getVmDetails() {
     if (this.vmVersion === '1') {
       this.appService.getData(this.appProperties.mapDetailsAUrl, {'vmCode': this.vmCode}).subscribe(
         data => {
-          console.log('1');
-          console.log(data);
           if (data.status === 1) {
             this.address = data.returnObject[0]['locatoinName'];
             this.vmState = data.returnObject[0]['stateName'];
@@ -60,27 +61,17 @@ export class MapDetailsComponent implements OnInit {
     } else if (this.vmVersion === '2') {
       this.appService.getData(this.appProperties.mapDetailsBUrl, {'vmCode': this.vmCode}).subscribe(
         data => {
-          console.log('2');
-          console.log(data);
-          // console.log(data.returnObject.wayList);
           if (data.status === 1) {
             this.address = data.returnObject['locationName'];
             this.vmState = data.returnObject['stateName'];
-            console.log(data.returnObject['locationName']);
             const wayList = data.returnObject.wayList;
-            console.log(wayList[0].itemList[0]);
             let allList = [];
             for (let i = 0; i < wayList.length; i++) {
-              console.log(wayList[i].itemList.length);
               for (let j = 0; j < wayList[i].itemList.length; j++) {
                 allList.push(wayList[i].itemList[j]);
               }
             }
-            console.log(allList);
             this.detailsList = allList;
-            // console.log(data.returnObject.wayList);
-            // this.detailsList = data.returnObject;
-            // console.log(data.returnObject.wayList);
             this.vmError = false;
           } else if (data.status === 0) {
             this.vmError = true;

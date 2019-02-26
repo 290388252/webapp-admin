@@ -68,8 +68,6 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.id = urlParse(window.location.href)['id'];
-    // this.name = urlParse(window.location.href)['name'];
-    // this.pic = urlParse(window.location.href)['pic'];
     this.spellgroupId = urlParse(window.location.href)['spellgroupId'];
     this.invite = urlParse(window.location.href)['invite'];
     this.shareId = urlParse(window.location.href)['shareId'];
@@ -88,18 +86,23 @@ export class DetailComponent implements OnInit, OnDestroy {
     } else {
       this.token = null;
     }
-    console.log(this.invite === '1');
-    // invite=1为参与他人拼团
+    /**
+     * 2019-02-14
+     * @author maiziyao
+     * invite=1为参与他人拼团
+     */
     if (this.invite === '1' || this.invite === 1) {
       this.showQuantity(this.shareId);
     } else {
       this.invite = 0;
     }
-    console.log(this.invite);
-
-    // this.countDown(325);
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 拼团倒计时
+   */
   countDown(maxtime, fn) {
     const timer = setInterval(function () {
       if (maxtime >= 0) {
@@ -136,18 +139,20 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.timerList.push(timer);
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 商品详情
+   */
   showGoods() {
     this.appService.postAliData(this.appProperties.shoppingGoodsDetailUrl, {
       id: this.id,
       spellgroupId: this.spellgroupId
     }, '').subscribe(
       data => {
-        console.log(data);
         this.maxNum = data.returnObject.numberLimit;
         this.pic = data.returnObject.pic;
         this.imgList = data.returnObject.pic.split(',');
-        console.log('123');
-        console.log(this.imgList);
         this.goodsObj = data.returnObject;
         this.activityId = data.returnObject.goodsBargainId;
         this.name = data.returnObject.name;
@@ -166,15 +171,12 @@ export class DetailComponent implements OnInit, OnDestroy {
     );
     this.appService.postAliData(this.appProperties.shoppingGrouponMemberQuantity, {spellgroupId: this.spellgroupId}, '').subscribe(
       data => {
-        console.log(data);
         this.grouponList = data.returnObject;
         this.grouponTotal = data.returnObject.length;
 
         // this.countDown(this.grouponList[0].endTime);
-        console.log(this.grouponList.length > 0);
         if (this.grouponList.length > 0) {
           for (let i = 0; i < this.grouponList.length; i++) {
-            console.log(new Date(this.grouponList[i].endTime.replace(/-/g, '/')).getTime());
             const endTime = (new Date(this.grouponList[i].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
             this.countDown(endTime, function (msg) {
               document.getElementById('timer' + i).innerHTML = msg;
@@ -188,8 +190,12 @@ export class DetailComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 时间转换 兼容ios
+   */
   verifyTime(time) {
-    // console.log(time);
     const value = (new Date(time.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
     if (value > 0) {
       return false;
@@ -198,42 +204,22 @@ export class DetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  /*showModal(list): void {
-    this.isVisible = true;
-    console.log(list);
-    if (list.length > 0) {
-      console.log('2');
-      console.log(list);
-      for (let i = 0; i < list.length; i++) {
-        const endTime = (new Date(list[i].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
-        this.countDown(endTime, function (msg) {
-          document.getElementById(('a' + list[i].id)).innerHTML = msg;
-        });
-      }
-    }
-  }*/
-
-  handleCancel(): void {
-    this.isVisible = false;
-  }
-
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 拼团输入商品数量
+   */
   showQuantity(grouponId): void {
     if (grouponId !== null) {
       this.invite = 1;
     }
-    console.log(this.invite);
     if (this.token === null || this.token === undefined || this.token === null) {
-      // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
-      //   'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&' +
-      //   'scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-6';
-
     } else {
       if (grouponId !== null) {
         // 参与他人拼团
         this.appService.postFormData(this.appProperties.shoppingNewJudgeUrl, {'id': grouponId}, this.token).subscribe(
           data => {
-            // console.log(data);
             if (data.status === -99) {
               alert(data.message);
               return;
@@ -274,27 +260,51 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 拼团友情提示弹框
+   */
   cancelB(): void {
     this.isVisibleB = false;
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 关闭拼团数量输入弹框
+   */
   quantityCancel(): void {
     this.isVisibleA = false;
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 选择tab（图文详情、商品参数、购买须知）
+   */
   selected(flag) {
     this.curId = flag;
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 转换拼团用户手机号码
+   */
   turnPhone(phone) {
     if (phone) {
       return phone = phone.substr(0, 3) + '*****' + phone.substr(8);
     }
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 转换时间格式
+   */
   turnData(date) {
     const nowDate = new Date(date.replace(/-/g, '/'));
-    // console.log(nowDate);
     const nowY = nowDate.getFullYear();
     const nowM = nowDate.getMonth() + 1;
     const nowD = nowDate.getDate();
@@ -304,6 +314,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     return endTime;
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 页面跳转
+   */
   goTo() {
     if (getToken() === null || getToken() === undefined) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
@@ -316,6 +331,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 商品分享
+   */
   share(msg, duration) {
     duration = isNaN(duration) ? 3000 : duration;
     const m = document.createElement('div');
@@ -352,7 +372,6 @@ export class DetailComponent implements OnInit, OnDestroy {
       '&type=1',
       '', this.token).subscribe(
       data => {
-        console.log(data);
         wx.config({
           debug: false,
           appId: data.data.appId,
@@ -373,9 +392,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           '&pic=' +
           this.pic +
           '&type=1';
-        console.log(link);
         wx.ready(function () {
-          console.log(123);
           const shareData = {
             title: '优水到家',
             desc: '来拼单', // 这里请特别注意是要去除html
@@ -406,6 +423,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 增加拼团商品购买的数量
+   */
   offNum() {
     if (this.quantity > 1) {
       this.quantity = this.quantity - 1;
@@ -418,6 +440,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 减少拼团商品购买的数量
+   */
   addNum() {
     if (this.quantity === this.maxNum) {
       this.quantity = this.maxNum;
@@ -430,6 +457,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 确认提交拼团数量
+   */
   grouponGo(quantity, id, grouponId, spellgroupId) {
     if (quantity === null || quantity === undefined || quantity === '') {
       this.quantityFalse = true;
@@ -439,12 +471,6 @@ export class DetailComponent implements OnInit, OnDestroy {
       return;
     }
     this.isVisibleA = false;
-    // let invite;
-    // if (this.grouponId === null) {
-    //   invite = 0;
-    // } else {
-    //   invite = 1;
-    // }
     this.router.navigate(['cMain/grouponPay'], {
       queryParams: {
         quantity: quantity,
@@ -455,14 +481,14 @@ export class DetailComponent implements OnInit, OnDestroy {
         token: this.token
       }
     });
-    // window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponPay?quantity=' + quantity + '&id=' + id + '&groupId=' + grouponId + '&spellgroupId=' + spellgroupId + '&invite=1' + '&token=' + this.token;
-
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 普通商品立即购买
+   */
   btnCartAndBuy() {
-    // alert(getToken());
-    // alert(urlParse(window.location.href)['token']);
-    // if (getToken() === null || getToken() === undefined || getToken() === '')
     if (urlParse(window.location.search)['token'] !== undefined
       && urlParse(window.location.search)['token'] !== '') {
       const exp = new Date();
@@ -470,13 +496,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       document.cookie = 'shopToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
     }
     if (getToken() === null || getToken() === undefined) {
-      // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
-      //   'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&' +
-      //   'state=/cMain/firstPage?vm=1-1';
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
-
-      // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1;
-
     } else {
       this.appService.postAliData(this.appProperties.detailCartAndBuyUrl, {
         itemId: this.id,
@@ -495,10 +515,14 @@ export class DetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 砍价免费拿
+   */
   create(activityId) {
     this.appService.postFormData(this.appProperties.bargainJudgeJoinedUrl, {id: activityId}, getToken()).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.router.navigate(['cMain/newAddress'], {
             queryParams: {
@@ -518,13 +542,14 @@ export class DetailComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 团购商品正价购买
+   */
   orderTo(val) {
     if (getToken() === null || getToken() === undefined || getToken() === '') {
-      // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&' +
-      //   'redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&' +
-      //   'state=/cMain/firstPage?vm=1-1';
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
-
     } else {
       this.appService.getAliData(this.appProperties.shoppingAddUrl, {
         itemId: this.id,
@@ -532,7 +557,6 @@ export class DetailComponent implements OnInit, OnDestroy {
         itemName: this.name
       }, getToken()).subscribe(
         data => {
-          console.log(data);
           alert(data.message);
           if (data.status === 1 && val === 1) {
             this.router.navigate(['cMain/shopCar']);
@@ -545,6 +569,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 页面跳转
+   */
   turnToPage(val) {
     if (getToken() === null || getToken() === undefined) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';

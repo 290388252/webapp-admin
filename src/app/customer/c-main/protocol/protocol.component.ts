@@ -22,9 +22,13 @@ export class ProtocolComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 返回充值页面
+   */
   goTo(flag) {
     if (flag === 'prepaid') {
-      // this.router.navigate(['cMain/prepaid']);
       window.location.href = 'http://webapp.youshuidaojia.com/cMain/prepaid?token=' + urlParse(window.location.href)['token'];
     }
 

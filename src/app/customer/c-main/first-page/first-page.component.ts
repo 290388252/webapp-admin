@@ -37,15 +37,17 @@ export class FirstPageComponent implements OnInit {
     }
     this.showGoods(getToken());
     this.list = this.firstPageService.showGoods(getToken(), 1);
-    // this.getBannerHeight();
     this.judgeVip = false;
-    // this.getVip();
   }
 
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 判断是否是会员
+   */
   getVip() {
     this.appService.postAliData(this.appProperties.judgeVipUrl, {}, getToken()).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.judgeVip = true;
         } else {
@@ -58,20 +60,19 @@ export class FirstPageComponent implements OnInit {
     );
   }
 
-  /*getBannerHeight() {
-    const banner = document.getElementById('banner');
-    this.height = (banner.offsetWidth) / 16 * 8 + 'px';
-  }*/
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 获取商品list集合
+   */
   showGoods(token) {
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {type: 2}, token).subscribe(
       data => {
-        console.log(data);
         data.returnObject.forEach(item => {
           if (item.advertisingPic !== null && item.advertisingPic !== undefined && item.advertisingPic !== '') {
             this.imgList.push({id: item.id, name: item.name, bannerImg: item.advertisingPic});
           }
         });
-        console.log(this.imgList);
         setInterval(() => {
           const num = (this.currentPic + 1) % this.imgList.length;
           this.currentPic = num;
@@ -83,24 +84,27 @@ export class FirstPageComponent implements OnInit {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 滑动banner
+   */
   changebanner(num) {
     this.currentPic = num;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 添加商品到购物车
+   */
   addFirstCar(item) {
-    console.log(this.list);
-    console.log({
-      itemId: item.id,
-      num: 1,
-      itemName: item.name
-    });
     this.appService.getAliData(this.appProperties.shoppingAddUrl, {
       itemId: item.id,
       num: 1,
       itemName: item.name
     }, getToken()).subscribe(
       data => {
-        console.log(data);
         if (data.status === 2) {
           alert(data.message);
           window.location.href = data.returnObject;
@@ -114,9 +118,12 @@ export class FirstPageComponent implements OnInit {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击进入商品详情页面
+   */
   goTo(id, pic, spellgroupId) {
-    // const endName = '"' + name + '"';
-    // console.log(endName);
     this.router.navigate(['cMain/detail'], {
       queryParams: {
         id: id,
@@ -129,6 +136,11 @@ export class FirstPageComponent implements OnInit {
     });
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击进入拼团进行中或砍价免费拿或为您精选或优水购买页面
+   */
   turnToPage(val) {
     if (val === 4) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/wechat/getCustomerToken&response_type=code&scope=snsapi_userinfo&state=:9800/main';

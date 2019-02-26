@@ -25,7 +25,6 @@ export class EditAddressComponent implements OnInit {
     this.token = getToken();
     this.appService.postAliData(this.appProperties.shopAddressSelectUrl, '', this.token).subscribe(
       data => {
-        console.log(data);
         data.returnObject.forEach(item => {
           if (item.id === Number.parseInt(this.id)) {
             this.name = item.name;
@@ -39,23 +38,41 @@ export class EditAddressComponent implements OnInit {
       }
     );
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 新增地址
+   */
   addAddress() {
     this.router.navigate(['cMain/addAddress']);
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 删除地址
+   */
   delete() {
     this.lastConfirm = true;
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 是否确认删除地址弹框
+   */
   cancelContent() {
     this.lastConfirm = false;
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 二次确认删除地址
+   */
   confirmContent() {
-    console.log('?');
     this.appService.postAliData(this.appProperties.shopAddressUpdateUrl, {
       id: this.id,
       deleteFlag: 1
     }, this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.lastConfirm = false;
           this.router.navigate(['cMain/newAddress']);

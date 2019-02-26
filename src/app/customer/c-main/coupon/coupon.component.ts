@@ -1,9 +1,10 @@
 import {Component, AfterViewChecked, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import {Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
+
 declare var wx: any;
 declare var WeixinJSBridge: any;
 
@@ -15,8 +16,9 @@ declare var WeixinJSBridge: any;
 export class CouponComponent implements OnInit {
   public token;
   public success = true;
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private appProperties: AppProperties,
-  private appService: AppService) {
+              private appService: AppService) {
   }
 
   ngOnInit() {
@@ -31,12 +33,16 @@ export class CouponComponent implements OnInit {
         'scope=snsapi_userinfo&state=/cMain/getCoupon?vm=1-3';
     }
   }
-  // 获取订单列表
+
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 获取订单列表
+   */
   getCoupon() {
     // this.success = false;
     this.appService.postAliData(this.appProperties.couponAddAsianCustomer, '', urlParse(window.location.search)['token']).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.success = false;
         } else {
@@ -47,16 +53,22 @@ export class CouponComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 关闭弹框
+   */
   close() {
     this.success = true;
     const ua = window.navigator.userAgent.toLowerCase();
     if (ua.match(/MicroMessenger/i)) {
       if (ua.match(/MicroMessenger/i)[0] === 'micromessenger') {
-          WeixinJSBridge.call('closeWindow');
+        WeixinJSBridge.call('closeWindow');
       }
     } else if (ua.match(/AlipayClient/i)) {
       if (ua.match(/AlipayClient/i)[0] === 'alipayclient') {
-          window['AlipayJSBridge'].call('closeWebview');
+        window['AlipayJSBridge'].call('closeWebview');
       }
     }
   }

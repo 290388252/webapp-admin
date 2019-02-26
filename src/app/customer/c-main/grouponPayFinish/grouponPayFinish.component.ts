@@ -58,6 +58,11 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
     this.getData();
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取拼团订单数据
+   */
   getData() {
     this.appService.postFormData(this.appProperties.grouponPayFinishUrl, {'orderId': this.orderId}, this.token).subscribe(
       data => {
@@ -109,6 +114,11 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 拼团倒计时
+   */
   countDown(maxtime, fn) {
     const timer = setInterval(function () {
       if (maxtime >= 0) {
@@ -145,6 +155,11 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
     this.timerList.push(timer);
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 跳转页面
+   */
   goTo(val) {
     if (val === 1) {
       this.router.navigate(['cMain/firstPage']);
@@ -158,20 +173,31 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 引导用户邀请微信好友参团弹框
+   */
   invite() {
     this.isVisibleCouponOne = true;
     document.getElementsByClassName('ant-modal-body')[0]['style'].cssText = 'padding: 0;';
-    console.log(this.num);
-    console.log(this.goodsName);
-    console.log(this.shareId);
-    console.log(this.sharePic);
     this.shareFriend(this.num, this.goodsName, this.shareId, this.sharePic);
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭引导用户邀请微信好友参团弹框
+   */
   closeCoupon() {
     this.isVisibleCouponOne = false;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 分享给好友
+   */
   shareFriend(num, goodsName, shareId, sharePic) {
     const that = this;
     this.appService.postFormData(this.appProperties.wechatShareInfoUrl,
@@ -223,7 +249,11 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
     );
   }
 
-  // 判断是微信登陆还是支付宝登陆
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 判断是微信登陆还是支付宝登陆
+   */
   urlParse(url): object {
     const obj = {};
     const reg = /[?&][^?&]+=[^?&]+/g;
@@ -239,7 +269,11 @@ export class GrouponPayFinishComponent implements OnInit, OnDestroy {
     return obj;
   }
 
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 时间转换
+   */
   // turnData(date) {
   //   const nowDate = new Date(date);
   //   const nowY = nowDate.getFullYear();

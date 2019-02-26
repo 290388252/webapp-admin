@@ -28,16 +28,14 @@
         [nzOptions]="otherCompanyValuesList"
         [nzPlaceHolder]="'请选择补货公司'"
         [nzAllowClear]="false"
-        [(ngModel)]="otherCompanyId"
-        (ngModelChange)="onVersionChanges($event)">
+        [(ngModel)]="otherCompanyId">
       </nz-cascader>
       <nz-cascader
         style="width: 49%"
         [nzOptions]="versionValuesList"
         [nzPlaceHolder]="'请选择版本'"
         [nzAllowClear]="true"
-        [(ngModel)]="versionValues"
-        (ngModelChange)="onVersionChanges($event)">
+        [(ngModel)]="versionValues">
       </nz-cascader>
       <!--<nz-cascader-->
         <!--style="width: 49%"-->

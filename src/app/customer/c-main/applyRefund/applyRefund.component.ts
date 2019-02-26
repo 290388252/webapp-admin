@@ -33,7 +33,11 @@ export class ApplyRefundComponent implements OnInit {
     this.refundPrice = this.totalPrice;
     this.getData();
   }
-  /*获取订单商品列表*/
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 获取订单商品列表
+   */
   getData() {
     this.appService.postFormData(this.appProperties.getOrderItemListUrl, {
       payCode: this.payCode,
@@ -42,7 +46,6 @@ export class ApplyRefundComponent implements OnInit {
       data => {
         if (data.status === 1) {
           this.orderItemList = data.returnObject;
-          console.log(this.orderItemList);
         }
       },
       error => {
@@ -50,7 +53,11 @@ export class ApplyRefundComponent implements OnInit {
       }
     );
   }
-  /*返回*/
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 返回我的订单
+   */
   goTo() {
     this.router.navigate(['cMain/myOrder'], {
       queryParams: {
@@ -59,7 +66,11 @@ export class ApplyRefundComponent implements OnInit {
       }
     });
   }
-  /*提交*/
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 提交退款申请
+   */
   applySubmit() {
     if (this.refundReason === null || this.refundReason === undefined || this.refundReason === '') {
       alert('请输入退款原因!');

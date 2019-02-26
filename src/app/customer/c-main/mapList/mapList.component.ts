@@ -45,7 +45,11 @@ export class MapListComponent implements OnInit {
 
   }
 
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取输入地址附近的售货机list
+   */
   getVmDetails(mapLng, mapLat) {
     const date = new Date();
     const timer = date.getTime().toString();
@@ -72,12 +76,19 @@ export class MapListComponent implements OnInit {
     );
 
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取该售货机的距离
+   */
   turnDistance(num) {
     return Math.round(num);
   }
-
-  // 搜索地址
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 搜索地址
+   */
   baiduCheck(version) {
 
     const map = new BMap.Map(); // 创建地图实例
@@ -167,20 +178,40 @@ export class MapListComponent implements OnInit {
       };
     });
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 跳转页面
+   */
   goTo() {
     this.router.navigate(['cMain/cardMap']);
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击输入框
+   */
   empty() {
     this.detailsList = [];
     this.imgShow = false;
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭弹框
+   */
   cancel() {
     this.show = true;
     this.detailShow = false;
     this.location = undefined;
     this.detailsList = [];
   }
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭弹框
+   */
   goDetails(vmCode, version) {
     this.router.navigate(['cMain/mapDetails'], {
       queryParams: {

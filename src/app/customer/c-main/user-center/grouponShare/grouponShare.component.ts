@@ -42,16 +42,11 @@ export class GrouponShareComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(sessionStorage);
-    // this.customerSpellGroupId = urlParse(window.location.href)['customerSpellGroupId'];
-    // this.getTime();
     if (sessionStorage.getItem('customerSpellGroupId') === null
       || sessionStorage.getItem('customerSpellGroupId') === undefined
       || sessionStorage.getItem('customerSpellGroupId') === '') {
       sessionStorage.setItem('customerSpellGroupId', urlParse(window.location.href)['customerSpellGroupId']);
     }
-    console.log(sessionStorage.getItem('customerSpellGroupId'));
-    // this.token = getToken();
     if (getToken() !== null && getToken() !== undefined && getToken() !== '') {
       this.token = getToken();
     } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
@@ -63,10 +58,14 @@ export class GrouponShareComponent implements OnInit, OnDestroy {
     this.getData();
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取拼团订单详情
+   */
   getData() {
     this.appService.postScanData(this.appProperties.grouponPayShareUrl, {'customerSpellGroupId': sessionStorage.getItem('customerSpellGroupId')}).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.initList = data.returnObject;
           this.headerLength = data.returnObject.minimumGroupSize - data.returnObject.list.length;
@@ -115,6 +114,11 @@ export class GrouponShareComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 倒计时
+   */
   countDown(maxtime, fn) {
     const timer = setInterval(function () {
       if (maxtime >= 0) {
@@ -150,33 +154,34 @@ export class GrouponShareComponent implements OnInit, OnDestroy {
     this.timerList.push(timer);
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 返回首页
+   */
   goTo() {
     this.router.navigate(['cMain/firstPage']);
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 参与好友拼团
+   */
   invite() {
     if (this.token === undefined || this.token === '' || this.token === null) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=' +
         'http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/grouponShare?vm=1-5';
     } else {
       window.location.href = 'http://webapp.youshuidaojia.com/cMain/detail?id=' + this.initList['goodsId'] + '&shareId=' + this.initList['id'] + '&spellgroupId=' + this.initList['spellGroupId'] + '&token=' + this.token + '&invite=1&type=1';
-      // this.router.navigate(['cMain/detail'], {
-      //   queryParams: {
-      //     id: this.initList['goodsId'],
-      //     shareId: this.initList['id'],
-      //     spellgroupId: this.initList['spellGroupId'],
-      //     invite: 1,
-      //     type: 1
-      //   }
-      // });
     }
   }
 
-  closeCoupon() {
-    this.isVisibleCouponOne = false;
-  }
-
-  // 判断是微信登陆还是支付宝登陆
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 判断是微信登陆还是支付宝登陆
+   */
   urlParse(url): object {
     const obj = {};
     const reg = /[?&][^?&]+=[^?&]+/g;

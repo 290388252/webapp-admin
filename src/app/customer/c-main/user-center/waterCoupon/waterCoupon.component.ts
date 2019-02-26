@@ -14,14 +14,13 @@ export class WaterCouponComponent implements OnInit {
   public unUsed: boolean;
   public used: boolean;
   public pastDue: boolean;
-  // public couponGet: boolean;
   public unUsedList = [];
   public usedList = [];
   public pastDueList = [];
-  // public couponGetList = [];
   public imgUrl = this.appProperties.shopImgUrl;
   private token;
   public showList;
+
   constructor(private appProperties: AppProperties,
               private appService: AppService,
               private router: Router) {
@@ -51,7 +50,6 @@ export class WaterCouponComponent implements OnInit {
         );
       }
     }
-    console.log(this.token);
     this.unUsed = true;
     this.unUsed ? this.empty = false : this.empty = true;
     if (this.token !== undefined) {
@@ -59,6 +57,11 @@ export class WaterCouponComponent implements OnInit {
     }
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 选择提水券状态
+   */
   choose(flag) {
     if (flag === 1) {
       this.unUsed = true;
@@ -78,6 +81,11 @@ export class WaterCouponComponent implements OnInit {
     }
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 根据选择的提水券状态获取提水券list
+   */
   coupon(state) {
     this.appService.postAliData(this.appProperties.shoppingWaterCouponUrl, {state: state}, this.token).subscribe(
       data => {
@@ -99,6 +107,11 @@ export class WaterCouponComponent implements OnInit {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 展开或关闭提水券说明
+   */
   openInstructions(id) {
     if (this.unUsedList !== null) {
       for (let i = 0; i <= this.unUsedList.length; i++) {

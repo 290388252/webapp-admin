@@ -54,11 +54,14 @@ export class RecommendBComponent implements OnInit, OnDestroy {
     }
 
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取为你精选list及拼团list
+   */
   getData() {
     this.appService.postAliData(this.appProperties.shoppingGoodsUrl, {itemType: this.itemType}, this.token).subscribe(
       data => {
-        console.log(data);
         data.returnObject.forEach(item => {
           item.pic = item.pic.split(',')[0];
           this.goodsList.push(item);
@@ -69,17 +72,19 @@ export class RecommendBComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取拼团list
+   */
   getBargin() {
     this.appService.postAliData(this.appProperties.bargainSponsorBargainListUrl, '', this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.bargainGoodsFindCustomerList = data.returnObject.bargainGoodsFindCustomerList;
           this.bargainGoodsList = data.returnObject.bargainGoodsList;
           if (this.bargainGoodsFindCustomerList.length > 0) {
             for (let i = 0; i < this.bargainGoodsFindCustomerList.length; i++) {
-              console.log(new Date(this.bargainGoodsFindCustomerList[i].endTime.replace(/-/g, '/')).getTime());
               const endTime = (new Date(this.bargainGoodsFindCustomerList[i].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
               this.countDown(endTime, function (msg) {
                 document.getElementById('timer' + i).innerHTML = msg;
@@ -93,19 +98,30 @@ export class RecommendBComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 继续砍价
+   */
   to(id) {
     window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargainDetails?id=' + id + '&select=1&token=' + this.token;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击进入商品砍价详情
+   */
   details(id) {
     window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargain?orderId=' + id + '&token=' + this.token;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击去砍价
+   */
   toCreate(activityId) {
     this.appService.postFormData(this.appProperties.bargainJudgeJoinedUrl, {id: activityId}, this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           window.location.href = 'http://webapp.youshuidaojia.com/cMain/newAddress?type=4&activityId=' + activityId + '&select=1&token=' + this.token;
         } else {
@@ -118,7 +134,11 @@ export class RecommendBComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 倒计时
+   */
   countDown(maxtime, fn) {
     const timer = setInterval(function () {
       if (maxtime >= 0) {
@@ -154,7 +174,11 @@ export class RecommendBComponent implements OnInit, OnDestroy {
     }, 1000);
     this.timerList.push(timer);
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击进入商品详情
+   */
   goTo(id, pic, spellgroupId) {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
@@ -165,7 +189,11 @@ export class RecommendBComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 添加商品至购物车
+   */
   addFirstCar(item) {
     event.stopPropagation();
     this.appService.getAliData(this.appProperties.shoppingAddUrl, {
@@ -174,7 +202,6 @@ export class RecommendBComponent implements OnInit, OnDestroy {
       itemName: item.name
     }, getToken()).subscribe(
       data => {
-        console.log(data);
         if (data.status === 2) {
           alert(data.message);
           window.location.href = data.returnObject;
@@ -187,7 +214,11 @@ export class RecommendBComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 转换时间格式
+   */
   // turnData(date) {
   //   const nowDate = new Date(date);
   //   const nowY = nowDate.getFullYear();

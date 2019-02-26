@@ -18,8 +18,6 @@ export class PromotionsComponent implements OnInit {
   public token;
   public vmCode;
   public couponList;
-  img;
-  abc;
 
   constructor(private appProperties: AppProperties, private appService: AppService, private router: Router) {
   }
@@ -32,20 +30,19 @@ export class PromotionsComponent implements OnInit {
 
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取优惠券list
+   */
   getDate() {
     if (getToken() === null || getToken() === undefined) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
     } else {
-      console.log('123');
       this.appService.postAliData(this.appProperties.shoppingPromotionsUrl, {'vmCode': this.vmCode}, this.token).subscribe(
         data => {
           if (data.status === 1) {
-            console.log(data);
             this.couponList = data.returnObject;
-            // this.abc = data.returnObject[0].themeImg;
-            // this.img = 'background-image: url(\'' + this.imgUrl + this.abc + '\')';
-            // document.getElementById('aaa').style.backgroundImage = 'url(' + this.imgUrl + this.abc + ')';
-            // console.log( document.getElementById('aaa').style);
           }
         },
         error => {
@@ -55,6 +52,11 @@ export class PromotionsComponent implements OnInit {
     }
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击购买优惠券页面跳转
+   */
   goTo(id) {
     if (id === '1') {
       if (getToken() === null || getToken() === undefined) {

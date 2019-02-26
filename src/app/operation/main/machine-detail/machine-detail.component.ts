@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NzModalService} from 'ng-zorro-antd';
 import {AppProperties} from '../../../app.properties';
@@ -24,6 +24,7 @@ export class MachineDetailComponent implements OnInit {
   public machineVersion;
   public detailListLoading = true;
   public tradeDetailListLoading = true;
+
   constructor(private router: Router,
               private modalService: NzModalService,
               private activatedRoute: ActivatedRoute,
@@ -33,10 +34,8 @@ export class MachineDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(getAdminToken());
-    this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl, '' , getAdminToken()).subscribe(
+    this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl, '', getAdminToken()).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.loading = false;
           this.vmList = data.returnObject;
@@ -49,13 +48,16 @@ export class MachineDetailComponent implements OnInit {
       }
     );
   }
-  // 搜索查询售货机列表
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 搜索查询售货机列表
+   */
   onSearch(): void {
-    console.log(this._value);
     this.appService.postAliData(this.appProperties.aliMachineQueryVMListUrl + '?form=' + this._value,
-      '' , getAdminToken()).subscribe(
+      '', getAdminToken()).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.vmList = data.returnObject;
         } else {
@@ -67,7 +69,12 @@ export class MachineDetailComponent implements OnInit {
       }
     );
   }
-  // 售货机详情
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 售货机详情
+   */
   detail(vmCode, version) {
     this.isVisible = true;
     this.vmCode = vmCode;
@@ -75,7 +82,6 @@ export class MachineDetailComponent implements OnInit {
     this.appService.getAliData(this.appProperties.aliMachineQueryDetailUrl,
       {vmCode: this.vmCode, machineVersion: this.machineVersion}, getAdminToken()).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           if (!data.willGo) {
             this.detailListLoading = false;
@@ -90,7 +96,12 @@ export class MachineDetailComponent implements OnInit {
       }
     );
   }
-  // 销售记录查询
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 销售记录查询
+   */
   sails(vmCode) {
     const yesterday = new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2);
     const tomorrow = new Date(new Date().getTime() + 1000 * 60 * 60 * 24);
@@ -125,48 +136,68 @@ export class MachineDetailComponent implements OnInit {
       {
         vmCode: vmCode,
         day: 3
-        // startDate: startDate,
-        // endDate: endDate
-      } , getAdminToken()).subscribe(
+      }, getAdminToken()).subscribe(
       data => {
-        console.log(data);
-          this.tradeDetailList = data;
-          this.tradeDetailListLoading = false;
-          // alert('查询失败无数据');
-          // this.isVisibleSails = false;
-          // this.tradeDetailListLoading = true;
+        this.tradeDetailList = data;
+        this.tradeDetailListLoading = false;
       },
       error => {
         console.log(error);
       }
     );
   }
-  // 打开详情记录
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 打开详情记录
+   */
   handleOk(): void {
     this.isVisible = false;
     this.isConfirmLoading = false;
     this.detailListLoading = true;
     this.detailList = [];
   }
-  // 关闭详情记录
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭详情记录
+   */
   handleCancel(): void {
     this.isVisible = false;
     this.detailListLoading = true;
     this.detailList = [];
   }
-  // 打开销售记录
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 打开销售记录
+   */
   handleOkSails(): void {
     this.isVisibleSails = false;
     this.isConfirmLoadingSails = false;
     this.tradeDetailListLoading = true;
     this.tradeDetailList = [];
   }
-  // 关闭销售记录
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭销售记录
+   */
   handleCancelSails(): void {
     this.isVisibleSails = false;
     this.tradeDetailListLoading = true;
     this.tradeDetailList = [];
   }
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 转换日期兼容ios
+   */
   toDate(date) {
     return new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate();
   }

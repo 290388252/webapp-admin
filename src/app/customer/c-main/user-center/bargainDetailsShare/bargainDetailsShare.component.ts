@@ -61,7 +61,6 @@ export class BargainDetailsShareComponent implements OnInit, OnDestroy {
     this.appService.postAliData(this.appProperties.bargainGetBargainInfoUrl
       + sessionStorage.getItem('customerBargainId'), '', this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 6004 || data.status === 1) {
           sessionStorage.setItem('goodsBargainId', data.returnObject.goodsBargainId);
           this.itemId = data.returnObject.goodsBargainId;
@@ -87,6 +86,11 @@ export class BargainDetailsShareComponent implements OnInit, OnDestroy {
       }
     );
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 跳转到砍价列表
+   */
   goTo() {
     this.router.navigate(['cMain/bargainList'], {
       queryParams: {
@@ -94,6 +98,11 @@ export class BargainDetailsShareComponent implements OnInit, OnDestroy {
       }
     });
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 帮朋友砍一刀
+   */
   to() {
     if (this.token === undefined || this.token === '') {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=' +
@@ -102,7 +111,6 @@ export class BargainDetailsShareComponent implements OnInit, OnDestroy {
       this.appService.postAliData(this.appProperties.bargainDoUrl
         + sessionStorage.getItem('customerBargainId'), '', this.token).subscribe(
         data => {
-          console.log(data);
           if (data.status === 1) {
             this.bargainModal = true;
             this.bargainMoney = data.returnObject;
@@ -119,9 +127,19 @@ export class BargainDetailsShareComponent implements OnInit, OnDestroy {
       );
     }
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭成功砍价弹框
+   */
   closeModal() {
     this.bargainModal = false;
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 倒计时
+   */
   countTime(endTime, fn) {
       const timer = setInterval( () => {
       if (endTime >= 0) {
@@ -140,6 +158,11 @@ export class BargainDetailsShareComponent implements OnInit, OnDestroy {
     }, 1000);
     this.timerList.push(timer);
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击免费拿
+   */
   toCreate(activityId) {
     let id;
     if (activityId === null || activityId === undefined || activityId === '') {
@@ -149,7 +172,6 @@ export class BargainDetailsShareComponent implements OnInit, OnDestroy {
     }
     this.appService.postFormData(this.appProperties.bargainJudgeJoinedUrl, {id: id}, this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.router.navigate(['cMain/newAddress'], {
             queryParams: {
@@ -171,6 +193,11 @@ export class BargainDetailsShareComponent implements OnInit, OnDestroy {
       }
     );
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击免费拿
+   */
   toFixed(num) {
     return Math.round(num * 100) / 100;
   }

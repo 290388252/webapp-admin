@@ -22,26 +22,33 @@ export class UserCenterComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getInfo();
     if (urlParse(window.location.search)['token'] === undefined || urlParse(window.location.search)['token'] === ''
       || urlParse(window.location.search)['token'] === null) {
       this.token = getToken();
-      // this.token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiNzA5MCwwLG9La1p5MDR5WUs4MXhUanprc04xb0pMemllTjAiLCJleHAiOjE1NDQyMjUzMzd9.gagOxXr-CdXaMBqwVS438FEy7JZJibZVRi8LDeH-hpvOyQj4JQzFPnRkf2W1SLfSr2F1ZrzaoqDd88yGjZMzlA';
     } else {
       this.token = urlParse(window.location.search)['token'];
     }
     this.getDate();
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 微信用户授权
+   */
   getInfo() {
     const strUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/wechat/getUserInfo&response_type=code&scope=snsapi_userinfo&state=/cMain/userCenter-1-76';
     window.location.href = strUrl;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取个人信息
+   */
   getDate() {
     this.appService.postAliData(this.appProperties.shopUserMoneyUrl, {}, this.token).subscribe(
       data => {
-        console.log(123);
         if (data.status === -99) {
           alert(data.message);
         } else {
@@ -61,16 +68,19 @@ export class UserCenterComponent implements OnInit {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 跳转页面（查看更多订单、余额、我的订单、我的存水、我的优惠券、我的提货券、我的购物车、我的地址、附近售货机、我的故障申报、砍价免费拿）
+   */
   detail(flag) {
     if (flag === 1) {
       this.appService.postAliData(this.appProperties.shopUserMoneyUrl, {}, this.token).subscribe(
         data => {
-          console.log(123);
           if (data.status === -66) {
             alert(data.message);
             return;
           } else {
-            // this.router.navigate(['cMain/prepaid']);
             window.location.href = 'http://webapp.youshuidaojia.com/cMain/prepaid?token=' + this.token;
           }
         },
@@ -108,17 +118,16 @@ export class UserCenterComponent implements OnInit {
       this.router.navigate(['cMain/myDeclaration']);
     } else if (flag === 10) {
       window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargainList';
-      // window.location.href = 'http://sms.youshuidaojia.com/shareGzh?token=' + this.token;
-      // this.router.navigate(['cMain/bargainList'], {
-      //   queryParams: {
-      //     vmCode: urlParse(window.location.search)['vmCode'],
-      //   }
-      // });
     } else if (flag === 11) {
       this.router.navigate(['cMain/grouponOrder']);
     }
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 查看拼团订单（待付款、待分享、待取货、已完成）
+   */
   goDetail(val) {
     this.router.navigate(['cMain/grouponOrder'], {
       queryParams: {

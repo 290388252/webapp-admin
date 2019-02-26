@@ -19,10 +19,20 @@ export class ScanComponent implements OnInit {
   ngOnInit() {
     this.scan();
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 返回首页
+   */
   goTo() {
     window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=' +
       'http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
   }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 扫一扫
+   */
   scan() {
     this.appService.postScanData(this.appProperties.wechatShareInfoUrl,
       // + '?url=http://sms.youshuidaojia.com:9800/user?vmCode=' + urlParse(window.location.href)['vmCode'],

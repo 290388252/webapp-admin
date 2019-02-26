@@ -22,7 +22,7 @@ export class CMainComponent implements OnInit {
 
   ngOnInit() {
     const url = window.location.href;
-    if (url.indexOf('detail') !== -1 || url.indexOf('getCoupon') !== -1 ) {
+    if (url.indexOf('detail') !== -1 || url.indexOf('getCoupon') !== -1) {
       this.footerHidden = true;
     } else {
       this.footerHidden = false;
@@ -42,12 +42,15 @@ export class CMainComponent implements OnInit {
     } else if (url.indexOf('userCenter') > -1) {
       this.curId = 4;
     } else {
-      console.log('url');
-      console.log(url);
       this.curId = 1;
     }
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 选择栏目（首页、扫一扫、推荐、购物车、个人中心）
+   */
   selected(flag) {
     this.curId = flag;
     if (flag === 1) {
@@ -62,12 +65,10 @@ export class CMainComponent implements OnInit {
       if (isIOS) {
         window.location.href = 'http://webapp.youshuidaojia.com/cMain/scan';
       } else {
-        this.appService.postScanData(this.appProperties.wechatShareInfoUrl, {url : window.location.href}
+        this.appService.postScanData(this.appProperties.wechatShareInfoUrl, {url: window.location.href}
           // + '?url=http://webapp.youshuidaojia.com/cMain/firstPage?vmCode=' + urlParse(window.location.href)['vmCode'],
         ).subscribe(
           data => {
-            console.log(data);
-            console.log(window.location.href);
             wx.config({
               debug: false,
               appId: data.data.appId,
@@ -83,7 +84,6 @@ export class CMainComponent implements OnInit {
               ]
             });
             wx.ready(function () {
-              console.log(123);
               wx.scanQRCode({
                 needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
                 scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有

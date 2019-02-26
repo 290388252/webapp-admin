@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {urlParse} from "../../utils/util";
 
@@ -9,12 +9,18 @@ import {urlParse} from "../../utils/util";
 })
 export class MainComponent implements OnInit {
   public curId: number;
-  constructor(private router: Router) { }
+
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
     console.log(window.location.href);
     const url = window.location.href;
-    // 控制图标大小改变，获取下标位
+    /**
+     * 2019-02-16
+     * @author maiziyao
+     * 控制图标大小改变，获取下标位
+     */
     if (url.indexOf('userDetail') > -1) {
       this.curId = 1;
     } else if (url.indexOf('machineDetail') > -1) {
@@ -27,7 +33,12 @@ export class MainComponent implements OnInit {
       this.curId = 1;
     }
   }
-  // 获取选中状态
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 获取选中状态
+   */
   selected(flag) {
     this.curId = flag;
   }

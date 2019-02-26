@@ -29,6 +29,7 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
   public versionValuesList = [{value: '1', label: '版本1', isLeaf: true}, {value: '2', label: '版本2', isLeaf: true}];
   public vmCode: string;
   public tradeDetailListLoading = true;
+
   constructor(private modalService: NzModalService,
               private appProperties: AppProperties,
               private appService: AppService,
@@ -36,12 +37,12 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
               @Inject('replenishment') private replenishmentService) {
     this.loading = true;
   }
+
   ngAfterContentInit(): void {
   }
+
   ngOnInit() {
-    console.log(getAdminToken());
     const initObj = this.replenishmentService.getInitData();
-    console.log(initObj);
     if (initObj.homeValuesList.length !== 0) {
       this.loading = false;
     }
@@ -51,18 +52,31 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
     this.initList = initObj.initList;
     this.otherCompanyValuesList = initObj.otherCompanyValuesList;
   }
-  // 监听input改变
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 监听input改变
+   */
   onChanges(event) {
     console.log(this.selectValues[0]);
   }
-  // 监听input改变
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 监听input改变
+   */
   onHomeChanges(e) {
     console.log(this.homeValues[0]);
   }
-  onVersionChanges(e) {}
-  // 搜索查询售货机列表
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 搜索查询售货机列表
+   */
   onSearch() {
-    console.log(this.value);
     let rate, companyId;
     if (this.selectValues) {
       rate = this.selectValues[0];
@@ -74,27 +88,49 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
     if (returnObj.replenishList !== 0) {
       this.loading = false;
     }
-    console.log(returnObj);
     this.replenishList = returnObj.replenishList;
     this.initList = returnObj.initList;
   }
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 跳转到地图搜索
+   */
   onBaidu() {
     this.router.navigate(['main/map']);
   }
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 四舍五入转换
+   */
   round(ratio) {
     return Math.round(ratio * 100);
   }
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 转换
+   */
   replenishDetail(list) {
     let text;
     const name = list.name === '' ? '无名' : list.name;
     // if (list.fullNum - list.num === 0) {
-      // text = `${name}/已满`;
+    // text = `${name}/已满`;
     // } else {
-      text = `${name}/补${list.fullNum - list.num} ${list.num}/${list.fullNum}`;
+    text = `${name}/补${list.fullNum - list.num} ${list.num}/${list.fullNum}`;
     // }
     return text;
   }
-  // 查看详情记录
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 查看详情记录
+   */
   detail(vmCode) {
     let rate;
     if (this.selectValues) {
@@ -102,15 +138,24 @@ export class ReplenishmentDetailComponent implements OnInit, AfterContentInit {
     }
     this.isVisible = true;
     this.tradeDetailList = this.replenishmentService.detailService(vmCode, rate);
-    console.log(this.tradeDetailList);
   }
-  // 关闭销售记录
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 关闭销售记录
+   */
   handleCancelSails() {
     this.isVisible = false;
     this.tradeDetailListLoading = true;
     this.tradeDetailList = [];
   }
-  // 打开销售记录
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 打开销售记录
+   */
   handleOkSails() {
     this.isVisible = false;
     this.isConfirmLoadingSails = false;

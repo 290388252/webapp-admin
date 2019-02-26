@@ -26,9 +26,10 @@ export class SalesRecordComponent implements OnInit {
   public itemName: string;
   public ptCode: string;
   public phone: string;
+
   constructor(private router: Router,
               private modalService: NzModalService,
-              @Inject('salesRecord')  private salesRecordService,
+              @Inject('salesRecord') private salesRecordService,
               private activatedRoute: ActivatedRoute,
               private appProperties: AppProperties,
               private appService: AppService) {
@@ -65,7 +66,12 @@ export class SalesRecordComponent implements OnInit {
     //   }
     // );
   }
-  // 搜索查询售货机列表
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 搜索查询售货机列表
+   */
   onSearch() {
     this.appService.postAliData(this.appProperties.salesUrl, {payCodeOrName: this.value}, getAdminToken()).subscribe(
       data => {
@@ -78,7 +84,12 @@ export class SalesRecordComponent implements OnInit {
       }
     );
   }
-  // 查看详情记录
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 查看详情记录
+   */
   detail(item) {
     this.companyName = item.companyName;
     this.payCode = item.payCode;
@@ -89,15 +100,31 @@ export class SalesRecordComponent implements OnInit {
     this.createTime = item.createTime;
     this.isVisible = true;
   }
-  // 关闭销售记录
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 关闭销售记录
+   */
   handleCancelSails() {
     this.isVisible = false;
   }
-  // 打开销售记录
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 打开销售记录
+   */
   handleOkSails() {
     this.isVisible = false;
     this.isConfirmLoadingSails = false;
   }
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 转换日期格式
+   */
   toDate(date) {
     return new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate();
   }

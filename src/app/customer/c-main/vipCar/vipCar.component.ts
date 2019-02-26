@@ -3,6 +3,7 @@ import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getToken, urlParse} from '../../../utils/util';
 import {Router} from '@angular/router';
+
 @Component({
   selector: 'app-user-detail',
   templateUrl: './vipCar.component.html',
@@ -14,53 +15,35 @@ export class VipCarComponent implements OnInit {
   public disConfirm;
   public token;
   public vipMoney;
-  // public vipCarList;
-  constructor( private appProperties: AppProperties, private appService: AppService, private router: Router) { }
+
+  constructor(private appProperties: AppProperties, private appService: AppService, private router: Router) {
+  }
 
   ngOnInit() {
-    // this.id = urlParse(window.location.href)['id'];
     this.token = getToken();
     this.isConfirm = false;
     this.disConfirm = false;
     this.vipMoney = 100;
-    // this.getDate();
   }
 
-  getDate() {
-    // this.appService.postAliData(this.appProperties.shopVipCarListUrl, {}, this.token).subscribe(
-    //   data => {
-    //     console.log(123);
-    //     if (data.status === 1) {
-    //       this.vipCarList = data.returnObject;
-    //       console.log(this.vipCarList);
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
-  }
-  checkBox() {
-    const check = document.getElementsByClassName('checkA');
-    if (check[0]['checked']) {
-      this.isConfirm = true;
-      this.disConfirm = false;
-    } else {
-      this.isConfirm = false;
-    }
-
-  }
-  disCheckBox() {
-    this.isConfirm = false;
-    this.disConfirm = true;
-  }
-  // 会员
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 购买vip会员
+   */
   vipBuy(vipMoney) {
     this.router.navigate(['cMain/vipPay'], {
       queryParams: {
         vipMoney: vipMoney
-      }});
+      }
+    });
   }
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 返回首页
+   */
   goTo() {
     this.router.navigate(['cMain/firstPage']);
   }

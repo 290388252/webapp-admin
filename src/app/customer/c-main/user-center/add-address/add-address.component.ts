@@ -52,27 +52,19 @@ export class AddAddressComponent implements OnInit {
     this.isAdd = urlParse(window.location.href)['isAdd'];
     this.select = urlParse(window.location.href)['select'];
     this.activityId = urlParse(window.location.href)['activityId'];
-    // pay
     this.ids = urlParse(window.location.href)['ids'];
     this.payType = urlParse(window.location.href)['payType'];
-    //
     this.alterId = urlParse(window.location.href)['locationId'];
-    // this.shopCar = urlParse(window.location.href)['shopCar'];
-    // this.idList = urlParse(window.location.href)['idList'];
-    // this.pay = urlParse(window.location.href)['pay'];
-    // groupon
     this.goodsId = urlParse(window.location.href)['id'];
     this.quantity = urlParse(window.location.href)['quantity'];
     this.groupId = urlParse(window.location.href)['groupId'];
-    //
-    // this.alterName = urlParse(window.location.href)['alterName'];
-    // this.alterSex = urlParse(window.location.href)['alterSex'];
-    // this.alterPhone = urlParse(window.location.href)['alterPhone'];
-    // this.alterSite = urlParse(window.location.href)['alterSite'];
-    // this.alterSwitch = urlParse(window.location.href)['alterSwitch'];
     this.getInit();
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 判断从我的地址进入页面或普通商品购买进入页面或商品团购进入页面或商品砍价进入页面，返回页面
+   */
   goTo() {
     // if (flag === 'userCenter') {
     if (this.type === '1') {
@@ -120,12 +112,12 @@ export class AddAddressComponent implements OnInit {
         });
       }
     }
-
-    // } else if (flag === 'prepaidPay') {
-    //   this.router.navigate(['cMain/prepaidPay']);
-    // }
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 判断为新增地址还是编辑地址
+   */
   getInit() {
     if (this.isAdd === '1') {
       this.addName = undefined;
@@ -152,7 +144,11 @@ export class AddAddressComponent implements OnInit {
       );
     }
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 新增地址判断是否填写信息完整，保存新增地址
+   */
   addAddress() {
     this.disable = true;
     if (this.addName === undefined || this.addName === null || this.addName === ''
@@ -248,7 +244,11 @@ export class AddAddressComponent implements OnInit {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 编辑地址判断是否填写信息完整，保存编辑后的地址
+   */
   alterAddress() {
     if (this.alterName === undefined || this.alterName === null || this.alterName === ''
       || this.alterPhone === undefined || this.alterPhone === null || this.alterPhone === ''
@@ -312,17 +312,7 @@ export class AddAddressComponent implements OnInit {
                 activityId: this.activityId
               }
             });
-
           }
-          // else if (this.type === '2') {
-          //   this.router.navigate(['cMain/newAddress'], {
-          //     queryParams: {
-          //       type: 4,
-          //       idList: this.idList,
-          //       pay: this.pay
-          //     }
-          //   });
-          // }
         } else {
           alert(data.message);
         }

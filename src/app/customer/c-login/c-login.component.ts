@@ -23,18 +23,20 @@ export class CLoginComponent implements OnInit {
 
   ngOnInit() {
     this.text = '点击获取验证码';
-    console.log(urlParse(window.location.search)['openId']);
   }
   focusCodes() {
     // console.log(document.getElementById('user-container').style.height);
     // console.log(document.documentElement.offsetHeight);
     // document.getElementById('user-container').style.height = (document.documentElement.offsetHeight + 50) + 'px';
   }
-  // 发送验证码
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 发送验证码
+   */
   send(e: TouchEvent) {
     e.preventDefault();
     const status = this.loginService.sendMsg(this.username);
-    console.log(status);
     if (status !== false) {
         this.isLoading = true;
         this.endText = '秒后重发';
@@ -88,7 +90,11 @@ export class CLoginComponent implements OnInit {
     //   this.isLoading = false;
     // }
   }
-  // 登陆
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 登陆
+   */
   login() {
     this.loginService.loginWithCredentials(this.username, this.code);
   }

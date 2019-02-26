@@ -33,7 +33,11 @@ export class MapResultComponent implements OnInit {
     // this.getVmDetails();
   }
 
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取机器地址详情
+   */
   getVmDetails() {
     if (this.vmVersion === '1') {
       this.appService.getAliData(this.appProperties.mapDetailsAUrl, {'vmCode': this.vmCode}, this.token).subscribe(

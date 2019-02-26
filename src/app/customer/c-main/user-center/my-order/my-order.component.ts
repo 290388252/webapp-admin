@@ -17,10 +17,6 @@ export class MyOrderComponent implements OnInit {
   public allList;
   public prepaidList;
   public unPayList;
-
-  // public listTwo;
-  // public noPayListTwo;
-  // public payListTwo;
   public imgUrl = this.appProperties.shopImgUrl;
   public vmImgUrl = this.appProperties.filesImgUrl;
   public all: boolean;
@@ -38,6 +34,11 @@ export class MyOrderComponent implements OnInit {
     this.order = true;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 根据选择订单状态获取对应状态的订单list
+   */
   sort(flag) {
     if (flag === 0) {
       this.all = false;
@@ -57,8 +58,12 @@ export class MyOrderComponent implements OnInit {
     }
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 选择查看商城订单或者机器订单
+   */
   changeRadio() {
-    console.log(this.orderType);
     let type;
     if (this.all === false) {
       type = 0;
@@ -70,11 +75,15 @@ export class MyOrderComponent implements OnInit {
     this.orderList(type);
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 根据选择查看商城订单或者机器订单获取对应的订单list
+   */
   orderList(type) {
     this.appService.postAliData(this.appProperties.shopStoreOrderFindUrl, {findType: type, orderType: this.orderType},
       getToken()).subscribe(
       data => {
-        console.log(data);
         if (type === 0) {
           this.allList = data.returnObject;
         } else if (type === 1) {
@@ -88,13 +97,18 @@ export class MyOrderComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 申请退款
+   */
   applyRefund(item) {
     this.appService.postFormData(this.appProperties.IfApplayRefundUrl, {
-      payCode: item.payCode,
+        payCode: item.payCode,
       },
       getToken()).subscribe(
       data => {
-        console.log(data);
         if (data.status === 0) {
           let type;
           if (this.orderType === '1') {
@@ -118,6 +132,12 @@ export class MyOrderComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 支付未完成的订单
+   */
   pay(item) {
     // 商城
     if (item.type === 1) {
@@ -126,7 +146,6 @@ export class MyOrderComponent implements OnInit {
         url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
       }, getToken()).subscribe(
         data4 => {
-          console.log(data4);
           if (typeof(WeixinJSBridge) === 'undefined') {
             this.onBridgeUndefindeReady(data4);
           } else {
@@ -144,7 +163,6 @@ export class MyOrderComponent implements OnInit {
         url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
       }, getToken()).subscribe(
         data4 => {
-          console.log(data4);
           if (typeof(WeixinJSBridge) === 'undefined') {
             this.onBridgeUndefindeReady(data4);
           } else {
@@ -162,7 +180,6 @@ export class MyOrderComponent implements OnInit {
         url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
       }, getToken()).subscribe(
         data4 => {
-          console.log(data4);
           if (typeof(WeixinJSBridge) === 'undefined') {
             this.onBridgeUndefindeReady(data4);
           } else {
@@ -176,26 +193,11 @@ export class MyOrderComponent implements OnInit {
     }
   }
 
-  payM(item) {
-    console.log(item);
-    this.appService.postAliData(this.appProperties.orderUnifiedOrderUrl, {
-      orderId: item.orderId,
-      url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
-    }, getToken()).subscribe(
-      data4 => {
-        console.log(data4);
-        if (typeof(WeixinJSBridge) === 'undefined') {
-          this.onBridgeUndefindeReady(data4);
-        } else {
-          this.onBridgeReady(data4);
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * wechat支付
+   */
   onBridgeUndefindeReady(data) {
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', () => {
@@ -211,12 +213,20 @@ export class MyOrderComponent implements OnInit {
     }
   }
 
-  // 调用微信支付接口
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 调用微信支付接口
+   */
   onBridgeReady(data) {
     this.test(data);
   }
 
-  // 调用微信支付接口测试
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 调用微信支付接口测试
+   */
   test(data) {
     wx.config({
       debug: false,

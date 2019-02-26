@@ -59,6 +59,11 @@ export class PayComponent implements OnInit {
     } else {
       this.token = getToken();
     }
+    /**
+     * 2019-02-15
+     * @author maiziyao
+     * 获取用户默认地址
+     */
     this.appService.postAliData(this.appProperties.shopAddressShow, {'ids': this.ids}, this.token).subscribe(
       data => {
         if (data.status === 0) {
@@ -109,7 +114,11 @@ export class PayComponent implements OnInit {
     );
   }
 
-  //
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 新增、编辑、删除地址
+   */
   goTo(val) {
     if (val === '1') {
       // 新增地址
@@ -133,9 +142,13 @@ export class PayComponent implements OnInit {
       });
     }
 
-
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 打开可用优惠券弹框
+   */
   selectCoupon(): void {
     if (this.couponLength !== 0
     ) {
@@ -143,33 +156,54 @@ export class PayComponent implements OnInit {
     }
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 选择使用的优惠券
+   */
   choiceCoupon(item) {
     this.reduceMoney = 0;
-    console.log(item);
     this.couponId = item.id;
     this.reduceMoney = item.deductionMoney;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭选择优惠券弹框
+   */
   CouponCancel(): void {
-    console.log('Button ok clicked!');
     this.isCoupon = false;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 提交选择的优惠券
+   */
   CouponOk(): void {
-    console.log('ok');
     this.totalMoney = this.totalPrice - this.reduceMoney;
     this.isCoupon = false;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 提交订单，支付
+   */
   button(flag) {
     if (flag === 1) {
       this.pay();
-      // console.log(this.orderId);
     } else if (flag === 2) {
       history.back();
     }
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 二次确定取消支付弹框
+   */
   showConfirm(): void {
     this.modalService.info({
       nzContent: '<b>您取消了支付</b>',
@@ -179,6 +213,11 @@ export class PayComponent implements OnInit {
     });
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 支付
+   */
   pay() {
     this.appService.postAliData(this.appProperties.shopStoreOrderAddUrl, {
       product: this.shopCartId.join(','),
@@ -188,8 +227,6 @@ export class PayComponent implements OnInit {
       payType: 1,
     }, this.token).subscribe(
       data2 => {
-        console.log(data2);
-        // if (data2.returnObject.state !== 10001) {
         if (data2.status === 0) {
           alert(data2.message);
           // 新增地址
@@ -212,7 +249,6 @@ export class PayComponent implements OnInit {
             url: 'http://webapp.youshuidaojia.com/cMain/pay'
           }, this.token).subscribe(
             data4 => {
-              console.log(data4);
               if (data4.status === 2) {
                 window.location.href = data4.returnObject;
               } else {
@@ -228,10 +264,7 @@ export class PayComponent implements OnInit {
             }
           );
         } else {
-          // alert('支付完成！');
-          // this.router.navigate(['cMain/shopCar']);
           this.token = getToken();
-          // this.router.navigate(['cMain/payFinish']);
           window.location.href = 'http://webapp.youshuidaojia.com/cMain/payFinish?' + 'token=' + this.token;
         }
       },
@@ -242,6 +275,11 @@ export class PayComponent implements OnInit {
 
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * wechat支付
+   */
   onBridgeUndefindeReady(data) {
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', () => {
@@ -257,12 +295,20 @@ export class PayComponent implements OnInit {
     }
   }
 
-  // 调用微信支付接口
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 调用微信支付接口
+   */
   onBridgeReady(data) {
     this.test(data);
   }
 
-  // 调用微信支付接口测试
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 调用微信支付接口测试
+   */
   test(data) {
     wx.config({
       debug: false,
@@ -310,14 +356,17 @@ export class PayComponent implements OnInit {
     });
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取购物车商品list、商品数量及价格
+   */
   showShopCarPrice() {
-    console.log(this.payType);
     this.appService.postAliData(this.appProperties.shoppingCarUrl, {
       ids: this.ids,
       type: this.payType
     }, this.token).subscribe(
       data => {
-        console.log(data);
         this.totalPrice = 0;
         this.data = data.returnObject;
         this.data.forEach(item => {
@@ -330,7 +379,6 @@ export class PayComponent implements OnInit {
         });
         this.appService.getAliData(this.appProperties.shopCouponListUrl, {state: 5}, this.token).subscribe(
           data2 => {
-            console.log(data2);
             if (data2.status === 0) {
               this.couponLength = 0;
             } else if (data2.status === 1) {
@@ -352,6 +400,11 @@ export class PayComponent implements OnInit {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 转换价格
+   */
   toFixed(num) {
     return Math.round(num * 100) / 100;
   }

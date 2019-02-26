@@ -26,13 +26,10 @@ export class PrepaidPayComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.id = urlParse(window.location.href)['id'];
     this.token = getToken();
-    // this.getDate();
-    this.isPost = false;
-    this.prepaidMoney = undefined;
-    this.isMessage = false;
-    // document.getElementById('input_money').focus();
+    // this.isPost = false;
+    // this.prepaidMoney = undefined;
+    // this.isMessage = false;
   }
 
   // getDate() {

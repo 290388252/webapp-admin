@@ -45,19 +45,19 @@ export class MapComponent implements OnInit {
     } else {
       this.token = getToken();
     }
-    // this.baiduMap([{lon: 113.50238, lat: 23.15673, locationName: '广州市黄埔区开发区开源大道11号B10栋4层', companyName: '优水到家'}]);
     this.baiduMap();
   }
-
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 调用百度地图
+   */
   baiduMap() {
     const map = new BMap.Map('contain'); // 创建地图实例
-    // const point = new BMap.Point('113.50238', '23.15673'); // 创建点坐标
-    // map.enableScrollWheelZoom(true);     // 开启鼠标滚轮缩放
     const _this = this;
     _this.map = map;
     // 获取用户坐标
     const geolocation = new BMap.Geolocation();
-
     geolocation.getCurrentPosition(function (r) {
       let _value = r.address;
       _this.userAddress = _value.province + _value.city + _value.district + _value.street + _value.street_number;
@@ -75,10 +75,7 @@ export class MapComponent implements OnInit {
       addMarker(r.point);
       _this.mapLng = _this.userPoint.point.lng;
       _this.mapLat = _this.userPoint.point.lat;
-
       paint(_this.userPoint.point);
-
-
       // 添加定位控件
       const geolocationControl = new BMap.GeolocationControl();
       geolocationControl.addEventListener('locationSuccess', function (e) {
@@ -294,7 +291,11 @@ export class MapComponent implements OnInit {
       );
     }
   }
-
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 点击进去地图机器详情
+   */
   goTo(mapLng, mapLat, userAddress) {
     this.router.navigate(['cMain/mapList'], {
       queryParams: {
@@ -304,13 +305,12 @@ export class MapComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * 2019-02-14
+   * @author maiziyao
+   * 该地址附件无售货机，显示弹框提醒
+   */
   check() {
     this.detailShow = false;
-  }
-
-  cancel() {
-    this.detailShow = false;
-    this.location = undefined;
   }
 }

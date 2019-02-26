@@ -26,6 +26,11 @@ export class WaterRecordComponent implements OnInit {
     this.pic = urlParse(window.location.href)['pic'];
     this.name = urlParse(window.location.href)['name'];
     this.token = getToken();
+    /**
+     * 2019-02-15
+     * @author maiziyao
+     * 获取提水券list
+     */
     this.appService.postAliData(this.appProperties.shopGetPickRecordUrl, {itemId: this.id}, this.token).subscribe(
       data => {
         this.data = data;

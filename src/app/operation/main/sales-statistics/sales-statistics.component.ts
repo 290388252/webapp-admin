@@ -27,9 +27,11 @@ export class SalesStatisticsComponent implements OnInit {
               private appService: AppService) {
   }
   ngOnInit() {
-    console.log(document.body.scrollHeight);
-    // document.getElementById('sales').style.height = (document.body.scrollHeight + 55) + 'px';
-    // 图表插件调用
+    /**
+     * 2019-02-16
+     * @author maiziyao
+     * 图表插件调用
+     */
     this.myChart = eCharts.init(document.getElementById('main'));
     // 获取公司初始化数据
     // this.appService.postAliData(this.appProperties.homeInithUrl, '', getAdminToken()).subscribe(
@@ -44,10 +46,13 @@ export class SalesStatisticsComponent implements OnInit {
     //     console.log(error);
     //   }
     // );
-    // 获取七天数据
+    /**
+     * 2019-02-16
+     * @author maiziyao
+     * 获取七天数据
+     */
     this.appService.getAliData(this.appProperties.payBeforeSevenDay, '', getAdminToken()).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.hidden = true;
           this.hiddenData = false;
@@ -95,13 +100,14 @@ export class SalesStatisticsComponent implements OnInit {
       }
     );
   }
-  onHomeChanges(e) {
-  }
-  // 搜索查询销售列表
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 搜索查询销售列表
+   */
   onSearch() {
     this.appService.getAliData(this.appProperties.payBeforeSevenDay, '', getAdminToken()).subscribe(
       data => {
-        console.log(data);
         this.yesterday = data.yesterday;
         this.today = data.today;
         this.month = data.month;

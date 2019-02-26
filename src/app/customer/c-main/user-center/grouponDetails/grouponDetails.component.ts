@@ -54,14 +54,26 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.orderId = urlParse(window.location.href)['orderId'];
-    // this.getTime();
-    this.token = getToken();
+    if (getToken() !== null && getToken() !== undefined && getToken() !== '') {
+      this.token = getToken();
+    } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
+      && urlParse(window.location.href)['token'] !== '') {
+      this.token = urlParse(window.location.href)['token'];
+    }
+    // setTimeout(() => {
+    //
+    // }, 1000);
     this.getData(this.orderId);
     this.isVisibleCouponOne = false;
     this.showAddress = false;
 
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 根据状态获取拼团订单详情
+   */
   getData(orderId) {
     this.appService.postFormData(this.appProperties.grouponOrderDetailsUrl, {'orderId': orderId}, this.token).subscribe(
       data => {
@@ -103,11 +115,6 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
         } else {
           this.headerList = headerEndList;
         }
-        // this.maxTimer = data.returnObject.time;
-        // const maxTimer = (new Date(this.maxTimer.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
-        // this.countDown(maxTimer, function (msg) {
-        //   document.getElementById('timer').innerHTML = msg;
-        // });
       },
       error => {
         console.log(error);
@@ -115,14 +122,29 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击查看更多自提机器的地址
+   */
   showAdd() {
     this.showAddress = !this.showAddress;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 拼团商品使用说明
+   */
   showExplain() {
     this.isVisibleCouponFour = false;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 倒计时
+   */
   countDown(maxtime, fn) {
     const timer = setInterval(function () {
       if (maxtime >= 0) {
@@ -157,18 +179,33 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 团购申请退款
+   */
   goTo(val) {
     if (val === 0) {
       this.router.navigate(['cMain/grouponRefund']);
     }
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 是否取消未支付的订单弹框
+   */
   orderOff() {
     this.isVisibleCouponTwo = true;
     document.getElementsByClassName('ant-modal-close-x')[0]['style'].cssText = 'display: none;';
     document.getElementsByClassName('ant-modal-footer')[0]['style'].cssText = 'text-align: center;';
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 确认取消订单
+   */
   submitOrder() {
     this.appService.postAliData(this.appProperties.bargainCancelUrl + this.orderId, '', this.token).subscribe(
       data => {
@@ -184,26 +221,51 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭取消订单弹框
+   */
   cancalOrder() {
     this.isVisibleCouponTwo = false;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 邀请好友拼单
+   */
   invite() {
     this.isVisibleCouponOne = true;
     document.getElementsByClassName('ant-modal-body')[0]['style'].cssText = 'padding: 0;';
     this.share(this.headerLength, this.shareName, this.shareId, this.sharePic);
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭邀请拼单弹框
+   */
   closeCoupon() {
     this.isVisibleCouponOne = false;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 团购商品使用说明
+   */
   showFour(carryName, remark) {
     this.isVisibleCouponFour = true;
     this.carryWaterName = carryName;
     this.carryWaterRemark = remark;
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 团购商品申请退款
+   */
   refund() {
     this.router.navigate(['cMain/grouponRefund'], {
       queryParams: {
@@ -212,6 +274,11 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 分享接口
+   */
   share(headerLength, shareName, shareId, sharePic) {
     const that = this;
     this.appService.postFormData(this.appProperties.wechatShareInfoUrl,
@@ -263,7 +330,11 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  // 判断是微信登陆还是支付宝登陆
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 判断是微信登陆还是支付宝登陆
+   */
   urlParse(url): object {
     const obj = {};
     const reg = /[?&][^?&]+=[^?&]+/g;
@@ -279,15 +350,11 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
     return obj;
   }
 
-
-  // turnData(date) {
-  //   const nowDate = new Date(date);
-  //   const nowY = nowDate.getFullYear();
-  //   const nowM = nowDate.getMonth() + 1;
-  //   const nowD = nowDate.getDate();
-  //   const endTime = nowY + '' + (nowM < 10 ? '0' + nowM : nowM) + '' + (nowD < 10 ? '0' + nowD : nowD);
-  //   return endTime;
-  // }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 支付
+   */
   pay() {
     this.appService.postFormData(this.appProperties.grouponVerifyUrl, {
       orderId: this.orderId
@@ -325,6 +392,11 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * wechat支付
+   */
   onBridgeUndefindeReady(data) {
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', () => {
@@ -340,12 +412,20 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // 调用微信支付接口
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 调用微信支付接口
+   */
   onBridgeReady(data) {
     this.test(data);
   }
 
-  // 调用微信支付接口测试
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 调用微信支付接口测试
+   */
   test(data) {
     wx.config({
       debug: false,
@@ -372,7 +452,6 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
             } else {
               window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponInPayFinish?token=' + this.token + '&orderId=' + this.orderId;
             }
-            // this.router.navigate(['cMain/shopCar']);
             console.log('支付成功');
           } else {
             alert('支付失败');

@@ -42,11 +42,7 @@ export class GrouponInPayFinishComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.vipTypeId = urlParse(window.location.href)['vipTypeId'];
     this.orderId = urlParse(window.location.href)['orderId'];
-    // this.getTime();
-    // this.token = urlParse(window.location.href)['token'];
-    // this.token = getToken();
     if (getToken() !== null && getToken() !== undefined && getToken() !== '') {
       this.token = getToken();
     } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
@@ -56,6 +52,11 @@ export class GrouponInPayFinishComponent implements OnInit, OnDestroy {
     this.getData();
   }
 
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 获取拼团订单数据
+   */
   getData() {
     this.appService.postFormData(this.appProperties.grouponInPayFinishUrl, {'orderId': this.orderId}, this.token).subscribe(
       data => {
@@ -100,7 +101,11 @@ export class GrouponInPayFinishComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 拼团倒计时
+   */
   countDown(maxtime, fn) {
     const timer = setInterval(function () {
       if (maxtime >= 0) {
@@ -136,24 +141,38 @@ export class GrouponInPayFinishComponent implements OnInit, OnDestroy {
     }, 1000);
     this.timerList.push(timer);
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 跳转页面
+   */
   goTo(val) {
     if (val === 1) {
-      this.router.navigate(['cMain/grouponDetails'], {
-        queryParams: {
-          orderId: this.orderId
-        }
-      });
+      // this.router.navigate(['cMain/grouponDetails'], {
+      //   queryParams: {
+      //     orderId: this.orderId
+      //   }
+      // });
+      window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponDetails?token=' + this.token + '&orderId=' + this.orderId;
+
     } else if (val === 2) {
       this.router.navigate(['cMain/firstPage']);
     }
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 引导用户邀请微信好友参团弹框
+   */
   invite() {
     this.isVisibleCouponOne = true;
     document.getElementsByClassName('ant-modal-body')[0]['style'].cssText = 'padding: 0;';
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭引导用户邀请微信好友参团弹框
+   */
   closeCoupon() {
     this.isVisibleCouponOne = false;
   }

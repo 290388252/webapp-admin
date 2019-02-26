@@ -63,6 +63,8 @@ export class GrouponPayComponent implements OnInit {
     } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
       && urlParse(window.location.href)['token'] !== '') {
       this.token = urlParse(window.location.href)['token'];
+    } else {
+      this.token = urlParse(window.location.href)['token'];
     }
     this.consignee = undefined;
     this.iphone = undefined;
@@ -86,7 +88,11 @@ export class GrouponPayComponent implements OnInit {
     );
     this.showAddress = false;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 需要配送的商品获取用户默认配送地址，不需要配送的获取商品自提机器的地址
+   */
   getLocation() {
     this.appService.postAliData(this.appProperties.grouponJudgeAddressUrl, {
       'ids': this.goodsId,
@@ -140,11 +146,19 @@ export class GrouponPayComponent implements OnInit {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 展开查看或者关闭商品自提机器的地址
+   */
   showAdd() {
     this.showAddress = !this.showAddress;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 修改或新增默认收货地址
+   */
   toAddress(val) {
     if (val === '1') {
       this.router.navigate(['cMain/addAddress'], {
@@ -170,82 +184,86 @@ export class GrouponPayComponent implements OnInit {
 
   }
 
-  showModal(): void {
-    this.isVisible = true;
-    this.newAddress = true;
-    this.inConsignee = undefined;
-    this.inIphone = undefined;
-    this.inAddress = undefined;
-  }
-
-  handleOk(): void {
-    if (this.inConsignee === undefined || this.inConsignee === null || this.inConsignee === ''
-      || this.inIphone === undefined || this.inIphone === null || this.inIphone === ''
-      || this.inAddress === undefined || this.inAddress === null || this.inAddress === '') {
-      this.isShow = true;
-      return;
-    }
-    this.appService.postAliData(this.appProperties.shopAddressAddUrl, {
-      receiver: this.inConsignee,
-      name: this.inAddress,
-      phone: this.inIphone
-    }, this.token).subscribe(
-      data => {
-        if (data.status === 1) {
-          this.isShow = false;
-          this.isVisible = false;
-          this.getLocation();
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
-  }
-
-  alterAdress() {
-    this.isVisible = true;
-    this.newAddress = false;
-    this.inConsignee = this.consignee;
-    this.inIphone = this.iphone;
-    this.inAddress = this.address;
-  }
-
-  // handleCancelA(): void {
+  // showModal(): void {
+  //   this.isVisible = true;
+  //   this.newAddress = true;
+  //   this.inConsignee = undefined;
+  //   this.inIphone = undefined;
+  //   this.inAddress = undefined;
+  // }
+  //
+  // handleOk(): void {
+  //   if (this.inConsignee === undefined || this.inConsignee === null || this.inConsignee === ''
+  //     || this.inIphone === undefined || this.inIphone === null || this.inIphone === ''
+  //     || this.inAddress === undefined || this.inAddress === null || this.inAddress === '') {
+  //     this.isShow = true;
+  //     return;
+  //   }
+  //   this.appService.postAliData(this.appProperties.shopAddressAddUrl, {
+  //     receiver: this.inConsignee,
+  //     name: this.inAddress,
+  //     phone: this.inIphone
+  //   }, this.token).subscribe(
+  //     data => {
+  //       if (data.status === 1) {
+  //         this.isShow = false;
+  //         this.isVisible = false;
+  //         this.getLocation();
+  //       }
+  //     },
+  //     error => {
+  //       console.log(error);
+  //     }
+  //   );
+  //
+  // }
+  //
+  // handleCancel(): void {
   //   this.isVisible = false;
   // }
-  handleAlter(): void {
-    if (this.inConsignee === undefined || this.inConsignee === null || this.inConsignee === ''
-      || this.inIphone === undefined || this.inIphone === null || this.inIphone === ''
-      || this.inAddress === undefined || this.inAddress === null || this.inAddress === '') {
-      this.isShow = true;
-      return;
-    }
-    this.appService.postAliData(this.appProperties.shopAddressUpdateUrl, {
-      receiver: this.inConsignee,
-      name: this.inAddress,
-      phone: this.inIphone,
-      id: this.locationId
-    }, this.token).subscribe(
-      data => {
-        if (data.status === 1) {
-          this.isShow = false;
-          this.isVisible = false;
-          this.getLocation();
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
-  }
-
+  //
+  // alterAdress() {
+  //   this.isVisible = true;
+  //   this.newAddress = false;
+  //   this.inConsignee = this.consignee;
+  //   this.inIphone = this.iphone;
+  //   this.inAddress = this.address;
+  // }
+  //
+  // // handleCancelA(): void {
+  // //   this.isVisible = false;
+  // // }
+  // handleAlter(): void {
+  //   if (this.inConsignee === undefined || this.inConsignee === null || this.inConsignee === ''
+  //     || this.inIphone === undefined || this.inIphone === null || this.inIphone === ''
+  //     || this.inAddress === undefined || this.inAddress === null || this.inAddress === '') {
+  //     this.isShow = true;
+  //     return;
+  //   }
+  //   this.appService.postAliData(this.appProperties.shopAddressUpdateUrl, {
+  //     receiver: this.inConsignee,
+  //     name: this.inAddress,
+  //     phone: this.inIphone,
+  //     id: this.locationId
+  //   }, this.token).subscribe(
+  //     data => {
+  //       if (data.status === 1) {
+  //         this.isShow = false;
+  //         this.isVisible = false;
+  //         this.getLocation();
+  //       }
+  //     },
+  //     error => {
+  //       console.log(error);
+  //     }
+  //   );
+  //
+  // }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击进入商品详情页面
+   */
   goTo(id, name, pic) {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
@@ -257,7 +275,11 @@ export class GrouponPayComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 拼团订单提交支付，验证是否填写地址、是否需要填写地址
+   */
   grouponBuy() {
     if (this.noneAddress === true) {
       alert('请填写收货地址!');
@@ -331,7 +353,11 @@ export class GrouponPayComponent implements OnInit {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * wechat支付接口
+   */
   onBridgeUndefindeReady(data) {
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', () => {
@@ -346,13 +372,20 @@ export class GrouponPayComponent implements OnInit {
       });
     }
   }
-
-  // 调用微信支付接口
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 调用微信支付接口
+   */
   onBridgeReady(data) {
     this.test(data);
   }
 
-  // 调用微信支付接口测试
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 调用微信支付接口测试
+   */
   test(data) {
     wx.config({
       debug: false,
@@ -379,7 +412,6 @@ export class GrouponPayComponent implements OnInit {
             } else {
               window.location.href = 'http://webapp.youshuidaojia.com/cMain/grouponPayFinish?token=' + this.token + '&orderId=' + this.orderId;
             }
-            // this.router.navigate(['cMain/shopCar']);
             console.log('支付成功');
           } else {
             alert('支付失败');

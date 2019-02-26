@@ -43,14 +43,11 @@ export class BargainListComponent implements OnInit, OnDestroy {
     this.token = getToken();
     this.appService.postAliData(this.appProperties.bargainSponsorBargainListUrl, '', this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.bargainGoodsFindCustomerList = data.returnObject.bargainGoodsFindCustomerList;
           this.bargainGoodsList = data.returnObject.bargainGoodsList;
-          console.log(this.bargainGoodsList);
           if (this.bargainGoodsFindCustomerList.length > 0) {
             for (let i = 0; i < this.bargainGoodsFindCustomerList.length; i++) {
-              console.log(new Date(this.bargainGoodsFindCustomerList[i].endTime.replace(/-/g, '/')).getTime());
               const endTime = (new Date(this.bargainGoodsFindCustomerList[i].endTime.replace(/-/g, '/')).getTime() - new Date().getTime()) / 1000;
               this.countDown(endTime, function (msg) {
                 document.getElementById('timer' + i).innerHTML = msg;
@@ -64,7 +61,11 @@ export class BargainListComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 倒计时
+   */
   countDown(maxtime, fn) {
     const timer = setInterval(function () {
       if (maxtime >= 0) {
@@ -100,7 +101,11 @@ export class BargainListComponent implements OnInit, OnDestroy {
     }, 1000);
     this.timerList.push(timer);
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 返回个人中心
+   */
   goTo() {
     this.router.navigate(['user'], {
       queryParams: {
@@ -108,7 +113,11 @@ export class BargainListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击进入砍价商品详情
+   */
   goodsDetails(id) {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
@@ -117,33 +126,32 @@ export class BargainListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 返回个人中心
+   */
   to(id) {
     window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargainDetails?id=' + id + '&select=1&token=' + this.token;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 查看订单详情
+   */
   details(id) {
     window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargain?orderId=' + id + '&token=' + this.token;
-    // this.router.navigate(['cMain/bargain'], {
-    //   queryParams: {
-    //     orderId: id
-    //   }
-    // });
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击去砍价
+   */
   toCreate(activityId) {
     this.appService.postFormData(this.appProperties.bargainJudgeJoinedUrl, {id: activityId}, this.token).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           window.location.href = 'http://webapp.youshuidaojia.com/cMain/newAddress?type=4&activityId=' + activityId + '&select=1&token=' + this.token;
-          // this.router.navigate(['cMain/newAddress'], {
-          //   queryParams: {
-          //     type: 4,
-          //     activityId: activityId,
-          //     select: 1
-          //   }
-          // });
         } else {
           alert(data.message);
           return;

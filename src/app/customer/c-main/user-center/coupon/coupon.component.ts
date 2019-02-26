@@ -59,7 +59,11 @@ export class CouponComponent implements OnInit {
       this.coupon(2);
     }
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 选择优惠券状态
+   */
   choose(flag) {
     if (flag === 3) {
       // 过期
@@ -81,7 +85,11 @@ export class CouponComponent implements OnInit {
       this.coupon(2);
     }
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 根据优惠券状态获取优惠券list
+   */
   coupon(state) {
     this.appService.getAliData(this.appProperties.shopFrontCouponMyListUrl, {state: state}, this.token).subscribe(
       data => {
@@ -100,10 +108,7 @@ export class CouponComponent implements OnInit {
               const scrollHeight = window.screen.availHeight;
               let contLen = window.getComputedStyle(document.getElementById('showLen')).height;
               contLen = contLen.replace('px', '');
-              console.log(scrollHeight);
-              console.log(contLen);
               if ((Number(contLen) + 107) > scrollHeight) {
-                console.log('111');
                 this.footerA = false;
               }
             }, 0);
@@ -120,18 +125,27 @@ export class CouponComponent implements OnInit {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 转换优惠方式
+   */
   text(item) {
     return item.money === 0 ? '固定减扣券' : '满' + item.money + '元使用';
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 转换优惠方式
+   */
   textTwo(item) {
     return item.money === 0 ? '可直接使用券' : item.money + '元套餐抵扣券';
   }
-
-  ok() {
-  }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 判断优惠券仅限特殊商品使用还是全品类商品都可以使用
+   */
   turnToBind(item, useWhere) {
     let isShow;
     if (item === 1) {
@@ -151,45 +165,49 @@ export class CouponComponent implements OnInit {
     }
   }
 
-  pickCard(item) {
-    this.appService.postAliData(this.appProperties.shopFrontCouponAddCouponToCustomerUrl + '?couponId=' + item.id, '', this.token).subscribe(
-      data => {
-        this.coupon(1);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
+  // pickCard(item) {
+  //   this.appService.postAliData(this.appProperties.shopFrontCouponAddCouponToCustomerUrl + '?couponId=' + item.id, '', this.token).subscribe(
+  //     data => {
+  //       this.coupon(1);
+  //     },
+  //     error => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
 
-  useCard(id) {
-    if (id === 1 || id === '1') {
-      this.router.navigate(['cMain/cardMap']);
-    } else if (id === 2 || id === '2') {
-      this.router.navigate(['cLogin'], {
-        queryParams: {
-          card: 1,
-          openId: this.openId
-        }
-      });
-    }
-  }
+  // useCard(id) {
+  //   if (id === 1 || id === '1') {
+  //     this.router.navigate(['cMain/cardMap']);
+  //   } else if (id === 2 || id === '2') {
+  //     this.router.navigate(['cLogin'], {
+  //       queryParams: {
+  //         card: 1,
+  //         openId: this.openId
+  //       }
+  //     });
+  //   }
+  // }
 
-  useSpecialCard(id): void {
-    this.specialModal = true;
-    this.appService.postAliData(this.appProperties.shopSpecialGoodsUrl + '?couponId=' + id, '', this.token).subscribe(
-      data => {
-        if (data.status === 1) {
-          this.specialGoodsList = data.returnObject;
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
+  // useSpecialCard(id): void {
+  //   this.specialModal = true;
+  //   this.appService.postAliData(this.appProperties.shopSpecialGoodsUrl + '?couponId=' + id, '', this.token).subscribe(
+  //     data => {
+  //       if (data.status === 1) {
+  //         this.specialGoodsList = data.returnObject;
+  //       }
+  //     },
+  //     error => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
 
-  // 图片格式
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 转换图片格式
+   */
   trunImg(list) {
     if (list.indexOf(',') !== -1) {
       const imgList = list.split(',');
@@ -199,7 +217,11 @@ export class CouponComponent implements OnInit {
       return list;
     }
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 添加商品到购物车
+   */
   addCar(item) {
     this.appService.postAliData(this.appProperties.shoppingAddUrl, {
       itemId: item.id,
@@ -214,11 +236,19 @@ export class CouponComponent implements OnInit {
       }
     );
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭商品弹框
+   */
   useSpecialCardHide(): void {
     this.specialModal = false;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 时间格式转换
+   */
   toDate(date) {
     return new Date(date).getFullYear() + '.' + (new Date(date).getMonth() + 1) + '.' + new Date(date).getDate();
   }

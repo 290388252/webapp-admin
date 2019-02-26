@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from '../../../app-service';
 import {AppProperties} from '../../../app.properties';
 import {getAdminToken, getToken, urlParse} from '../../../utils/util';
@@ -17,9 +17,10 @@ export class UserDetailComponent implements OnInit {
   public sumNum: any;
   public sumPrice: any;
 
-  constructor( private appProperties: AppProperties,
-               private appService: AppService,
-               private router: Router) { }
+  constructor(private appProperties: AppProperties,
+              private appService: AppService,
+              private router: Router) {
+  }
 
   ngOnInit() {
     if (urlParse(window.location.search)['token'] !== undefined
@@ -28,19 +29,13 @@ export class UserDetailComponent implements OnInit {
       exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 3);
       document.cookie = 'adminToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
     }
-    console.log(getAdminToken());
     this.appService.postAliData(this.appProperties.mainInfoUrl, '', getAdminToken()).subscribe(
       data => {
-        console.log(data);
         if (data.status === 1) {
           this.machinesNum = data.returnObject.machinesNum;
           this.replenishNum = data.returnObject.replenishNum;
           this.troubleNum = data.returnObject.troubleNum;
-          // if (data.returnObject.sumPayRecordDto.sumNum === '') {
-            this.sumNum = data.returnObject.sumPayRecordDto.sumNum;
-          // } else {
-          //   this.sumNum = data.returnObject.sumPayRecordDto.sumNum;
-          // }
+          this.sumNum = data.returnObject.sumPayRecordDto.sumNum;
           if (data.returnObject.sumPayRecordDto.sumPrice === '' || data.returnObject.sumPayRecordDto.sumPrice === null) {
             this.sumPrice = 0;
           } else {
@@ -59,9 +54,21 @@ export class UserDetailComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 跳转页面
+   */
   left() {
     this.router.navigate(['main/replenishmentDetail']);
   }
+
+  /**
+   * 2019-02-16
+   * @author maiziyao
+   * 跳转页面
+   */
   right() {
     if (this.machinesNum !== '***') {
       this.router.navigate(['main/machineDetail']);

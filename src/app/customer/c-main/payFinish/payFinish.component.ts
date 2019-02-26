@@ -45,13 +45,17 @@ export class PayFinishComponent implements OnInit {
     this.getDataList();
   }
 
-  getInit() {
-    this.wechatVisible = false;
-    this.token = getToken();
-    // this.token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiNTM1LDEiLCJleHAiOjE1NDE1ODUwNjl9.DHrOVcgeBz6-w0lXl4nTwCuRFf32bBuT2XM2dQSnOuy7-8XSiW3VSm6PoLrK2lcfmaoKrQJ1laj6M_RvUfdBUg';
-    this.getDataList();
-  }
-
+  // getInit() {
+  //   this.wechatVisible = false;
+  //   this.token = getToken();
+  //   // this.token = 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sQVVUSF9VU0VSIiwic3ViIjoiNTM1LDEiLCJleHAiOjE1NDE1ODUwNjl9.DHrOVcgeBz6-w0lXl4nTwCuRFf32bBuT2XM2dQSnOuy7-8XSiW3VSm6PoLrK2lcfmaoKrQJ1laj6M_RvUfdBUg';
+  //   this.getDataList();
+  // }
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 支付完成页面，获取订单详情
+   */
   getDataList() {
     this.appService.getData(this.appProperties.payFinishShowUrl, {
       token: this.token
@@ -81,14 +85,19 @@ export class PayFinishComponent implements OnInit {
     );
 
   }
-
-  // 返回首页
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 返回首页
+   */
   exit() {
-    // 返回购物车页面
     this.router.navigate(['cMain/firstPage']);
   }
-
-  // 查看提水券
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 查看提水券
+   */
   showWaterPaper() {
     // 跳转到我的提水券页面
     this.router.navigate(['cMain/waterCoupon'], {
@@ -97,10 +106,12 @@ export class PayFinishComponent implements OnInit {
       }
     });
   }
-
-  // 查看优惠券
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 查看该订单使用的优惠券
+   */
   openDrawer() {
-
     const model = document.getElementById('myModel');
     const closed = document.getElementById('closed');
     model.style.display = 'block';
@@ -133,20 +144,36 @@ export class PayFinishComponent implements OnInit {
     }
 
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 查看该订单使用的优惠券
+   */
   sureModel() {
     const model = document.getElementById('myModel');
     model.style.display = 'none';
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 查看可使用的优惠券弹框
+   */
   openShowModel() {
     this.wechatVisible = true;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 关闭可使用的优惠券弹框
+   */
   showCancel() {
     this.wechatVisible = false;
   }
-
+  /**
+   * 2019-02-15
+   * @author maiziyao
+   * 点击进去商品详情
+   */
   goTo(id, pic, spellgroupId) {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
