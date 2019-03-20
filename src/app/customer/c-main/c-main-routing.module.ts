@@ -25,6 +25,7 @@ const routes: Routes = [
       {path: 'grouponRefund', loadChildren: './user-center/grouponRefund/grouponRefund.module#GrouponRefundModule'},
       {path: 'grouponShare', loadChildren: './user-center/grouponShare/grouponShare.module#GrouponShareModule'},
       {path: 'mySaveWater', loadChildren: './user-center/my-saveWater/my-saveWater.module#MySaveWaterModule'},
+      {path: 'myPrize', loadChildren: './user-center/myPrize/myPrize.module#MyPrizeModule'},
       {path: 'waterRecord', loadChildren: './waterRecord/waterRecord.module#WaterRecordModule'},
       {path: 'vipCar', loadChildren: './vipCar/vipCar.module#VipCarModule'},
       {path: 'vipPay', loadChildren: './vipPay/vipPay.module#VipPayModule'},

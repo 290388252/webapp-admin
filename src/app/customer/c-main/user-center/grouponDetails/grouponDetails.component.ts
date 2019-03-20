@@ -210,7 +210,7 @@ export class GrouponDetailsComponent implements OnInit, OnDestroy {
     this.appService.postAliData(this.appProperties.bargainCancelUrl + this.orderId, '', this.token).subscribe(
       data => {
         if (data.status === 1) {
-          alert('取消订单成功!');
+            alert('取消订单成功!');
           this.isVisibleCouponTwo = false;
           this.router.navigate(['cMain/grouponOrder']);
         }

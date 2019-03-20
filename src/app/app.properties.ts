@@ -103,6 +103,9 @@ export class AppProperties {
   public bargainCancelUrl: string;
   public bargainGetBargainInfoUrl: string;
   public bargainDoUrl: string;
+  /*奖品*/
+  public prizeUrl: string;
+
 
 
   constructor() {
@@ -110,6 +113,7 @@ export class AppProperties {
     // this.appUrl = 'http://192.168.0.113:6662/ys_admin'; // localtest
     // this.smsUrl = 'http://192.168.0.113:6662/ys_sms';
     this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
+
     this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
     this.adminGetShopTokenUrl = this.smsUrl + '/admin/getShopToken1';
     this.smsSendUrl = this.smsUrl + '/sms/send';
@@ -211,5 +215,7 @@ export class AppProperties {
     this.bargainCancelUrl = this.appUrl + '/order/cancel/';
     this.bargainDoUrl = this.appUrl + '/bargain/do/';
     this.bargainGetBargainInfoUrl = this.appUrl + '/bargain/getBargainInfo/';
+  //  奖品
+    this.prizeUrl = this.appUrl + '/game/getCusPrize';
   }
 }

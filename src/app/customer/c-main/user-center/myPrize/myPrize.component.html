@@ -1,0 +1,30 @@
+<div class="user-container">
+  <div class="guide">
+    <span (click)="goTo()" class="guideIcon"><i class="anticon anticon-left"></i></span>
+    我的奖品
+  </div>
+  <div *ngIf="empty" class="none">
+    <h4>空空如也~</h4>
+  </div>
+  <div class="layout">
+    <div class="prizeOut" [hidden]="!prizeList" *ngFor="let item of prizeList">
+      <div class="prizeImg">
+        <img class="prizeImg_in" [src]="imgUrl+turnImg(item.pic)">
+      </div>
+      <div class="prize_cont">
+        <div style="font-weight: bold;font-size: 16px;color: #333333">
+          {{item.prizeName}}
+        </div>
+        <div>数量：{{item.amount}}</div>
+        <div>中奖时间：{{item.createTime}}</div>
+        <!--<span class="prize_time">{{toDate(item.startTime)}}-{{toDate(item.endTime)}}</span>-->
+        <span style="display: block">
+          <!--<span *ngIf="item.type === 4">最大优惠{{item.maximumDiscount}}元,</span>-->
+        </span>
+      </div>
+    </div>
+    <div class="footer">
+      已经到底~
+    </div>
+  </div>
+</div>

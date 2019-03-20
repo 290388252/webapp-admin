@@ -51,8 +51,6 @@ export class NewAddressComponent implements OnInit {
     this.activityId = urlParse(window.location.href)['activityId'];
     this.token = getToken();
     this.getInit();
-    const test = 'http://localhost:4202/cMain/newAddress?type=1&id=2';
-    this.getParamsWithUrl(test);
   }
 
   /**
@@ -85,28 +83,6 @@ export class NewAddressComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  /**
-   * 2019-02-15
-   * @author maiziyao
-   * 获取地址list
-   */
-  getParamsWithUrl(url) {
-    const args = url.split('?');
-    if (args[0] === url) {
-      return '';
-    }
-    const arr = args[1].split('&');
-    console.log('arr');
-    console.log(arr);
-    let obj = {};
-    for (let i = 0; i < arr.length; i++) {
-      let arg = arr[i].split('=');
-      obj[arg[0]] = arg[1];
-    }
-    console.log(obj);
-    return obj;
   }
 
   /**
@@ -378,6 +354,7 @@ export class NewAddressComponent implements OnInit {
       }
     }
   }
+
   /**
    * 2019-02-15
    * @author maiziyao
@@ -411,6 +388,7 @@ export class NewAddressComponent implements OnInit {
       this.isVisibleCouponThree = false;
     }
   }
+
   /**
    * 2019-02-15
    * @author maiziyao

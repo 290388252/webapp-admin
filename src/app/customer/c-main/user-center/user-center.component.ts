@@ -29,6 +29,9 @@ export class UserCenterComponent implements OnInit {
       this.token = urlParse(window.location.search)['token'];
     }
     this.getDate();
+    const test = 'q11 q11 qww 111111111';
+    const myreg = /\b(\w+)\b\s+\1\b/;
+    console.log(myreg.test(test));
   }
 
   /**
@@ -120,6 +123,8 @@ export class UserCenterComponent implements OnInit {
       window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargainList';
     } else if (flag === 11) {
       this.router.navigate(['cMain/grouponOrder']);
+    } else if (flag === 12) {
+      this.router.navigate(['cMain/myPrize']);
     }
   }
 

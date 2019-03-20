@@ -79,6 +79,7 @@ export class MachineDetailComponent implements OnInit {
     this.isVisible = true;
     this.vmCode = vmCode;
     this.machineVersion = version;
+    document.getElementsByClassName('ant-modal-body')[1]['style'].cssText = 'padding: 10px;';
     this.appService.getAliData(this.appProperties.aliMachineQueryDetailUrl,
       {vmCode: this.vmCode, machineVersion: this.machineVersion}, getAdminToken()).subscribe(
       data => {
