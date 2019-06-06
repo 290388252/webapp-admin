@@ -73,6 +73,7 @@ export class AppProperties {
   public shopGetPickRecordUrl: string;
   public shopCustomerGetStockUrl: string;
   public shopUserMoneyUrl: string;
+  public getMachineTokenUrl: string;
   public shopPrepaidAddUrl: string;
   public shopPrepaidBuyUrl: string;
   public payFinishShowUrl: string;
@@ -112,7 +113,7 @@ export class AppProperties {
     this.appUrl = 'http://119.23.233.123:6662/ys_admin/';
     // this.appUrl = 'http://192.168.0.113:6662/ys_admin'; // localtest
     // this.smsUrl = 'http://192.168.0.113:6662/ys_sms';
-    this.smsUrl = 'http://47.106.92.82:6662/ys_sms';
+    this.smsUrl = 'http://120.79.74.231:6662/ys_sms';
 
     this.adminLoginUrl = this.smsUrl + '/admin/appLogin ';
     this.adminGetShopTokenUrl = this.smsUrl + '/admin/getShopToken1';
@@ -157,6 +158,7 @@ export class AppProperties {
     this.shopAddressAddUrl = this.appUrl + '/address/add';
     this.shopFrontCouponMyListUrl = this.appUrl + '/frontCoupon/myList';
     this.shopSpecialGoodsUrl = this.appUrl + '/frontCoupon/findShoppingGoodsBean';
+    this.shopSpecialGoodsUrl = this.appUrl + '/frontCoupon/findShoppingGoodsBean';
     this.shopFrontCouponAddCouponToCustomerUrl = this.appUrl + '/frontCoupon/addCouponToCustomer';
     this.shoppingWaterCouponUrl = this.appUrl + '/carryWaterVouchersCustomer/myCarryWaterVouchers';
     this.shoppingPromotionsUrl = this.appUrl + '/vendingMachinesAdvertising/list';
@@ -169,6 +171,7 @@ export class AppProperties {
     this.shopVipBuyUrl = this.appUrl + '/memberOrder/payMemebr';
     this.shopVipAddUrl = this.appUrl + '/memberOrder/add';
     this.shopUserMoneyUrl = this.appUrl + '/tblCustomerWx/getBean';
+    this.getMachineTokenUrl = this.appUrl + '/order/getToken';
     // this.shopUserMoneyUrl = this.appUrl + '/member/findBean';
     this.shopPrepaidAddUrl = this.appUrl + '/memberOrder/add';
     this.shopPrepaidBuyUrl = this.appUrl + '/memberOrder/payBalance';
@@ -215,7 +218,7 @@ export class AppProperties {
     this.bargainCancelUrl = this.appUrl + '/order/cancel/';
     this.bargainDoUrl = this.appUrl + '/bargain/do/';
     this.bargainGetBargainInfoUrl = this.appUrl + '/bargain/getBargainInfo/';
-  //  奖品
+    //  奖品
     this.prizeUrl = this.appUrl + '/game/getCusPrize';
   }
 }

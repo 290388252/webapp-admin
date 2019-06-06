@@ -9,7 +9,7 @@
   <div class="balance">
     账户余额:&nbsp;&nbsp;{{userBalance}}元
   </div>
-  <div class="prepaid">
+  <div class="prepaid" *ngIf="!isbl">
     <span class="prepaid_title">充值金额</span>
     <div class="friend">
       <button type="button" (click)="prepaidFriend()">{{judgeButton}}
@@ -60,7 +60,7 @@
 
     </div>
   </div>
-  <div class="prepaidFooter">
+  <div class="prepaidFooter" *ngIf="!isbl">
     <div class="prepaidButton">
       <button type="button" [disabled]="errorSumit" (click)="prepaidComfirm()">立即充值
       </button>

@@ -28,6 +28,7 @@ export class PrepaidComponent implements OnInit {
   public prepaidPhone;
   public judgeFriend;
   public judgeButton;
+  public isbl;
   //
   public isFocusA;
   public isFocusB;
@@ -40,6 +41,7 @@ export class PrepaidComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isbl = true;
     if (getToken() !== null && getToken() !== undefined && getToken() !== '') {
       this.token = getToken();
     } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
@@ -50,15 +52,37 @@ export class PrepaidComponent implements OnInit {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=' +
         'http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/prepaid?vm=1-7';
     } else {
-      this.getDate();
+      this.judgeUser();
     }
-    this.prepaidMoney = undefined;
-    this.judgeFriend = false;
-    this.judgeButton = '点击帮好友充值';
-    this.focusMoney('isFocusA');
-    this.correct = false;
-    this.endMoney = 500;
-
+  }
+  /**
+   * 2019-05-27
+   * @author maiziyao
+   * 判断是否为保利用户
+   */
+  judgeUser() {
+    this.appService.postAliData(this.appProperties.shopUserMoneyUrl, {}, this.token).subscribe(
+      data => {
+        if (data.status === -66) {
+          alert(data.message);
+          this.errorSumit = true;
+          this.isbl = true;
+          return;
+        } else {
+          this.isbl = false;
+          this.getDate();
+          this.prepaidMoney = undefined;
+          this.judgeFriend = false;
+          this.judgeButton = '点击帮好友充值';
+          this.focusMoney('isFocusA');
+          this.correct = false;
+          this.endMoney = 500;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   /**
    * 2019-02-15

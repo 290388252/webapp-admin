@@ -265,7 +265,7 @@ export class PayComponent implements OnInit {
           );
         } else {
           this.token = getToken();
-          window.location.href = 'http://webapp.youshuidaojia.com/cMain/payFinish?' + 'token=' + this.token;
+          window.location.href = 'http://webapp.youshuidaojia.com:8080/cMain/payFinish?' + 'token=' + this.token;
         }
       },
       error2 => {
@@ -334,7 +334,7 @@ export class PayComponent implements OnInit {
             // this.router.navigate(['cMain/shopCar']);
             this.token = getToken();
             // this.router.navigate(['cMain/payFinish']);
-            window.location.href = 'http://webapp.youshuidaojia.com/cMain/payFinish?' + 'token=' + this.token;
+            window.location.href = 'http://webapp.youshuidaojia.com:8080/cMain/payFinish?' + 'token=' + this.token;
           } else {
             alert('支付失败');
           }

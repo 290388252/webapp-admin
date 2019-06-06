@@ -34,9 +34,13 @@ export class PayFinishComponent implements OnInit {
   public memberMoney;
 
   constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) {
-    this.token = getToken();
     this.wechatVisible = false;
     // alert(this.token);
+    if (urlParse(window.location.search)['token']) {
+      this.token = urlParse(window.location.search)['token'];
+    } else {
+      this.token = getToken();
+    }
     this.getDataList();
   }
 
@@ -85,6 +89,7 @@ export class PayFinishComponent implements OnInit {
     );
 
   }
+
   /**
    * 2019-02-15
    * @author maiziyao
@@ -93,6 +98,7 @@ export class PayFinishComponent implements OnInit {
   exit() {
     this.router.navigate(['cMain/firstPage']);
   }
+
   /**
    * 2019-02-15
    * @author maiziyao
@@ -106,6 +112,7 @@ export class PayFinishComponent implements OnInit {
       }
     });
   }
+
   /**
    * 2019-02-15
    * @author maiziyao
@@ -144,6 +151,7 @@ export class PayFinishComponent implements OnInit {
     }
 
   }
+
   /**
    * 2019-02-15
    * @author maiziyao
@@ -153,6 +161,7 @@ export class PayFinishComponent implements OnInit {
     const model = document.getElementById('myModel');
     model.style.display = 'none';
   }
+
   /**
    * 2019-02-15
    * @author maiziyao
@@ -161,6 +170,7 @@ export class PayFinishComponent implements OnInit {
   openShowModel() {
     this.wechatVisible = true;
   }
+
   /**
    * 2019-02-15
    * @author maiziyao
@@ -169,6 +179,7 @@ export class PayFinishComponent implements OnInit {
   showCancel() {
     this.wechatVisible = false;
   }
+
   /**
    * 2019-02-15
    * @author maiziyao

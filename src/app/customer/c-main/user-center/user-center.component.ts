@@ -15,6 +15,8 @@ export class UserCenterComponent implements OnInit {
   public userIntegral;
   public userName;
   public userImg;
+  public mcOpenId;
+  public mcId;
 
   constructor(private appProperties: AppProperties,
               private appService: AppService,
@@ -32,7 +34,10 @@ export class UserCenterComponent implements OnInit {
     const test = 'q11 q11 qww 111111111';
     const myreg = /\b(\w+)\b\s+\1\b/;
     console.log(myreg.test(test));
+
   }
+
+
 
   /**
    * 2019-02-15
@@ -63,6 +68,8 @@ export class UserCenterComponent implements OnInit {
           this.userIntegral = data.returnObject.integral;
           this.userName = data.returnObject.nickname;
           this.userImg = data.returnObject.headimgurl;
+          this.mcOpenId = data.returnObject.openId;
+          this.mcId = data.returnObject.customerId;
         }
       },
       error => {
@@ -84,7 +91,7 @@ export class UserCenterComponent implements OnInit {
             alert(data.message);
             return;
           } else {
-            window.location.href = 'http://webapp.youshuidaojia.com/cMain/prepaid?token=' + this.token;
+            window.location.href = 'http://webapp.youshuidaojia.com:8080/cMain/prepaid?token=' + this.token;
           }
         },
         error => {
@@ -92,7 +99,12 @@ export class UserCenterComponent implements OnInit {
         }
       );
     } else if (flag === 2) {
-      this.router.navigate(['cMain/myOrder']);
+      this.router.navigate(['cMain/myOrder'], {
+        queryParams: {
+          mcOpenId: this.mcOpenId,
+          mcId: this.mcId
+        }
+      });
     } else if (flag === 3) {
       this.router.navigate(['cMain/mySaveWater']);
     } else if (flag === 4) {
@@ -120,7 +132,7 @@ export class UserCenterComponent implements OnInit {
     } else if (flag === 9) {
       this.router.navigate(['cMain/myDeclaration']);
     } else if (flag === 10) {
-      window.location.href = 'http://webapp.youshuidaojia.com/cMain/bargainList';
+      window.location.href = 'http://webapp.youshuidaojia.com:8080/cMain/bargainList';
     } else if (flag === 11) {
       this.router.navigate(['cMain/grouponOrder']);
     } else if (flag === 12) {

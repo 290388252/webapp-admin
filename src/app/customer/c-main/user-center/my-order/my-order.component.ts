@@ -22,7 +22,9 @@ export class MyOrderComponent implements OnInit {
   public all: boolean;
   public noOrder: boolean;
   public order: boolean;
-
+  public mcOpenId;
+  public mcId;
+  public mcToken;
   constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) {
   }
 
@@ -32,8 +34,17 @@ export class MyOrderComponent implements OnInit {
     this.all = false;
     this.noOrder = true;
     this.order = true;
+    this.mcOpenId = urlParse(window.location.search)['mcOpenId'];
+    this.mcId = urlParse(window.location.search)['mcId'];
   }
+  /**
+   * 2019-05-23
+   * @author maiziyao
+   * 获取机器token
+   */
+  getMachineToken() {
 
+  }
   /**
    * 2019-02-15
    * @author maiziyao
@@ -158,21 +169,32 @@ export class MyOrderComponent implements OnInit {
       );
     } else if (item.type === 2) {
       // 机器
-      this.appService.getAliData(this.appProperties.orderUnifiedOrderUrl, {
-        orderId: item.id,
-        url: 'http://webapp.youshuidaojia.com/cMain/myOrder'
-      }, getToken()).subscribe(
-        data4 => {
-          if (typeof(WeixinJSBridge) === 'undefined') {
-            this.onBridgeUndefindeReady(data4);
-          } else {
-            this.onBridgeReady(data4);
+      this.appService.postFormData(this.appProperties.getMachineTokenUrl, {openId: this.mcOpenId, id: this.mcId}, getToken()).subscribe(
+        data => {
+          if (data.status === 1) {
+            this.mcToken = data.returnObject;
+            this.appService.getDataOpen(this.appProperties.orderUnifiedOrderUrl, {
+              orderId: item.orderId,
+              url: 'http://webapp.youshuidaojia.com:8080/cMain/myOrder'
+            }, this.mcToken).subscribe(
+              data4 => {
+                if (typeof(WeixinJSBridge) === 'undefined') {
+                  this.onBridgeUndefindeReady(data4);
+                } else {
+                  this.onBridgeReady(data4);
+                }
+              },
+              error => {
+                console.log(error);
+              }
+            );
           }
         },
         error => {
           console.log(error);
         }
       );
+
     } else if (item.type === 3) {
       // 团购
       this.appService.getAliData(this.appProperties.shopUnifiedStoreOrderUrl, {
@@ -248,7 +270,7 @@ export class MyOrderComponent implements OnInit {
         paySign: data.payInfo.sign, // 支付签名
         success: (res) => {
           if (res.errMsg === 'chooseWXPay:ok') {
-            window.location.href = 'http://webapp.youshuidaojia.com/cMain/myOrder';
+            window.location.href = 'http://webapp.youshuidaojia.com:8080/cMain/myOrder';
             // this.router.navigate(['cMain/shopCar']);
             console.log('支付成功');
           } else {
