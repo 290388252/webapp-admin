@@ -7,13 +7,15 @@ import {Router} from '@angular/router';
 @Injectable()
 export class CLoginService {
   constructor(private appService: AppService, private appProperties: AppProperties, private router: Router) {}
-  loginWithCredentials(username: string, code: string) {
+  loginWithCredentials(username: string, code: string, city: string, vmCode: string) {
     console.log(username);
     if (username !== undefined && code !== undefined) {
       this.appService.postData(this.appProperties.shopingLogin,
         {
           phone: username,
           smsCode: code,
+          cityId: city,
+          vmCode: vmCode,
           openId: urlParse(window.location.search)['openId']
         }).subscribe(
         data => {

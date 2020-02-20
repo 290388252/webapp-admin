@@ -34,13 +34,13 @@
       <div style="display: inline-block;width: 48%;padding: 10px 10px;text-align: center;" *ngFor="let item of list">
         <img [src]="imgUrl+item.pic" style="width: 100%;height: 140%;display: block;">
         <div style="display: inline-block;text-align: left;width: 100%;height: 25px;line-height:25px;-webkit-line-clamp: 1;text-overflow:ellipsis;overflow: hidden;">{{item.name || '无名字'}}</div>
-        <div style="text-align: left;color: #F6151C;" *ngIf="item.isConglomerateCommodity === 0">
+        <div style="text-align: left;color: #F6151C;" *ngIf="item.isConglomerateCommodity === 0 && item.activityId !== 3">
           <div style="display: inline-block;width: 48%;text-align: left;">&yen;{{item.salesPrice}}</div>
           <div style="display: inline-block;width: 48%;text-align: right">
             <img (click)="addCar(item)" style="width: 20px;height: 20px;padding: 2px 3px;border-radius: 50%;background-color: #3E85FF" src="../../../../assets/icon/my_car.png">
           </div>
         </div>
-        <div style="text-align: left;color: #F6151C;" *ngIf="item.isConglomerateCommodity === 1">
+        <div style="text-align: left;color: #F6151C;" *ngIf="item.isConglomerateCommodity === 1 && item.activityId !== 3">
           <div style="display: inline-block;width: 48%;text-align: left;">&yen;{{item.salesPrice}}</div>
           <div style="display: inline-block;width: 48%;text-align: right">
             <img (click)="addCar(item)" style="width: 20px;height: 20px;padding: 2px 3px;border-radius: 50%;background-color: #3E85FF" src="../../../../assets/icon/my_car.png">

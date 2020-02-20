@@ -15,6 +15,19 @@
         <ng-template #suffixButton>
           <button (click)="send($event)" nz-button nzType="primary" nzSize="large" nzSearch [nzLoading]="isLoading"><span style="font-size: 10px">{{text}}{{endText}}</span></button>
         </ng-template>
+        <div style="margin:10px 0;">
+          <span style="display: block;">请选择当前城市</span>
+          <nz-radio-group #selectcity [(ngModel)]="city" (ngModelChange)="selectCity(selectcity.value)">
+            <label nz-radio-button nzValue="1">广州</label>
+            <label nz-radio-button nzValue="2">珠海</label>
+            <label nz-radio-button nzValue="3">四川</label>
+            <label nz-radio-button nzValue="4">其他</label>
+          </nz-radio-group>
+        </div>
+        <input type="tel" nz-input placeholder="请输入扫码售货机编号" [(ngModel)]="vmCode" name="vmCode" *ngIf="showVmCode"
+               oninput="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+               onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}"/>
+
       </div>
       <button (click)="login()" type="button" id="signup_forms_submit"><span><strong>登 陆</strong></span></button>
     </div>

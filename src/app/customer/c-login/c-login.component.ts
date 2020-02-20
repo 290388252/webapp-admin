@@ -15,6 +15,9 @@ export class CLoginComponent implements OnInit {
   public isLoading = false;
   public text: any;
   public endText: string;
+  public city: any;
+  public vmCode: number;
+  public showVmCode: boolean;
   constructor(private router: Router,
               private appProperties: AppProperties,
               private appService: AppService,
@@ -28,6 +31,21 @@ export class CLoginComponent implements OnInit {
     // console.log(document.getElementById('user-container').style.height);
     // console.log(document.documentElement.offsetHeight);
     // document.getElementById('user-container').style.height = (document.documentElement.offsetHeight + 50) + 'px';
+  }
+  /**
+   * 2019-12-25
+   * @author maiziyao
+   * 选择当前城市
+   */
+  selectCity(val) {
+    console.log(val);
+    this.city = val;
+    console.log(val === '1');
+    if (val === '1') {
+      this.showVmCode = true;
+    } else {
+      this.showVmCode = false;
+    }
   }
   /**
    * 2019-02-14
@@ -96,6 +114,14 @@ export class CLoginComponent implements OnInit {
    * 登陆
    */
   login() {
-    this.loginService.loginWithCredentials(this.username, this.code);
+    if (this.city === '1') {
+      if (this.vmCode === null || this.vmCode === undefined) {
+        alert('请输入售货机编号');
+        return;
+      }
+    } else {
+      this.vmCode = null;
+    }
+    this.loginService.loginWithCredentials(this.username, this.code, this.city, this.vmCode);
   }
 }

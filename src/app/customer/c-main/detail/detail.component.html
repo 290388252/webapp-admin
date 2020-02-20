@@ -203,30 +203,34 @@
       </li>
       <!--非团购-->
       <li style="width: 29%" class="cartOrBuy" (click)="orderTo(0)"
-          *ngIf="goodsObj['isConglomerateCommodity'] === 0 && activityId === null">
+          *ngIf="goodsObj['isConglomerateCommodity'] === 0 && goodsBargainId === null && activityId !== 3">
         <span class="text-style">加入购物车</span>
       </li>
+      <li style="width: 29%" class="cartOrBuy" (click)="chooseId()"
+          *ngIf="goodsObj['isConglomerateCommodity'] === 0 && goodsBargainId === null && activityId === 3">
+        <span class="text-style">选择套餐</span>
+      </li>
       <li style="width: 29%" class="groupOrBuy" (click)="btnCartAndBuy()"
-          *ngIf="goodsObj['isConglomerateCommodity'] === 0 && activityId === null">
+          *ngIf="goodsObj['isConglomerateCommodity'] === 0 && goodsBargainId === null">
         <span class="text-style">立即购买</span>
       </li>
       <!--团购-->
       <li style="width: 29%" class="cartOrBuy" (click)="orderTo(1)"
-          *ngIf="goodsObj['isConglomerateCommodity'] === 1 && activityId === null">
+          *ngIf="goodsObj['isConglomerateCommodity'] === 1 && goodsBargainId === null">
         <div style="margin-top: 5px;">
           <span class="text-style1">￥{{goodsObj['salesPrice']}}</span>
           <span class="text-style1">正价购买</span>
         </div>
       </li>
       <li style="width: 29%" class="groupOrBuy" (click)="showQuantity(null)"
-          *ngIf="goodsObj['isConglomerateCommodity'] === 1 && activityId === null">
+          *ngIf="goodsObj['isConglomerateCommodity'] === 1 && goodsBargainId === null && activityId !== 3">
         <div style="margin-top: 5px;">
           <span class="text-style1">￥{{goodsObj['groupPurchasePrice']}}</span>
           <span class="text-style1">发起拼团</span>
         </div>
       </li>
       <!--砍价-->
-      <li *ngIf="activityId !== null" style="width: 58%" class="bargain" (click)="create(activityId)">
+      <li *ngIf="goodsBargainId !== null" style="width: 58%" class="bargain" (click)="create(activityId)">
         砍价免费拿
       </li>
       <div class="clear-fix"></div>
@@ -261,6 +265,56 @@
     <ng-template #modalFooterB>
       <div style="width: 100%;text-align: center;">
         <button nz-button nzType="primary" (click)="cancelB()">确定</button>
+      </div>
+    </ng-template>
+  </nz-modal>
+
+  <nz-modal [(nzVisible)]="isVisibleC" [nzTitle]="modalTitleC" [nzContent]="modalContentC" [nzFooter]="modalFooterC"
+            (nzOnCancel)="cancelC()">
+    <ng-template #modalTitleC>
+      友情提示
+    </ng-template>
+    <ng-template #modalContentC>
+      <div class="change_table" id="change_table">
+        <table class="table-bordered c_table">
+          <thead>
+          <tr>
+            <th style="width: 10%">套餐</th>
+            <th style="width: 30%">商品</th>
+            <th style="width: 10%;">数量</th>
+            <th style="width: 20%">图片</th>
+            <th style="width: 10%">价格</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!--            *ngFor="let itemc of gwOutChangeList"-->
+          <tr style="position: relative;" class="change_input" *ngFor="let item of mealList;let i = index">
+            <td style="width: 10%">{{i+1}}</td>
+            <td style="width: 30%">
+              {{item.name}}
+            </td>
+            <td style="width: 10%">
+              {{item.num}}
+            </td>
+            <td style="width: 20%">
+              <div style="height: 70px;margin-top: 5px;">
+                <img style="width: 60px;height: 60px;margin-right: 5px;" [src]=imgPath+item.pic>
+              </div>
+            </td>
+            <td style="width: 10%">
+              {{item.price}}
+            </td>
+            <td style="width: 10%">
+              <button nz-button nzType="primary" (click)="selectThis(item)">选择此套餐</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+    <ng-template #modalFooterC>
+      <div style="width: 100%;text-align: center;">
+        <button nz-button nzType="primary" (click)="cancelC()">确定</button>
       </div>
     </ng-template>
   </nz-modal>

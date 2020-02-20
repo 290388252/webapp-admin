@@ -39,6 +39,7 @@ export class PayComponent implements OnInit {
   public noneAddress;
   public showAddress;
   public select;
+  public isDelivery;
 
   constructor(private appService: AppService, private appProperties: AppProperties,
               private router: Router, private routeInfo: ActivatedRoute, private modalService: NzModalService) {
@@ -213,6 +214,19 @@ export class PayComponent implements OnInit {
     });
   }
 
+  /**
+   * 2019-12-20
+   * @author maiziyao
+   * 选择配送方式
+   */
+  delivery(val) {
+    console.log(val === '1');
+    if (val === '1') {
+      this.isDelivery = false;
+    } else {
+      this.isDelivery = true;
+    }
+  }
   /**
    * 2019-02-15
    * @author maiziyao

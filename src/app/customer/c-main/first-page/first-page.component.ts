@@ -123,12 +123,13 @@ export class FirstPageComponent implements OnInit {
    * @author maiziyao
    * 点击进入商品详情页面
    */
-  goTo(id, pic, spellgroupId) {
+  goTo(id, pic, spellgroupId, activityId) {
     this.router.navigate(['cMain/detail'], {
       queryParams: {
         id: id,
         // name: endName,
         spellgroupId: spellgroupId,
+        activityId: activityId,
         pic: pic,
         // isConglomerateCommodity: isConglomerateCommodity,
         type: 1

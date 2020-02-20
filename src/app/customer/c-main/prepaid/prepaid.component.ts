@@ -171,7 +171,7 @@ export class PrepaidComponent implements OnInit {
     if (flag === 'userCenter') {
       this.router.navigate(['cMain/userCenter']);
     } else if (flag === 'protocol') {
-      window.location.href = 'http://webapp.youshuidaojia.com/cMain/protocol?token=' + this.token;
+      window.location.href = 'http://webapp.youshuidaojia.com:8080/cMain/protocol?token=' + this.token;
     }
   }
   /**

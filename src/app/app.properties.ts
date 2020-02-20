@@ -42,6 +42,7 @@ export class AppProperties {
   public shoppingPromotionsUrl: string;
   public shopStoreOrderAddUrl: string;
   public shopStoreOrderFindUrl: string;
+  public mealListUrl: string;
   public shopVipCarListUrl: string;
   public judgeVipUrl;
   public shopVipBuyUrl;
@@ -80,6 +81,7 @@ export class AppProperties {
   public payFinishGrouponUrl: string;
   public payFinishGetCouponUrl: string;
   public detailCartAndBuyUrl: string;
+
 
   public shopCarSaveUrl: string;
   public backSelectUrl: string;
@@ -146,6 +148,7 @@ export class AppProperties {
     this.shoppingUpdateUrl = this.appUrl + '/shoppingCar/update';
     this.shopStoreOrderAddUrl = this.appUrl + '/order/storeOrderAdd';
     this.shopStoreOrderFindUrl = this.appUrl + '/order/storeOrderFind';
+    this.mealListUrl = this.appUrl + '/shoppingGoods/listPageDetail';
     // this.shopStoreUpdateUrl = this.appUrl + '/order/storeOrderUpdate';
     this.shopUnifiedStoreOrderUrl = this.appUrl + '/order/storeOrderPay';
     this.shopAddressSelectUrl = this.appUrl + '/address/select';

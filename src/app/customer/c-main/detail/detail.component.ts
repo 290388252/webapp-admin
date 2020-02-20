@@ -21,6 +21,10 @@ export class DetailComponent implements OnInit, OnDestroy {
   // ];
   public id;
   public name;
+  public mealId;
+  public mealList;
+  public mealListId;
+  public imgPath = this.appProperties.appUrl + '/shoppingGoodsImg/';
   // 判断是否为团购商品
   public goodsObj = {};
   public imgUrl = this.appProperties.shopImgUrl;
@@ -46,10 +50,12 @@ export class DetailComponent implements OnInit, OnDestroy {
   public isVisible;
   public isVisibleA;
   public isVisibleB;
+  public isVisibleC;
   public quantityFalse;
   public listShow;
   public timerList = [];
   public activityId;
+  public goodsBargainId;
   public spellgroupId;
   public invite;
   public shareId;
@@ -75,6 +81,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.curId = 1;
     this.isVisible = false;
     this.isVisibleB = false;
+    this.isVisibleC = false;
     window.onload = function () {
       document.getElementsByClassName('ant-modal-close-x')[1]['style'].cssText = 'display: none;';
     };
@@ -154,7 +161,8 @@ export class DetailComponent implements OnInit, OnDestroy {
         this.pic = data.returnObject.pic;
         this.imgList = data.returnObject.pic.split(',');
         this.goodsObj = data.returnObject;
-        this.activityId = data.returnObject.goodsBargainId;
+        this.activityId = data.returnObject.activityId;
+        this.goodsBargainId = data.returnObject.goodsBargainId;
         this.name = data.returnObject.name;
         this.typeId = data.returnObject.typeId;
         const a = document.getElementById('desk');
@@ -268,7 +276,9 @@ export class DetailComponent implements OnInit, OnDestroy {
   cancelB(): void {
     this.isVisibleB = false;
   }
-
+  cancelC(): void {
+    this.isVisibleC = false;
+  }
   /**
    * 2019-02-14
    * @author maiziyao
@@ -501,7 +511,8 @@ export class DetailComponent implements OnInit, OnDestroy {
       this.appService.postAliData(this.appProperties.detailCartAndBuyUrl, {
         itemId: this.id,
         num: 1,
-        itemName: this.name
+        itemName: this.name,
+        mealId: this.mealId
       }, getToken()).subscribe(
         data => {
           if (data.status === 1) {
@@ -514,7 +525,33 @@ export class DetailComponent implements OnInit, OnDestroy {
       );
     }
   }
-
+  chooseId() {
+    this.isVisibleC = true;
+    console.log(1);
+    this.appService.postAliData(this.appProperties.mealListUrl, {goodsId: 67}, getToken()).subscribe(
+      data => {
+        console.log(data);
+        if (data.status === 1) {
+          this.mealList = data.returnObject;
+          if (data.returnObject !== null) {
+            this.mealListId = data.returnObject.length;
+          } else {
+            this.mealListId = 0
+          }
+        } else if (data.status === -1) {
+          this.router.navigate(['systemAdminLogin']);
+        }
+      },
+      error => {
+        console.log(error);
+      });
+  }
+  selectThis(item) {
+    this.isVisibleC = false;
+    this.imgList = [];
+    this.imgList.push(item.pic);
+    this.mealId = item.id;
+  }
   /**
    * 2019-02-14
    * @author maiziyao

@@ -27,15 +27,15 @@
       <span>微信支付</span>
     </div>
   </div>
-  <!--<div class="top">-->
-    <!--<span style="display: block;margin-left: 5px;padding: 5px;"><strong>配送方式</strong></span>-->
-    <!--<div style="margin-left: 10px;">-->
-      <!--<nz-radio-group [(ngModel)]="radioValue" (ngModelChange)="print(way.value)" #way>-->
-        <!--<label nz-radio-button nzValue="1">机器自取</label>-->
-        <!--<label nz-radio-button nzValue="2">送货上门</label>-->
-      <!--</nz-radio-group>-->
-    <!--</div>-->
-  <!--</div>-->
+  <div class="top">
+    <span style="display: block;margin-left: 5px;padding: 5px;"><strong>配送方式</strong></span>
+    <div style="margin-left: 10px;">
+      <nz-radio-group [(ngModel)]="radioValue" (ngModelChange)="delivery(way.value)" #way>
+        <label nz-radio-button nzValue="1">机器自取</label>
+        <label nz-radio-button nzValue="2">送货上门</label>
+      </nz-radio-group>
+    </div>
+  </div>
 
   <div class="top" (click)="selectCoupon()">
     <span style="display: block;margin-left: 5px;padding: 5px;"><strong>优惠券</strong></span>

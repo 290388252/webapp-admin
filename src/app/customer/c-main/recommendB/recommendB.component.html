@@ -24,7 +24,7 @@
               <span class="goodsContL_Money" *ngIf="item.spellgroupId === 0">￥{{item.salesPrice}}</span>
               <span class="goodsContL_Money" *ngIf="item.spellgroupId !== 0">￥{{item.groupPurchasePrice}}</span>
             </div>
-            <div class="goodsContR" *ngIf="item.spellgroupId === 0">
+            <div class="goodsContR" *ngIf="item.spellgroupId === 0 && item.activityId !== 3">
               <img (click)="addFirstCar(item)" style="width: 100%;height: 100%;display: block"
                    src="../../../../assets/icon/firstIcon/icon-addCart.png">
             </div>
