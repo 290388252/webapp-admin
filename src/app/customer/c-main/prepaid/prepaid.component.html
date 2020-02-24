@@ -53,10 +53,10 @@
       <input type="tel" nz-input id="input_money" (keyup)="keyupMoney()" [(ngModel)]="prepaidMoney"
              name="prepaidMoney" (blur)="keyupMoney()"
              class="prepaidOther_input" (click)="focusMoney('isFocusC')"
-             oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')};
-              if(value.length>4)value=value.slice(0,4);"
+             oninput="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')};if(value.length>4)value=value.slice(0,4);"
              onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')};">
       <span class="errorNum" *ngIf="errorNum">*请输入大于0的金额</span>
+
 
     </div>
   </div>
@@ -69,7 +69,7 @@
     <span class="prepaidText">点击立即充值，即表示您已经同意
       <span style="color: #00ACFF" (click)="goTo('protocol')">《充值活动协议》</span>
     </span>
-    <div style="color: red;width: 100%;text-align: center;font-size: 12px;">*账户余额仅限在广州市和武汉市范围内的机器使用</div>
+    <div style="color: red;width: 100%;text-align: center;font-size: 12px;">*账户余额仅限在广州市范围内的机器使用</div>
   </div>
 
   <!--<div class="container">-->

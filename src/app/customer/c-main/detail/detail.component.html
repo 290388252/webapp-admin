@@ -173,7 +173,7 @@
     <li (click)="selected(3)" [class]="(curId === 3) ? 'nav-active' : ''">购买须知</li>
   </ul>
   <div [hidden]="curId !== 1" class="goods-detail">
-    <div id="desk">
+    <div id="desk" class="ddd">
     </div>
   </div>
   <div [hidden]="curId !== 2" class="goods-detail">
@@ -206,12 +206,18 @@
           *ngIf="goodsObj['isConglomerateCommodity'] === 0 && goodsBargainId === null && activityId !== 3">
         <span class="text-style">加入购物车</span>
       </li>
+
+      <li style="width: 29%" class="groupOrBuy" (click)="btnCartAndBuy(0)"
+          *ngIf="goodsObj['isConglomerateCommodity'] === 0 && goodsBargainId === null && activityId !== 3">
+        <span class="text-style">立即购买</span>
+      </li>
+
       <li style="width: 29%" class="cartOrBuy" (click)="chooseId()"
           *ngIf="goodsObj['isConglomerateCommodity'] === 0 && goodsBargainId === null && activityId === 3">
         <span class="text-style">选择套餐</span>
       </li>
-      <li style="width: 29%" class="groupOrBuy" (click)="btnCartAndBuy()"
-          *ngIf="goodsObj['isConglomerateCommodity'] === 0 && goodsBargainId === null">
+      <li style="width: 29%" class="groupOrBuy" (click)="btnCartAndBuy(3)"
+          *ngIf="goodsObj['isConglomerateCommodity'] === 0 && goodsBargainId === null && activityId === 3">
         <span class="text-style">立即购买</span>
       </li>
       <!--团购-->
@@ -272,7 +278,7 @@
   <nz-modal [(nzVisible)]="isVisibleC" [nzTitle]="modalTitleC" [nzContent]="modalContentC" [nzFooter]="modalFooterC"
             (nzOnCancel)="cancelC()">
     <ng-template #modalTitleC>
-      友情提示
+      选择套餐
     </ng-template>
     <ng-template #modalContentC>
       <div class="change_table" id="change_table">

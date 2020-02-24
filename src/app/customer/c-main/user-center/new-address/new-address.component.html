@@ -52,7 +52,7 @@
   <div *ngIf="emptyAddress" class="cont_none">
     <img src="../../../../../assets/icon/noneAddress.png" style="width: 115px;height: 115px;">
     <div style="color: #666666;margin-top: 10px;">暂无收货地址</div>
-    <div style="color: #ADADAD;">您可以新增收货地址以便收货</div>
+    <div style="color: #ADADAD;">您可以点击新增收货地址以便收货，未填写通信地址礼品无法发放</div>
   </div>
   <nz-modal [(nzVisible)]="isVisible" [nzTitle]="null" [nzContent]="modalContent" [nzFooter]="modalFooter"
             (nzOnCancel)="null">

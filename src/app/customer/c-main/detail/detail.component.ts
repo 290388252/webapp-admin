@@ -21,7 +21,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   // ];
   public id;
   public name;
-  public mealId;
+  public mealId = -1;
   public mealList;
   public mealListId;
   public imgPath = this.appProperties.appUrl + '/shoppingGoodsImg/';
@@ -166,7 +166,9 @@ export class DetailComponent implements OnInit, OnDestroy {
         this.name = data.returnObject.name;
         this.typeId = data.returnObject.typeId;
         const a = document.getElementById('desk');
-        a.innerHTML = this.goodsObj['details'];
+        let str = this.goodsObj['details'].replace("<br>", '');
+        a.innerHTML = str;
+        console.log(str.split("<br/>"))
         const b = document.getElementById('desks');
         b.innerHTML = this.goodsObj['commodityParameters'];
         const c = document.getElementById('deskss');
@@ -498,7 +500,7 @@ export class DetailComponent implements OnInit, OnDestroy {
    * @author maiziyao
    * 普通商品立即购买
    */
-  btnCartAndBuy() {
+  btnCartAndBuy(num) {
     if (urlParse(window.location.search)['token'] !== undefined
       && urlParse(window.location.search)['token'] !== '') {
       const exp = new Date();
@@ -508,27 +510,49 @@ export class DetailComponent implements OnInit, OnDestroy {
     if (getToken() === null || getToken() === undefined) {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=http://yms.youshuidaojia.com/admin/getShopToken2&response_type=code&scope=snsapi_userinfo&state=/cMain/firstPage?vm=1-1';
     } else {
-      this.appService.postAliData(this.appProperties.detailCartAndBuyUrl, {
-        itemId: this.id,
-        num: 1,
-        itemName: this.name,
-        mealId: this.mealId
-      }, getToken()).subscribe(
-        data => {
-          if (data.status === 1) {
-            this.router.navigate(['cMain/pay'], {queryParams: {ids: data.returnObject.id, payType: 1}});
-          }
-        },
-        error => {
-          console.log(error);
+      if (num === 3) {
+        if (this.mealId === -1) {
+          alert('请选择套餐')
+        } else {
+          this.appService.postAliData(this.appProperties.detailCartAndBuyUrl, {
+            itemId: this.id,
+            num: 1,
+            itemName: this.name,
+            mealId: this.mealId
+          }, getToken()).subscribe(
+            data => {
+              if (data.status === 1) {
+                this.router.navigate(['cMain/pay'], {queryParams: {ids: data.returnObject.id, payType: 1}});
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
         }
-      );
+      } else {
+        this.appService.postAliData(this.appProperties.detailCartAndBuyUrl, {
+          itemId: this.id,
+          num: 1,
+          itemName: this.name,
+          mealId: ''
+        }, getToken()).subscribe(
+          data => {
+            if (data.status === 1) {
+              this.router.navigate(['cMain/pay'], {queryParams: {ids: data.returnObject.id, payType: 1}});
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
     }
   }
   chooseId() {
     this.isVisibleC = true;
     console.log(1);
-    this.appService.postAliData(this.appProperties.mealListUrl, {goodsId: 67}, getToken()).subscribe(
+    this.appService.postAliData(this.appProperties.mealListUrl, {goodsId: this.id}, getToken()).subscribe(
       data => {
         console.log(data);
         if (data.status === 1) {

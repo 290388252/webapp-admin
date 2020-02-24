@@ -47,6 +47,9 @@ export class PrepaidComponent implements OnInit {
     } else if (urlParse(window.location.href)['token'] !== null && urlParse(window.location.href)['token'] !== undefined
       && urlParse(window.location.href)['token'] !== '') {
       this.token = urlParse(window.location.href)['token'];
+      const exp = new Date();
+      exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 30);
+      document.cookie = 'shopToken=' + urlParse(window.location.search)['token'] + ';expired=' + exp.toUTCString();
     }
     if (this.token === undefined || this.token === null || this.token === '') {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa41aef1ebf72a4b2&redirect_uri=' +
@@ -273,7 +276,8 @@ export class PrepaidComponent implements OnInit {
             this.orderId = data2.returnObject.id;
             this.appService.getAliData(this.appProperties.shopPrepaidBuyUrl, {
               orderId: this.orderId,
-              url: 'http://webapp.youshuidaojia.com/cMain/prepaidPay'
+              payCode: data2.returnObject.payCode,
+              url: 'http://webapp.youshuidaojia.com:8080/cMain/prepaidPay'
             }, this.token).subscribe(
               data4 => {
                 if (data4.status === 2) {
@@ -292,7 +296,8 @@ export class PrepaidComponent implements OnInit {
             );
           } else {
             alert('支付完成！');
-            this.router.navigate(['cMain/userCenter']);
+            window.location.href = 'http://webapp.youshuidaojia.com:8080/cMain/newAddress?type=1'
+            // this.router.navigate(['cMain/userCenter']);
           }
         },
         error2 => {
@@ -357,7 +362,7 @@ export class PrepaidComponent implements OnInit {
         paySign: data.payInfo.sign, // 支付签名
         success: (res) => {
           if (res.errMsg === 'chooseWXPay:ok') {
-            window.location.href = 'http://webapp.youshuidaojia.com/cMain/firstPage';
+            window.location.href = 'http://webapp.youshuidaojia.com:8080/cMain/newAddress?type=1';
             console.log('支付成功');
           } else {
             alert('支付失败');
